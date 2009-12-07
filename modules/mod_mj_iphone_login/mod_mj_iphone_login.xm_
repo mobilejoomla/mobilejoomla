@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="module" version="1.5.0">
+	<name>Login</name>
+	<version>0.9.0</version>
+	<creationDate>August 2009</creationDate>
+	<author>Kuneri Ltd.</author>
+	<copyright>(C) 2008-2009 Kuneri Ltd.</copyright>
+	<authorEmail>support@mobilejoomla.com</authorEmail>
+	<authorUrl>www.mobilejoomla.com</authorUrl>
+	<license>http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL</license>
+	<description>DESCLOGINFORM</description>
+	<files>
+		<filename module="mod_mj_iphone_login">mod_mj_iphone_login.php</filename>
+	</files>
+	<params>
+		<param name="cache" type="list" default="1" label="Caching" description="Select whether to cache the content of this module">
+			<option value="0">Never</option>
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="PARAMMODULECLASSSUFFIX" />
+		<param name="pretext" type="textarea" cols="30" rows="5" default="" label="Pre-text" description="This is the text or HTML that is displayed above the login form." />
+		<param name="posttext" type="textarea" cols="30" rows="5" label="Post-text" description="This is the text or HTML that is displayed below the login form." />
+		<param name="login" type="menuitem" default="" disable="separator" label="Login Redirection URL" description="Select the page the user will be redirected to after a successful login. Select from all the pages listed in the dropdown menu. If no selection is made, the Front Page will be loaded by default." />
+		<param name="logout" type="menuitem" default="" disable="separator" label="Logout Redirection URL" description="Select the page the user will be redirected to after successfully ending their current session by logging out. Select from all the pages listed in the dropdown menu. If no selection is made, the Front Page will be loaded by default." />
+		<param name="greeting" type="radio" default="1" label="Greeting" description="Show/Hide the simple greeting text">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="name" type="list" default="0" label="Name/Username">
+			<option value="0">Username</option>
+			<option value="1">Name</option>
+		</param>
+		<param name="usesecure" type="radio" default="0" label="Encrypt Login Form" description="Submit encrypted login data (requires SSL)">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+	</params>
+</install>

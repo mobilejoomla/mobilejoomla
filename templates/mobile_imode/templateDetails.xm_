@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE install PUBLIC "-//Joomla! 1.5//DTD template 1.0//EN" "http://dev.joomla.org/xml/1.5/template-install.dtd">
+<install version="1.5" type="template">
+	<name>mobile_imode</name>
+	<version>0.9.0</version>
+	<creationDate>August 2009</creationDate>
+	<author>Kuneri Ltd.</author>
+	<copyright>(C) 2008-2009 Kuneri Ltd.</copyright>
+	<authorEmail>support@mobilejoomla.com</authorEmail>
+	<authorUrl>www.mobilejoomla.com</authorUrl>
+	<license>http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL</license>
+	<description><![CDATA[<div style="font-weight:400;"><h3>Mobile iMode-template.</h3><p>Development of a Kuneri Mobile Joomla: &copy;&nbsp;2008 <a href="http://www.kuneri.net/">Kuneri Ltd.</a>.</p><p><b>Always check for last version at <a href="http://www.mobilejoomla.com/">http://www.mobilejoomla.com/</a></b></p></div>]]></description>
+	<files>
+		<filename>index.php</filename>
+		<filename>component.php</filename>
+		<filename>template_thumbnail.png</filename>
+	</files>
+	<positions>
+		<position>mj_imode_header</position>
+		<position>mj_imode_header2</position>
+		<position>mj_imode_middle</position>
+		<position>mj_imode_middle2</position>
+		<position>mj_imode_footer</position>
+		<position>mj_imode_footer2</position>
+	</positions>
+</install>
