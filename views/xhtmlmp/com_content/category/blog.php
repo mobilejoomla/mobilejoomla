@@ -9,7 +9,6 @@ $cparams =& JComponentHelper::getParams('com_media');
 <?php endif; ?>
 <div class="blog<?php echo $this->params->get('pageclass_sfx');?>">
 <?php if ($this->params->def('show_description', 1) || $this->params->def('show_description_image', 1)) :?>
-<div>
 <?php if ($this->params->get('show_description_image') && $this->category->image) : ?>
 <img src="<?php echo $this->baseurl . '/' . $cparams->get('image_path') . '/'. $this->category->image;?>" align="<?php echo $this->category->image_position;?>" hspace="6" alt="" />
 <?php endif; ?>
@@ -17,10 +16,8 @@ $cparams =& JComponentHelper::getParams('com_media');
 <?php echo $this->category->description; ?>
 <?php endif; ?>
 <br /><br />
-</div>
 <?php endif; ?>
 <?php if ($this->params->get('num_leading_articles')) : ?>
-<div>
 <?php for ($i = $this->pagination->limitstart; $i < ($this->pagination->limitstart + $this->params->get('num_leading_articles')); $i++) : ?>
 <?php if ($i >= $this->total) : break; endif; ?>
 <div>
@@ -30,14 +27,11 @@ $cparams =& JComponentHelper::getParams('com_media');
 ?>
 </div>
 <?php endfor; ?>
-</div>
 <?php else : $i = $this->pagination->limitstart; endif; ?>
 <?php
 $startIntroArticles = $this->pagination->limitstart + $this->params->get('num_leading_articles');
 $numIntroArticles = $startIntroArticles + $this->params->get('num_intro_articles');
 if (($numIntroArticles != $startIntroArticles) && ($i < $this->total)) : ?>
-<div>
-<div>
 <?php
 			if ($this->params->def('multi_column_order', 0)) : // order across, like front page
 					$rows = (int) $this->params->get('num_intro_articles', 4);
@@ -63,20 +57,16 @@ if (($numIntroArticles != $startIntroArticles) && ($i < $this->total)) : ?>
 						echo $this->loadTemplate('item');
 						$i ++;
 					endif; ?>
+<?php			endfor; ?>
 </div>
-<?php			endfor; 
-		endif; ?> 
-</div>
-</div>
+<?php		endif; ?> 
 <?php endif; ?>
 <?php if ($this->params->get('num_links') && ($i < $this->total)) : ?>
-<div>
 <div class="blog_more<?php echo $this->params->get('pageclass_sfx') ?>">
 <?php
 				$this->links = array_splice($this->items, $i - $this->pagination->limitstart);
 				echo $this->loadTemplate('links');
 ?>
-</div>
 </div>
 <?php endif; ?>
 <?php if ($this->params->get('show_pagination')) : ?>
