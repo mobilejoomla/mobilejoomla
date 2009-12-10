@@ -56,11 +56,11 @@ if (($numIntroArticles != $startIntroArticles) && ($i < $this->total)) : ?>
 						$this->item =& $this->getItem($i, $this->params);
 						echo $this->loadTemplate('item');
 						$i ++;
-					endif; ?>
-<?php			endfor; ?>
+					endif;
+				endfor; ?>
 </div>
-<?php		endif; ?> 
-<?php endif; ?>
+<?php		endif;
+	endif; ?>
 <?php if ($this->params->get('num_links') && ($i < $this->total)) : ?>
 <div class="blog_more<?php echo $this->params->get('pageclass_sfx') ?>">
 <?php

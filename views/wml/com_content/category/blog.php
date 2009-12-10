@@ -49,11 +49,10 @@ if (($numIntroArticles != $startIntroArticles) && ($i < $this->total)) : ?>
 						$this->item =& $this->getItem($i, $this->params);
 						echo $this->loadTemplate('item');
 						$i ++;
-					endif; ?>
+					endif;
+				endfor; ?>
 <br />
-<?php			endfor; 
-		endif; ?> 
-<br />
+<?php		endif; ?> 
 <br />
 <?php endif; ?>
 <?php if ($this->params->get('num_links') && ($i < $this->total)) : ?>
@@ -62,7 +61,6 @@ if (($numIntroArticles != $startIntroArticles) && ($i < $this->total)) : ?>
 				echo $this->loadTemplate('links');
 ?>
 <br />
-<br />
 <?php endif; ?>
 <?php if ($this->params->get('show_pagination')) : ?>
 <?php echo $this->pagination->getPagesLinks(); ?><br /><br />
@@ -70,4 +68,3 @@ if (($numIntroArticles != $startIntroArticles) && ($i < $this->total)) : ?>
 <?php if ($this->params->get('show_pagination_results')) : ?>
 <?php echo $this->pagination->getPagesCounter(); ?><br />
 <?php endif; ?>
-<br />
