@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE install PUBLIC "-//Joomla! 1.5//DTD template 1.0//EN" "http://dev.joomla.org/xml/1.5/template-install.dtd">
+<install version="1.5" type="template">
+	<name>mobile_iphone</name>
+	<version>###VERSION###</version>
+	<author>###AUTHOR###</author>
+	<copyright>###COPYRIGHT###</copyright>
+	<creationDate>###DATE###</creationDate>
+	<authorEmail>###EMAIL###</authorEmail>
+	<authorUrl>###URL###</authorUrl>
+	<license>###LICENSE###</license>
+	<description>###DESC###</description>
+    <files>
+		<filename>index.php</filename>
+		<filename>css/template_css.css</filename>
+		<filename>template_thumbnail.png</filename>
+	</files>
+	<positions>
+		<position>mj_iphone_header</position>
+		<position>mj_iphone_header2</position>
+		<position>mj_iphone_middle</position>
+		<position>mj_iphone_middle2</position>
+		<position>mj_iphone_footer</position>
+		<position>mj_iphone_footer2</position>
+	</positions>
+</install>
