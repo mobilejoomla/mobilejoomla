@@ -219,7 +219,7 @@ Author: Muntasir Mamun (svo97_12@yahoo.com). If anyone find any bug please infor
 	if (!JFolder::exists ($OutputImageDir."Resized/"))
 		JFolder::create ($OutputImageDir."Resized/");
 		
-	$OutputImageFullPath=$OutputImageDir."Resized/".$outputFileName.".".$InputImageFileExtension;
+	$OutputImageFullPath=$OutputImageDir."Resized/".$outputFileName.".".$OutputFormat;
 	
 	if (!JFile::copy($InputImage,$OutputImageFullPath))
 		echo 'Failed to copy';
