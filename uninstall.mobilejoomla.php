@@ -336,7 +336,7 @@ function UpdateConfig ($botparams = null, $dbconnector='MySQL5')
 
 function install_procedure ()
 {
-        $db = JFactory::getDBO ();
+        $db =& JFactory::getDBO ();
 
 		$db->setQuery ("DROP PROCEDURE IF EXISTS `TeraWurfl_RIS`");
         $db->query ();
@@ -371,7 +371,7 @@ END";
 
 function plain_parse_mysql_dump ($url)
 {
-    $db = JFactory::getDBO ();
+    $db =& JFactory::getDBO ();
     
     $handle = fopen ($url, 'r');
 	if($handle===false)
@@ -442,7 +442,7 @@ function parse_mysql_dump ($file)
 
 function bz2_parse_mysql_dump ($url)
 {
-    $db = JFactory::getDBO ();
+    $db =& JFactory::getDBO ();
 
     $handle = bzopen ($url, 'r');
     $sql_line = '';
