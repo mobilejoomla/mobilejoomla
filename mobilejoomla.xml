@@ -36,8 +36,6 @@
 			<filename>defconfig.php</filename>
 			<filename>mobilejoomla.class.php</filename>
 			<filename>extensions/extensions.json.dist</filename>
-			<filename>languages/index.html</filename>
-			<filename>languages/english.php</filename>
 			<filename>methods/index.html</filename>
 			<filename>methods/checkmobile_accept.php</filename>
 			<filename>methods/checkmobile_always_imode.php</filename>

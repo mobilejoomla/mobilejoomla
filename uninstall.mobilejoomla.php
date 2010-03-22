@@ -29,12 +29,12 @@ function InstallSystemMambot($sourcedir,$name,$fullname,$publish=1,$ordering=-10
 	$status=TRUE;
 	if(!JFile::copy($sourcedir.DS.$name.'.php',$MambotsSystem.DS.$name.'.php'))
 	{
-		$ERRORS[]=str_replace(array('%1','%2'),array($sourcedir.DS.$name.'.php',$MambotsSystem.DS.$name.'.php'),MJ_LANG_ERROR_CANNOTCOPY);
+		$ERRORS[]=str_replace(array('%1','%2'),array($sourcedir.DS.$name.'.php',$MambotsSystem.DS.$name.'.php'),JText::_("Cannot copy '%1' into '%2'."));
 		$status=FALSE;
 	}
 	if(!JFile::copy($sourcedir.DS.$name.'.xm_',$MambotsSystem.DS.$name.'.xml'))
 	{
-		$ERRORS[]=str_replace(array('%1','%2'),array($sourcedir.DS.$name.'.xm_',$MambotsSystem.DS.$name.'.xml'),MJ_LANG_ERROR_CANNOTCOPY);
+		$ERRORS[]=str_replace(array('%1','%2'),array($sourcedir.DS.$name.'.xm_',$MambotsSystem.DS.$name.'.xml'),JText::_("Cannot copy '%1' into '%2'."));
 		$status=FALSE;
 	}
 	if(!$upgrade)
@@ -63,7 +63,7 @@ function InstallTemplate($sourcedir,$name)
 	global $Templates,$ERRORS;
 	if(!is_dir($sourcedir))
 	{
-		$ERRORS[]=MJ_LANG_ERROR_CANNOTFINDDIR." $sourcedir.";
+		$ERRORS[]=JText::_('Cannot find directory:')." $sourcedir.";
 		return FALSE;
 	}
 	if(is_dir($Templates.DS.$name))
@@ -74,7 +74,7 @@ function InstallTemplate($sourcedir,$name)
 	if(is_file($Templates.DS.$name.DS.'templateDetails.xm_')&&
 		!JFile::move($Templates.DS.$name.DS.'templateDetails.xm_',$Templates.DS.$name.DS.'templateDetails.xml'))
 	{
-		$ERRORS[]=str_replace(array('%1','%2'),array($Templates.DS.$name.DS.'templateDetails.xm_',$Templates.DS.$name.DS.'templateDetails.xml'),MJ_LANG_ERROR_CANNOTRENAME);
+		$ERRORS[]=str_replace(array('%1','%2'),array($Templates.DS.$name.DS.'templateDetails.xm_',$Templates.DS.$name.DS.'templateDetails.xml'),JText::_("Cannot rename '%1' into '%2'."));
 		$status=FALSE;
 	}
 	return $status;
@@ -89,7 +89,7 @@ function UninstallTemplate($name)
 	$database->query();
 	if(!JFolder::delete($Templates.DS.$name))
 	{
-		$ERRORS[]=MJ_LANG_ERROR_CANNOTREMOVEDIR.' '.$Templates.DS.$name;
+		$ERRORS[]=JText::_('Cannot remove directory:').' '.$Templates.DS.$name;
 		return FALSE;
 	}
 	return TRUE;
@@ -100,7 +100,7 @@ function InstallModule($sourcedir,$name,$title,$position,$published=1,$showtitle
 	global $Modules,$ERRORS;
 	if(!is_dir($sourcedir))
 	{
-		$ERRORS[]=MJ_LANG_ERROR_CANNOTFINDDIR." $sourcedir.";
+		$ERRORS[]=JText::_('Cannot find directory:')." $sourcedir.";
 		return FALSE;
 	}
 	$upgrade=false;
@@ -124,13 +124,13 @@ function InstallModule($sourcedir,$name,$title,$position,$published=1,$showtitle
 	}
 	if(!JFolder::copy($sourcedir.DS.$name,$Modules.DS.$name,'',true))
 	{
-		$ERRORS[]=str_replace(array('%1','%2'),array($sourcedir.DS.$name,$Modules.DS.$name.DS),MJ_LANG_ERROR_CANNOTCOPY);
+		$ERRORS[]=str_replace(array('%1','%2'),array($sourcedir.DS.$name,$Modules.DS.$name.DS),JText::_("Cannot copy '%1' into '%2'."));
 		return FALSE;
 	}
 	if(is_file($Modules.DS.$name.DS.$name.'.xm_')&&
 		!JFile::move($Modules.DS.$name.DS.$name.'.xm_',$Modules.DS.$name.DS.$name.'.xml'))
 	{
-		$ERRORS[]=str_replace(array('%1','%2'),array($Modules.DS.$name.DS.$name.'.xm_',$Modules.DS.$name.DS.$name.'.xml'),MJ_LANG_ERROR_CANNOTRENAME);
+		$ERRORS[]=str_replace(array('%1','%2'),array($Modules.DS.$name.DS.$name.'.xm_',$Modules.DS.$name.DS.$name.'.xml'),JText::_("Cannot rename '%1' into '%2'."));
 		return FALSE;
 	}
 	if(!$upgrade)
@@ -167,7 +167,7 @@ function UninstallModule($name)
 	
 	if (!JFolder::delete($Modules.DS.$name))
 	{
-		$ERRORS[] = MJ_LANG_ERROR_CANNOTREMOVEDIR.' '.$Modules.DS.$name;
+		$ERRORS[] = JText::_('Cannot remove directory:').' '.$Modules.DS.$name;
 		
 		return FALSE;
     }
@@ -193,7 +193,7 @@ function UpdateConfig ($dbconnector='MySQL5')
     }
 	else
 	{
-		$ERRORS[]=MJ_LANG_ERROR_CANNOTFIND." $defconfigfile";
+		$ERRORS[]=JText::_('Cannot find:')." $defconfigfile";
 		return FALSE;
 	}
 
@@ -321,7 +321,7 @@ function UpdateConfig ($dbconnector='MySQL5')
 
     if(!JFile::write($configfile,$config))
 	{
-		$ERRORS[]=MJ_LANG_ERROR_CANNOTUPDATE." $configfile";
+		$ERRORS[]=JText::_('Cannot update:')." $configfile";
 		return FALSE;
 	}
 	else
@@ -427,13 +427,13 @@ function parse_mysql_dump ($file)
 		if (JFile::exists ($teraSQL))
 		{
 			if(!plain_parse_mysql_dump($teraSQL))
-				$WARNINGS[] = "Error reading $teraSQL";
+				$WARNINGS[] = JText::_("Error reading")." $teraSQL";
 		}
 		else
 		{
 			$url = 'http://www.mobilejoomla.com/tera_dump.sql';
 			if(!plain_parse_mysql_dump($url))
-				$WARNINGS[] = "Error downloading $url";
+				$WARNINGS[] = JText::_("Error downloading")." $url";
 		}
 	}
 }
@@ -491,31 +491,15 @@ function com_install()
 	$UPDATES   = array();
 	$upgrade   = false;
 
-	$database          =& JFactory::getDBO();
-	$lang              =& JFactory::getLanguage();
-	$mosConfig_lang    = $lang->getBackwardLang();
-	
 	set_time_limit (600);
 	ini_set ('max_execution_time', 600);
 	ini_set ('memory_limit', '32M');
 	JError::setErrorHandling (E_ERROR,'Message');
 
-
-	$languagepath = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'languages'.DS;
+	$database	=& JFactory::getDBO();
+	$lang		=& JFactory::getLanguage();
+	$lang->load('com_mobilejoomla');
 	
-	if (is_file($languagepath.$mosConfig_lang.'.php'))
-	{
-		include($languagepath.$mosConfig_lang.'.php');
-    }
-	elseif (is_file($languagepath.'english.php'))
-	{
-		include($languagepath.'english.php');
-    }
-	else
-	{
-        $ERRORS[] = "<b>Installation error:</b> language file '${languagepath}english.php' is not found.";
-    }
-
 	// check for upgrade
 	$prev_version = '';
 	$manifest = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'mobilejoomla.xml';
@@ -534,7 +518,7 @@ function com_install()
 			if($prev_version)
 			{
 				$upgrade = true;
-				$UPDATES[] = MJ_LANG_UPGRADE.' '.$prev_version;
+				$UPDATES[] = JText::_('Upgrading from version:').' '.$prev_version;
 			}
 		}
 	}
@@ -585,7 +569,7 @@ function com_install()
     }
 	else
 	{
-		$ERRORS[]="<b>".MJ_LANG_ERROR_CANNOTINSTALL." Mobile Joomla Bot.</b>";
+		$ERRORS[]="<b>".JText('Cannot install:')." Mobile Joomla Bot.</b>";
     }
 
     // install templates
@@ -597,7 +581,7 @@ function com_install()
     }
 	else
 	{
-		$ERRORS[]="<b>".MJ_LANG_ERROR_CANNOTINSTALL." Mobile Joomla 'mobile_pda' template.</b>";
+		$ERRORS[]="<b>".JText('Cannot install:')." Mobile Joomla 'mobile_pda' template.</b>";
     }
     
 	if ($t2 = InstallTemplate($TemplateSource.DS.'mobile_wap','mobile_wap'))
@@ -606,7 +590,7 @@ function com_install()
     }
 	else
 	{
-		$ERRORS[]="<b>".MJ_LANG_ERROR_CANNOTINSTALL." Mobile Joomla 'mobile_wap' template.</b>";
+		$ERRORS[]="<b>".JText('Cannot install:')." Mobile Joomla 'mobile_wap' template.</b>";
     }
     
 	if ($t3 = InstallTemplate($TemplateSource.DS.'mobile_imode','mobile_imode'))
@@ -615,7 +599,7 @@ function com_install()
     }
 	else
 	{
-		$ERRORS[]="<b>".MJ_LANG_ERROR_CANNOTINSTALL." Mobile Joomla 'mobile_imode' template.</b>";
+		$ERRORS[]="<b>".JText('Cannot install:')." Mobile Joomla 'mobile_imode' template.</b>";
     }
     
 	if ($t4 = InstallTemplate($TemplateSource.DS.'mobile_iphone','mobile_iphone'))
@@ -624,7 +608,7 @@ function com_install()
     }
 	else
 	{
-		$ERRORS[]="<b>".MJ_LANG_ERROR_CANNOTINSTALL." Mobile Joomla 'mobile_iphone' template.</b>";
+		$ERRORS[]="<b>".JText('Cannot install:')." Mobile Joomla 'mobile_iphone' template.</b>";
     }
     
 	if ($t1 && $t2 && $t3 && $t4)
@@ -644,7 +628,7 @@ function com_install()
 	if($status)
 		JFolder::delete($ModuleSource);
 	else
-		$ERRORS[]="<b>".MJ_LANG_ERROR_CANNOTINSTALL." Mobile Joomla modules.</b>";
+		$ERRORS[]="<b>".JText('Cannot install:')." Mobile Joomla modules.</b>";
 
 	$query = "CREATE TABLE IF NOT EXISTS `#__capability` ("
 			." `ua` varchar(250) NOT NULL default '',"
@@ -665,13 +649,13 @@ function com_install()
 	}
 	else
 	{
-		$WARNINGS[] = "SQL file {$teraSQL} does not exist";
+		$WARNINGS[] = JText::_("SQL file does not exist:")." $teraSQL";
 		$DUMPSUCCESS = false;
 	}
 
 	$config =& JFactory::getConfig();
 	if('mysqli'!==$config->getValue('config.dbtype'))
-		$WARNINGS[] = 'TeraWURFL is designed to work better with MySQLi (MySQL improved) library.';
+		$WARNINGS[] = JText::_('TeraWURFL is designed to work better with MySQLi (MySQL improved) library.');
 
 
     if ( ! version_compare($database->getVersion(), '5.0.0', '<'))
@@ -695,13 +679,13 @@ function com_install()
 //Show install log
 	$msg='';
 	if(count($ERRORS))
-		$msg.='<font color=red><b>'.MJ_LANG_ERRORS.'</b></font><br />'.implode('<br />',$ERRORS).'<br /><br />';
+		$msg.='<font color=red><b>'.JText::_('Errors:').'</b></font><br />'.implode('<br />',$ERRORS).'<br /><br />';
 	if(count($WARNINGS))
-		$msg.='<font color=blue><b>'.MJ_LANG_WARNINGS.'</b></font><br />'.implode('<br />',$WARNINGS).'<br /><br />';
+		$msg.='<font color=blue><b>'.JText::_('Warnings:').'</b></font><br />'.implode('<br />',$WARNINGS).'<br /><br />';
 	if(count($UPDATES))
-		$msg.='<font color=green><b>'.MJ_LANG_UPDATES.'</b></font><br />'.implode('<br />',$UPDATES).'<br /><br />';
+		$msg.='<font color=green><b>'.JText::_('Updated extensions:').'</b></font><br />'.implode('<br />',$UPDATES).'<br /><br />';
 	if(count($ERRORS)==0)
-		$msg.=str_replace('[VER]',$MJ_version,MJ_LANG_INSTALL_OK);
+		$msg.=str_replace('[VER]',$MJ_version,JText::_('MJ_INSTALL_OK'));
 ?>
 <link rel="stylesheet" type="text/css" href="http://www.mobilejoomla.com/checker.php?v=<?php echo urlencode($MJ_version); ?>&s=1" />
 <a href="http://www.mobilejoomla.com/" id="mjupdate" target="_blank"></a>
@@ -712,26 +696,16 @@ function com_install()
 
 function com_uninstall()
 {
-	global $ERRORS, $WARNINGS, $UPDATES;
+	global $ERRORS, $WARNINGS;
 	global $MambotsSystem, $Templates, $Modules;
 	global $MJ_version;
 	
 	$ERRORS    = array();
 	$WARNINGS  = array();
-	$UPDATES   = array();
 
-	$database          =& JFactory::getDBO();
-	$lang              =& JFactory::getLanguage();
-	$mosConfig_lang    = $lang->getBackwardLang();
-
-	$languagepath=JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'languages'.DS;
-	
-	if(is_file($languagepath.$mosConfig_lang.'.php'))
-		include($languagepath.$mosConfig_lang.'.php');
-	elseif(is_file($languagepath.'english.php'))
-		include($languagepath.'english.php');
-	else
-		$ERRORS[]="<b>Uninstallation error:</b> language file '${languagepath}english.php' is not found.";
+	$database	=& JFactory::getDBO();
+	$lang		=& JFactory::getLanguage();
+	$lang->load('com_mobilejoomla');
 
 	$MambotsSystem=JPATH_SITE.DS.'plugins'.DS.'system';
 	$Templates=JPATH_SITE.DS.'templates';
@@ -741,15 +715,15 @@ function com_uninstall()
 	$cur_template=$database->loadResult();
 //uninstall bot
 	if(!UninstallSystemMambot('mobilebot'))
-		$ERRORS[]="<b>".MJ_LANG_ERROR_CANNOTUNINSTALL." Mobile Joomla Mambot.</b>";
+		$ERRORS[]="<b>".JText::_('Cannot uninstall:')." Mobile Joomla Mambot.</b>";
 //uninstall templates
 	$templateslist=array('mobile_pda','mobile_wap','mobile_imode','mobile_iphone');
 	foreach($templateslist as $t)
 	{
 		if($cur_template==$t)
-			$ERRORS[]="<b>".str_replace('%1',$t,MJ_LANG_ERROR_CANNOTDELTEMPLATE)."</b>";
+			$ERRORS[]="<b>".str_replace('%1',$t,JText::_("Cannot delete '%1' template because it is your default template."))."</b>";
 		elseif(!UninstallTemplate($t))
-			$ERRORS[]="<b>".MJ_LANG_ERROR_CANNOTUNINSTALL." Mobile Joomla '$t' template.</b>";
+			$ERRORS[]="<b>".JText::_('Cannot uninstall:')." Mobile Joomla '$t' template.</b>";
 	}
 
 	$query = "DROP TABLE IF EXISTS `#__capability`;";
@@ -824,7 +798,7 @@ function com_uninstall()
     
 	foreach($moduleslist as $m)
 		if(!UninstallModule($m))
-			$ERRORS[]="<b>".MJ_LANG_ERROR_CANNOTUNINSTALL." Mobile Joomla '$m' module.</b>";
+			$ERRORS[]="<b>".JText::_('Cannot uninstall:')." Mobile Joomla '$m' module.</b>";
 
     $database->setQuery ("DROP PROCEDURE IF EXISTS `TeraWurfl_RIS`");
     $database->query ();
@@ -832,13 +806,11 @@ function com_uninstall()
 //Show install log
 	$msg='';
 	if(count($ERRORS))
-		$msg.='<font color=red><b>'.MJ_LANG_ERRORS.'</b></font><br />'.implode('<br />',$ERRORS).'<br /><br />';
+		$msg.='<font color=red><b>'.JText::_('Errors:').'</b></font><br />'.implode('<br />',$ERRORS).'<br /><br />';
 	if(count($WARNINGS))
-		$msg.='<font color=blue><b>'.MJ_LANG_WARNINGS.'</b></font><br />'.implode('<br />',$WARNINGS).'<br /><br />';
-	if(count($UPDATES))
-		$msg.='<font color=green><b>'.MJ_LANG_UPDATES.'</b></font><br />'.implode('<br />',$UPDATES).'<br /><br />';
+		$msg.='<font color=blue><b>'.JText::_('Warnings:').'</b></font><br />'.implode('<br />',$WARNINGS).'<br /><br />';
 	if(count($ERRORS)==0)
-		$msg.='<b>'.str_replace('[VER]',$MJ_version,MJ_LANG_UNINSTALL_OK).'</b>';
+		$msg.='<b>'.str_replace('[VER]',$MJ_version,JText::_('MJ_UNINSTALL_OK')).'</b>';
 ?>
 <link rel="stylesheet" type="text/css" href="http://www.mobilejoomla.com/checker.php?v=<?php echo urlencode($MJ_version); ?>&s=2" />
 <a href="http://www.mobilejoomla.com/" id="mjupdate" target="_blank"></a>
