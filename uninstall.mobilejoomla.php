@@ -401,6 +401,7 @@ function plain_parse_mysql_dump ($url)
 
 function parse_mysql_dump ($file)
 {
+	global $WARNINGS;
 	if (function_exists ('bzopen') && JFile::exists ($file))
 	{
 		bz2_parse_mysql_dump ($file);
@@ -420,11 +421,14 @@ function parse_mysql_dump ($file)
 		
 		if (JFile::exists ($teraSQL))
 		{
-			plain_parse_mysql_dump ($teraSQL);
+			if(!plain_parse_mysql_dump($teraSQL))
+				$WARNINGS[] = "Error reading $teraSQL";
 		}
 		else
 		{
-			plain_parse_mysql_dump ('http://www.mobilejoomla.com/tera_dump.sql');
+			$url = 'http://www.mobilejoomla.com/tera_dump.sql';
+			if(!plain_parse_mysql_dump($url))
+				$WARNINGS[] = "Error downloading $url";
 		}
 	}
 }
