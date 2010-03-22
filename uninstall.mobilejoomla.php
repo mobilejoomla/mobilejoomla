@@ -739,7 +739,7 @@ function com_uninstall()
 	$cur_template=$database->loadResult();
 //uninstall bot
 	if(!UninstallSystemMambot('mobilebot'))
-		$ERRORS[]="<b>".MJ_LANG_ERROR_CANNOTUNINSTALL." Mobile Joomla 3.0.alpha Mambot.</b>";
+		$ERRORS[]="<b>".MJ_LANG_ERROR_CANNOTUNINSTALL." Mobile Joomla Mambot.</b>";
 //uninstall templates
 	$templateslist=array('mobile_pda','mobile_wap','mobile_imode','mobile_iphone');
 	foreach($templateslist as $t)
