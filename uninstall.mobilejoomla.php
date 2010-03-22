@@ -410,7 +410,8 @@ function parse_mysql_dump ($file)
 		{
 			$pwd = getcwd ();
 			chdir ($teraPath);
-			exec ("bunzip2 {$file} ");
+			exec('bunzip2 '.escapeshellarg($file).' 2>&1');
+			chdir ($pwd);
 		}
 		
 		if (JFile::exists ($teraSQL))
@@ -421,8 +422,6 @@ function parse_mysql_dump ($file)
 		{
 			plain_parse_mysql_dump ('http://www.mobilejoomla.com/tera_dump.sql');
 		}
-		
-		chdir ($pwd);
 	}
 }
 
