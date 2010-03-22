@@ -670,7 +670,12 @@ function com_install()
 		$WARNINGS[] = "SQL file {$teraSQL} does not exist";
 		$DUMPSUCCESS = false;
 	}
-    
+
+	$config =& JFactory::getConfig();
+	if('mysqli'!==$config->getValue('config.dbtype'))
+		$WARNINGS[] = 'TeraWURFL is designed to work better with MySQLi (MySQL improved) library.';
+
+
     if ( ! version_compare($database->getVersion(), '5.0.0', '<'))
 	{	
 		$dbconnector = 'MySQL5'; //this might be overriden below
