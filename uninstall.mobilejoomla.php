@@ -374,6 +374,9 @@ function plain_parse_mysql_dump ($url)
     $db = JFactory::getDBO ();
     
     $handle = fopen ($url, 'r');
+	if($handle===false)
+		return FALSE;
+
     $query = '';
 
     while (!feof ($handle))
@@ -393,6 +396,7 @@ function plain_parse_mysql_dump ($url)
             }
         }
     }
+	return TRUE;
 }
 
 function parse_mysql_dump ($file)
