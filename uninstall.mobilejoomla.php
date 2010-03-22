@@ -16,7 +16,7 @@ jimport ('joomla.filesystem.folder');
 global $MJ_version;
 $MJ_version = '###VERSION###';
 
-function InstallSystemMambot($sourcedir,$name,$fullname,$publish=1)
+function InstallSystemMambot($sourcedir,$name,$fullname,$publish=1,$ordering=-1000)
 {
 	global $MambotsSystem,$ERRORS;
 	$upgrade=false;
@@ -40,7 +40,7 @@ function InstallSystemMambot($sourcedir,$name,$fullname,$publish=1)
 	if(!$upgrade)
 	{
 		$database =& JFactory::getDBO();
-		$database->setQuery("INSERT INTO `#__plugins` (`name`, `element`, `folder`, `published`) VALUES ('$fullname', '$name', 'system', $publish);");
+		$database->setQuery("INSERT INTO `#__plugins` (`name`, `element`, `folder`, `published`, `ordering`) VALUES ('$fullname', '$name', 'system', $publish, $ordering);");
 		$database->query();
 	}
 	return $status;
