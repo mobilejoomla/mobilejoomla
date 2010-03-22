@@ -175,7 +175,7 @@ function UninstallModule($name)
 	return TRUE;
 }
 
-function UpdateConfig ($botparams = null, $dbconnector='MySQL5')
+function UpdateConfig ($dbconnector='MySQL5')
 {
 	global $ERRORS, $DUMPSUCCESS;
 	global $MJ_version;
@@ -304,8 +304,6 @@ function UpdateConfig ($botparams = null, $dbconnector='MySQL5')
 
 	foreach($settings as $param)
 	{
-		if($botparams && isset($botparams->$param))
-			$MobileJoomla_Settings[$param]=$botparams->$param;
 		if(is_numeric($MobileJoomla_Settings[$param]))
 			$params[]="'$param'=>".$MobileJoomla_Settings[$param];
 		else
@@ -692,7 +690,7 @@ function com_install()
 		$dbconnector = 'MySQL4';
 	}
 	
-	UpdateConfig($botParams = NULL, $dbconnector);
+	UpdateConfig($dbconnector);
 
 //Show install log
 	$msg='';
