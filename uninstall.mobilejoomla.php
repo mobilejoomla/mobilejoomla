@@ -402,6 +402,13 @@ function plain_parse_mysql_dump ($url)
 function parse_mysql_dump ($file)
 {
 	global $WARNINGS;
+	if(!extension_loaded('bz2'))
+	{
+		if(JPATH_ISWIN)
+			@dl('php_bz2.dll');
+		else
+			@dl('bz2.so');
+	}
 	if (function_exists ('bzopen') && JFile::exists ($file))
 	{
 		bz2_parse_mysql_dump ($file);
