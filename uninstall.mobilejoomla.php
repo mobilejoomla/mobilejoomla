@@ -672,7 +672,7 @@ function com_install()
 		$DUMPSUCCESS = false;
 	}
     
-    if ( ! version_compare(JFactory::getDBO()->getVersion(), '5.0.0', '<'))
+    if ( ! version_compare($database->getVersion(), '5.0.0', '<'))
 	{	
 		$dbconnector = 'MySQL5'; //this might be overriden below
 
