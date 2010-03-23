@@ -222,7 +222,7 @@ Author: Muntasir Mamun (svo97_12@yahoo.com). If anyone find any bug please infor
 	$OutputImageFullPath=$OutputImageDir."Resized/".$outputFileName.".".$OutputFormat;
 	
 	if (!JFile::copy($InputImage,$OutputImageFullPath))
-		echo 'Failed to copy';
+		return 0;
 		
 	switch ($InputImageFileExtension)
 	{
