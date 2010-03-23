@@ -16,15 +16,15 @@ $markup=false;
 
 if(!defined('_MJ'))
 {
-    include JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'mobilejoomla.class.php';
-    $config =& MobileJoomla::getConfig ();
-    $base = $config['desktop_url'];
+	include JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'mobilejoomla.class.php';
+	$config =& MobileJoomla::getConfig ();
+	$base = $config['desktop_url'];
 }
 else
 {
-    $MobileJoomla  =& MobileJoomla::getInstance();
-    $markup        = $MobileJoomla->getMarkup();
-    $base = $MobileJoomla->config['desktop_url'];
+	$MobileJoomla  =& MobileJoomla::getInstance();
+	$markup        = $MobileJoomla->getMarkup();
+	$base = $MobileJoomla->config['desktop_url'];
 }
 
 global $mainframe;
@@ -32,15 +32,15 @@ $saved_markup = $mainframe->getUserState('mobilejoomla.markup',false);
 
 switch ($saved_markup)
 {
-   case '':
-   case 'xhtml':
-   case 'iphone':
-   case 'mobile':
-   case 'wml':
-   case 'imode':
-       break;
-   default:
-       $saved_markup = false;
+	case '':
+	case 'xhtml':
+	case 'iphone':
+	case 'mobile':
+	case 'wml':
+	case 'imode':
+		break;
+	default:
+		$saved_markup = false;
 }
 
 
@@ -53,96 +53,86 @@ $desktopUserDesktopPage = ('yes' != $forgedMarkup) && ($markup == '') ;
 if( !$desktopUserDesktopPage )
 {
 
- $uri                = JFactory::getURI ();
- $uri->delVar ('naked');
- $return             = base64_encode ($base . $uri->getQuery());
- $show_chosen_markup = $params->get('show_choosen', 1);
- $show_sep           = false;
+	$uri                = JFactory::getURI ();
+	$uri->delVar ('naked');
+	$return             = base64_encode ($base . $uri->getQuery());
+	$show_chosen_markup = $params->get('show_choosen', 1);
 
- echo $params->get('show_text', ' ');
+	echo $params->get('show_text', ' ');
 
- if ($params->get ('auto_show', 0))
- {
-     $show_sep = true;
+	$links = array();
 
-     echo '<a  class="markupchooser" href="'.$base.'index.php?option=com_mobilejoomla&amp;task=setmarkup&amp;markup=-&amp;return='. $return .'">' . $params->get ('auto_text', 'Automatic Version') . '</a>';
- }
+	if ($params->get ('auto_show', 0))
+	{
+		$text = $params->get ('auto_text', 'Automatic Version');
+		$links[] = '<a class="markupchooser" href="'. $base .'index2.php?option=com_mobilejoomla&amp;task=setmarkup&amp;markup=-&amp;return='. $return .'">'. $text .'</a>';
+	}
 
- if ($params->get ('mobile_show', 1) && ($show_chosen_markup || ($markup != 'xhtml' && $markup != 'iphone' && $markup != 'wml' && $markup != 'imode')))
- {
-     if ($show_sep)
-         echo '<span class="markupchooser"> | </span>';
+	if ($params->get ('mobile_show', 1) && ($show_chosen_markup || ($markup != 'xhtml' && $markup != 'iphone' && $markup != 'wml' && $markup != 'imode')))
+	{
+		$text = $params->get ('mobile_text', 'Mobile Version');
+		if ($markup == 'mobile' || $markup == 'xhtml' || $markup == 'iphone' || $markup == 'wml' || $markup == 'imode')
+		{
+			if($show_chosen_markup) $links[] = '<span class="markupchooser">'. $text .'</span>';
+		}
+		else
+			$links[] = '<a class="markupchooser" href="'. $base .'index2.php?option=com_mobilejoomla&amp;task=setmarkup&amp;markup=mobile&amp;return='. $return .'">'. $text .'</a>';
+	}
 
-     $show_sep = true;
+	if ($params->get ('web_show', 1) && ($show_chosen_markup || $markup != ''))
+	{
+		$text = $params->get ('web_text', 'Standard Version');
+		if ($markup == '')
+		{
+			if($show_chosen_markup) $links[] = '<span class="markupchooser">'. $text .'</span>';
+		}
+		else
+			$links[] = '<a class="markupchooser" href="'. $base .'index2.php?option=com_mobilejoomla&amp;task=setmarkup&amp;markup=&amp;return='. $return .'">'. $text .'</a>';
+	}
 
-     if ($show_chosen_markup && ($markup == 'mobile' || $markup == 'xhtml' || $markup == 'iphone' || $markup == 'wml' || $markup == 'imode'))
-         echo '<span class="markupchooser">' . $params->get ('mobile_text', 'Mobile Version') . '</span>';
-     else
-         echo '<a  class="markupchooser" href="'.$base.'index.php?option=com_mobilejoomla&amp;task=setmarkup&amp;markup=mobile&amp;return='. $return .'">' . $params->get ('mobile_text', 'Mobile Version') . '</a>';
- }
+	if ($params->get ('xhtml_show', 0) && ($show_chosen_markup || $markup != 'xhtml'))
+	{
+		$text = $params->get ('xhtml_text', 'Smartphone Version');
+		if ($markup == 'xhtml')
+		{
+			if($show_chosen_markup) $links[] = '<span class="markupchooser">'. $text .'</span>';
+		}
+		else
+			$links[] = '<a class="markupchooser" href="'. $base .'index2.php?option=com_mobilejoomla&amp;task=setmarkup&amp;markup=xhtml&amp;return='. $return .'">'. $text .'</a>';
+	}
 
- if ($params->get ('web_show', 1) && ($show_chosen_markup || $markup != ''))
- {
-     if ($show_sep)
-         echo '<span class="markupchooser"> | </span>';
+	if ($params->get ('iphone_show', 0))
+	{
+		$text = $params->get ('iphone_text', 'iPhone Version');
+		if ($markup == 'iphone')
+		{
+			if($show_chosen_markup) $links[] = '<span class="markupchooser">'. $text .'</span>';
+		}
+		else
+			$links[] = '<a class="markupchooser" href="'. $base .'index2.php?option=com_mobilejoomla&amp;task=setmarkup&amp;markup=iphone&amp;return='. $return .'">'. $text .'</a>';
+	}
 
-     $show_sep = true;
+	if ($params->get ('wml_show', 0))
+	{
+		$text = $params->get ('wml_text', 'WAP Version');
+		if ($markup == 'wml')
+		{
+			if($show_chosen_markup) $links[] = '<span class="markupchooser">'. $text .'</span>';
+		}
+		else
+			$links[] = '<a class="markupchooser" href="'. $base .'index2.php?option=com_mobilejoomla&amp;task=setmarkup&amp;markup=wml&amp;return='. $return .'">'. $text .'</a>';
+	}
 
-     if ($show_chosen_markup && $markup == '')
-         echo '<span class="markupchooser">' . $params->get ('web_text', 'Standard Version') . '</span>';
-     else
-         echo '<a  class="markupchooser" href="'.$base.'index.php?option=com_mobilejoomla&amp;task=setmarkup&amp;markup=&amp;return='. $return .'">' . $params->get ('web_text', 'Standard Version') . '</a>';
- }
+	if ($params->get ('imode_show', 0))
+	{
+		$text = $params->get ('imode_text', 'iMode Version');
+		if ($markup == 'imode')
+		{
+			if($show_chosen_markup) $links[] = '<span class="markupchooser">'. $text .'</span>';
+		}
+		else
+			$links[] = '<a class="markupchooser" href="'. $base .'index2.php?option=com_mobilejoomla&amp;task=setmarkup&amp;markup=imode&amp;return='. $return .'">'. $text .'</a>';
+	}
 
- if ($params->get ('xhtml_show', 0) && ($show_chosen_markup || $markup != 'xhtml'))
- {
-     if ($show_sep)
-         echo '<span class="markupchooser"> | </span>';
-
-     $show_sep = true;
-
-     if ($show_chosen_markup && $markup == 'xhtml')
-         echo '<span class="markupchooser">' . $params->get ('xhtml_text', 'Smartphone Version') . '</span>';
-     else
-         echo '<a  class="markupchooser" href="'.$base.'index.php?option=com_mobilejoomla&amp;task=setmarkup&amp;markup=xhtml&amp;return='. $return .'">' . $params->get ('xhtml_text', 'Smartphone Version') . '</a>';
- }
-
- if ($params->get ('iphone_show', 0))
- {
-     if ($show_sep)
-         echo '<span class="markupchooser"> | </span>';
-
-     $show_sep = true;
-
-     if ($show_chosen_markup && $markup == 'iphone')
-         echo '<span class="markupchooser">' . $params->get ('iphone_text', 'iPhone Version') . '</span>';
-     else
-         echo '<a  class="markupchooser" href="'.$base.'index.php?option=com_mobilejoomla&amp;task=setmarkup&amp;markup=iphone&amp;return='. $return .'">' . $params->get ('iphone_text', 'iPhone Version') . '</a>';
- }
-
- if ($params->get ('wml_show', 0))
- {
-     if ($show_sep)
-         echo '<span class="markupchooser"> | </span>';
-
-     $show_sep = true;
-
-     if ($show_chosen_markup && $markup == 'wml')
-         echo '<span class="markupchooser">' . $params->get ('wml_text', 'WAP Version') . '</span>';
-     else
-         echo '<a  class="markupchooser" href="'.$base.'index.php?option=com_mobilejoomla&amp;task=setmarkup&amp;markup=wml&amp;return='. $return .'">' . $params->get ('wml_text', 'WAP Version') . '</a>';
- }
-
- if ($params->get ('imode_show', 0))
- {
-     if ($show_sep)
-         echo '<span class="markupchooser"> | </span>';
-
-     $show_sep = true;
-
-     if ($show_chosen_markup && $markup == 'imode')
-         echo '<span class="markupchooser">' . $params->get ('imode_text', 'iMode Version') . '</span>';
-     else
-         echo '<a  class="markupchooser" href="'.$base.'index.php?option=com_mobilejoomla&amp;task=setmarkup&amp;markup=imode&amp;return='. $return .'">' . $params->get ('imode_text', 'iMode Version') . '</a>';
- }
+	echo implode('<span class="markupchooser"> | </span>', $links);
 }
