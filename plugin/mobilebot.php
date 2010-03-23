@@ -12,6 +12,13 @@ defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 
 jimport( 'joomla.plugin.plugin' );
 
+class _CacheStub
+{
+	function setCaching($bool){}
+	function get(){return false;}
+	function store(){}
+}
+
 class plgSystemMobileBot extends JPlugin
 {
    function plgSystemMobileBot(& $subject, $config)
@@ -33,8 +40,18 @@ class plgSystemMobileBot extends JPlugin
         $format = $document->getType();
         if(($format!=='html')&&($format!=='raw')) // don't use MobileJoomla for non-html data
            return;
-           
-       
+
+		$dispatcher =& JDispatcher::getInstance();
+		foreach($dispatcher->_observers as $index=>$object)
+		{
+			if(is_a($object,'plgSystemCache'))
+			{
+				$object->_cache = new _CacheStub();
+				unset($dispatcher->_observers[$index]);
+				break;
+			}
+		}
+
 		$content = file_get_contents (JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'extensions'.DS.'extensions.json');
 	
 		$json = json_decode($content);
