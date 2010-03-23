@@ -373,7 +373,7 @@ function saveconfig( $task )
 		'tmpl_iphone_header1','tmpl_iphone_header2','tmpl_iphone_pathway','tmpl_iphone_pathwayhome',
 		'tmpl_iphone_middle1','tmpl_iphone_middle2','tmpl_iphone_componenthome','tmpl_iphone_footer1',
 		'tmpl_iphone_footer2','tmpl_iphone_jfooter','tmpl_iphone_img','xhtml_buffer_width', 'wml_buffer_width', 'iphone_buffer_width', 'chtml_buffer_width',
-		'tmpl_iphone_removetags'
+		'tmpl_iphone_removetags','dbconnector','desktop_url'
 	);
 	$params=array();
 	foreach($settings as $param)
