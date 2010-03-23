@@ -93,12 +93,6 @@ class plgSystemMobileBot extends JPlugin
            $domain_wap   =$MobileJoomla_Settings['wapdomain'];
            $domain_imode =$MobileJoomla_Settings['imodedomain'];
            $domain_iphone=$MobileJoomla_Settings['iphonedomain'];
-           $basehost=$parsed['host'];
-           if(substr($basehost,0,4)=='www.') $basehost=substr($basehost,4);
-           if(substr($domain_xhtml, -1)=='.') $domain_xhtml .=$basehost;
-           if(substr($domain_wap,   -1)=='.') $domain_wap   .=$basehost;
-           if(substr($domain_imode, -1)=='.') $domain_imode .=$basehost;
-           if(substr($domain_iphone,-1)=='.') $domain_iphone.=$basehost;
            if( $domain_xhtml && $_SERVER['HTTP_HOST']==$domain_xhtml )
            {// Smartphone (xhtml-mp/wap2) domain
                $markup='xhtml';

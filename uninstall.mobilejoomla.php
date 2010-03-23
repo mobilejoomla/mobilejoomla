@@ -177,7 +177,7 @@ function UninstallModule($name)
 
 function UpdateConfig ($dbconnector='MySQL5')
 {
-	global $ERRORS, $DUMPSUCCESS;
+	global $ERRORS, $WARNINGS, $DUMPSUCCESS;
 	global $MJ_version;
 	
 	$configfile    = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php';
@@ -197,117 +197,52 @@ function UpdateConfig ($dbconnector='MySQL5')
 		return FALSE;
 	}
 
-	$settings = array(
-        'useragent',
-        'domains',
-        'pcpage',
-        'templatewidth',
-        'jpegquality',
-		'xhtmltemplate',
-        'xhtmlhomepage',
-        'xhtmlgzip',
-        'xhtmldomain',
-        'xhtmlredirect',
-		'waptemplate',
-        'waphomepage',
-        'wapgzip',
-        'wapdomain',
-        'wapredirect',
-		'imodetemplate',
-        'imodehomepage',
-        'imodegzip',
-        'imodedomain',
-        'imoderedirect',
-		'iphonetemplate',
-        'iphonehomepage',
-        'iphonegzip',
-        'iphonedomain',
-        'iphoneredirect',
-		'tmpl_xhtml_header1',
-        'tmpl_xhtml_header2',
-        'tmpl_xhtml_pathway',
-        'tmpl_xhtml_pathwayhome',
-		'tmpl_xhtml_middle1',
-        'tmpl_xhtml_middle2',
-        'tmpl_xhtml_componenthome',
-        'tmpl_xhtml_footer1',
-		'tmpl_xhtml_footer2',
-        'tmpl_xhtml_jfooter',
-        'tmpl_xhtml_simplehead',
-        'tmpl_xhtml_allowextedit',
-		'tmpl_xhtml_removetags',
-        'tmpl_xhtml_removescripts',
-        'tmpl_xhtml_img',
-        'tmpl_xhtml_entitydecode',
-        'tmpl_xhtml_embedcss',
-		'tmpl_xhtml_contenttype',
-        'tmpl_xhtml_xmlhead',
-        'tmpl_xhtml_doctype',
-        'tmpl_xhtml_xmlns',
-		'tmpl_wap_header',
-        'tmpl_wap_pathway',
-        'tmpl_wap_pathwayhome',
-        'tmpl_wap_middle',
-		'tmpl_wap_componenthome',
-        'tmpl_wap_footer',
-        'tmpl_wap_cards',
-        'tmpl_wap_jfooter',
-		'tmpl_wap_removetags',
-        'tmpl_wap_img',
-        'tmpl_wap_entitydecode',
-		'tmpl_wap_doctype',
-		'tmpl_imode_header1',
-        'tmpl_imode_header2',
-        'tmpl_imode_pathway',
-        'tmpl_imode_pathwayhome',
-		'tmpl_imode_middle1',
-        'tmpl_imode_middle2',
-        'tmpl_imode_componenthome',
-        'tmpl_imode_footer1',
-		'tmpl_imode_footer2',
-        'tmpl_imode_jfooter',
-        'tmpl_imode_removetags',
-        'tmpl_imode_img',
-		'tmpl_imode_entitydecode',
-        'tmpl_imode_doctype',
-		'tmpl_iphone_header1',
-        'tmpl_iphone_header2',
-        'tmpl_iphone_pathway',
-        'tmpl_iphone_pathwayhome',
-		'tmpl_iphone_middle1',
-        'tmpl_iphone_middle2',
-        'tmpl_iphone_componenthome',
-        'tmpl_iphone_footer1',
-		'tmpl_iphone_footer2',
-        'tmpl_iphone_jfooter',
-        'tmpl_iphone_img',
-		'xhtml_buffer_width',
-        'wml_buffer_width',
-        'iphone_buffer_width',
-        'chtml_buffer_width',
-        'tmpl_iphone_removetags',
-		'dbconnector',
-		'desktop_url'
-	);
+	unset($MobileJoomla_Settings['version']);
 	
-	$params=array();
-	
-	$MobileJoomla_Settings['desktop_url'] = JURI::root ();
-	
+	$MobileJoomla_Settings['desktop_url'] = JURI::root();
+
+	$parsed = parse_url(JURI::root());
+	$basehost = $parsed['host'];
+	if(substr($basehost,0,4)=='www.')
+		$basehost=substr($basehost,4);
+
+	if(substr($MobileJoomla_Settings['xhtmldomain'], -1)=='.')
+		$MobileJoomla_Settings['xhtmldomain'] .= $basehost;
+	if(substr($MobileJoomla_Settings['wapdomain'], -1)=='.')
+		$MobileJoomla_Settings['wapdomain'] .= $basehost;
+	if(substr($MobileJoomla_Settings['imodedomain'], -1)=='.')
+		$MobileJoomla_Settings['imodedomain'] .= $basehost;
+	if(substr($MobileJoomla_Settings['iphonedomain'], -1)=='.')
+		$MobileJoomla_Settings['iphonedomain'] .= $basehost;
+
 	if (!$DUMPSUCCESS)
         $MobileJoomla_Settings['useragent'] = 3;
     elseif ($MobileJoomla_Settings['useragent'] == 3 || $MobileJoomla_Settings['useragent'] == 0)
         $MobileJoomla_Settings['useragent'] = 2;
 
+	if(!function_exists('imagecopyresized'))
+	{
+		if($MobileJoomla_Settings['tmpl_xhtml_img']>1)
+			$MobileJoomla_Settings['tmpl_xhtml_img']=1;
+		if($MobileJoomla_Settings['tmpl_wap_img']>1)
+			$MobileJoomla_Settings['tmpl_wap_img']=1;
+		if($MobileJoomla_Settings['tmpl_imode_img']>1)
+			$MobileJoomla_Settings['tmpl_imode_img']=1;
+		if($MobileJoomla_Settings['tmpl_iphone_img']>1)
+			$MobileJoomla_Settings['tmpl_iphone_img']=1;
+		$WARNINGS[] = JText::_('GD2 library is not loaded.');
+	}
+
 	//Needed for stored procedure suppport checking
 	$MobileJoomla_Settings['dbconnector'] = $dbconnector;
 
-	foreach($settings as $param)
+	$params=array();
+	foreach($MobileJoomla_Settings as $param=>$value)
 	{
-		if(is_numeric($MobileJoomla_Settings[$param]))
-			$params[]="'$param'=>".$MobileJoomla_Settings[$param];
+		if(is_numeric($value))
+			$params[]="'$param'=>$value";
 		else
-			$params[]="'$param'=>'".addslashes($MobileJoomla_Settings[$param])."'";
+			$params[]="'$param'=>'".addslashes($value)."'";
 	}
 	
 	$config = "<?php\n"
