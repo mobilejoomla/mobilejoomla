@@ -703,6 +703,11 @@ function com_uninstall()
 	$ERRORS    = array();
 	$WARNINGS  = array();
 
+	set_time_limit (600);
+	ini_set ('max_execution_time', 600);
+	ini_set ('memory_limit', '32M');
+	JError::setErrorHandling (E_ERROR,'Message');
+
 	$database	=& JFactory::getDBO();
 	$lang		=& JFactory::getLanguage();
 	$lang->load('com_mobilejoomla');
