@@ -170,7 +170,8 @@ function mosShowPDAMenu(&$params)
 {
 	$menu = & JSite::getMenu();
 	$user = & JFactory::getUser();
-	$activeId = $menu->getActive ()->id;
+	$activemenu =& $menu->getActive ();
+	$activeId = $activemenu->id;
 
 	//get menu items
 	$rows = $menu->getItems('menutype', $params->get('menutype'));

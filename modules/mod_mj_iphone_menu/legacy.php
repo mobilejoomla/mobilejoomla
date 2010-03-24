@@ -160,7 +160,8 @@ function mosShowIPHONEMenu(&$params)
 	$menu = & JSite::getMenu();
 	$user = & JFactory::getUser();
 
-    $activeId = $menu->getActive ()->id;
+	$activemenu =& $menu->getActive ();
+    $activeId = $activemenu->id;
     
     $hasSub = TRUE;
     $rows = $menu->getItems ('parent', $activeId);
