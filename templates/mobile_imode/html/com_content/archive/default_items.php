@@ -41,7 +41,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 <span class="author"><?php echo JText::_('Author').': '; echo $item->created_by_alias ? $item->created_by_alias : $item->author; ?></span>
 <?php endif; ?>
 </h5>
-<div class="intro"><?php echo substr(strip_tags($item->introtext), 0, 255);  ?>...</div>
+<div class="intro"><?php echo JString::substr(strip_tags($item->introtext), 0, 255);  ?>...</div>
 </li>
 <?php endforeach; ?>
 </ul>
