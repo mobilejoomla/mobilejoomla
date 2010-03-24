@@ -216,11 +216,18 @@ function UpdateConfig ($dbconnector='MySQL5')
 		$MobileJoomla_Settings['iphonedomain'] .= $basehost;
 
 	if (!$DUMPSUCCESS)
-        $MobileJoomla_Settings['useragent'] = 3;
-    elseif ($MobileJoomla_Settings['useragent'] == 3 || $MobileJoomla_Settings['useragent'] == 0)
-        $MobileJoomla_Settings['useragent'] = 2;
+		$MobileJoomla_Settings['useragent'] = 3;
+	elseif ($MobileJoomla_Settings['useragent'] == 3 || $MobileJoomla_Settings['useragent'] == 0)
+		$MobileJoomla_Settings['useragent'] = 2;
 
-	if(!function_exists('imagecopyresized'))
+	$config =& JFactory::getConfig();
+	if('mysqli'!==$config->getValue('config.dbtype'))
+	{
+		$MobileJoomla_Settings['useragent'] = 3;
+		$WARNINGS[] = JText::_('TeraWURFL is designed to work with MySQLi (MySQL improved) library.');
+	}
+
+	if(!function_exists('imagecopyresized') || $MobileJoomla_Settings['useragent']!=2)
 	{
 		if($MobileJoomla_Settings['tmpl_xhtml_img']>1)
 			$MobileJoomla_Settings['tmpl_xhtml_img']=1;
@@ -230,8 +237,9 @@ function UpdateConfig ($dbconnector='MySQL5')
 			$MobileJoomla_Settings['tmpl_imode_img']=1;
 		if($MobileJoomla_Settings['tmpl_iphone_img']>1)
 			$MobileJoomla_Settings['tmpl_iphone_img']=1;
-		$WARNINGS[] = JText::_('GD2 library is not loaded.');
 	}
+	if(!function_exists('imagecopyresized'))
+		$WARNINGS[] = JText::_('GD2 library is not loaded.');
 
 	//Needed for stored procedure suppport checking
 	$MobileJoomla_Settings['dbconnector'] = $dbconnector;
@@ -315,6 +323,7 @@ function plain_parse_mysql_dump ($url)
     while (!feof ($handle))
     {
         $sql_line = fgets ($handle);
+		echo '|'.strlen($sql_line).'|';
 
         if (trim ($sql_line) != '' && strpos ($sql_line, '--') === false)
         {
@@ -426,8 +435,8 @@ function com_install()
 	$UPDATES   = array();
 	$upgrade   = false;
 
-	set_time_limit (600);
-	ini_set ('max_execution_time', 600);
+	set_time_limit (1200);
+	ini_set ('max_execution_time', 1200);
 	ini_set ('memory_limit', '32M');
 	JError::setErrorHandling (E_ERROR,'Message');
 
@@ -440,16 +449,11 @@ function com_install()
 	$manifest = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'mobilejoomla.xml';
 	if(is_file($manifest))
 	{
-		if (!class_exists ('DOMIT_Lite_Document'))
-			jimport('domit.xml_domit_lite_include');
-			
-		$xmlDoc = new DOMIT_Lite_Document();
-		$xmlDoc->resolveErrors(false);
-		if($xmlDoc->loadXML($manifest, false, true))
+		$xml =& JFactory::getXMLParser('Simple');
+		if($xml->loadFile($manifest))
 		{
-			$root = &$xmlDoc->documentElement;
-			$element = &$root->getElementsByPath('version', 1);
-			$prev_version = $element ? $element->getText() : '';
+			$element =& $xml->document->getElementByPath('version');
+			$prev_version = $element ? $element->data() : '';
 			if($prev_version)
 			{
 				$upgrade = true;
@@ -457,7 +461,7 @@ function com_install()
 			}
 		}
 	}
-	
+
 	$extFile = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'extensions'.DS.'extensions.json';
 	$extDistFile = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'extensions'.DS.'extensions.json.dist';
 	
@@ -587,11 +591,6 @@ function com_install()
 		$WARNINGS[] = JText::_("SQL file does not exist:")." $teraSQL";
 		$DUMPSUCCESS = false;
 	}
-
-	$config =& JFactory::getConfig();
-	if('mysqli'!==$config->getValue('config.dbtype'))
-		$WARNINGS[] = JText::_('TeraWURFL is designed to work better with MySQLi (MySQL improved) library.');
-
 
     if ( ! version_compare($database->getVersion(), '5.0.0', '<'))
 	{	

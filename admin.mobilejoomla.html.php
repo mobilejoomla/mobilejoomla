@@ -17,14 +17,11 @@ class HTML_mobilejoomla
 		$manifest = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'mobilejoomla.xml';
 		if(is_file($manifest))
 		{
-			jimport('domit.xml_domit_lite_include');
-			$xmlDoc = new DOMIT_Lite_Document();
-			$xmlDoc->resolveErrors(false);
-			if($xmlDoc->loadXML($manifest, false, true))
+			$xml =& JFactory::getXMLParser('Simple');
+			if($xml->loadFile($manifest))
 			{
-				$root = &$xmlDoc->documentElement;
-				$element = &$root->getElementsByPath('version', 1);
-				$version = $element ? $element->getText() : '';
+				$element =& $xml->document->getElementByPath('version');
+				$version = $element ? $element->data() : '';
 				if($version)
 					return $version;
 			}
