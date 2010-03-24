@@ -20,21 +20,24 @@ $siteTitle  = $params->get ('site_title', '{{sitename}}');
 $pageTitle  = $params->get ('page_title', '');
 $cutTitle   = $params->get ('cut_title', 1);
 
-$imgURL     = str_replace ('{{root}}', JURI::base (), $imgURL);
+$imgURL     = JString::str_ireplace ('{{root}}', JURI::base (), $imgURL);
 
-$siteTitle  = str_ireplace ('{{sitename}}', JFactory::getApplication ()->getCfg ('sitename'), $siteTitle);
-$siteTitle  = str_ireplace ('{{pagetitle}}', JFactory::getDocument ()->getTitle (), $siteTitle);
+$app =& JFactory::getApplication ();
+$doc =& JFactory::getDocument ();
 
-$pageTitle  = str_ireplace ('{{sitename}}', JFactory::getApplication ()->getCfg ('sitename'), $pageTitle);
-$pageTitle  = str_ireplace ('{{pagetitle}}', JFactory::getDocument ()->getTitle (), $pageTitle);
+$siteTitle  = JString::str_ireplace ('{{sitename}}', $app->getCfg ('sitename'), $siteTitle);
+$siteTitle  = JString::str_ireplace ('{{pagetitle}}', $doc->getTitle (), $siteTitle);
+
+$pageTitle  = JString::str_ireplace ('{{sitename}}', $app->getCfg ('sitename'), $pageTitle);
+$pageTitle  = JString::str_ireplace ('{{pagetitle}}', $doc->getTitle (), $pageTitle);
 
 if ($cutTitle)
 {
-    if (strlen($siteTitle) > 35)
-        $siteTitle = substr ($siteTitle, 0, 34) . '...';
+    if (JString::strlen($siteTitle) > 35)
+        $siteTitle = JString::substr ($siteTitle, 0, 34) . '...';
         
-    if (strlen($pageTitle) > 39)
-        $siteTitle = substr ($siteTitle, 0, 37) . '...';
+    if (JString::strlen($pageTitle) > 39)
+        $siteTitle = JString::substr ($siteTitle, 0, 37) . '...';
 }
 
 

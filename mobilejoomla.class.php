@@ -431,11 +431,11 @@ class MobileJoomla_WML extends MobileJoomla
 		$text = preg_replace( '#</div>#i',					'<br/>', $text);
 		$text = preg_replace( '#<(td|tr|dd|li|span)(.*?)>#is',	'', $text);
 		$text = preg_replace( '#</(tr|dd|li)>#i',			'<br/>', $text);
-		$text = str_ireplace( '</td>',						' | ', $text);
-		$text = str_ireplace( '</span>',					'', $text);
+		$text = JString::str_ireplace( '</td>',				' | ', $text);
+		$text = JString::str_ireplace( '</span>',			'', $text);
 		$text = str_replace(  ' | <br/>',					'<br/>', $text);
 		$text = preg_replace( '#<dt(.*?)>#is',				'<strong>', $text);
-		$text = str_ireplace( '</dt>',						'</strong><br/>', $text);
+		$text = JString::str_ireplace( '</dt>',				'</strong><br/>', $text);
 		$text = preg_replace( '# class="(.*?)"#is',			'', $text);
 		$text = preg_replace( '# rel="(.*?)"#is',			'', $text);
 		$text = preg_replace( '# id="(.*?)"#is',			'', $text);
@@ -708,7 +708,8 @@ class MobileJoomla_IPHONE extends MobileJoomla
 	function hasSubmenus ()
 	{
         $menu = & JSite::getMenu();
-        $activeId = $menu->getActive ()->id;
+		$activemenu =& $menu->getActive ();
+        $activeId = $activemenu->id;
         
         if ($menu->getItems ('parent', $activeId))
             return TRUE;
