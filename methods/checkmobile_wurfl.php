@@ -18,12 +18,28 @@ function CheckMobile()
     {
         require_once(JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'terawurfl'.DS.'TeraWurfl.php');
 
-        $wurflObj = new TeraWurfl();
+		if(version_compare(phpversion(),'5.0.0','<'))
+		{
+			$wurflObj = new TeraWurfl();
+			$matched = $wurflObj->getDeviceCapabilitiesFromAgent($_SERVER['HTTP_USER_AGENT']);
+		}
+		else
+		{
+			try
+			{
+				$wurflObj = new TeraWurfl();
+				$matched = $wurflObj->getDeviceCapabilitiesFromAgent($_SERVER['HTTP_USER_AGENT']);
+			}
+			catch(exception $e)
+			{
+				$wurflObj = null;
+				$matched = false;
+			}
+		}
     }
 
     // Get the capabilities of the current client. $matched will be true if Tera-WURFL
     // found a match for the device and false if not.
-    $matched = $wurflObj->getDeviceCapabilitiesFromAgent($_SERVER['HTTP_USER_AGENT']);
 
 	if($matched && $wurflObj->getDeviceCapability("is_wireless_device"))
 	{
