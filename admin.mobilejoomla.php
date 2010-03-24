@@ -58,8 +58,6 @@ function showconfig()
 	$positions = $database->loadResultArray();
 	$positions = (is_array($positions)) ? $positions : array();
 
-	require_once( JPATH_SITE.DS.'libraries'.DS.'domit'.DS.'xml_domit_lite_include.php' );
-
 	$templateBaseDir=JPATH_SITE.DS.'templates'.DS;
 	$templates=array();
 	$templates[]=array('value'=>'');
@@ -417,6 +415,11 @@ function showabout()
 
 function showextensions()
 {
+	if(!function_exists('json_decode'))
+	{
+		echo JText::_('ERROR: json library is not installed.');
+		return;
+	}
     $content = file_get_contents (JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'extensions'.DS.'extensions.json');
 
     $json = json_decode($content);

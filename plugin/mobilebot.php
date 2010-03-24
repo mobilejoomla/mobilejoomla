@@ -52,20 +52,23 @@ class plgSystemMobileBot extends JPlugin
 			}
 		}
 
-		$content = file_get_contents (JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'extensions'.DS.'extensions.json');
-	
-		$json = json_decode($content);
-	
-		foreach ($json->extensions as $extension)
+		if(function_exists('json_decode'))
 		{
-			if ($extension->name == 'com_mobilemosets')
-			{
-				$database =& JFactory::getDBO();
-				require (JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_mtree'.DS.'config.mtree.class.php');
-				$mtconf	= new mtConfig($database);
+			$content = file_get_contents (JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'extensions'.DS.'extensions.json');
 	
-				$mtconf->mtconfig['template']->value = 'mobile';
-				$mtconf->mtconfig['template']->default = 'mobile';
+			$json = json_decode($content);
+	
+			foreach ($json->extensions as $extension)
+			{
+				if ($extension->name == 'com_mobilemosets')
+				{
+					$database =& JFactory::getDBO();
+					require (JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_mtree'.DS.'config.mtree.class.php');
+					$mtconf	= new mtConfig($database);
+	
+					$mtconf->mtconfig['template']->value = 'mobile';
+					$mtconf->mtconfig['template']->default = 'mobile';
+				}
 			}
 		}
 
