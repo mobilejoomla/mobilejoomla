@@ -19,7 +19,6 @@ $MobileJoomla->showDocType();
 $base = $this->baseurl . "/templates/" . $this->template;
 
 ?>
-
 <!doctype html>
 <html <?php echo $MobileJoomla->getXmlnsString(); ?>>
     <head>

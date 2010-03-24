@@ -18,7 +18,6 @@ $homepage = JURI::base();
 if (!empty ($MobileJoomla->config['tmpl_iphone_homepage']))
     $homepage = $MobileJoomla->config['tmpl_iphone_homepage'];
 ?>
-
 <!doctype html>
 <html <?php echo $MobileJoomla->getXmlnsString(); ?>>
     <head>
@@ -36,8 +35,8 @@ if (!empty ($MobileJoomla->config['tmpl_iphone_homepage']))
             <div class="toolbar">
                 <h1> <?php echo JFactory::getApplication()->getCfg('sitename'); ?> </h1>
                 <?php if (!$MobileJoomla->_ishomepage):?>
-                <a class="back" href="javascript:history.go(-1)">Back</a>
-                <a class="home" href="<?php echo $homepage;?>">Home</a>
+                <a class="back" href="javascript:history.go(-1)"><?php echo JText::_('Back'); ?></a>
+                <a class="home" href="<?php echo $homepage;?>"><?php echo JText::_('Home'); ?></a>
                 <?php endif;?>
             </div>
 

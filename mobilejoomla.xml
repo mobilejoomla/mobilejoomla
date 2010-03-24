@@ -13,6 +13,9 @@
 	<files>
 		<filename>index.html</filename>
 	</files>
+	<languages>
+		<language tag="en-GB">en-GB.tpl_mobile_iphone.ini</language>
+	</languages>
 	<administration>
 		<menu>Kuneri Mobile Joomla!</menu>
 		<submenu>
