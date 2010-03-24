@@ -54,7 +54,7 @@ class HTML_mobilejoomla
 <tr>
 	<td width="300"><table class="adminheading"><tr><th nowrap="nowrap" class="config"><?php echo JText::_('Kuneri Mobile Joomla! Settings'); ?></th></tr></table></td>
 	<td width="500">
-		<span class="componentheading">/ administrator / components / com_mobilejoomla / config.php <?php echo JText::_('is') ?> : <b><?php echo is_writable( 'components/com_mobilejoomla/config.php' ) ? '<font color="green">'.JText::_('Writeable').'</font>' : '<font color="red">'.JText::_('Unwriteable').'</font>' ?></b></span>
+		<span class="componentheading">/ administrator / components / com_mobilejoomla / config.php <?php echo JText::_('is') ?> : <b><?php echo !is_file( 'components/com_mobilejoomla/config.php' ) ? '<font color="red">'.JText::_('Missing').'</font>' : is_writable( 'components/com_mobilejoomla/config.php' ) ? '<font color="green">'.JText::_('Writeable').'</font>' : '<font color="red">'.JText::_('Unwriteable').'</font>' ?></b></span>
 	</td>
 </tr>
 </table>
