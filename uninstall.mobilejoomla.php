@@ -323,7 +323,6 @@ function plain_parse_mysql_dump ($url)
     while (!feof ($handle))
     {
         $sql_line = fgets ($handle);
-		echo '|'.strlen($sql_line).'|';
 
         if (trim ($sql_line) != '' && strpos ($sql_line, '--') === false)
         {
