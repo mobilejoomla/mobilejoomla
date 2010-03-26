@@ -1,6 +1,6 @@
 var jQT = new $.jQTouch({
     addGlossToIcon: true,
-    statusBar: 'black',
+    statusBar: 'black'
 });
 
 $(function(){
