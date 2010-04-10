@@ -140,7 +140,13 @@ class plgSystemMobileBot extends JPlugin
               $useragent=isset($_SERVER['HTTP_USER_AGENT'])?$_SERVER['HTTP_USER_AGENT']:'';
               $useragent_commentsblock=preg_match('|\(.*?\)|',$useragent,$matches)>0?$matches[0]:'';
                //precheck for iPhone/iPod
-               $iphone_list=array('Mozilla/5.0 (iPod;','Mozilla/5.0 (iPod touch;','Mozilla/5.0 (iPhone;','Apple iPhone ','Mozilla/5.0 (iPhone Simulator;','Mozilla/5.0 (Aspen Simulator;');
+				$iphone_list=array('Mozilla/5.0 (iPod;',
+								'Mozilla/5.0 (iPod touch;',
+								'Mozilla/5.0 (iPhone;',
+								'Apple iPhone ',
+								'Mozilla/5.0 (iPhone Simulator;',
+								'Mozilla/5.0 (Aspen Simulator;',
+								'Mozilla/5.0 (device; U; CPU iPhone OS');
                foreach($iphone_list as $iphone_ua)
                    if(strpos($useragent,$iphone_ua)===0)
                    {// iPhone for sure
