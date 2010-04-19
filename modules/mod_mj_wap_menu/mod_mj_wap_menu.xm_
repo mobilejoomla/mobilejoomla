@@ -15,12 +15,6 @@
 	<params>
 		<param name="menutype" type="mos_menu" default="" label="Menu Name" description="The name of the menu (default is mainmenu)" />
 	</params>
-	<params group="advanced">
-		<param name="cache" type="list" default="1" label="Caching" description="Select whether to cache the content of this module">
-			<option value="1">Use global</option>
-			<option value="0">No caching</option>
-		</param>
-	</params>
 	<params group="other">
 		<param name="excludemenu" type="text" default="" label="Exclude Menu Items" description="Comma separated IDs of menu items to be excluded" />
 	</params>
