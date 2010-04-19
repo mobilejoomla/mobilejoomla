@@ -220,11 +220,12 @@ function UpdateConfig ($dbconnector='MySQL5')
 	elseif ($MobileJoomla_Settings['useragent'] == 3 || $MobileJoomla_Settings['useragent'] == 0)
 		$MobileJoomla_Settings['useragent'] = 2;
 
-	$config =& JFactory::getConfig();
-	if('mysqli'!==$config->getValue('config.dbtype'))
+//	$config =& JFactory::getConfig();
+//	if('mysqli'!==$config->getValue('config.dbtype'))
+	if(!class_exists('mysqli'))
 	{
 		$MobileJoomla_Settings['useragent'] = 3;
-		$WARNINGS[] = JText::_('TeraWURFL is designed to work with MySQLi (MySQL improved) library.');
+		$WARNINGS[] = JText::_('TeraWURFL is designed to work with MySQLi (MySQL improved) library. TeraWURFL will be disabled.');
 	}
 
 	if(!function_exists('imagecopyresized') || $MobileJoomla_Settings['useragent']!=2)
@@ -292,7 +293,7 @@ SELECT CHAR_LENGTH(ua)  INTO curlen;
 findua: WHILE ( curlen >= tolerance ) DO
 	SELECT CONCAT(LEFT(ua, curlen ),'%') INTO curua;
 	SELECT idx.DeviceID INTO wurflid
-		FROM #__terawurflindex idx INNER JOIN #__terawurflmerge mrg ON idx.DeviceID = mrg.DeviceID
+		FROM `#__TeraWurflIndex` idx INNER JOIN `#__TeraWurflMerge` mrg ON idx.DeviceID = mrg.DeviceID
 		WHERE idx.matcher = matcher
 		AND mrg.user_agent LIKE curua
 		LIMIT 1;
@@ -568,15 +569,66 @@ function com_install()
 	else
 		$ERRORS[]="<b>".JText('Cannot install:')." Mobile Joomla modules.</b>";
 
-	$query = "CREATE TABLE IF NOT EXISTS `#__capability` ("
-			." `ua` varchar(250) NOT NULL default '',"
-			." `format` varchar(4) NOT NULL default '',"
-			." `devwidth` int(11) NOT NULL default '0',"
-			." `devheight` int(11) NOT NULL default '0'"
-			." ) TYPE=MyISAM;";
+	//database
+	$query = "DROP TABLE IF EXISTS `#__capability`;";
 	$database->setQuery($query);
 	$database->query();
 	
+	$tables = array (
+        '#__terawurflcache',
+		'#__terawurflcache_temp',
+        '#__terawurflindex',
+        '#__terawurflmerge',
+        '#__terawurfl_alcatel',
+        '#__terawurfl_android',
+        '#__terawurfl_aol',
+        '#__terawurfl_apple',
+        '#__terawurfl_benq',
+        '#__terawurfl_blackberry',
+        '#__terawurfl_bot',
+        '#__terawurfl_catchall',
+        '#__terawurfl_chrome',
+        '#__terawurfl_docomo',
+        '#__terawurfl_firefox',
+        '#__terawurfl_grundig',
+        '#__terawurfl_htc',
+        '#__terawurfl_kddi',
+        '#__terawurfl_konqueror',
+        '#__terawurfl_kyocera',
+        '#__terawurfl_lg',
+        '#__terawurfl_mitsubishi',
+        '#__terawurfl_motorola',
+        '#__terawurfl_msie',
+        '#__terawurfl_nec',
+        '#__terawurfl_nintendo',
+        '#__terawurfl_nokia',
+        '#__terawurfl_opera',
+        '#__terawurfl_operamini',
+        '#__terawurfl_panasonic',
+        '#__terawurfl_pantech',
+        '#__terawurfl_philips',
+        '#__terawurfl_portalmmm',
+        '#__terawurfl_qtek',
+        '#__terawurfl_safari',
+        '#__terawurfl_sagem',
+        '#__terawurfl_samsung',
+        '#__terawurfl_sanyo',
+        '#__terawurfl_sharp',
+        '#__terawurfl_siemens',
+        '#__terawurfl_sonyericsson',
+        '#__terawurfl_spv',
+        '#__terawurfl_toshiba',
+        '#__terawurfl_vodafone',
+        '#__terawurfl_windowsce'
+    );
+    
+    foreach ($tables as $table)
+    {
+        $query = "DROP TABLE IF EXISTS `{$table}`;";
+        $database->setQuery($query);
+        $database->query();
+    }
+
 	$teraSQL = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'terawurfl'.DS.'tera_dump.sql.bz2';
     
     $DUMPSUCCESS = true;
@@ -669,51 +721,51 @@ function com_uninstall()
 	$database->query();
 	
 	$tables = array (
-        '#__terawurflcache',
-		'#__terawurflcache_temp',
-        '#__terawurflindex',
-        '#__terawurflmerge',
-        '#__terawurfl_alcatel',
-        '#__terawurfl_android',
-        '#__terawurfl_aol',
-        '#__terawurfl_apple',
-        '#__terawurfl_benq',
-        '#__terawurfl_blackberry',
-        '#__terawurfl_bot',
-        '#__terawurfl_catchall',
-        '#__terawurfl_chrome',
-        '#__terawurfl_docomo',
-        '#__terawurfl_firefox',
-        '#__terawurfl_grundig',
-        '#__terawurfl_htc',
-        '#__terawurfl_kddi',
-        '#__terawurfl_konqueror',
-        '#__terawurfl_kyocera',
-        '#__terawurfl_lg',
-        '#__terawurfl_mitsubishi',
-        '#__terawurfl_motorola',
-        '#__terawurfl_msie',
-        '#__terawurfl_nec',
-        '#__terawurfl_nintendo',
-        '#__terawurfl_nokia',
-        '#__terawurfl_opera',
-        '#__terawurfl_operamini',
-        '#__terawurfl_panasonic',
-        '#__terawurfl_pantech',
-        '#__terawurfl_philips',
-        '#__terawurfl_portalmmm',
-        '#__terawurfl_qtek',
-        '#__terawurfl_safari',
-        '#__terawurfl_sagem',
-        '#__terawurfl_samsung',
-        '#__terawurfl_sanyo',
-        '#__terawurfl_sharp',
-        '#__terawurfl_siemens',
-        '#__terawurfl_sonyericsson',
-        '#__terawurfl_spv',
-        '#__terawurfl_toshiba',
-        '#__terawurfl_vodafone',
-        '#__terawurfl_windowsce'
+		'#__TeraWurflCache',
+		'#__TeraWurflCache_TEMP',
+		'#__TeraWurflIndex',
+		'#__TeraWurflMerge',
+		'#__TeraWurfl_AOL',
+		'#__TeraWurfl_Alcatel',
+		'#__TeraWurfl_Android',
+		'#__TeraWurfl_Apple',
+		'#__TeraWurfl_BenQ',
+		'#__TeraWurfl_BlackBerry',
+		'#__TeraWurfl_Bot',
+		'#__TeraWurfl_CatchAll',
+		'#__TeraWurfl_Chrome',
+		'#__TeraWurfl_DoCoMo',
+		'#__TeraWurfl_Firefox',
+		'#__TeraWurfl_Grundig',
+		'#__TeraWurfl_HTC',
+		'#__TeraWurfl_Kddi',
+		'#__TeraWurfl_Konqueror',
+		'#__TeraWurfl_Kyocera',
+		'#__TeraWurfl_LG',
+		'#__TeraWurfl_MSIE',
+		'#__TeraWurfl_Mitsubishi',
+		'#__TeraWurfl_Motorola',
+		'#__TeraWurfl_Nec',
+		'#__TeraWurfl_Nintendo',
+		'#__TeraWurfl_Nokia',
+		'#__TeraWurfl_Opera',
+		'#__TeraWurfl_OperaMini',
+		'#__TeraWurfl_Panasonic',
+		'#__TeraWurfl_Pantech',
+		'#__TeraWurfl_Philips',
+		'#__TeraWurfl_Portalmmm',
+		'#__TeraWurfl_Qtek',
+		'#__TeraWurfl_SPV',
+		'#__TeraWurfl_Safari',
+		'#__TeraWurfl_Sagem',
+		'#__TeraWurfl_Samsung',
+		'#__TeraWurfl_Sanyo',
+		'#__TeraWurfl_Sharp',
+		'#__TeraWurfl_Siemens',
+		'#__TeraWurfl_SonyEricsson',
+		'#__TeraWurfl_Toshiba',
+		'#__TeraWurfl_Vodafone',
+		'#__TeraWurfl_WindowsCE'
     );
     
     foreach ($tables as $table)
