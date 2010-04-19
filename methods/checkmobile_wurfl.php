@@ -21,6 +21,8 @@ function CheckMobile()
 		if(version_compare(phpversion(),'5.0.0','<'))
 		{
 			$wurflObj = new TeraWurfl();
+			if(!is_object($wurflObj))
+				return '';
 			$matched = $wurflObj->getDeviceCapabilitiesFromAgent($_SERVER['HTTP_USER_AGENT']);
 		}
 		else
@@ -28,12 +30,14 @@ function CheckMobile()
 			try
 			{
 				$wurflObj = new TeraWurfl();
+				if(!is_object($wurflObj))
+					return '';
 				$matched = $wurflObj->getDeviceCapabilitiesFromAgent($_SERVER['HTTP_USER_AGENT']);
 			}
 			catch(exception $e)
 			{
 				$wurflObj = null;
-				$matched = false;
+				return '';
 			}
 		}
     }
