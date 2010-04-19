@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Tera_WURFL - PHP MySQL driven WURFL
  * 
  * Tera-WURFL was written by Steve Kamerman, and is based on the
@@ -8,13 +8,13 @@
  * files, and a persistent caching mechanism to provide extreme performance increases.
  * 
  * @package TeraWurfl
- * @author Steve Kamerman, stevekamerman AT gmail.com
- * @version Stable 2.0.0 $Date: 2009/11/13 23:59:59
+ * @author Steve Kamerman <stevekamerman AT gmail.com>
+ * @version Stable Stable 2.1.1 $Date: 2010/03/01 15:40:10
  * @license http://www.mozilla.org/MPL/ MPL Vesion 1.1
- * $Id: WurflConstants.php,v 1.3 2008/03/01 00:05:25 kamermans Exp $
- * $RCSfile: WurflConstants.php,v $
- * 
- * Based On: Java WURFL Evolution by Luca Passani
+ */
+/**
+ * Provides global access to Tera-WURFL Constants
+ * @package TeraWurfl
  *
  */
 class WurflConstants{
@@ -22,6 +22,7 @@ class WurflConstants{
 	public static $GENERIC = "generic";
     public static $GENERIC_XHTML = "generic_xhtml";
     public static $GENERIC_WEB_BROWSER = "generic_web_browser";
+    public static $SIMPLE_DESKTOP_UA = "TeraWurflSimpleDesktopMatcher/";
     
     public static $ACCEPT_HEADER_VND_WAP_XHTML_XML = "application/vnd.wap.xhtml+xml";
     public static $ACCEPT_HEADER_XHTML_XML = "application/xhtml+xml";
@@ -40,13 +41,12 @@ class WurflConstants{
      * These mobile browser strings will be compared case-insensitively, so keep them all lowercase for faster searching
      * @var Array MOBILE_BROWSERS
      */
-    public static $MOBILE_BROWSERS = array("midp","j2me","mobile","wireless","palm","blazer","smartphone","pocket pc","pocketpc",
-    	"netfront","symbian","bolt","iris","cldc","brew","openwave","windows ce","wap2.");
-    public static $DESKTOP_BROWSERS = array("slcc1",".net clr","media center pc");
-    public static $ROBOTS = array("bot","crawler","spider","novarra","transcoder","yahoo! searchmonkey","yahoo! slurp");
+    public static $MOBILE_BROWSERS = array('cldc','symbian','midp','j2me','mobile','wireless','palm','phone','pocket pc','pocketpc',
+    	'netfront','bolt','iris','brew','openwave','windows ce','wap2.','android','opera mini','opera mobi','maemo','fennec','blazer','vodafone');
+    public static $DESKTOP_BROWSERS = array('slcc1','.net clr','trident/4','media center pc','funwebproducts','macintosh','wow64','aol 9.','america online browser','googletoolbar');
+    public static $ROBOTS = array('bot','crawler','spider','novarra','transcoder','yahoo! searchmonkey','yahoo! slurp','feedfetcher-google','toolbar');
     	
     public function __construct(){
     	
     }
 }
-?>

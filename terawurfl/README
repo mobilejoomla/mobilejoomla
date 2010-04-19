@@ -1,42 +1,7 @@
 Tera-WURFL README
-Version Stable 2.0.0
+Version Stable 2.1.1
 http://www.tera-wurfl.com/
 -----------------------
-Complete code-rewrite from the ground up. The 2.x version of Tera-WURFL is loosely based on a pre-release 
-of the Java WURFL Evolution Library, but the API is taken from Tera-WURFL 1.5.2. The following is a list 
-of features found in Tera-WURFL 2.0:
-User Agent Matchers have been created for each of the major manufacturers. These allow for specific 
-	matching methods to be applied to the user agent like string searching, RIS (Reduction in String) and 
-	LD (Levenshtein Distance).
-Multiple patch files are now supported. Tera-WURFL ships with the current wurfl.xml, web_browsers_patch.xml 
-	and custom_web_patch.xml. Patch files can be added to TeraWurflConfig.php by separating them with 
-	semicolons in the TeraWurflConfig::PATCH_FILE directive. Patch files are loaded in order from left to 
-	right on top of the WURFL file, so if you want to override every other patch file, specify it last.
-The custom_web_patch.xml file can be edited from the Web Administration page, and allows you to easily add 
-	non-mobile user agents to the patch file. The devices with these user agents will be detected as 
-	generic_web_browser (non-mobile).
-Persistent Caching means that your cached devices stay cached. When you update the WURFL file or your
-	patches, your device cache is also updated via the new database.
-Cache Browser allows you to see what devices are hitting your site and what their capabilities were
-	detected as.
-Installation Script is better than 1.5.2. Once you download Tera-WURFL and extract it, edit 
-	TeraWurflConfig.php then go to /admin/install.php and follow the directions to finish installation.
-PHP short_open_tags are no longer required to run Tera-WURFL. PHP has this feature disabled by default now.
-Conclusive vs. Inconclusive Matching. If a device is matched with the UserAgentMatcher's primary matching 
-	method it is considered a conclusive match, if it is detected via a recovery matcher or by the 
-	CatchAllMatcher it is an inconclusive match. This information is available via the tera_wurfl 
-	capability group.
-tera_wurfl Capability Group. The TeraWurfl->Capabilities array now contains a group called "tera_wurfl". 
-	This group contains the following Tera-WURFL related information:
-	- num_queries - the number of database queries required to lookup the device.
-	- actual_root_device - the WURFL ID of the actual device (not subrevision or generic), this can be null.
-	- match_type - either conclusive or inconclusive.
-	- matcher - the name of the UserAgentMatcher that detected the device.
-	- match - whether or not there was an actual match. If there was no match, Tera-WURFL guessed which 
-		generic device is most similar to the device.
-	- lookup_time - the time in seconds that it took to detect the device.
-	- fall_back_tree - the complete fallback tree that built the capabilities of the device. This is a list
-		of all the WURFL IDs from the detected device down to the base generic device.
 
 JUST GET ME TO THE INSTALLATION!
 Ok, it took me a lot longer to write this then it will take you to read it,
@@ -181,12 +146,11 @@ require_once('./TeraWurfl.php');
 // instantiate the Tera-WURFL object
 $wurflObj = new TeraWurfl();
 
-// Get the capabilities of the current client. $matched will be true if Tera-WURFL
-// found a match for the device and false if not.
-$matched = $wurflObj->getDeviceCapabilitiesFromAgent($_SERVER['HTTP_USER_AGENT']);
+// Get the capabilities of the current client.
+$wurflObj->getDeviceCapabilitiesFromAgent($_SERVER['HTTP_USER_AGENT']);
 
 // see if this client is on a wireless device (or if they can't be identified)
-if(!$matched || !$wurflObj->getDeviceCapability("is_wireless_device")){
+if(!$wurflObj->getDeviceCapability("is_wireless_device")){
 	echo "<h2>You should not be here</h2>";
 }
 
@@ -211,8 +175,4 @@ SUPPORT
 
 You may contact me, Steve Kamerman with questions:
 stevekamerman{at}gmail_dot_com
-      
-NOTE: The public methods from the WURFL PHP Tools class at 
-wurfl.sourceforge.net are avalible in this class and they all use the same
-syntax as before with the exception of the constructor - "TeraWurfl" which has
-been renamed from "wurfl_class".
+

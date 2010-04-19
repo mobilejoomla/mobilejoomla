@@ -55,14 +55,13 @@
 			<filename>terawurfl/README</filename>
 			<filename>terawurfl/TeraWurfl.php</filename>
 			<filename>terawurfl/TeraWurflConfig.php</filename>
-			<filename>terawurfl/TeraWurflDatabase.php</filename>
 			<filename>terawurfl/TeraWurflLoader.php</filename>
 			<filename>terawurfl/UserAgentFactory.php</filename>
 			<filename>terawurfl/UserAgentUtils.php</filename>
-			<filename>terawurfl/webservice.php</filename>
 			<filename>terawurfl/WurflConstants.php</filename>
 			<filename>terawurfl/WurflSupport.php</filename>
 			<filename>terawurfl/imageadaptation.php</filename>
+			<filename>terawurfl/DatabaseConnectors/TeraWurflDatabase.php</filename>
 			<filename>terawurfl/DatabaseConnectors/TeraWurflDatabase_MySQL4.php</filename>
 			<filename>terawurfl/DatabaseConnectors/TeraWurflDatabase_MySQL5.php</filename>
 			<filename>terawurfl/UserAgentMatchers/AlcatelUserAgentMatcher.php</filename>
@@ -101,6 +100,7 @@
 			<filename>terawurfl/UserAgentMatchers/SanyoUserAgentMatcher.php</filename>
 			<filename>terawurfl/UserAgentMatchers/SharpUserAgentMatcher.php</filename>
 			<filename>terawurfl/UserAgentMatchers/SiemensUserAgentMatcher.php</filename>
+			<filename>terawurfl/UserAgentMatchers/SimpleDesktopUserAgentMatcher.php</filename>
 			<filename>terawurfl/UserAgentMatchers/SonyEricssonUserAgentMatcher.php</filename>
 			<filename>terawurfl/UserAgentMatchers/SPVUserAgentMatcher.php</filename>
 			<filename>terawurfl/UserAgentMatchers/ToshibaUserAgentMatcher.php</filename>

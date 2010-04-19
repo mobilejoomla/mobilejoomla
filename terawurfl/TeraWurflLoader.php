@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Tera_WURFL - PHP MySQL driven WURFL
  * 
  * Tera-WURFL was written by Steve Kamerman, and is based on the
@@ -8,13 +8,13 @@
  * files, and a persistent caching mechanism to provide extreme performance increases.
  * 
  * @package TeraWurfl
- * @author Steve Kamerman, stevekamerman AT gmail.com
- * @version Stable 2.0.0 $Date: 2009/11/13 23:59:59
+ * @author Steve Kamerman <stevekamerman AT gmail.com>
+ * @version Stable Stable 2.1.1 $Date: 2010/03/01 15:40:10
  * @license http://www.mozilla.org/MPL/ MPL Vesion 1.1
- * $Id: TeraWurflLoader.php,v 1.9 2008/03/01 00:05:25 kamermans Exp $
- * $RCSfile: TeraWurflLoader.php,v $
- * 
- * Based On: Java WURFL Evolution by Luca Passani
+ */
+/**
+ * Loads the WURFL file from a local file or remote URL into the Tera-WURFL database.
+ * @package TeraWurfl
  *
  */
 class TeraWurflLoader{
@@ -44,6 +44,9 @@ class TeraWurflLoader{
 	public $patchAddedDevices = 0;
 	public $patchMergedDevices = 0;
 	
+	/**#@+
+	 * @var int Performance tracking variable
+	 */
 	private $timestart;
 	private $timevalidate;
 	private $timesort;
@@ -51,6 +54,7 @@ class TeraWurflLoader{
 	private $timedatabase;
 	private $timecache;
 	private $timeend;
+	/**#@-*/
 	
 	private $PRESERVE_CACHE = true;
 	
@@ -69,6 +73,7 @@ class TeraWurflLoader{
 	// Public Methods
 	/**
 	 * Loads the WURFL and patch files into the database
+	 * @return Bool Success
 	 */
 	public function load(){
 		$this->wurfl->toLog("Loading WURFL",LOG_INFO);
@@ -111,6 +116,7 @@ class TeraWurflLoader{
 	}
 	/**
 	 * Validates the XML data from the WURFL file or Patch file and places the devices in $this->devices
+	 * @return Bool Vaild
 	 */
 	public function validate(){
 		if($this->source != self::$WURFL_PATCH) $this->timevalidate = microtime(true);
@@ -149,13 +155,14 @@ class TeraWurflLoader{
 				}
 			}
 			// Put validated device in $this->devices array as an array
-			$this->devices[] = self::deviceXMLToArray($device);
+			$this->devices[] = $this->deviceXMLToArray($device);
 		}
 		return ($before_errors == count($this->errors));
 	}
 	/**
 	 * Sorts the validated data from $this->devices into their respective UserAgentMatcher tables ($this->tables)
 	 * based on the UserAgentMatcher that matches the device's user agent
+	 * @return Bool Success
 	 */
 	public function sort(){
 		if($this->source != self::$WURFL_PATCH) $this->timesort = microtime(true);
@@ -180,7 +187,8 @@ class TeraWurflLoader{
 		return true;
 	}
 	/**
-	 * Loads the completed WURFL into the database.
+	 * Loads the WURFL devices into the database.
+	 * @return Bool Completed without error
 	 */
 	public function loadIntoDB(){
 		$this->timedatabase = microtime(true);
@@ -191,6 +199,10 @@ class TeraWurflLoader{
 			return false;
 		}
 	}
+	/**
+	 * Loads the patch files from TeraWurflConfig::PATCH_FILE
+	 * @return Bool Success
+	 */
 	public function loadPatches(){
 		if(!TeraWurflConfig::$PATCH_ENABLE) return true;
 		$this->source = TeraWurflLoader::$WURFL_PATCH;
@@ -203,6 +215,11 @@ class TeraWurflLoader{
 		}
 		return true;
 	}
+	/**
+	 * Merges the given patch file devices onto the loaded WURFL devices
+	 * @param $patchFile
+	 * @return Bool Success
+	 */
 	public function loadPatchFile($patchFile){
 		$this->patchtables = array();
 		$this->devices = array();
@@ -248,6 +265,10 @@ class TeraWurflLoader{
 		// Clear this array - we're finished with it.
 		$this->patchtables = array();
 	}
+	/**#@+
+	 * Get performance information
+	 * @return int Duration in seconds
+	 */
 	public function totalLoadTime(){
 		return ($this->timeend - $this->timestart);
 	}
@@ -269,8 +290,14 @@ class TeraWurflLoader{
 	public function cacheRebuildTime(){
 		return ($this->timeend - $this->timecache);
 	}
+	/**#@-*/
 	
-	public static function deviceXMLToArray(&$device){
+	/**
+	 * Converts the WURFL XML data into a PHP Array
+	 * @param String Device XML data
+	 * @return Array PHP WURFL Data Array
+	 */
+	public function deviceXMLToArray(&$device){
 		$data = array();
 		$data['id'] = (string)$device['id'];
 		if(isset($device['fall_back'])) $data['fall_back'] = (string)$device['fall_back'];
@@ -280,11 +307,15 @@ class TeraWurflLoader{
 			$data['actual_device_root'] = ($data['actual_device_root'])?1:0;
 		}
 		foreach($device->group as $group){
+			$allowgroup = false;
 			$groupname = (string)$group['id'];
-			if(!isset($data[$groupname])) $data[$groupname]=array();
+			$groupdata = array();
+			if(TeraWurflConfig::$CAPABILITY_FILTER !== false && in_array($groupname,TeraWurflConfig::$CAPABILITY_FILTER)) $allowgroup = true;
 			foreach($group->capability as $cap){
 				$capname = (string)$cap['name'];
 				$value = (string)$cap['value'];
+				// Apply Capability Filter
+				if(TeraWurflConfig::$CAPABILITY_FILTER !== false && $allowgroup == false && !in_array($capname,TeraWurflConfig::$CAPABILITY_FILTER)) continue;
 				// Clean Boolean values
 				if($value === 'true')$value=true;
 				if($value === 'false')$value=false;
@@ -293,13 +324,21 @@ class TeraWurflLoader{
 					$numval = (float)$value;
 					if(strcmp($value,$numval)==0)$value=$numval;
 				}
-				$data[$groupname][$capname]=$value;
+				$groupdata[$capname]=$value;
 			}
+			if(count($groupdata) > 0){
+				$data[$groupname] = $groupdata;
+			}
+			unset($groupdata);
 		}
 		return $data;
 	}
 	
-	// Private Methods
+	/**
+	 * Is WURFL Device ID Valid?
+	 * @param String WURFL ID
+	 * @return Bool
+	 */
 	private function validID($id){
 		if(strlen($id)==0) return false;
 		foreach($this->xml->devices->device as $device){
@@ -307,6 +346,10 @@ class TeraWurflLoader{
 		}
 		return false;
 	}
+	/**
+	 * Get the current WURFL File name from current source
+	 * @return String Filename
+	 */
 	private function getFile(){
 			switch($this->source){
 			case self::$WURFL_PATCH:
@@ -317,6 +360,10 @@ class TeraWurflLoader{
 				break;
 		}
 	}
+	/**
+	 * Get the name of the current table that is in use
+	 * @return String Table name
+	 */
 	private function getTable(){
 		switch($this->source){
 			case self::$WURFL_PATCH:
@@ -332,4 +379,3 @@ class TeraWurflLoader{
 	}
 	
 }
-?>

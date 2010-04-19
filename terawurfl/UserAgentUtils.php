@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Tera_WURFL - PHP MySQL driven WURFL
  * 
  * Tera-WURFL was written by Steve Kamerman, and is based on the
@@ -8,13 +8,13 @@
  * files, and a persistent caching mechanism to provide extreme performance increases.
  * 
  * @package TeraWurfl
- * @author Steve Kamerman, stevekamerman AT gmail.com
- * @version Stable 2.0.0 $Date: 2009/11/13 23:59:59
+ * @author Steve Kamerman <stevekamerman AT gmail.com>
+ * @version Stable Stable 2.1.1 $Date: 2010/03/01 15:40:10
  * @license http://www.mozilla.org/MPL/ MPL Vesion 1.1
- * $Id: UserAgentUtils.php,v 1.4 2008/03/01 00:05:25 kamermans Exp $
- * $RCSfile: UserAgentUtils.php,v $
- * 
- * Based On: Java WURFL Evolution by Luca Passani
+ */
+/**
+ * Provides static functions for working with User Agents
+ * @package TeraWurfl
  *
  */
 class UserAgentUtils{
@@ -26,9 +26,9 @@ class UserAgentUtils{
 	}
 	/**
 	 * Find the matching Device ID for a given User Agent using RIS (Reduction in String) 
-	 * @param string $ua User Agent
-	 * @param int $tolerance How short the strings are allowed to get before a match is abandoned
-	 * @param UserAgentMatcher $matcher The UserAgentMatcherInstance that is matching the User Agent
+	 * @param string User Agent
+	 * @param int How short the strings are allowed to get before a match is abandoned
+	 * @param UserAgentMatcher The UserAgentMatcher instance that is matching the User Agent
 	 * @return string WURFL ID
 	 */
 	public static function risMatch($ua,$tolerance,UserAgentMatcher $matcher){
@@ -57,10 +57,10 @@ class UserAgentUtils{
 	}
 	/**
 	 * Find the matching Device ID for a given User Agent using LD (Leveshtein Distance)
-	 * @param string $ua User Agent
-	 * @param int $tolerance Tolerance that is still considered a match
-	 * @param UserAgentMatcher $matcher The UserAgentMatcherInstance that is matching the User Agent
-	 * @return string WURFL IDe
+	 * @param string User Agent
+	 * @param int Tolerance that is still considered a match
+	 * @param UserAgentMatcher The UserAgentMatcher instance that is matching the User Agent
+	 * @return string WURFL ID
 	 */
 	public static function ldMatch($ua,$tolerance=null,$matcher){
 		// PHP Leveshtein Distance Function
@@ -85,31 +85,81 @@ class UserAgentUtils{
 		}
 		return $match;
 	}
-	public static function directMatch($ua){
-		// Call MySQL SELECT
-	}
+	/**
+	 * Number of slashes ('/') found in the given user agent
+	 * @param String User Agent
+	 * @return int Count
+	 */
 	public static function numSlashes($userAgent){
 		return substr_count($userAgent,'/');
 	}
+	/**
+	 * The character position of the first slash.  If there are no slashes, returns string length
+	 * @param String User Agent
+	 * @return int Character position
+	 */
 	public static function firstSlash($userAgent){
 		$position = strpos($userAgent,'/');
 		return ($position!==false)? $position: strlen($userAgent);
 	}
+	/**
+	 * The character position of the second slash.  If there is no second slash, returns string length
+	 * @param String User Agent
+	 * @return int Character position
+	 */
 	public static function secondSlash($userAgent){
 		$first = strpos($userAgent,'/');
 		$first++;
 		$position = strpos($userAgent,'/',$first);
 		return ($position!==false)? $position: strlen($userAgent);
 	}
+	/**
+	 * The character position of the first space.  If there are no spaces, returns string length
+	 * @param String User Agent
+	 * @return int Character position
+	 */
 	public static function firstSpace($userAgent){
 		$position = strpos($userAgent,' ');
 		return ($position!==false)? $position: strlen($userAgent);
 	}
+	/**
+	 * The character position of the first open parenthisis.  If there are no open parenthisis, returns string length
+	 * @param String User Agent
+	 * @return int Character position
+	 */
+	
 	public static function firstOpenParen($userAgent){
 		$position = strpos($userAgent,'(');
 		return ($position!==false)? $position: strlen($userAgent);
 	}
+	/**
+	 * Removes garbage from user agent string
+	 * @param String User agent
+	 * @return String User agent
+	 */
+	public static function cleanUserAgent($ua){
+		$ua = self::removeUPLinkFromUA($ua);
+		$ua = preg_replace('/\/SN\d{15}/','/SNXXXXXXXXXXXXXXX',$ua);
+		$ua = self::normalizeBlackberry($ua);
+		return $ua;
+	}
+	/**
+	 * Normalizes BlackBerry user agent strings
+	 * @param String User agent
+	 * @return String User agent
+	 */
+	public static function normalizeBlackberry($ua){
+		$pos = strpos($ua,'BlackBerry');
+		if($pos !== false && $pos > 0) $ua = substr($ua,$pos);
+		return $ua;
+	}
+	/**
+	 * Removes UP.Link traces from user agent strings
+	 * @param String User agent
+	 * @return String User agent
+	 */
 	public static function removeUPLinkFromUA($ua){
+		// Remove the gateway signatures from UA (UP.Link/x.x.x)
 		$index = strpos($ua,'UP.Link');
 		if($index===false){
 			return $ua;
@@ -118,7 +168,22 @@ class UserAgentUtils{
 			return substr($ua,0,$index);
 		}
 	}
+	/**
+	 * Removes Vodafone garbage from user agent string
+	 * @param String User agent
+	 * @return String User agent
+	 */
+	public static function removeVodafonePrefix($ua){
+		return preg_replace('/^Vodafone\/(\d\.\d\/)?/','',$ua,1);
+	}
+	/**
+	 * Check if user agent contains string or array of strings
+	 * @param String User agent
+	 * @param Mixed String or Array of strings
+	 * @return Bool
+	 */
 	public static function checkIfContains($ua,$find){
+		
     	if(is_array($find)){
     		foreach($find as $part){
     			if(strpos($ua,$part)!==false){
@@ -130,6 +195,50 @@ class UserAgentUtils{
 	    	return (strpos($ua,$find)!==false);
     	}
     }
+    /**
+     * Returns the character position (index) of the target string in the given user agent, starting from a given index.  If target is not in user agent, returns length of user agent.
+     * @param String User agent
+     * @param String Target string to search for
+     * @param int Character postition in the user agent at which to start looking for the target
+     * @return int Character position (index) or user agent length
+     */
+	public static function indexOfOrLength($ua, $target, $startingIndex) {
+		$length = strlen($ua);
+		if($startingIndex === false) {
+			return $length;
+		}
+		$pos = strpos($ua, $target, $startingIndex);
+		return ($pos === false)? $length : $pos;
+	}
+	/**
+	 * The character postition of the Nth occurance of a target string in a user agent
+	 * @param String User agent
+	 * @param String Target string to search for in user agent
+	 * @param int The Nth occurence to find
+	 * @return int Character position
+	 */
+	public static function ordinalIndexOf($ua, $needle, $ordinal) {
+		if (is_null($ua) || empty($ua) || !is_integer($ordinal)){
+			return -1;
+		}
+		$found = 0;
+		$index = -1;
+		do{
+			$index = strpos($ua, $needle, $index + 1);
+			$index = is_int($index)? $index: -1;
+			if ($index < 0) {
+				return $index;
+			}
+			$found++;
+		}while($found < $ordinal);
+		return $index;
+	
+	}
+    /**
+     * Checks for traces of mobile device signatures and returns an appropriate generic WURFL Device ID
+     * @param String User agent
+     * @return String WURFL ID
+     */
 	public static function lastAttempts($ua){
 		//before we give up and return generic, one last
 		//attempt to catch well-behaved Nokia and Openwave browsers!
@@ -152,23 +261,35 @@ class UserAgentUtils{
 		if(self::checkIfContains($ua,'Mozilla/6.0'))
 			return 'generic_web_browser';
 		
-		return self::$GENERIC;
+		return WurflConstants::$GENERIC;
 	}
+	/**
+	 * The given user agent is definitely from a mobile device
+	 * @param String User agent
+	 * @return Bool
+	 */
 	public static function isMobileBrowser($ua){
 		$lowerua = strtolower($ua);
 		if(self::isDesktopBrowser($ua)){
 			return false;
 		}
-		foreach(WurflConstants::$MOBILE_BROWSERS as $browser_signature){
-			if(strpos($lowerua, $browser_signature) !== false){
-				return true;
-			}
-		}
-		if(UserAgentMatcher::regexContains($ua,'/[^\d]\d{3}x\d{3}/')){
+		if(UserAgentMatcher::contains($lowerua,WurflConstants::$MOBILE_BROWSERS)) return true;
+		if(UserAgentMatcher::regexContains($ua,array(
+				// ARM Processor
+				'/armv[5-9][l0-9]/',
+				// Screen resolution in UA
+				'/[^\d]\d{3}x\d{3}/'
+			)
+		)){
 			return true;
 		}
 		return false;
 	}
+	/**
+	 * The given user agent is definitely from a desktop browser
+	 * @param String User agent
+	 * @return Bool
+	 */
 	public static function isDesktopBrowser($ua){
 		$lowerua = strtolower($ua);
 		foreach(WurflConstants::$DESKTOP_BROWSERS as $browser_signature){
@@ -177,31 +298,11 @@ class UserAgentUtils{
 			}
 		}
 	}
-	public static function indexOfOrLength($ua, $target, $startingIndex) {
-		$length = strlen($ua);
-		if($startingIndex === false) {
-			return $length;
-		}
-		$pos = strpos($ua, $target, $startingIndex);
-		return ($pos === false)? $length : $pos;
-	}
-	public static function ordinalIndexOf($ua, $needle, $ordinal) {
-		if (is_null($ua) || empty($ua) || !is_integer($ordinal)){
-			return -1;
-		}
-		$found = 0;
-		$index = -1;
-		do{
-			$index = strpos($ua, $needle, $index + 1);
-			$index = is_int($index)? $index: -1;
-			if ($index < 0) {
-				return $index;
-			}
-			$found++;
-		}while($found < $ordinal);
-		return $index;
-	
-	}
+	/**
+	 * The given user agent is definitely from a bot/crawler
+	 * @param String User agent
+	 * @return Bool
+	 */
 	public static function isRobot($ua){
 		$lowerua = strtolower($ua);
 		foreach(WurflConstants::$ROBOTS as $browser_signature){
@@ -211,8 +312,7 @@ class UserAgentUtils{
 		}
 		return false;
 	}
-	static function LD($s,$t){
+	public static function LD($s,$t){
 		return levenshtein($s,$t);
 	}
 }
-?>

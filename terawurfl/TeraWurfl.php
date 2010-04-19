@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Tera_WURFL - PHP MySQL driven WURFL
  * 
  * Tera-WURFL was written by Steve Kamerman, and is based on the
@@ -8,45 +8,117 @@
  * files, and a persistent caching mechanism to provide extreme performance increases.
  * 
  * @package TeraWurfl
- * @author Steve Kamerman, stevekamerman AT gmail.com
- * @version Stable 2.0.0 $Date: 2009/11/13 23:59:59
+ * @author Steve Kamerman <stevekamerman AT gmail.com>
+ * @version Stable Stable 2.1.1 $Date: 2010/03/01 15:40:10
  * @license http://www.mozilla.org/MPL/ MPL Vesion 1.1
- * $Id: TeraWurfl.php,v 1.10 2008/03/01 00:05:25 kamermans Exp $
- * $RCSfile: TeraWurfl.php,v $
- * 
- * Based On: Java WURFL Evolution by Luca Passani
- *
+ */
+/**#@+
+ * Include required files
  */
 require_once('TeraWurflConfig.php');
-require_once('TeraWurflDatabase.php');
+require_once('DatabaseConnectors/TeraWurflDatabase.php');
 require_once('TeraWurflLoader.php');
 require_once('UserAgentFactory.php');
 require_once('UserAgentUtils.php');
 require_once('WurflConstants.php');
 require_once('WurflSupport.php');
 require_once('UserAgentMatchers/UserAgentMatcher.php');
+/**#@-*/
 
+/**
+ * The main Tera-WURFL Class, provides all end-user methods and properties for interacting
+ * with Tera-WURFL
+ * 
+ * @package TeraWurfl
+ */
 class TeraWurfl{
 	
-	// Properties
+	/**
+	 * Array of errors that were encountered while processing the request
+	 * @var Array
+	 */
 	public $errors;
+	/**
+	 * Array of WURFL capabilities of the requested device
+	 * @var Array
+	 */
 	public $capabilities;
+	/**
+	 * Database connector to be used, must extend TeraWurflDatabase.  All database functions are performed
+	 * in the database connector through its methods and properties.
+	 * @see TeraWurflDatabase
+	 * @see TeraWurflDatabase_MySQL5
+	 * @var TeraWurflDatabase
+	 */
 	public $db;
+	/**
+	 * The directory that TeraWurfl.php is in
+	 * @var String
+	 */
 	public $rootdir;
-	public $userAgent; 
-	public $httpAccept;
-	public $userAgentMatcher;
 	public $tablename;
+	/**
+	 * The user agent that is being evaluated
+	 * @var String
+	 */
+	public $userAgent; 
+	/**
+	 * The HTTP Accept header that is being evaluated
+	 * @var String
+	 */
+	public $httpAccept;
+	/**
+	 * The UserAgentMatcher that is currently in use
+	 * @var UserAgentMatcher
+	 */
+	public $userAgentMatcher;
+	/**
+	 * Was the evaluated device found in the cache
+	 * @var Bool
+	 */
 	public $foundInCache;
 	
+	/**
+	 * The installed branch of Tera-WURFL
+	 * @var String
+	 */
 	public $release_branch = "Stable";
-	public $release_version = "2.0.0";
+	/**
+	 * The installed version of Tera-WURFL
+	 * @var String
+	 */
+	public $release_version = "2.1.1";
+	/**
+	 * The required version of PHP for this release
+	 * @var String
+	 */
 	public static $required_php_version = "5.0.0";
 	
+	/**
+	 * Lookup start time
+	 * @var int
+	 */
 	private $lookup_start;
+	/**
+	 * Lookup end time
+	 * @var int
+	 */
 	private $lookup_end;
+	/**
+	 * The array key that is returned as a WURFL capability group in the capabilities
+	 * array that stored Tera-WURFL specific information about the request
+	 * @var String
+	 */
 	private $matchDataKey = "tera_wurfl";
+	/**
+	 * The Tera-WURFL specific data that is added to the capabilities array
+	 * @var unknown_type
+	 */
 	private $matchData;
+	/**
+	 * Array of UserAgentMatchers and match attempt types that the API used to find a matching device
+	 * @var Array
+	 */
 	private $matcherHistory;
 	/*
 	 * This keeps the device fallback lookup from running away.
@@ -62,13 +134,15 @@ class TeraWurfl{
 		$this->rootdir = dirname(__FILE__).'/';
 		$this->db = getTeraWurflDatabaseConnnector();
 		if(!$this->db->connect()){
-			//throw new Exception("Cannot connect to database: ".$this->db->getLastError());
+			throw new Exception("Cannot connect to database: ".$this->db->getLastError());
 			return false;
 		}
 	}
-
-	// Public Methods
 	
+	/**
+	 * Returns the matching WURFL ID for a given User Agent
+	 * @return String WURFL ID
+	 */
 	private function getDeviceIDFromUALoose(){
 		$this->matcherHistory = array();
 		// Return generic UA if userAgent is empty
@@ -83,7 +157,12 @@ class TeraWurfl{
 		$this->db->tablename = $this->fullTableName();
 		
 		// Check for exact match
-		$deviceID = $this->db->getDeviceFromUA($this->userAgent);
+		if(TeraWurflConfig::$SIMPLE_DESKTOP_ENGINE_ENABLE && $this->userAgent == WurflConstants::$SIMPLE_DESKTOP_UA){
+			// SimpleDesktop UA Matching avoids querying the database here
+			$deviceID = WurflConstants::$GENERIC_WEB_BROWSER;
+		}else{
+			$deviceID = $this->db->getDeviceFromUA($this->userAgent);
+		}
 		$this->matcherHistory[] = $this->userAgentMatcher->matcherName() . "(exact)";
 		if($deviceID !== false){
 			$this->matchData['matcher'] = $this->userAgentMatcher->matcherName();
@@ -161,8 +240,25 @@ class TeraWurfl{
 		$this->matchData['match_type'] = "none";
 		$this->matchData['match'] = false;
 		$this->setMatcherHistory();
-		return (UserAgentUtils::isMobileBrowser($this->userAgent))? WurflConstants::$GENERIC: WurflConstants::$GENERIC_WEB_BROWSER;
+		
+		if(UserAgentUtils::isMobileBrowser($this->userAgent)) return WurflConstants::$GENERIC_XHTML;
+		return WurflConstants::$GENERIC_WEB_BROWSER;
 	}
+	/**
+	 * Detects the capabilities from a given request object ($_SERVER)
+	 * @param Array Request object ($_SERVER contains this data)
+	 * @return Bool Match
+	 */
+	public function getDeviceCapabilitiesFromRequest($server){
+		if(!isset($server))$server = $_SERVER;
+		return getDeviceCapabilitiesFromAgent(WurflSupport::getUserAgent($server),WurflSupport::getAcceptHeader($server));
+	}
+	/**
+	 * Detects the capabilities of a device from a given user agent and optionally, the HTTP Accept Headers
+	 * @param String HTTP User Agent
+	 * @param String HTTP Accept Header
+	 * @return Bool matching device was found
+	 */
 	public function getDeviceCapabilitiesFromAgent($userAgent=null,$httpAccept=null){
 		$this->db->numQueries = 0;
 		$this->matchData = array(
@@ -179,12 +275,16 @@ class TeraWurfl{
 		$this->capabilities = array();
 		// Define User Agent
 		$this->userAgent = (is_null($userAgent))? WurflSupport::getUserAgent(): $userAgent;
+		if(strlen($this->userAgent) > 255) $this->userAgent = substr($this->userAgent,0,255);
+		// Use the ultra high performance SimpleDesktopMatcher if enabled
+		if(TeraWurflConfig::$SIMPLE_DESKTOP_ENGINE_ENABLE){
+			require_once("UserAgentMatchers/SimpleDesktopUserAgentMatcher.php");
+			if(SimpleDesktopUserAgentMatcher::isDesktopBrowser($userAgent)) $this->userAgent = WurflConstants::$SIMPLE_DESKTOP_UA;
+		}
 		// Define HTTP ACCEPT header.  Default: DO NOT use HTTP_ACCEPT headers
 		//$this->httpAccept= (is_null($httpAccept))? WurflSupport::getAcceptHeader(): $httpAccept;
 		$this->tablename = TeraWurflConfig::$DEVICES;
-
-		// Remove the gateway signatures from UA (UP.Link/x.x.x)
-		$this->userAgent = UserAgentUtils::removeUPLinkFromUA($this->userAgent);
+		$this->userAgent = UserAgentUtils::cleanUserAgent($this->userAgent);
 		// Check cache for device
 		if(TeraWurflConfig::$CACHE_ENABLE){
 			$cacheData = $this->db->getDeviceFromCache($this->userAgent);
@@ -196,6 +296,7 @@ class TeraWurfl{
 			}
 		}
 		if(!$this->foundInCache){
+			require_once("UserAgentMatchers/SimpleDesktopUserAgentMatcher.php");
 			// Find appropriate user agent matcher
 			$this->userAgentMatcher = UserAgentFactory::createUserAgentMatcher($this,$this->userAgent);
 			// Find the best matching WURFL ID
@@ -215,10 +316,15 @@ class TeraWurfl{
 		}
 		return $this->capabilities[$this->matchDataKey]['match'];
 	}
-	private function getFullCapabilities($deviceID){
+	/**
+	 * Builds the full capabilities array from the WURFL ID
+	 * @param String WURFL ID
+	 * @return void
+	 */
+	public function getFullCapabilities($deviceID){
 		if(is_null($deviceID)){
 			throw new Exception("Invalid Device ID: ".var_export($deviceID,true)."\nMatcher: {$this->userAgentMatcher->matcherName()}\nUser Agent: ".$this->userAgent);
-			die();
+			exit(1);
 		}
 		$this->db->tablename = '';
 		// Now get all the devices in the fallback tree
@@ -281,11 +387,15 @@ class TeraWurfl{
 		}
 		$this->addTopLevelSettings($childDevice);
 	}
+	/**
+	 * Returns the value of the requested capability for the detected device
+	 * @param String Capability name (e.g. "is_wireless_device")
+	 * @return Mixed Capability value
+	 */
 	public function getDeviceCapability($capability) {
-		// TODO: Optimize function
+		// TODO: Optimize function, one method is to flatten the capabilities array, or create a group=>cap index
 		$this->toLog('Searching for '.$capability.' as a capability', LOG_INFO);
-		$deviceCapabilities = $this->capabilities;
-		foreach ( $deviceCapabilities as $group ) {
+		foreach ( $this->capabilities as $group ) {
 			if ( !is_array($group) ) {
 				continue;
 			}
@@ -298,11 +408,19 @@ class TeraWurfl{
 		}
 		$this->toLog('I could not find the requested capability ('.$capability.'), returning NULL', LOG_WARNING);
 		// since 1.5.2, I can't return "false" because that is a valid value.  Now I return NULL, use is_null() to check
-		return NULL;
+		return null;
 	}
 	public function fullTableName(){
 		return $this->tablename.'_'.$this->userAgentMatcher->tableSuffix();
 	}
+	/**
+	 * Log an error in the Tera-WURFL log file
+	 * @see TeraWurflConfig
+	 * @param String The error message text
+	 * @param Int The log level / severity of the error
+	 * @param String The function or code that was being run when the error occured
+	 * @return void
+	 */
 	public function toLog($text, $requestedLogLevel=LOG_NOTICE, $func="Tera-WURFL"){
 		if($requestedLogLevel == LOG_ERR) $this->errors[] = $text;
 		if (TeraWurflConfig::$LOG_LEVEL == 0 || ($requestedLogLevel-1) >= TeraWurflConfig::$LOG_LEVEL ) {
@@ -323,21 +441,40 @@ class TeraWurfl{
 		$_logFP = fopen($logfile, "a+");
 		fputs($_logFP, $_textToLog."\n");
 		fclose($_logFP);
-		return true;
 	}
-	public function addTopLevelSettings($newCapabilities){
+	/**
+	 * Adds the top level properties to the capabilities array, like id and user_agent
+	 * @param Array New properties to be added
+	 * @return void
+	 */
+	public function addTopLevelSettings(Array $newCapabilities){
 		foreach($newCapabilities as $key => $val){
 			if(is_array($val))continue;
 			$this->capabilities[$key] = $val;
 		}
 	}
-	public function addCapabilities($newCapabilities){
+	/**
+	 * Add new capabilities to the capabilities array
+	 * @param Array Capabilities that are to be added
+	 * @return void
+	 */
+	public function addCapabilities(Array $newCapabilities){
 		self::mergeCapabilities($this->capabilities,$newCapabilities);
 	}
+	/**
+	 * Combines the MatcherHistory array into a string and stores it in the matchData
+	 * @return void
+	 */
 	private function setMatcherHistory(){
 		$this->matchData['matcher_history'] = implode(',',$this->matcherHistory);
 	}
-	public static function mergeCapabilities(&$baseDevice, $addedDevice){
+	/**
+	 * Merges given $addedDevice array onto $baseDevice array
+	 * @param Array Main capabilities array
+	 * @param Array New capabilities array
+	 * @return void
+	 */
+	public static function mergeCapabilities(Array &$baseDevice, Array $addedDevice){
 		if(count($baseDevice) == 0){
 			// Base device is empty
 			$baseDevice = $addedDevice;
@@ -349,7 +486,7 @@ class TeraWurfl{
 				// This is top level setting, not a capability
 				continue;
 			}else{
-				if(!isset($baseDevice[$levOneKey]))$baseDevice[$levOneKey]=array();
+				if(!array_key_exists($levOneKey,$baseDevice))$baseDevice[$levOneKey]=array();
 				// This is an array value, merge the contents
 				foreach($levOneVal as $levTwoKey => $levTwoVal){
 					// This is just a scalar value, apply it
@@ -359,8 +496,11 @@ class TeraWurfl{
 			}
 		}
 	}
+	/**
+	 * Get the absolute path to the data directory on the filesystem
+	 * @return String Absolute path to data directory
+	 */
 	public static function absoluteDataDir(){
 		return dirname(__FILE__).'/'.TeraWurflConfig::$DATADIR;
 	}
 }
-?>

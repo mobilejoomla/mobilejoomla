@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Tera_WURFL - PHP MySQL driven WURFL
  * 
  * Tera-WURFL was written by Steve Kamerman, and is based on the
@@ -8,57 +8,22 @@
  * files, and a persistent caching mechanism to provide extreme performance increases.
  * 
  * @package TeraWurfl
- * @author Steve Kamerman, stevekamerman AT gmail.com
- * @version Stable 2.0.0 $Date: 2009/11/13 23:59:59
+ * @author Steve Kamerman <stevekamerman AT gmail.com>
+ * @version Stable Stable 2.1.1 $Date: 2010/03/01 15:40:10
  * @license http://www.mozilla.org/MPL/ MPL Vesion 1.1
- * $Id: TeraWurflConfig.php,v 1.11 2008/03/01 00:05:25 kamermans Exp $
- * $RCSfile: TeraWurflConfig.php,v $
- * 
- * Based On: Java WURFL Evolution by Luca Passani
- *
- * ----
- * Modified by MobileJoomla!
+ */
+/**
+ * This static class provides the global configuration settings for Tera-WURFL.
+ * @package TeraWurfl
+ * @see TeraWurflWebservice
  *
  */
- 
-if (!class_exists ('JConfig'))
-	include (JPATH_ROOT . DS . 'configuration.php');
-
-$config =& new JConfig;
-
-TeraWurflConfig::$DB_HOST = $config->host;
-TeraWurflConfig::$DB_USER = $config->user;
-TeraWurflConfig::$DB_PASS = $config->password;
-TeraWurflConfig::$DB_SCHEMA = $config->db;
-TeraWurflConfig::$DEVICES = $config->dbprefix . TeraWurflConfig::$DEVICES;
-TeraWurflConfig::$CACHE = $config->dbprefix . TeraWurflConfig::$CACHE;
-TeraWurflConfig::$INDEX = $config->dbprefix . TeraWurflConfig::$INDEX;
-TeraWurflConfig::$MERGE = $config->dbprefix . TeraWurflConfig::$MERGE;
-
-
-$configfname = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php';
-include($configfname);
-// Gets a value MySQL5 or MySQL4, decided in install-time
-TeraWurflConfig::$DB_CONNECTOR = $MobileJoomla_Settings['dbconnector'];
-if ( ! isset(TeraWurflConfig::$DB_CONNECTOR)) // Attributing a default just in case
-{
-    if (version_compare(JFactory::getDBO()->getVersion(), '5.0.0', '<'))
-	{	
-		TeraWurflConfig::$DB_CONNECTOR = 'MySQL4'; 
-	}
-	else
-	{
-		TeraWurflConfig::$DB_CONNECTOR = 'MySQL5'; // Remember, it still can fail w/ MySQL5
-	}
-
-}
-
-class TeraWurflConfig {
+class TeraWurflConfig{
 	/**
 	 * Database Hostname
 	 * @var String
 	 */
-	public static $DB_HOST = 'localhost';
+	public static $DB_HOST = '';
 	/**
 	 * Database User
 	 * @var String
@@ -75,7 +40,7 @@ class TeraWurflConfig {
 	 */
 	public static $DB_SCHEMA = '';
 	/**
-	 * Database Connector (MySQL4 and MySQL5 are implemented at this time)
+	 * Database Connector (MySQL4, MySQL5, MSSQL2005 **EXPERIMENTAL**)
 	 * @var String
 	 */
 	public static $DB_CONNECTOR = "MySQL5";
@@ -83,22 +48,22 @@ class TeraWurflConfig {
 	 * Device Table Name
 	 * @var String
 	 */
-	public static $DEVICES = "terawurfl";
+	public static $DEVICES = "TeraWurfl";
 	/**
 	 * Device Cache Table Name
 	 * @var String
 	 */
-	public static $CACHE = "terawurflcache";
+	public static $CACHE = "TeraWurflCache";
 	/**
 	 * Device Index Table Name
 	 * @var String
 	 */
-	public static $INDEX = "terawurflindex";
+	public static $INDEX = "TeraWurflIndex";
 	/**
 	 * Merged Device Table
 	 * @var String
 	 */
-	public static $MERGE = "terawurflmerge";
+	public static $MERGE = "TeraWurflMerge";
 	/**
 	 * URL of WURFL File
 	 * @var String
@@ -145,7 +110,7 @@ class TeraWurflConfig {
 	 * Should be changed to LOG_WARNING or LOG_ERR for production sites
 	 * @var Int
 	 */
-	public static $LOG_LEVEL = 0;
+	public static $LOG_LEVEL = LOG_WARNING;
 	/**
 	 * Enable to override PHP's memory limit if you are having problems loading the WURFL data like this:
 	 * Fatal error: Allowed memory size of 67108864 bytes exhausted (tried to allocate 24 bytes) in TeraWurflLoader.php on line 287
@@ -157,5 +122,69 @@ class TeraWurflConfig {
 	 * @var String
 	 */
 	public static $MEMORY_LIMIT = "256M";
+	/**
+	 * Enable the SimpleDesktop Matching Engine.  This feature bypasses the advanced detection methods that are normally used while detecting
+	 * desktop web browsers; instead, most desktop browsers are detected using simple keywords and expressions.  When enabled, this setting
+	 *  will increase performance dramatically (200% in our tests) but could result in some false positives.  This will also reduce the size
+	 *  of the cache table dramatically because all the devices detected by the SimpleDesktop Engine will be cached in one cache entry.
+	 * @var Bool
+	 */
+	public static $SIMPLE_DESKTOP_ENGINE_ENABLE = true;
+	/**
+	 * Allows you to store only the specified capabilities from the WURFL file.  By default, every capability in the WURFL is stored in the
+	 * database and made available to your scripts.  If you only want to know if the device is wireless or not, you can store only the 
+	 * is_wireless_device capability.  To disable the filter, set it to false, to enable it, you must set it to an array.  This array can
+	 * contain the group names (if you want to include the entire group, i.e. "product_info") and/or capability names (if you want just a
+	 * specific capability, i.e. "is_wireless_device").
+	 * 
+	 * Usage Example:
+	 * <code>
+	 *	public static $CAPABILITY_FILTER = array(
+	 *		// Complete Capability Groups
+	 *		"product_info",
+	 *	
+	 *		// Individual Capabilities
+	 *		"max_image_width",
+	 *		"max_image_height",
+	 *		"chtml_make_phone_call_string",
+	 *	);
+	 * </code>
+	 * @var Mixed
+	 */
+	public static $CAPABILITY_FILTER = false;
 }
-?>
+/*
+ * ----
+ * Modified by MobileJoomla!
+ *
+ */
+if (!class_exists ('JConfig'))
+	include (JPATH_ROOT . DS . 'configuration.php');
+
+$config = new JConfig;
+
+TeraWurflConfig::$DB_HOST   = $config->host;
+TeraWurflConfig::$DB_USER   = $config->user;
+TeraWurflConfig::$DB_PASS   = $config->password;
+TeraWurflConfig::$DB_SCHEMA = $config->db;
+TeraWurflConfig::$DEVICES   = $config->dbprefix . TeraWurflConfig::$DEVICES;
+TeraWurflConfig::$CACHE     = $config->dbprefix . TeraWurflConfig::$CACHE;
+TeraWurflConfig::$INDEX     = $config->dbprefix . TeraWurflConfig::$INDEX;
+TeraWurflConfig::$MERGE     = $config->dbprefix . TeraWurflConfig::$MERGE;
+
+$configfname = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php';
+include($configfname);
+// Gets a value MySQL5 or MySQL4, decided in install-time
+TeraWurflConfig::$DB_CONNECTOR = $MobileJoomla_Settings['dbconnector'];
+
+//if ( ! isset(TeraWurflConfig::$DB_CONNECTOR)) // Attributing a default just in case
+//{
+//    if (version_compare(JFactory::getDBO()->getVersion(), '5.0.0', '<'))
+//	{	
+//		TeraWurflConfig::$DB_CONNECTOR = 'MySQL4'; 
+//	}
+//	else
+//	{
+//		TeraWurflConfig::$DB_CONNECTOR = 'MySQL5'; // Remember, it still can fail w/ MySQL5
+//	}
+//}

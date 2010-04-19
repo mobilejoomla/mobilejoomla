@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Tera_WURFL - PHP MySQL driven WURFL
  * 
  * Tera-WURFL was written by Steve Kamerman, and is based on the
@@ -7,15 +7,14 @@
  * This version uses a MySQL database to store the entire WURFL file, multiple patch
  * files, and a persistent caching mechanism to provide extreme performance increases.
  * 
- * @package TeraWurfl
- * @author Steve Kamerman, stevekamerman AT gmail.com
- * @version Stable 2.0.0 $Date: 2009/11/13 23:59:59
+ * @package TeraWurflUserAgentMatchers
+ * @author Steve Kamerman <stevekamerman AT gmail.com>
+ * @version Stable Stable 2.1.1 $Date: 2010/03/01 15:40:10
  * @license http://www.mozilla.org/MPL/ MPL Vesion 1.1
- * $Id: CatchAllUserAgentMatcher.php,v 1.3 2008/03/01 00:05:25 kamermans Exp $
- * $RCSfile: CatchAllUserAgentMatcher.php,v $
- * 
- * Based On: Java WURFL Evolution by Luca Passani
- *
+ */
+/**
+ * Provides a generic user agent matching technique
+ * @package TeraWurflUserAgentMatchers
  */
 class CatchAllUserAgentMatcher extends UserAgentMatcher {
 	
@@ -43,10 +42,11 @@ class CatchAllUserAgentMatcher extends UserAgentMatcher {
 		return $deviceID;
 	}
     public function recoveryMatch($ua){
-    	$this->match_type = "recovery";
+    	// At this point, a recovery match is really no match at all.
+    	$this->match_type = "none";
         $this->wurfl->toLog("Applying CatchAll Recovery Match",LOG_INFO);
-      	
         $this->match = false;
+        if(SimpleDesktopUserAgentMatcher::isDesktopBrowser($ua)) return WurflConstants::$GENERIC_WEB_BROWSER;
         //Openwave
         if (self::contains($ua,"UP.Browser/7.2"))
         {
@@ -132,4 +132,3 @@ class CatchAllUserAgentMatcher extends UserAgentMatcher {
     }
     
 }
-?>

@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Tera_WURFL - PHP MySQL driven WURFL
  * 
  * Tera-WURFL was written by Steve Kamerman, and is based on the
@@ -7,15 +7,10 @@
  * This version uses a MySQL database to store the entire WURFL file, multiple patch
  * files, and a persistent caching mechanism to provide extreme performance increases.
  * 
- * @package TeraWurfl
- * @author Steve Kamerman, stevekamerman AT gmail.com
- * @version Stable 2.0.0 $Date: 2009/11/13 23:59:59
+ * @package TeraWurflDatabase
+ * @author Steve Kamerman <stevekamerman AT gmail.com>
+ * @version Stable Stable 2.1.1 $Date: 2010/03/01 15:40:10
  * @license http://www.mozilla.org/MPL/ MPL Vesion 1.1
- * $Id: TeraWurflDatabase_MySQL4.php,v 1.12 2008/03/01 00:05:25 kamermans Exp $
- * $RCSfile: TeraWurflDatabase_MySQL4.php,v $
- * 
- * Based On: Java WURFL Evolution by Luca Passani
- *
  */
 /**
  * Local function to load this database connector
@@ -23,6 +18,10 @@
  * @return TeraWurflDatabase an object that must extend the TeraWurflDatabase abstract class
  */
 function getTeraWurflDatabaseConnnector(){return new TeraWurflDatabase_MySQL4();}
+/**
+ * Provides connectivity from Tera-WURFL to MySQL 4.  This connector is also compatible with MySQL 5.
+ * @package TeraWurflDatabase
+ */
 
 class TeraWurflDatabase_MySQL4 extends TeraWurflDatabase{
 	
@@ -50,8 +49,10 @@ class TeraWurflDatabase_MySQL4 extends TeraWurflDatabase{
 	public function getDeviceFromID($wurflID){
 		$this->numQueries++;
 		$res = $this->dbcon->query("SELECT * FROM `".TeraWurflConfig::$MERGE."` WHERE `deviceID`=".$this->SQLPrep($wurflID)) or die($this->dbcon->error);
-		if(!is_object ($res) || $res->num_rows == 0){
-			//$res->close();
+		if(!is_object($res))
+			throw new Exception("Database connection error in TeraWurflDatabase_MySQL5::getDeviceFromID");
+		if($res->num_rows == 0){
+			$res->close();
 			throw new Exception("Tried to lookup an invalid WURFL Device ID: $wurflID");
 		}
 		$data = $res->fetch_assoc();
@@ -71,8 +72,10 @@ class TeraWurflDatabase_MySQL4 extends TeraWurflDatabase{
 	public function getFullDeviceList($tablename){
 		$this->numQueries++;
 		$res = $this->dbcon->query("SELECT `deviceID`, `user_agent` FROM `$tablename`");
-		if(!is_object ($res) || $res->num_rows == 0){
-			//$res->close();
+		if(!is_object($res))
+			throw new Exception("Database connection error in TeraWurflDatabase_MySQL5::getFullDeviceList");
+		if($res->num_rows == 0){
+			$res->close();
 			return array();
 		}
 		$data = array();
@@ -86,8 +89,10 @@ class TeraWurflDatabase_MySQL4 extends TeraWurflDatabase{
 		$this->numQueries++;
 		$query = "SELECT `deviceID` FROM `".TeraWurflConfig::$MERGE."` WHERE `user_agent`=".$this->SQLPrep($userAgent);
 		$res = $this->dbcon->query($query);
+		if(!is_object($res))
+			throw new Exception("Database connection error in TeraWurflDatabase_MySQL5::getDeviceFromUA");
 		if($res->num_rows == 0){
-			//$res->close();
+			$res->close();
 			return false;
 		}
 		$data = $res->fetch_assoc();
@@ -248,8 +253,10 @@ class TeraWurflDatabase_MySQL4 extends TeraWurflDatabase{
 		$tablename = TeraWurflConfig::$CACHE;
 		$this->numQueries++;
 		$res = $this->dbcon->query("SELECT * FROM `$tablename` WHERE `user_agent`=".$this->SQLPrep($userAgent)) or die("Error: ".$this->dbcon->error);
+		if(!is_object($res))
+			throw new Exception("Database connection error in TeraWurflDatabase_MySQL5::getDeviceFromCache");
 		if($res->num_rows == 0){
-			//$res->close();
+			$res->close();
 			//echo "[[UA NOT FOUND IN CACHE: $userAgent]]";
 			return false;
 		}
@@ -375,6 +382,8 @@ class TeraWurflDatabase_MySQL4 extends TeraWurflDatabase{
 	}
 	public function getTableList(){
 		$tablesres = $this->dbcon->query("SHOW TABLES");
+		if(!is_object($tablesres))
+			throw new Exception("Database connection error in TeraWurflDatabase_MySQL5::getTableList");
 		$tables = array();
 		while($table = $tablesres->fetch_row())$tables[]=$table[0];
 		$tablesres->close();
@@ -382,6 +391,8 @@ class TeraWurflDatabase_MySQL4 extends TeraWurflDatabase{
 	}
 	public function getMatcherTableList(){
 		$tablesres = $this->dbcon->query("SHOW TABLES LIKE 'TeraWurfl\\_%'");
+		if(!is_object($tablesres))
+			throw new Exception("Database connection error in TeraWurflDatabase_MySQL5::getMatcherTableList");
 		$tables = array();
 		while($table = $tablesres->fetch_row())$tables[]=$table[0];
 		$tablesres->close();
@@ -392,6 +403,8 @@ class TeraWurflDatabase_MySQL4 extends TeraWurflDatabase{
 		$fields = array();
 		$fieldnames = array();
 		$fieldsres = $this->dbcon->query("SHOW COLUMNS FROM ".$table);
+		if(!is_object($fieldsres))
+			throw new Exception("Database connection error in TeraWurflDatabase_MySQL5::getTableStats");
 		while($row = $fieldsres->fetch_assoc()){
 			$fields[] = 'CHAR_LENGTH(`'.$row['Field'].'`)';
 			$fieldnames[]=$row['Field'];
@@ -400,12 +413,16 @@ class TeraWurflDatabase_MySQL4 extends TeraWurflDatabase{
 		$bytesizequery = "SUM(".implode('+',$fields).") AS `bytesize`";
 		$query = "SELECT COUNT(*) AS `rowcount`, $bytesizequery FROM `$table`";
 		$res = $this->dbcon->query($query);
+		if(!is_object($res))
+			throw new Exception("Database connection error in TeraWurflDatabase_MySQL5::getTableStats");
 		$rows = $res->fetch_assoc();
 		$stats['rows'] = $rows['rowcount'];
 		$stats['bytesize'] = $rows['bytesize'];
 		$res->close();
 		if(in_array("actual_device_root",$fieldnames)){
 			$res = $this->dbcon->query("SELECT COUNT(*) AS `devcount` FROM `$table` WHERE actual_device_root=1");
+			if(!is_object($res))
+				throw new Exception("Database connection error in TeraWurflDatabase_MySQL5::getTableStats");
 			$row = $res->fetch_assoc();
 			$stats['actual_devices'] = $row['devcount'];
 			$res->close();
@@ -415,9 +432,10 @@ class TeraWurflDatabase_MySQL4 extends TeraWurflDatabase{
 	public function getCachedUserAgents(){
 		$uas = array();
 		$cacheres = $this->dbcon->query("SELECT user_agent FROM ".TeraWurflConfig::$CACHE." ORDER BY user_agent");
+		if(!is_object($cacheres))
+			throw new Exception("Database connection error in TeraWurflDatabase_MySQL5::getCachedUserAgents");
 		while($ua = $cacheres->fetch_row())$uas[]=$ua[0];
 		$cacheres->close();
 		return $uas;
 	}
 }
-?>

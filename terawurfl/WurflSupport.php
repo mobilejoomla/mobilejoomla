@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Tera_WURFL - PHP MySQL driven WURFL
  * 
  * Tera-WURFL was written by Steve Kamerman, and is based on the
@@ -8,13 +8,13 @@
  * files, and a persistent caching mechanism to provide extreme performance increases.
  * 
  * @package TeraWurfl
- * @author Steve Kamerman, stevekamerman AT gmail.com
- * @version Stable 2.0.0 $Date: 2009/11/13 23:59:59
+ * @author Steve Kamerman <stevekamerman AT gmail.com>
+ * @version Stable Stable 2.1.1 $Date: 2010/03/01 15:40:10
  * @license http://www.mozilla.org/MPL/ MPL Vesion 1.1
- * $Id: WurflSupport.php,v 1.3 2008/03/01 00:05:25 kamermans Exp $
- * $RCSfile: WurflSupport.php,v $
- * 
- * Based On: Java WURFL Evolution by Luca Passani
+ */
+/**
+ * Provides static supporting functions for Tera-WURFL
+ * @package TeraWurfl
  *
  */
 class WurflSupport{
@@ -28,43 +28,34 @@ class WurflSupport{
 	}
 	
 	// Public Methods
-	public static function getUserAgent(){
+	public static function getUserAgent($source=null){
+		if(is_null($source) || !is_array($source))$source = $_SERVER;
 		$userAgent = '';
 		if(isset($_GET['UA'])){
 			$userAgent = $_GET['UA'];
-		}elseif(isset($_SERVER['HTTP_X_DEVICE_USER_AGENT'])){
-			$userAgent = $_SERVER['HTTP_X_DEVICE_USER_AGENT'];
-		}elseif(isset($_SERVER['HTTP_X_OPERAMINI_PHONE_UA'])){
-			$userAgent = $_SERVER['HTTP_X_OPERAMINI_PHONE_UA'];
+		}elseif(isset($source['HTTP_X_DEVICE_USER_AGENT'])){
+			$userAgent = $source['HTTP_X_DEVICE_USER_AGENT'];
+		}elseif(isset($source['HTTP_X_ORIGINAL_USER_AGENT'])){
+			$userAgent = $source['HTTP_X_ORIGINAL_USER_AGENT'];
+		}elseif(isset($source['HTTP_X_OPERAMINI_PHONE_UA'])){
+			$userAgent = $source['HTTP_X_OPERAMINI_PHONE_UA'];
 		}else{
-			$userAgent = $_SERVER['HTTP_USER_AGENT'];
+			$userAgent = $source['HTTP_USER_AGENT'];
 		}
 		return $userAgent;
 	}
 	
-	public static function getAcceptHeader(){
+	public static function getAcceptHeader($source=null){
+		if(is_null($source) || !is_array($source))$source = $_SERVER;
 		if(isset($_GET['ACCEPT'])){
 			return $_GET['ACCEPT'];
 		}else{
-			return $_SERVER['HTTP_ACCEPT'];
+			return $source['HTTP_ACCEPT'];
 		}
 	}
 	
 	public static function getUAProfile(){
 		return isset($_SERVER['X-WAP-PROFILE'])?$_SERVER['X-WAP-PROFILE']:'';
-	}
-	
-	public static function isUplink(){
-		$ua = self::getUserAgent();
-		if(strpos($ua,"UP.Link")!==false){
-			return true;
-		}else{
-			return false;
-		}
-	}
-	
-	public static function checkCapability($capability){
-		// See if it exists in capa DB
 	}
 	
 	public static function formatBytes($bytes){
@@ -95,9 +86,5 @@ class WurflSupport{
 	public static function showLogLevel($num){
 		$log_arr = array(1=>"LOG_CRIT",4=>"LOG_ERR",5=>"LOG_WARNING",6=>"LOG_NOTICE");
 		return($log_arr[$num]);
-	}	
-	// Private Methods
-	
-	
+	}
 }
-?>
