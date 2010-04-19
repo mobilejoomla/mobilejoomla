@@ -15,6 +15,21 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 CHANGELOG
 
+0.9.4
+Beta release
+- Support of iPod Touch 1G firmware 3.0
+- TeraWURFL updated to v.2.1.1
+- Cache issue fixed
+
+0.9.3
+Beta release
+- MobileJoomla installer bugs fixed
+- Wrong image extension at image rescaling fix
+- Problems (with incorrect links and working in SEF mode) in markupchooser module are fixed
+- Problems with redirect to subdomains are fixed
+- System-Cache plugin is disabled in mobile mode
+- Support for PHP4 is added
+
 0.9.2
 Beta release
 - Installation made more compatible
