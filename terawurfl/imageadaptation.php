@@ -65,12 +65,7 @@ function convertImage($imagepath,$scaletype=0)
 function convertImageUA($imagepath,$ua,$scaletype=0)
 {
 	include(JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php');
-	$database =& JFactory::getDBO();
 	$scalewidth=$MobileJoomla_Settings['templatewidth'];
-	$querysql="SELECT * FROM #__capability WHERE ua='".$ua."'";
-	$database->setQuery($querysql);
-	$row_sql=$database->loadAssocList();
-	$totalcnt=count($row_sql);
 
 	//We need a buffer value, so that if template has padding, images get more smaller
 	//and no horizontal scroll is shown
@@ -79,37 +74,18 @@ function convertImageUA($imagepath,$ua,$scaletype=0)
 
 	if (isset($MobileJoomla_Settings[$markupName . '_buffer_width']))
 	{
-    $templateBuffer = (int) $MobileJoomla_Settings[$markupName . '_buffer_width'];
+		$templateBuffer = (int) $MobileJoomla_Settings[$markupName . '_buffer_width'];
 	}
 	else
 	{
-    $templateBuffer = 0;
+		$templateBuffer = 0;
 	}
 
-
-	if($totalcnt==0)
+	list($format,$devwidth,$devheight)=getCAP($ua);
+	//so we dont go below 1
+	if ($devwidth > $templateBuffer)
 	{
-		list($format,$devwidth,$devheight)=getCAP($ua);
-		//so we dont go below 1
-		if ($devwidth > $templateBuffer)
-		{
-			$devwidth -= $templateBuffer;
-		}
-		$sqlInsert="INSERT INTO #__capability VALUES ('".$ua."','".$format."',".$devwidth.",".$devheight.")";
-		$database->setQuery($sqlInsert);
-		$database->query();
-	}
-	else
-	{
-		$row_sql=$row_sql[0];
-		$format=$row_sql['format'];
-		$devwidth=$row_sql['devwidth'];
-		//so we dont go below 1
-		if ($devwidth > $templateBuffer)
-		{
-			$devwidth -= $templateBuffer;
-		}
-		$devheight=$row_sql['devheight'];
+		$devwidth -= $templateBuffer;
 	}
 	if ($devwidth==0)
 		return '';
@@ -162,6 +138,8 @@ function getCAP($ua)
         require_once(JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'terawurfl'.DS.'TeraWurfl.php');
 
         $wurflObj = new TeraWurfl();
+		if(!is_object($wurflObj))
+			return array('',0,0);
         $wurflObj->getDeviceCapabilitiesFromAgent($_SERVER['HTTP_USER_AGENT']);
     }
 
