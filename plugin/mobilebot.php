@@ -288,7 +288,12 @@ class plgSystemMobileBot extends JPlugin
 			//Set gzip
 			$config->setValue('config.gzip',$gzip);
 			// disable cache for PDAs
-			$config->setValue('config.caching',false);
+			if($config->getValue('config.caching'))
+			{
+				//load menu from cache
+				$menu =& JSite::getMenu();
+				$config->setValue('config.caching',false);
+			}
 			JResponse::clearHeaders();
 			$document =& JFactory::getDocument();
 			$document->setMimeEncoding($MobileJoomla->getContentType());
