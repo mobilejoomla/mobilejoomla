@@ -508,7 +508,7 @@ function com_install()
     }
 	else
 	{
-		$ERRORS[]="<b>".JText('Cannot install:')." Mobile Joomla Bot.</b>";
+		$ERRORS[]="<b>".JText::_('Cannot install:')." Mobile Joomla Bot.</b>";
     }
 
     // install templates
@@ -520,7 +520,7 @@ function com_install()
     }
 	else
 	{
-		$ERRORS[]="<b>".JText('Cannot install:')." Mobile Joomla 'mobile_pda' template.</b>";
+		$ERRORS[]="<b>".JText::_('Cannot install:')." Mobile Joomla 'mobile_pda' template.</b>";
     }
     
 	if ($t2 = InstallTemplate($TemplateSource.DS.'mobile_wap','mobile_wap'))
@@ -529,7 +529,7 @@ function com_install()
     }
 	else
 	{
-		$ERRORS[]="<b>".JText('Cannot install:')." Mobile Joomla 'mobile_wap' template.</b>";
+		$ERRORS[]="<b>".JText::_('Cannot install:')." Mobile Joomla 'mobile_wap' template.</b>";
     }
     
 	if ($t3 = InstallTemplate($TemplateSource.DS.'mobile_imode','mobile_imode'))
@@ -538,7 +538,7 @@ function com_install()
     }
 	else
 	{
-		$ERRORS[]="<b>".JText('Cannot install:')." Mobile Joomla 'mobile_imode' template.</b>";
+		$ERRORS[]="<b>".JText::_('Cannot install:')." Mobile Joomla 'mobile_imode' template.</b>";
     }
     
 	if ($t4 = InstallTemplate($TemplateSource.DS.'mobile_iphone','mobile_iphone'))
@@ -547,7 +547,7 @@ function com_install()
     }
 	else
 	{
-		$ERRORS[]="<b>".JText('Cannot install:')." Mobile Joomla 'mobile_iphone' template.</b>";
+		$ERRORS[]="<b>".JText::_('Cannot install:')." Mobile Joomla 'mobile_iphone' template.</b>";
     }
     
 	if ($t1 && $t2 && $t3 && $t4)
@@ -567,7 +567,7 @@ function com_install()
 	if($status)
 		JFolder::delete($ModuleSource);
 	else
-		$ERRORS[]="<b>".JText('Cannot install:')." Mobile Joomla modules.</b>";
+		$ERRORS[]="<b>".JText::_('Cannot install:')." Mobile Joomla modules.</b>";
 
 	//database
 	$query = "DROP TABLE IF EXISTS `#__capability`;";
