@@ -20,6 +20,7 @@ Beta release
 - Support of mobile plugins
 - New image adaptation script
 - TeraWURFL updated to v.2.1.2
+- Support for plugins
 
 0.9.4
 Beta release
