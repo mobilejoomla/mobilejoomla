@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="mobile">
+	<name>Mobile - Forever</name>
+	<version>###VERSION###</version>
+	<author>###AUTHOR###</author>
+	<creationDate>###DATE###</creationDate>
+	<copyright>###COPYRIGHT###</copyright>
+	<license>###LICENSE###</license>
+	<authorEmail>###EMAIL###</authorEmail>
+	<authorUrl>###URL###</authorUrl>
+	<description>Persitent mobile markup</description>
+	<files>
+		<filename plugin="always">always.php</filename>
+	</files>
+	<params>
+		<param name="markup" type="list" default="0" label="Mobile markup" description="Choose mobile markup">
+			<option value="">Auto (default)</option>
+			<option value="iphone">iphone (iPhone/iPod)</option>
+			<option value="xhtml">xhtml-mp (WAP2/PDA)</option>
+			<option value="chtml">chtml (i-Mode)</option>
+			<option value="wml">wml (WAP)</option>
+		</param>
+	</params>
+</install>

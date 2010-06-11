@@ -1,0 +1,173 @@
+a, a:link, a:visited {
+    color: #003399;
+}
+
+a img {
+    border: none;
+}
+
+ul {
+    list-style: disc inside !important;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+ul li {
+    padding-bottom: 0.25em;
+}
+
+ul ul {
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+}
+
+ul#mainlevel {
+    margin: 0;
+    padding: 5px 10px;
+    border-bottom: 1px solid #d8d8d8;
+    list-style: none;
+}
+
+ul#mainlevel li {
+    display: inline;
+    padding-right: 15px;
+}
+
+ul#mainlevel li a {
+    color: #006600;
+}
+
+ul#mainlevel li a#active_menu {
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#content {
+    margin-top: 10px;
+}
+
+#content h5 {
+    font-size: 1.2em;
+}
+
+#content h1, .contentheading {
+    font-size: 150%;
+    line-height: 130%;
+    margin-bottom: 0.3em;
+}
+
+#content .moduletable {
+    margin: 15px 0;
+}
+
+.createdate {
+    font-size: 10px;
+    text-align: right;
+    color: #999;
+}
+
+.contentpagetitle {
+    text-decoration: none;
+    font-size: 22px;
+    line-height: 100%;
+}
+
+.contentheading {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+.breadcrumbs.pathway {
+    display: block;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    font-size: 11px;
+    border-bottom: 1px solid #d8d8d8;
+}
+
+/* patches to nokia styles */
+#header {
+    background: url('../resources/images/img-branding-background.png') repeat-x top;
+    padding: 17px 10px 0;
+    height: 53px;
+}
+
+#header h1 a {
+    font-weight: bold;
+    display: block;
+    text-decoration: none;
+    color: #44AA33;
+}
+
+h1, div.h1 {
+    border: none;
+    margin: 0;
+    padding: 0;
+    font-size: 23px;
+    border: none;
+    background: none;
+}
+
+h2, div.h2 {
+    border-top: none;
+    border-bottom: none;
+    font-size: 14px;
+}
+
+h3, div.h3, .componentheading {
+    border-top: none;
+    border-bottom: none;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+span.markupchooser {
+    color: #C0C0C0;
+}
+
+#footer {
+    height: auto;
+    padding: 0.7em;
+    color: #fff;
+}
+
+#footer ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#footer ul li {
+    padding-bottom: 0.35em;
+}
+
+#footer ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+#footer a {
+    color: white;
+}
+
+#footer p.jfooter {
+    margin: 15px 0;
+    font-size: 12px;
+    line-height: 120%;
+    color: #ddd;
+}
+
+ol {
+	margin-left: 0.5em;
+	padding-left: 1.5em;
+}

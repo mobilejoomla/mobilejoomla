@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="mobile">
+	<name>Mobile - Webbots</name>
+	<version>###VERSION###</version>
+	<author>###AUTHOR###</author>
+	<creationDate>###DATE###</creationDate>
+	<copyright>###COPYRIGHT###</copyright>
+	<license>###LICENSE###</license>
+	<authorEmail>###EMAIL###</authorEmail>
+	<authorUrl>###URL###</authorUrl>
+	<description>Webbots checker</description>
+	<files>
+		<filename plugin="webbots">webbots.php</filename>
+	</files>
+	<params />
+</install>

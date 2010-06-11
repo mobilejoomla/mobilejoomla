@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="module" version="1.5.0">
+	<name>Menu</name>
+	<version>###VERSION###</version>
+	<author>###AUTHOR###</author>
+	<copyright>###COPYRIGHT###</copyright>
+	<creationDate>###DATE###</creationDate>
+	<authorEmail>###EMAIL###</authorEmail>
+	<authorUrl>###URL###</authorUrl>
+	<license>###LICENSE###</license>
+	<description>Displays a menu.</description>
+	<files>
+		<filename module="mod_mj_wap_menu">mod_mj_wap_menu.php</filename>
+	</files>
+	<params>
+		<param name="menutype" type="mos_menu" default="" label="Menu Name"
+				description="The name of the menu (default is mainmenu)"/>
+	</params>
+	<params group="other">
+		<param name="excludemenu" type="text" default="" label="Exclude Menu Items"
+				description="Comma separated IDs of menu items to be excluded"/>
+	</params>
+</install>

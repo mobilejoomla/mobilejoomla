@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE install PUBLIC "-//Joomla! 1.5//DTD template 1.0//EN" "http://dev.joomla.org/xml/1.5/template-install.dtd">
+<install version="1.5" type="template">
+	<name>mobile_imode</name>
+	<version>###VERSION###</version>
+	<author>###AUTHOR###</author>
+	<copyright>###COPYRIGHT###</copyright>
+	<creationDate>###DATE###</creationDate>
+	<authorEmail>###EMAIL###</authorEmail>
+	<authorUrl>###URL###</authorUrl>
+	<license>###LICENSE###</license>
+	<description>MobileJoomla!</description>
+	<files>
+		<filename>index.php</filename>
+		<filename>component.php</filename>
+		<filename>error.php</filename>
+		<filename>params.ini</filename>
+		<filename>template_thumbnail.png</filename>
+		<folder>html</folder>
+	</files>
+	<positions>
+		<position>mj_imode_header</position>
+		<position>mj_imode_header2</position>
+		<position>mj_imode_middle</position>
+		<position>mj_imode_middle2</position>
+		<position>mj_imode_footer</position>
+		<position>mj_imode_footer2</position>
+	</positions>
+</install>

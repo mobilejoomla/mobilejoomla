@@ -1,0 +1,107 @@
+/* MJ iPhone styles */
+.content .container {
+    padding: 10px;
+    margin: 10px;
+    background-color: white;
+    line-height: 120%;
+    border: 1px solid #888888;
+    -webkit-border-radius: 6px;
+}
+
+.content h5 {
+    font-size: 1.2em;
+}
+
+.content h1, .contentheading {
+    font-size: 150%;
+    line-height: 130%;
+    margin-bottom: 0.3em;
+}
+
+.profile .content * {
+    max-width: 300px;
+    overflow: hidden;
+}
+
+.landscape .content * {
+    max-width: 450px;
+}
+
+.contentheading {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+a {
+    color: #7a8faa;
+}
+
+ul li a.mainlevel:hover, ul li a.mainlevel:active {
+    -moz-background-clip: border;
+    -moz-background-inline-policy: continuous;
+    -moz-background-origin: padding;
+    background: #194FDB url('../jqtouch-src/themes/apple/img/selection.png') repeat-x scroll 0 0;
+    color: #FFFFFF;
+}
+
+a img {
+    border: none;
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+.createdate {
+    font-size: 10px;
+    text-align: right;
+    color: #999;
+}
+
+.buttonheading {
+    float: right;
+}
+
+.contentpagetitle {
+    text-decoration: none;
+    font-size: 20px;
+    line-height: 100%;
+}
+
+p.jfooter {
+    margin: 10px;
+    font-size: 12px;
+    line-height: 120%;
+    color: #333;
+}
+
+#mj_iphone_header,
+#mj_iphone_header2,
+#mj_iphone_footer,
+#mj_iphone_footer2 {
+    padding: 10px;
+}
+
+/* fixed to jQtouch */
+
+body {
+    background: rgb(197, 204, 211) url('../jqtouch-src/themes/apple/img/pinstripes.png') repeat;
+}
+
+.toolbar {
+    padding: 0;
+}
+
+.home.active, .button.active, .back.active, .cancel.active, .add.active {
+    color: #999;
+}
+
+.back.active {
+    -webkit-border-image: url('../jqtouch-src/themes/apple/img/backButton.png') 0 8 0 14;
+}
+
+h3, div.h3 {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+    font-weight: bold;
+}

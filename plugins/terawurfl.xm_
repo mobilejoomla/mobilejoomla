@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="mobile">
+	<name>Mobile - TeraWURFL</name>
+	<version>###VERSION###</version>
+	<author>###AUTHOR###</author>
+	<creationDate>###DATE###</creationDate>
+	<copyright>###COPYRIGHT###</copyright>
+	<license>###LICENSE###</license>
+	<authorEmail>###EMAIL###</authorEmail>
+	<authorUrl>###URL###</authorUrl>
+	<description>TeraWURFL checker</description>
+	<files>
+		<filename plugin="terawurfl">terawurfl.php</filename>
+	</files>
+	<params>
+		<param name="mysql4" type="radio" default="0" label="Force to use mysql4-compatible version" description="Try to set this option having problem with default mysql5-version">
+			<option value="0">No (use mysql5)</option>
+			<option value="1">Yes (mysql4)</option>
+		</param>
+	</params>
+</install>

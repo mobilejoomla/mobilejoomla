@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="module" version="1.5.0">
+	<name>Markup Chooser</name>
+	<version>###VERSION###</version>
+	<author>###AUTHOR###</author>
+	<copyright>###COPYRIGHT###</copyright>
+	<creationDate>###DATE###</creationDate>
+	<authorEmail>###EMAIL###</authorEmail>
+	<authorUrl>###URL###</authorUrl>
+	<license>###LICENSE###</license>
+	<description>Allows user to change between mobile and desktop versions.</description>
+	<files>
+		<filename module="mod_mj_markupchooser">mod_mj_markupchooser.php</filename>
+	</files>
+	<params>
+		<param name="show_text" type="textarea" default="" label="Info text"
+				description="Text to display before the links" rows="2" cols="35"/>
+		<param name="show_choosen" type="radio" default="1" label="Show active" description="Show active markup.">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description=""/>
+		<param name="auto_show" type="radio" default="0" label="Show Auto link"
+				description="Show automatic detection link.">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="auto_text" type="text" default="Detect Version" label="Auto Link Text"
+				description="Auto Link Text"/>
+		<param name="@spacer" type="spacer" default="" label="" description=""/>
+		<param name="mobile_show" type="radio" default="1" label="Show Mobile link"
+				description="Show mobile markup link.">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="mobile_text" type="text" default="Mobile Version" label="Mobile Link Text"
+				description="Mobile markup link text"/>
+		<param name="@spacer" type="spacer" default="" label="" description=""/>
+		<param name="web_show" type="radio" default="1" label="Show Desktop link"
+				description="Show desktop markup link.">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="web_text" type="text" default="Standard Version" label="Desktop Link Text"
+				description="Desktop markup link text"/>
+		<param name="@spacer" type="spacer" default="" label="" description=""/>
+		<param name="xhtml_show" type="radio" default="0" label="Show Smartphone link"
+				description="Show Smartphone version link.">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="xhtml_text" type="text" default="Smartphone Version" label="Smartphone Version Link Text"
+				description="Smartphone markup text"/>
+		<param name="@spacer" type="spacer" default="" label="" description=""/>
+		<param name="iphone_show" type="radio" default="0" label="Show iPhone link"
+				description="Show iPhone version link.">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="iphone_text" type="text" default="iPhone Version" label="iPhone Version Link Text"
+				description="iPhone markup link text"/>
+		<param name="@spacer" type="spacer" default="" label="" description=""/>
+		<param name="wml_show" type="radio" default="0" label="Show WML link" description="Show WML version link.">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="wml_text" type="text" default="WAP Version" label="WAP Version Link Text"
+				description="WAP version link text"/>
+		<param name="@spacer" type="spacer" default="" label="" description=""/>
+	</params>
+	<params group="advanced">
+		<param name="moduleclass_sfx" type="text" default="" label="Module Class Suffix"
+				description="PARAMMODULECLASSSUFFIX"/>
+	</params>
+	<params group="other">
+	</params>
+</install>
