@@ -16,6 +16,7 @@ CHANGELOG
 0.9.5
 Beta release
 - RSS issue fixed
+- Templates preview issue fixed
 - Support of caching to increase site performance
 - Support of mobile plugins
 - New image adaptation script
