@@ -9,7 +9,7 @@
 	<authorEmail>###EMAIL###</authorEmail>
 	<authorUrl>###URL###</authorUrl>
 	<license>###LICENSE###</license>
-	<description> </description>
+	<description></description>
 	<files>
 		<filename>index.html</filename>
 	</files>
