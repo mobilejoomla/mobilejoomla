@@ -59,7 +59,7 @@ class HTML_mobilejoomla
 					<table class="adminheading">
 						<tr>
 							<th nowrap="nowrap"
-							    class="config"><?php echo JText::_('Kuneri Mobile Joomla! Settings'); ?></th>
+							    class="config"><?php echo JText::_('Mobile Joomla! Settings'); ?></th>
 						</tr>
 					</table>
 				</td>
@@ -733,16 +733,16 @@ class HTML_mobilejoomla
 		$version = HTML_mobilejoomla::getMJVersion();
 		?>
 		<!--fieldset class="adminform"-->
-		<!--legend><?php echo JText::_('Kuneri Mobile Joomla!'); ?></legend-->
+		<!--legend><?php echo JText::_('Mobile Joomla!'); ?></legend-->
 		<table class="admintable" cellspacing="1">
 			<tbody>
 			<tr>
 				<td>
-					<h2>Kuneri MobileJoomla <?php echo $version;?></h2>
-				<?php echo JText::_('Kuneri Mobile Joomla! is the most advanced tool to turn your Joomla! web site into a mobile web site, compatible with all phones in the world, including iPhone, Smartphone, iMode and WAP phones'); ?>
+					<h2>MobileJoomla <?php echo $version;?></h2>
+				<?php echo JText::_('Mobile Joomla! is the most advanced tool to turn your Joomla! web site into a mobile web site, compatible with all phones in the world, including iPhone, Smartphone, iMode and WAP phones'); ?>
 					<br/>
 					<br/>
-					<a href="http://www.mobilejoomla.com/"><?php echo JText::_('Visit Kuneri Mobile Joomla! for more!'); ?></a>
+					<a href="http://www.mobilejoomla.com/"><?php echo JText::_('Visit Mobile Joomla! for more!'); ?></a>
 					<br/>
 					<br/>
 
@@ -781,7 +781,7 @@ class HTML_mobilejoomla
 				<tbody>
 				<tr>
 					<td>
-						<h2>Kuneri MobileJoomla Extensions</h2>
+						<h2>Mobile Joomla Extensions</h2>
 					<?php echo JText::_('No extensions installed.'); ?><br/><br/>
 					<?php echo JText::_('You can find more extensions from'); ?> <a
 							href="http://www.mobilejoomla.com/"><?php echo JText::_('MobileJoomla homepage'); ?></a>.

@@ -8,13 +8,13 @@
  * @copyright	###COPYRIGHT###
  * @date		###DATE###
  */
-defined('_JEXEC') or die('Direct Access to this location is not allowed.');
+defined('_JEXEC') or die('Restricted access');
 
 jimport('joomla.filesystem.file');
 jimport('joomla.filesystem.folder');
 
 global $MJ_version;
-$MJ_version = '0.9.5';
+$MJ_version = '###VERSION###';
 
 function InstallPlugin($group, $sourcedir, $name, $fullname, $publish = 1, $ordering = -1000)
 {
@@ -612,27 +612,27 @@ function com_install()
 		$ERRORS[] = '<b>'.JText::_('Cannot install:').' Mobile Joomla modules.</b>';
 
 	// install terawurfl plugin
+	$tables = array ('#__terawurflcache', '#__terawurflcache_temp', '#__terawurflindex', '#__terawurflmerge',
+	                 '#__terawurfl_alcatel', '#__terawurfl_android', '#__terawurfl_aol', '#__terawurfl_apple',
+	                 '#__terawurfl_benq', '#__terawurfl_blackberry', '#__terawurfl_bot', '#__terawurfl_catchall',
+	                 '#__terawurfl_chrome', '#__terawurfl_docomo', '#__terawurfl_firefox', '#__terawurfl_grundig',
+	                 '#__terawurfl_htc', '#__terawurfl_kddi', '#__terawurfl_konqueror', '#__terawurfl_kyocera',
+	                 '#__terawurfl_lg', '#__terawurfl_mitsubishi', '#__terawurfl_motorola', '#__terawurfl_msie',
+	                 '#__terawurfl_nec', '#__terawurfl_nintendo', '#__terawurfl_nokia', '#__terawurfl_opera',
+	                 '#__terawurfl_operamini', '#__terawurfl_panasonic', '#__terawurfl_pantech', '#__terawurfl_philips',
+	                 '#__terawurfl_portalmmm', '#__terawurfl_qtek', '#__terawurfl_safari', '#__terawurfl_sagem',
+	                 '#__terawurfl_samsung', '#__terawurfl_sanyo', '#__terawurfl_sharp', '#__terawurfl_siemens',
+	                 '#__terawurfl_sonyericsson', '#__terawurfl_spv', '#__terawurfl_toshiba', '#__terawurfl_vodafone',
+	                 '#__terawurfl_windowsce');
+	foreach($tables as $table)
+	{
+		$query = "DROP TABLE IF EXISTS `{$table}`;";
+		$db->setQuery($query);
+		$db->query();
+	}
 	$teraSQL = $PluginSource.DS.'terawurfl'.DS.'tera_dump.sql.bz2';
 	if(file_exists($teraSQL))
 	{
-		$tables = array ('#__terawurflcache', '#__terawurflcache_temp', '#__terawurflindex', '#__terawurflmerge',
-		                 '#__terawurfl_alcatel', '#__terawurfl_android', '#__terawurfl_aol', '#__terawurfl_apple',
-		                 '#__terawurfl_benq', '#__terawurfl_blackberry', '#__terawurfl_bot', '#__terawurfl_catchall',
-		                 '#__terawurfl_chrome', '#__terawurfl_docomo', '#__terawurfl_firefox', '#__terawurfl_grundig',
-		                 '#__terawurfl_htc', '#__terawurfl_kddi', '#__terawurfl_konqueror', '#__terawurfl_kyocera',
-		                 '#__terawurfl_lg', '#__terawurfl_mitsubishi', '#__terawurfl_motorola', '#__terawurfl_msie',
-		                 '#__terawurfl_nec', '#__terawurfl_nintendo', '#__terawurfl_nokia', '#__terawurfl_opera',
-		                 '#__terawurfl_operamini', '#__terawurfl_panasonic', '#__terawurfl_pantech', '#__terawurfl_philips',
-		                 '#__terawurfl_portalmmm', '#__terawurfl_qtek', '#__terawurfl_safari', '#__terawurfl_sagem',
-		                 '#__terawurfl_samsung', '#__terawurfl_sanyo', '#__terawurfl_sharp', '#__terawurfl_siemens',
-		                 '#__terawurfl_sonyericsson', '#__terawurfl_spv', '#__terawurfl_toshiba', '#__terawurfl_vodafone',
-		                 '#__terawurfl_windowsce');
-		foreach($tables as $table)
-		{
-			$query = "DROP TABLE IF EXISTS `{$table}`;";
-			$db->setQuery($query);
-			$db->query();
-		}
 		if(!InstallPlugin('mobile', $PluginSource, 'terawurfl', 'Mobile - TeraWURFL', 1, 0))
 		{
 			$status = false;
@@ -734,10 +734,13 @@ function com_uninstall()
 		$db->setQuery($query);
 		$db->query();
 	}
-	$db->setQuery("DROP PROCEDURE IF EXISTS `TeraWurfl_RIS`");
-	$db->query();
-	$db->setQuery("DROP PROCEDURE IF EXISTS `TeraWurfl_FallBackDevices`");
-	$db->query();
+	if(version_compare($db->getVersion(), '5.0.0', '>='))
+	{
+		$db->setQuery("DROP PROCEDURE IF EXISTS `TeraWurfl_RIS`");
+		$db->query();
+		$db->setQuery("DROP PROCEDURE IF EXISTS `TeraWurfl_FallBackDevices`");
+		$db->query();
+	}
 
 	//uninstall templates
 	$templateslist = array ('mobile_pda', 'mobile_wap', 'mobile_imode', 'mobile_iphone');

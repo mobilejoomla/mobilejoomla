@@ -10,7 +10,7 @@
  */
 defined('_JEXEC') or die('Restricted access');
 
-defined('_MJ') or die('Incorrect using of Kuneri Mobile Joomla.');
+defined('_MJ') or die('Incorrect usage of Mobile Joomla.');
 
 $MobileJoomla =& MobileJoomla::getInstance();
 $base = JURI::base()."templates/".$this->template;

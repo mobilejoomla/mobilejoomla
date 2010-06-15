@@ -8,7 +8,7 @@
  * @copyright	###COPYRIGHT###
  * @date		###DATE###
  */
-defined('_JEXEC') or die('Direct Access to this location is not allowed.');
+defined('_JEXEC') or die('Restricted access');
 
 jimport('joomla.plugin.plugin');
 

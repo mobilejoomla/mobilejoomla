@@ -34,7 +34,6 @@ $headerstuff = $document->getHeadData();
 unset($headerstuff['scripts'][JURI::base(true).'/media/system/js/caption.js']);
 unset($headerstuff['scripts'][JURI::base(true).'/media/system/js/mootools.js']);
 $document->setHeadData($headerstuff);*/
-
 		echo '<jdoc:include type="head" />';
 	}
 
@@ -57,14 +56,9 @@ $document->setHeadData($headerstuff);*/
 		if($this->config['tmpl_iphone_jfooter'])
 		{
 			$version = new JVersion();
-			?>
-			<p class="jfooter">
-				&copy; <?php echo JHTML::_('date', 'now', '%Y').' '.$mainframe->getCfg('sitename'); ?><br>
-			<?php echo $version->URL; ?><br>
-			<?php echo JText::_('Mobile version by');?> <a href="http://www.mobilejoomla.com/">Kuneri Mobile Joomla!</a>
-			</p>
-			<?php
-
+?>
+<p class="jfooter">&copy; <?php echo JHTML::_('date', 'now', '%Y').' '.$mainframe->getCfg('sitename'); ?><br><?php echo $version->URL; ?><br><?php echo JText::_('Mobile version by');?> <a href="http://www.mobilejoomla.com/">Mobile Joomla!</a></p>
+<?php
 		}
 	}
 

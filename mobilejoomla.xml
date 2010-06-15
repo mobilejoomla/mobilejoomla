@@ -9,7 +9,7 @@
 	<authorEmail>###EMAIL###</authorEmail>
 	<authorUrl>###URL###</authorUrl>
 	<license>###LICENSE###</license>
-	<description>Mobile Joomla! is the most advanced tool to turn your Joomla! site into a mobile web site compatible with all phones in the world, including iPhone, Smartphone, iMode and WAP phones</description>
+	<description></description>
 	<files>
 		<filename>index.html</filename>
 	</files>
@@ -17,7 +17,7 @@
 		<language tag="en-GB">en-GB.tpl_mobile_iphone.ini</language>
 	</languages>
 	<administration>
-		<menu>Kuneri Mobile Joomla!</menu>
+		<menu>Mobile Joomla!</menu>
 		<submenu>
 			<menu task="settings">Settings</menu>
 			<menu task="extensions">Extensions</menu>

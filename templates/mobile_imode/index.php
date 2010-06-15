@@ -8,9 +8,9 @@
  * @copyright	###COPYRIGHT###
  * @date		###DATE###
  */
-defined('_JEXEC') or die('Direct Access to this location is not allowed.');
+defined('_JEXEC') or die('Restricted access');
 
-defined('_MJ') or die('Incorrect using of Kuneri Mobile Joomla.');
+defined('_MJ') or die('Incorrect usage of Mobile Joomla.');
 
 $MobileJoomla =& MobileJoomla::getInstance();
 

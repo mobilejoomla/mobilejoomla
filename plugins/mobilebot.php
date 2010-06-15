@@ -8,7 +8,7 @@
  * @copyright	###COPYRIGHT###
  * @date		###DATE###
  */
-defined('_JEXEC') or die('Direct Access to this location is not allowed.');
+defined('_JEXEC') or die('Restricted access');
 
 jimport('joomla.plugin.plugin');
 
@@ -313,6 +313,8 @@ class plgSystemMobileBot extends JPlugin
 	// Validate markup
 	function CheckMarkup($markup)
 	{
+		if(($markup===false)||($markup===null))
+			return false;
 		switch($markup)
 		{
 			case '':

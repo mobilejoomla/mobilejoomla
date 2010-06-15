@@ -141,14 +141,9 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 		if($this->config['tmpl_xhtml_jfooter'])
 		{
 			$version = new JVersion();
-			?>
-			<p class="jfooter">
-				&copy; <?php echo JHTML::_('date', 'now', '%Y').' '.$mainframe->getCfg('sitename'); ?><br/>
-			<?php echo $version->URL; ?><br/>
-				Mobile version by <a href="http://www.mobilejoomla.com/">Kuneri Mobile Joomla!</a>
-			</p>
-			<?php
-
+?>
+<p class="jfooter">&copy; <?php echo JHTML::_('date', 'now', '%Y').' '.$mainframe->getCfg('sitename'); ?><br/><?php echo $version->URL; ?><br/>Mobile version by <a href="http://www.mobilejoomla.com/">Mobile Joomla!</a></p>
+<?php
 		}
 	}
 
