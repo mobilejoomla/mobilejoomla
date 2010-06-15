@@ -14,7 +14,7 @@ class TOOLBAR_mobilejoomla
 {
 	function _DEFAULT()
 	{
-		JToolBarHelper::title(JText::_('Mobile Joomla Settings'), 'config.php');
+		JToolBarHelper::title(JText::_('Mobile Joomla! Settings'), 'config.php');
 		JToolBarHelper::save();
 		JToolBarHelper::cancel('cancel');
 	}

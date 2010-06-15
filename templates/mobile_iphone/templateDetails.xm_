@@ -18,9 +18,9 @@
 		<filename>jqt_startup.png</filename>
 		<filename>jqtouch.png</filename>
 		<filename>template_thumbnail.png</filename>
-		<filename>css</filename>
-		<filename>html</filename>
-		<filename>jqtouch-src</filename>
+		<folder>css</folder>
+		<folder>html</folder>
+		<folder>jqtouch-src</folder>
 	</files>
 	<positions>
 		<position>mj_iphone_header</position>

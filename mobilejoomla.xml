@@ -9,7 +9,7 @@
 	<authorEmail>###EMAIL###</authorEmail>
 	<authorUrl>###URL###</authorUrl>
 	<license>###LICENSE###</license>
-	<description></description>
+	<description> </description>
 	<files>
 		<filename>index.html</filename>
 	</files>
@@ -49,8 +49,6 @@
 			<folder>templates</folder>
 		</files>
 	</administration>
-	<install/>
-	<uninstall/>
 	<installfile>uninstall.mobilejoomla.php</installfile>
 	<uninstallfile>uninstall.mobilejoomla.php</uninstallfile>
 </install>

@@ -17,9 +17,9 @@
 		<filename>mj_xhtml.js</filename>
 		<filename>Licence.txt</filename>
 		<filename>template_thumbnail.png</filename>
-		<folder>css</filename>
-		<folder>html</filename>
-		<folder>resources</filename>
+		<folder>css</folder>
+		<folder>html</folder>
+		<folder>resources</folder>
 	</files>
 	<positions>
 		<position>mj_pda_header</position>
