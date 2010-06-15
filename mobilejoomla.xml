@@ -15,6 +15,7 @@
 	</files>
 	<languages>
 		<language tag="en-GB">en-GB.tpl_mobile_iphone.ini</language>
+		<language tag="en-GB">en-GB.plg_terawurfl.ini</language>
 	</languages>
 	<administration>
 		<menu>Mobile Joomla!</menu>
