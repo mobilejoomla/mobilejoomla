@@ -166,7 +166,7 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 			$text = preg_replace('#<embed.+</embed>#is', '', $text);
 			$text = preg_replace('#<applet\s[^>]+? />#is', '', $text);
 			$text = preg_replace('#<applet\s.+?</applet>#is', '', $text);
-			$text = preg_replace('#(<.+?)align="center"(.+?>)#is', '$1class="center"$2', $text); // mosimage fix
+/*			$text = preg_replace('#(<.+?)align="center"(.+?>)#is', '\1class="center"\2', $text); // mosimage fix */
 			$text = str_replace('<br>', '<br />', $text); // xml-compatibility
 		}
 		if($this->config['tmpl_xhtml_removescripts'])
