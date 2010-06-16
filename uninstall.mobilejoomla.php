@@ -358,7 +358,7 @@ function parse_mysql_dump($file)
 	}
 	else
 	{
-		$teraPath = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'terawurfl'.DS;
+		$teraPath = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'plugins'.DS.'terawurfl'.DS;
 		$teraSQL = $teraPath.'tera_dump.sql';
 
 		if(JFile::exists($file))
