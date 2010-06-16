@@ -55,7 +55,8 @@ if(!$desktopUserDesktopPage)
 	/** @var JURI $uri */
 	$uri = JFactory::getURI();
 	$uri->delVar('naked');
-	$return = base64_encode(rtrim($base, '/').$uri->toString(array ('path', 'query')));
+	$parse = parse_url($base);
+	$return = base64_encode($parse['scheme'].'://'.$parse['host'].$uri->toString(array ('path', 'query')));
 	$show_chosen_markup = $params->get('show_choosen', 1);
 
 	echo $params->get('show_text', ' ');
