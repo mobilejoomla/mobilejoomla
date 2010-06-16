@@ -49,7 +49,7 @@ class ImageRescaler
 
 		ImageRescaler::$scaledimage_width = null;
 		ImageRescaler::$scaledimage_height = null;
-		$text = preg_replace('#\ssrc\s*=\s*(["\']?)(.*?)\1(\s|$)#ie',
+		$text = preg_replace('#\ssrc\s*=\s*(["\']?)(.*?)\1(?=\s|$)#ie',
 							 "' src=\"'.ImageRescaler::rescaleImage('\\2',$scaletype).'\"'", $text);
 		if(ImageRescaler::$scaledimage_width && ImageRescaler::$scaledimage_height)
 			$text = ' width="'.ImageRescaler::$scaledimage_width.'"'.
