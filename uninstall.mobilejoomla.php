@@ -360,26 +360,25 @@ function parse_mysql_dump($file)
 	{
 		$teraPath = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'plugins'.DS.'terawurfl'.DS;
 		$teraSQL = $teraPath.'tera_dump.sql';
+		$teraSQL_root = JPATH_SITE.DS.'tera_dump.sql';
 
 		if(JFile::exists($file))
 		{
 			$pwd = getcwd();
 			chdir($teraPath);
-			exec('bunzip2 '.escapeshellarg($file).' 2>&1');
+			exec('bunzip2 -k '.escapeshellarg($file).' 2>&1');
 			chdir($pwd);
 		}
 
-		if(!JFile::exists($teraSQL))
-		{
-			$teraSQL_root = JPATH_SITE.DS.'tera_dump.sql';
-			if(JFile::exists($teraSQL_root))
-				$teraSQL = $teraSQL_root;
-		}
+		if(!JFile::exists($teraSQL) && JFile::exists($teraSQL_root))
+			$teraSQL = $teraSQL_root;
 
 		if(JFile::exists($teraSQL))
 		{
 			if(!plain_parse_mysql_dump($teraSQL))
 				$WARNINGS[] = JText::_("Error reading")." $teraSQL";
+			if($teraSQL != $teraSQL_root)
+				JFile:delete($teraSQL);
 		}
 		else
 		{
