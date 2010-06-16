@@ -54,8 +54,8 @@ class ImageRescaler
 		if(ImageRescaler::$scaledimage_width && ImageRescaler::$scaledimage_height)
 			$text = ' width="'.ImageRescaler::$scaledimage_width.'"'.
 					' height="'.ImageRescaler::$scaledimage_height.'"'.
-					' style="width:'.ImageRescaler::$scaledimage_width.' !important;'.
-							'height:'.ImageRescaler::$scaledimage_height.' !important;"'.
+					' style="width:'.ImageRescaler::$scaledimage_width.'px !important;'.
+							'height:'.ImageRescaler::$scaledimage_height.'px !important;"'.
 					$text;
 
 		return $text;
