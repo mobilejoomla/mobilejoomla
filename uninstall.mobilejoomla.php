@@ -362,7 +362,7 @@ function parse_mysql_dump($file)
 		$teraSQL = $teraPath.'tera_dump.sql';
 		$teraSQL_root = JPATH_SITE.DS.'tera_dump.sql';
 
-		if(JFile::exists($file))
+		if((ini_get('safe_mode')==0) && JFile::exists($file))
 		{
 			$pwd = getcwd();
 			chdir($teraPath);
