@@ -378,7 +378,7 @@ function parse_mysql_dump($file)
 			if(!plain_parse_mysql_dump($teraSQL))
 				$WARNINGS[] = JText::_("Error reading")." $teraSQL";
 			if($teraSQL != $teraSQL_root)
-				JFile:delete($teraSQL);
+				JFile::delete($teraSQL);
 		}
 		else
 		{
