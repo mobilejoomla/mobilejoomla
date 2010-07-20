@@ -107,6 +107,8 @@ class ImageRescaler
 			return $imageurl;
 
 		list($src_width, $src_height) = getimagesize($src_imagepath);
+		if($src_width==0 || $src_height==0)
+			return $imageurl;
 
 		if($scaletype == 1)
 		{
