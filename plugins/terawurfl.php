@@ -29,7 +29,7 @@ class plgMobileTerawurfl extends JPlugin
 			$wurflObj = new TeraWurfl();
 			if(!is_object($wurflObj))
 				return;
-			$matched = $wurflObj->getDeviceCapabilitiesFromAgent($_SERVER['HTTP_USER_AGENT']);
+			$wurflObj->getDeviceCapabilitiesFromAgent();
 		}
 		else
 		{
@@ -38,16 +38,14 @@ class plgMobileTerawurfl extends JPlugin
 				$wurflObj = new TeraWurfl();
 				if(!is_object($wurflObj))
 					return;
-				$matched = $wurflObj->getDeviceCapabilitiesFromAgent($_SERVER['HTTP_USER_AGENT']);
+				$wurflObj->getDeviceCapabilitiesFromAgent();
 			}
 			catch(exception $e)
 			{
+				error_log("Caught exception 'Exception' with message '$e->getMessage()' in $e->getFile():$e->getLine()");
 				return;
 			}
 		}
-
-		if(!$matched)
-			return;
 
 		if($wurflObj->getDeviceCapability('is_wireless_device'))
 		{
