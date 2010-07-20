@@ -36,7 +36,7 @@ class plgMobileSimple extends JPlugin
 			if(strpos($useragent, $iphone_ua)===0)
 			{
 				$MobileJoomla_Device['markup'] = 'iphone';
-				break;
+				return;
 			}
 
 		if(((substr($useragent, 0, 10) == 'portalmmm/') || (substr($useragent, 0, 7) == 'DoCoMo/')))
