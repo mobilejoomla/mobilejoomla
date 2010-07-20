@@ -149,7 +149,10 @@ class ImageRescaler
 			return $dest_imageuri;
 
 		if(!JFolder::exists($dest_imagedir))
+		{
 			JFolder::create($dest_imagedir);
+			JFile::write($dest_imagedir.DS.'index.html', '<html><body bgcolor="#FFFFFF"></body></html>');
+		}
 
 		if(!JFile::copy($src_imagepath, $dest_imagepath))
 			return $imageurl;
