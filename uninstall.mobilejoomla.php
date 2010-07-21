@@ -522,6 +522,8 @@ function com_install()
 		if(JFolder::exists($admin.'languages'))
 			JFolder::delete($admin.'languages');
 		JFile::delete(JFolder::files($admin.'markup','checkmobile_'));
+		if(JFolder::exists($admin.'methods'))
+			JFolder::delete($admin.'methods');
 		if(JFolder::exists($admin.'terawurfl'))
 			JFolder::delete($admin.'terawurfl');
 		if(JFolder::exists($admin.'views'))
@@ -559,23 +561,6 @@ function com_install()
 	//update config
 	UpdateConfig();
 
-	//install plugins
-	$PluginSource = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'plugins';
-	$status = true;
-	if(!InstallPlugin('system', $PluginSource, 'mobilebot', 'Mobile Joomla Plugin'))
-	{
-		$status = false;
-		$ERRORS[] = '<b>'.JText::_('Cannot install:').' Mobile Joomla Plugin.</b>';
-	}
-	$checkers = array ('simple' => -2, 'webbots' => -1, 'always' => 8, 'domains' => 9);
-	JFolder::create(JPATH_PLUGINS.DS.'mobile');
-	foreach($checkers as $plugin => $order)
-		if(!InstallPlugin('mobile', $PluginSource, $plugin, 'Mobile - '.ucfirst($plugin), 1, $order))
-		{
-			$status = false;
-			$ERRORS[] = '<b>'.JText::_('Cannot install:').' Mobile - '.ucfirst($plugin).'.</b>';
-		}
-
 	// install templates
 	$TemplateSource = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'templates';
 	$templates = array ('mobile_pda','mobile_wap','mobile_imode','mobile_iphone');
@@ -609,6 +594,23 @@ function com_install()
 		JFolder::delete($ModuleSource);
 	else
 		$ERRORS[] = '<b>'.JText::_('Cannot install:').' Mobile Joomla modules.</b>';
+
+	//install plugins
+	$PluginSource = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'plugins';
+	$status = true;
+	if(!InstallPlugin('system', $PluginSource, 'mobilebot', 'Mobile Joomla Plugin'))
+	{
+		$status = false;
+		$ERRORS[] = '<b>'.JText::_('Cannot install:').' Mobile Joomla Plugin.</b>';
+	}
+	$checkers = array ('simple' => -2, 'webbots' => -1, 'always' => 8, 'domains' => 9);
+	JFolder::create(JPATH_PLUGINS.DS.'mobile');
+	foreach($checkers as $plugin => $order)
+		if(!InstallPlugin('mobile', $PluginSource, $plugin, 'Mobile - '.ucfirst($plugin), 1, $order))
+		{
+			$status = false;
+			$ERRORS[] = '<b>'.JText::_('Cannot install:').' Mobile - '.ucfirst($plugin).'.</b>';
+		}
 
 	// install terawurfl plugin
 	$tables = array ('#__terawurflcache', '#__terawurflcache_temp', '#__terawurflindex', '#__terawurflmerge',
@@ -658,7 +660,7 @@ function com_install()
 			}
 		}
 	}
-	if(!$status)
+	if($status)
 		JFolder::delete($PluginSource);
 
 	//Show install log
