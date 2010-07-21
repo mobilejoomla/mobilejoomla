@@ -23,99 +23,81 @@ if(!empty ($MobileJoomla->config['tmpl_iphone_homepage']))
 <head>
 	<meta http-equiv="Content-Type" content="<?php echo $MobileJoomla->getContentString(); ?>"/>
 <?php $MobileJoomla->showHead(); ?>
-	<style type="text/css" media="screen">@import "<?php echo $base?>/jqtouch-src/jqtouch/jqtouch.min.css";</style>
-	<style type="text/css" media="screen">@import "<?php echo $base?>/jqtouch-src/themes/apple/theme.min.css";</style>
-	<style type="text/css" media="screen">@import "<?php echo $base?>/css/mj_iphone.css";</style>
+	<style type="text/css" media="screen">@import "<?php echo $base;?>/jqtouch-src/jqtouch/jqtouch.min.css";</style>
+	<style type="text/css" media="screen">@import "<?php echo $base;?>/jqtouch-src/themes/apple/theme.min.css";</style>
+	<style type="text/css" media="screen">@import "<?php echo $base;?>/css/mj_iphone.css";</style>
 	<meta name="viewport" content="width = 320, initial-scale = 1.0, user-scalable = no, maximum-scale = 1.0">
 </head>
 <body>
-
-<div<?php echo ($MobileJoomla->_ishomepage) ? " id=\"home\"" : ""?> class="current">
-
+<div<?php echo ($MobileJoomla->_ishomepage) ? " id=\"home\"" : "";?> class="current">
 	<div class="toolbar">
-		<h1> <?php /** @var JSite $app */ $app =& JFactory::getApplication(); echo $app->getCfg('sitename'); ?> </h1>
+		<h1><?php /** @var JSite $app */ $app =& JFactory::getApplication(); echo $app->getCfg('sitename'); ?></h1>
 	<?php if(!$MobileJoomla->_ishomepage): ?>
 		<a class="back" href="javascript:history.go(-1)"><?php echo JText::_('Back'); ?></a>
 		<a class="home" href="<?php echo $homepage;?>"><?php echo JText::_('Home'); ?></a>
 	<?php endif;?>
 	</div>
-
 <?php
-
 $modulepos = $MobileJoomla->getPosition('header');
 if($modulepos && $this->countModules($modulepos) > 0)
 {
-	?><?php $MobileJoomla->loadModules($modulepos); ?><?php
-
+	$MobileJoomla->loadModules($modulepos);
 }
 $modulepos = $MobileJoomla->getPosition('header2');
 if($modulepos && $this->countModules($modulepos) > 0)
 {
-	?><?php $MobileJoomla->loadModules($modulepos); ?><?php
-
+	$MobileJoomla->loadModules($modulepos);
 }
 
-?>
-<?php if($MobileJoomla->config['tmpl_iphone_pathway'] && (!$MobileJoomla->_ishomepage || $MobileJoomla->config['tmpl_iphone_pathwayhome'])): ?>
+if($MobileJoomla->config['tmpl_iphone_pathway'] && (!$MobileJoomla->_ishomepage || $MobileJoomla->config['tmpl_iphone_pathwayhome'])): ?>
 	<div class="content">
-	<?php
-                $MobileJoomla->showPathway();
-	?>
+		<?php $MobileJoomla->showPathway(); ?>
 	</div>
-<?php endif;?>
-
 <?php
-            $modulepos = $MobileJoomla->getPosition('middle');
+endif;
+
+$modulepos = $MobileJoomla->getPosition('middle');
 if($modulepos && $this->countModules($modulepos) > 0 && ($MobileJoomla->_ishomepage || $MobileJoomla->hasSubmenus()))
 {
-	?>
-		<div id="<?php echo $modulepos; ?>"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
-
+	?><div id="<?php echo $modulepos; ?>"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
 }
-?>
 
-<?php if(!(!$MobileJoomla->config['tmpl_iphone_componenthome'] && $MobileJoomla->_ishomepage)): ?>
+if(!(!$MobileJoomla->config['tmpl_iphone_componenthome'] && $MobileJoomla->_ishomepage)): ?>
 	<div class="content">
-
 		<div class="container">
-		<?php
-            $MobileJoomla->showMainBody();
-		?>
+			<?php $MobileJoomla->showMainBody(); ?>
 		</div>
-
-	<?php
-            $modulepos = $MobileJoomla->getPosition('middle2');
+<?php
+	$modulepos = $MobileJoomla->getPosition('middle2');
 	if($modulepos && $this->countModules($modulepos) > 0)
 	{
-		?>
-			<div id="<?php echo $modulepos; ?>"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
-
+		?><div id="<?php echo $modulepos; ?>">
+			<?php $MobileJoomla->loadModules($modulepos); ?>
+		</div><?php
 	}
-	?>
+?>
 	</div>
-<?php endif;?>
-
 <?php
-            $modulepos = $MobileJoomla->getPosition('footer');
+endif;
+
+$modulepos = $MobileJoomla->getPosition('footer');
 if($modulepos && $this->countModules($modulepos) > 0)
 {
-	?>
-		<div id="<?php echo $modulepos; ?>" class="current"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
-
+	?><div id="<?php echo $modulepos; ?>" class="current">
+		<?php $MobileJoomla->loadModules($modulepos); ?>
+	</div><?php
 }
+
 $MobileJoomla->showFooter();
+
 $modulepos = $MobileJoomla->getPosition('footer2');
 if($modulepos && $this->countModules($modulepos) > 0)
 {
-	?>
-		<div id="<?php echo $modulepos; ?>" class="current"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
-
+	?><div id="<?php echo $modulepos; ?>" class="current">
+		<?php $MobileJoomla->loadModules($modulepos); ?>
+	</div><?php
 }
-
 ?>
-
-
 </div>
-
 </body>
 </html>

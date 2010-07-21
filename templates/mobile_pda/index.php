@@ -24,8 +24,8 @@ $base = JURI::base()."templates/".$this->template;
 	<style type="text/css" media="screen">@import "<?php echo $base;?>/resources/styles/reset.css";</style>
 	<style type="text/css" media="screen">@import "<?php echo $base;?>/resources/styles/baseStyles.css";</style>
 	<style type="text/css" media="screen">@import "<?php echo $base;?>/css/mj_xhtml.css";</style>
-	<script type="text/javascript" src="<?php echo $base?>/resources/scripts/templates.js"></script>
-	<script src="<?php echo $base?>/mj_xhtml.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="<?php echo $base;?>/resources/scripts/templates.js"></script>
+	<script src="<?php echo $base;?>/mj_xhtml.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
 <div id="wrap">
@@ -66,7 +66,7 @@ $base = JURI::base()."templates/".$this->template;
 		{
 ?>
 			<div class="home">
-				<a href="<?php echo $this->baseurl?>">Home</a>
+				<a href="<?php echo $this->baseurl;?>">Home</a>
 			</div>
 <?php
 		}
