@@ -268,9 +268,7 @@ class plgSystemMobileBot extends JPlugin
 		$document->setMimeEncoding($MobileJoomla->getContentType());
 		$MobileJoomla->setHeader();
 
-		$current = array ();
-		foreach($GLOBALS['_JREQUEST'] as $key => $var)
-			$current[$key] = $_REQUEST[$key];
+		$current = $_GET;
 		unset($current['Itemid']);
 		unset($current['lang']);
 
