@@ -164,7 +164,24 @@ if(!class_exists('JConfig'))
 
 $config = new JConfig;
 
-TeraWurflConfig::$DB_HOST = $config->host;
+if(strpos($config->host,':')===false)
+	TeraWurflConfig::$DB_HOST = $config->host;
+else
+{
+	list(TeraWurflConfig::$DB_HOST, $port) = explode(':',$config->host);
+	if(is_numeric($port))
+	{
+		ini_set('mysqli.default_port', $port);
+		ini_set('mysqli.default_socket', NULL);
+	}
+	else
+	{
+		ini_set('mysqli.default_port', NULL);
+		ini_set('mysqli.default_socket', $port);
+	}
+}
+if(TeraWurflConfig::$DB_HOST == '')
+	TeraWurflConfig::$DB_HOST = 'localhost';
 TeraWurflConfig::$DB_USER = $config->user;
 TeraWurflConfig::$DB_PASS = $config->password;
 TeraWurflConfig::$DB_SCHEMA = $config->db;
