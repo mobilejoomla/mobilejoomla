@@ -35,6 +35,10 @@ unset($headerstuff['scripts'][JURI::base(true).'/media/system/js/caption.js']);
 unset($headerstuff['scripts'][JURI::base(true).'/media/system/js/mootools.js']);
 $document->setHeadData($headerstuff);*/
 		echo '<jdoc:include type="head" />';
+		global $mainframe;
+		$template = $mainframe->getTemplate();
+		if(file_exists(JPATH_THEMES.DS.$template.DS.'apple-touch-icon.png'))
+			echo '<link rel="apple-touch-icon" href="'.JURI::base(true).'/templates/'.$template.'/apple-touch-icon.png" />';
 	}
 
 	function showPathway()
