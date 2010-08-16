@@ -13,6 +13,23 @@ defined('_JEXEC') or die('Restricted access');
 
 CHANGELOG
 
+0.9.7
+Beta release
+- Fix of mobile homepage support
+- Feature to select menuitem instead of typing its url in homepage parameters
+- Check for possibility of mysqli connection during install
+- Fix of work of mysqli with nonstandard port/socket
+- Disable TeraWURFL plugin in PHP4
+- Support of apple-touch icon (57x57 px) in iPhone templates
+- Improvement of gif and wbmp rescaling
+
+0.9.6
+Beta release
+- Fix of image rescaling procedure
+- Fix of installing procedure
+- Fix of markupchooser module to work with joomla installed in subdirectory
+- Fix of determining iPhones
+
 0.9.5
 Beta release
 - RSS issue fixed
@@ -69,6 +86,5 @@ Second iteration on private alpha.
 - Some fixes regarding PHP4 compatibility (although actually we do not support it)
 - Memory issues should be obselete (all was related to the old WURFL)
 
-
 0.8.0
-Initial release. Alpha & privately distrbuted.
+Initial release. Alpha & privately distributed.
