@@ -272,6 +272,64 @@ function showconfig()
 
 	$lists['tmpl_iphone_removetags'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_iphone_removetags', 'class="inputbox"', $MobileJoomla_Settings['tmpl_iphone_removetags']);
 
+	function menuoptions()
+	{
+		$db =& JFactory::getDBO();
+		$query = 'SELECT id, menutype, name, link, type, parent FROM #__menu WHERE published=1 ORDER BY menutype, parent, ordering';
+		$db->setQuery($query);
+		$mitems = $db->loadObjectList();
+		$children = array();
+		foreach($mitems as $v)
+		{
+			$pt = $v->parent;
+			$list = @$children[$pt] ? $children[$pt] : array();
+			array_push($list, $v);
+			$children[$pt] = $list;
+		}
+		$list = array();
+		$id = intval($mitems[0]->parent);
+		if(@$children[$id])
+			TreeRecurse($id, '', $list, $children);
+		$mitems = array();
+		$lastMenuType = null;
+		foreach($list as $list_a)
+		{
+			if($list_a->menutype != $lastMenuType)
+			{
+				if($lastMenuType)
+					$mitems[] = JHTML::_('select.option', '</OPTGROUP>' );
+				$mitems[] = JHTML::_('select.option', '<OPTGROUP>', $list_a->menutype);
+				$lastMenuType = $list_a->menutype;
+			}
+			if($list_a->type == 'component')
+			{
+				$link = $list_a->link;
+				if(strpos($link,'?')===false)
+					$link .= '?Itemid='.$list_a->id;
+				else
+					$link .= '&Itemid='.$list_a->id;
+			}
+			else
+				$link = '';
+			$mitems[] = JHTML::_('select.option', $link, $list_a->treename);
+		}
+		if($lastMenuType !== null)
+			$mitems[] = JHTML::_('select.option', '</OPTGROUP>');
+		return $mitems;
+	}
+	function TreeRecurse($id, $indent, &$list, &$children, $level=0)
+	{
+		foreach($children[$id] as $v)
+		{
+			$id = $v->id;
+			$list[$id] = $v;
+			$list[$id]->treename = $indent.$v->name;
+			if(@$children[$id] && $level<=99)
+				TreeRecurse($id, $indent.'&nbsp;&nbsp;', $list, $children, $level+1);
+		}
+	}
+	$lists['menuoptions'] = menuoptions();
+
 	HTML_mobilejoomla::showconfig($lists, $MobileJoomla_Settings);
 }
 
@@ -322,7 +380,7 @@ function saveconfig($task)
 	$configfname = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php';
 	include($configfname);
 
-	$settings = array ('caching', 'domains', 'pcpage', 'templatewidth', 'jpegquality',
+	$settings = array ('caching', 'domains', 'pcpage', 'templatewidth', 'jpegquality', 'desktop_url',
 	                   'xhtmltemplate', 'xhtmlhomepage', 'xhtmlgzip', 'xhtmldomain', 'xhtmlredirect', 'xhtml_buffer_width',
 	                   'waptemplate', 'waphomepage', 'wapgzip', 'wapdomain', 'wapredirect', 'wml_buffer_width',
 	                   'imodetemplate', 'imodehomepage', 'imodegzip', 'imodedomain', 'imoderedirect', 'chtml_buffer_width',

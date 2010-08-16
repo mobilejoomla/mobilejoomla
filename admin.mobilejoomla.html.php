@@ -114,6 +114,13 @@ class HTML_mobilejoomla
 					<td><input class="text_area" type="text" size="3" name="mjconfig_jpegquality"
 					           value="<?php echo $MobileJoomla_Settings['jpegquality']; ?>"/></td>
 				</tr>
+				<tr>
+					<td class="key"><span class="editlinktip hasTip"
+					                      title="<?php echo JText::_('Desktop URL'); ?>::<?php echo JText::_('Should be changed after moving the site to another URI only.'); ?>"><?php echo JText::_('Desktop URL'); ?></span>
+					</td>
+					<td><input class="text_area" type="text" size="30" name="mjconfig_desktop_url"
+					           value="<?php echo $MobileJoomla_Settings['desktop_url']; ?>"/></td>
+				</tr>
 				</tbody>
 			</table>
 		</fieldset>
@@ -222,9 +229,10 @@ class HTML_mobilejoomla
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('Homepage'); ?>::<?php echo JText::_('Set this page as a homepage.'); ?>"><?php echo JText::_('Homepage'); ?></span>
 					</td>
-					<td><input class="text_area" type="text" size="50" name="mjconfig_xhtmlhomepage"
+					<td><input class="text_area" type="text" size="80" name="mjconfig_xhtmlhomepage" id="mjconfig_xhtmlhomepage"
 					           value="<?php echo $MobileJoomla_Settings['xhtmlhomepage']; ?>"/></td>
 				</tr>
+				<tr><td></td><td><?php echo JHTML::_('select.genericlist', $lists['menuoptions'], 'xhtml_tmp', 'size="8" onchange="document.getElementById(\'mjconfig_xhtmlhomepage\').value=this.value" ', 'value', 'text', '-'); ?></td></tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('Image adaptation method'); ?>::<?php echo JText::_('Remove or resize images.'); ?>"><?php echo JText::_('Image adaptation method'); ?></span>
@@ -385,6 +393,14 @@ class HTML_mobilejoomla
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
+					                      title="<?php echo JText::_('Homepage'); ?>::<?php echo JText::_('Set this page as a homepage.'); ?>"><?php echo JText::_('Homepage'); ?></span>
+					</td>
+					<td><input class="text_area" type="text" size="80" name="mjconfig_iphonehomepage" id="mjconfig_iphonehomepage"
+					           value="<?php echo $MobileJoomla_Settings['iphonehomepage']; ?>"/></td>
+				</tr>
+				<tr><td></td><td><?php echo JHTML::_('select.genericlist', $lists['menuoptions'], 'iphone_tmp', 'size="8" onchange="document.getElementById(\'mjconfig_iphonehomepage\').value=this.value" ', 'value', 'text', '-'); ?></td></tr>
+				<tr>
+					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('Image adaptation method'); ?>::<?php echo JText::_('Remove or resize images.'); ?>"><?php echo JText::_('Image adaptation method'); ?></span>
 					</td>
 					<td><?php echo $lists['tmpl_iphone_img']; ?></td>
@@ -495,9 +511,10 @@ class HTML_mobilejoomla
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('Homepage'); ?>::<?php echo JText::_('Set this page as a homepage.'); ?>"><?php echo JText::_('Homepage'); ?></span>
 					</td>
-					<td><input class="text_area" type="text" size="50" name="mjconfig_waphomepage"
+					<td><input class="text_area" type="text" size="80" name="mjconfig_waphomepage" id="mjconfig_waphomepage"
 					           value="<?php echo $MobileJoomla_Settings['waphomepage']; ?>"/></td>
 				</tr>
+				<tr><td></td><td><?php echo JHTML::_('select.genericlist', $lists['menuoptions'], 'wap_tmp', 'size="8" onchange="document.getElementById(\'mjconfig_waphomepage\').value=this.value" ', 'value', 'text', '-'); ?></td></tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('Image adaptation method'); ?>::<?php echo JText::_('Remove or resize images.'); ?>"><?php echo JText::_('Image adaptation method'); ?></span>
@@ -608,9 +625,10 @@ class HTML_mobilejoomla
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('Homepage'); ?>::<?php echo JText::_('Set this page as a homepage.'); ?>"><?php echo JText::_('Homepage'); ?></span>
 					</td>
-					<td><input class="text_area" type="text" size="50" name="mjconfig_imodehomepage"
+					<td><input class="text_area" type="text" size="80" name="mjconfig_imodehomepage" id="mjconfig_imodehomepage"
 					           value="<?php echo $MobileJoomla_Settings['imodehomepage']; ?>"/></td>
 				</tr>
+				<tr><td></td><td><?php echo JHTML::_('select.genericlist', $lists['menuoptions'], 'imode_tmp', 'size="8" onchange="document.getElementById(\'mjconfig_imodehomepage\').value=this.value" ', 'value', 'text', '-'); ?></td></tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('Image adaptation method'); ?>::<?php echo JText::_('Remove or resize images.'); ?>"><?php echo JText::_('Image adaptation method'); ?></span>
