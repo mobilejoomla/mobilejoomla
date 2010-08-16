@@ -46,7 +46,7 @@ function InstallPlugin($group, $sourcedir, $name, $fullname, $publish = 1, $orde
 	{
 		/** @var JDatabase $db */
 		$db =& JFactory::getDBO();
-		$db->setQuery("INSERT INTO `#__plugins` (`name`, `element`, `folder`, `published`, `ordering`) VALUES ('$fullname', '$name', '$group', $publish, $ordering);");
+		$db->setQuery("INSERT INTO `#__plugins` (`name`, `element`, `folder`, `published`, `ordering`) VALUES ('$fullname', '$name', '$group', $publish, $ordering)");
 		$db->query();
 	}
 	return $status;
@@ -299,10 +299,8 @@ function terawurfl_install_procedure()
 	/** @var JDatabase $db */
 	$db =& JFactory::getDBO();
 
-	$db->setQuery("DROP PROCEDURE IF EXISTS `TeraWurfl_RIS`");
-	$db->query();
-	$db->setQuery("DROP PROCEDURE IF EXISTS `TeraWurfl_FallBackDevices`");
-	$db->query();
+	if(version_compare($db->getVersion(), '5.0.0', '<'))
+		return false;
 
 	$TeraWurfl_RIS = "CREATE PROCEDURE `TeraWurfl_RIS`(IN ua VARCHAR(255), IN tolerance INT, IN matcher VARCHAR(64))
 BEGIN
@@ -340,6 +338,57 @@ END";
 	$isSuccessful = $db->query() && $isSuccessful;
 
 	return $isSuccessful;
+}
+
+function terawurfl_test()
+{
+	global $WARNINGS;
+	$test = true;
+
+	if(version_compare(phpversion(), '5.0.0', '<'))
+	{
+		$WARNINGS[] = JText::_('TeraWURFL is designed to work with PHP5 only.');
+		$test = false;
+	}
+
+	if(!class_exists('mysqli') || !function_exists('mysqli_connect'))
+	{
+		$WARNINGS[] = JText::_('TeraWURFL is designed to work with MySQLi (MySQL improved) library.');
+		$test = false;
+	}
+
+	if(!$test)
+		return false;
+	
+	/** @var JRegistry $conf */
+	$config =& JFactory::getConfig();
+	$host = $config->getValue('host');
+	$port = NULL;
+	$socket = NULL;
+	if(strpos($host, ':')!==false)
+	{
+		list($host, $port) = explode(':', $host);
+		if(!is_numeric($port))
+		{
+			$socket = $port;
+			$port = NULL;
+		}
+	}
+	if($host == '')
+		$host = 'localhost';
+	$user = $config->getValue('user');
+	$pass = $config->getValue('password');
+	$dbname = $config->getValue('db');
+
+	$mysqli = new mysqli($host, $user, $pass, $dbname, $port, $socket);
+	if(mysqli_connect_error())
+	{
+		$WARNINGS[] = JText::sprintf('Failed to connect to your MySQL database server using MySQLi library. MySQLi reports the following message (#%d): %s.', mysqli_connect_errno(), mysqli_connect_error());
+		return false;
+	}
+	$mysqli->close();
+
+	return true;
 }
 
 function parse_mysql_dump($file)
@@ -391,11 +440,15 @@ function parse_mysql_dump($file)
 
 function bz2_parse_mysql_dump($url)
 {
+	/** @var JRegistry $conf */
+	$conf =& JFactory::getConfig();
+	$debuglevel = $conf->getValue('config.debug');
+
 	/** @var JDatabase $db */
 	$db =& JFactory::getDBO();
 
-	$debuglevel = $db->_debug;
 	$db->debug(0);
+
 	$handle = bzopen($url, 'r');
 	$sql_line = '';
 	while(!feof($handle))
@@ -420,28 +473,30 @@ function bz2_parse_mysql_dump($url)
 			}
 		}
 	}
+	$db->debug($debuglevel);
 	if($debuglevel)
 	{
-		$db->_ticker++;
-		$db->_log[] = 'Insert a lot of terawurfl queries';
+		$db->setQuery('/** Insert a lot of terawurfl queries **/');
+		$db->query();
 	}
-	$db->debug($debuglevel);
 }
 
 function plain_parse_mysql_dump($url)
 {
-	/** @var JDatabase $db */
-	$db =& JFactory::getDBO();
-
 	$handle = fopen($url, 'r');
 	if($handle===false)
 		return false;
 
-	$debuglevel = $db->_debug;
+	/** @var JRegistry $conf */
+	$conf =& JFactory::getConfig();
+	$debuglevel = $conf->getValue('config.debug');
+
+	/** @var JDatabase $db */
+	$db =& JFactory::getDBO();
+
 	$db->debug(0);
 
 	$query = '';
-
 	while(!feof($handle))
 	{
 		$sql_line = fgets($handle);
@@ -456,13 +511,44 @@ function plain_parse_mysql_dump($url)
 			}
 		}
 	}
+	$db->debug($debuglevel);
 	if($debuglevel)
 	{
-		$db->_ticker++;
-		$db->_log[] = 'Insert a lot of terawurfl queries';
+		$db->setQuery('/** Insert a lot of terawurfl queries **/');
+		$db->query();
 	}
-	$db->debug($debuglevel);
 	return true;
+}
+
+function clear_terawurfl_db()
+{
+	/** @var JDatabase $db */
+	$db =& JFactory::getDBO();
+	$tables = array ('#__TeraWurflCache', '#__TeraWurflCache_TEMP', '#__TeraWurflIndex', '#__TeraWurflMerge',
+	                 '#__TeraWurfl_AOL', '#__TeraWurfl_Alcatel', '#__TeraWurfl_Android', '#__TeraWurfl_Apple',
+	                 '#__TeraWurfl_BenQ', '#__TeraWurfl_BlackBerry', '#__TeraWurfl_Bot', '#__TeraWurfl_CatchAll',
+	                 '#__TeraWurfl_Chrome', '#__TeraWurfl_DoCoMo', '#__TeraWurfl_Firefox', '#__TeraWurfl_Grundig',
+	                 '#__TeraWurfl_HTC', '#__TeraWurfl_Kddi', '#__TeraWurfl_Konqueror', '#__TeraWurfl_Kyocera',
+	                 '#__TeraWurfl_LG', '#__TeraWurfl_MSIE', '#__TeraWurfl_Mitsubishi', '#__TeraWurfl_Motorola',
+	                 '#__TeraWurfl_Nec', '#__TeraWurfl_Nintendo', '#__TeraWurfl_Nokia', '#__TeraWurfl_Opera',
+	                 '#__TeraWurfl_OperaMini', '#__TeraWurfl_Panasonic', '#__TeraWurfl_Pantech', '#__TeraWurfl_Philips',
+	                 '#__TeraWurfl_Portalmmm', '#__TeraWurfl_Qtek', '#__TeraWurfl_SPV', '#__TeraWurfl_Safari',
+	                 '#__TeraWurfl_Sagem', '#__TeraWurfl_Samsung', '#__TeraWurfl_Sanyo', '#__TeraWurfl_Sharp',
+	                 '#__TeraWurfl_Siemens', '#__TeraWurfl_SonyEricsson', '#__TeraWurfl_Toshiba', '#__TeraWurfl_Vodafone',
+	                 '#__TeraWurfl_WindowsCE');
+	foreach($tables as $table)
+	{
+		$query = "DROP TABLE IF EXISTS `$table`";
+		$db->setQuery($query);
+		$db->query();
+	}
+	if(version_compare($db->getVersion(), '5.0.0', '>='))
+	{
+		$db->setQuery("DROP PROCEDURE IF EXISTS `TeraWurfl_RIS`");
+		$db->query();
+		$db->setQuery("DROP PROCEDURE IF EXISTS `TeraWurfl_FallBackDevices`");
+		$db->query();
+	}
 }
 
 function com_install()
@@ -507,7 +593,7 @@ function com_install()
 
 	if($upgrade)
 	{
-		$query = "DROP TABLE IF EXISTS `#__capability`;";
+		$query = "DROP TABLE IF EXISTS `#__capability`";
 		$db->setQuery($query);
 		$db->query();
 		$admin = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS;
@@ -543,20 +629,6 @@ function com_install()
 	{
 		JFile::delete($extDistFile);
 	}
-
-	// set icons for menu
-	$db->setQuery("UPDATE #__components"
-			. " SET admin_menu_img='../administrator/components/com_mobilejoomla/images/mj16x16.gif' "
-			. " WHERE admin_menu_link='option=com_mobilejoomla'");
-	$db->query();
-	$db->setQuery("UPDATE #__components"
-			. " SET admin_menu_img='js/ThemeOffice/config.png'"
-			. " WHERE admin_menu_link='option=com_mobilejoomla&task=settings'");
-	$db->query();
-	$db->setQuery("UPDATE #__components"
-			. " SET admin_menu_img='js/ThemeOffice/info.png'"
-			. " WHERE admin_menu_link='option=com_mobilejoomla&task=about'");
-	$db->query();
 
 	//update config
 	UpdateConfig();
@@ -613,24 +685,7 @@ function com_install()
 		}
 
 	// install terawurfl plugin
-	$tables = array ('#__terawurflcache', '#__terawurflcache_temp', '#__terawurflindex', '#__terawurflmerge',
-	                 '#__terawurfl_alcatel', '#__terawurfl_android', '#__terawurfl_aol', '#__terawurfl_apple',
-	                 '#__terawurfl_benq', '#__terawurfl_blackberry', '#__terawurfl_bot', '#__terawurfl_catchall',
-	                 '#__terawurfl_chrome', '#__terawurfl_docomo', '#__terawurfl_firefox', '#__terawurfl_grundig',
-	                 '#__terawurfl_htc', '#__terawurfl_kddi', '#__terawurfl_konqueror', '#__terawurfl_kyocera',
-	                 '#__terawurfl_lg', '#__terawurfl_mitsubishi', '#__terawurfl_motorola', '#__terawurfl_msie',
-	                 '#__terawurfl_nec', '#__terawurfl_nintendo', '#__terawurfl_nokia', '#__terawurfl_opera',
-	                 '#__terawurfl_operamini', '#__terawurfl_panasonic', '#__terawurfl_pantech', '#__terawurfl_philips',
-	                 '#__terawurfl_portalmmm', '#__terawurfl_qtek', '#__terawurfl_safari', '#__terawurfl_sagem',
-	                 '#__terawurfl_samsung', '#__terawurfl_sanyo', '#__terawurfl_sharp', '#__terawurfl_siemens',
-	                 '#__terawurfl_sonyericsson', '#__terawurfl_spv', '#__terawurfl_toshiba', '#__terawurfl_vodafone',
-	                 '#__terawurfl_windowsce');
-	foreach($tables as $table)
-	{
-		$query = "DROP TABLE IF EXISTS `{$table}`;";
-		$db->setQuery($query);
-		$db->query();
-	}
+	clear_terawurfl_db();
 	$teraSQL = $PluginSource.DS.'terawurfl'.DS.'tera_dump.sql.bz2';
 	if(file_exists($teraSQL))
 	{
@@ -644,19 +699,25 @@ function com_install()
 			parse_mysql_dump($teraSQL);
 			JFile::delete($teraSQL);
 			JFolder::copy($PluginSource.DS.'terawurfl', JPATH_PLUGINS.DS.'mobile'.DS.'terawurfl', '', true);
-			if(version_compare($db->getVersion(), '5.0.0', '<') ||
-					!terawurfl_install_procedure())
+			if(!terawurfl_install_procedure())
 			{
 				$query = "UPDATE #__plugins SET params = 'mysql4=1' WHERE element = 'terawurfl' AND folder = 'mobile'";
 				$db->setQuery($query);
 				$db->query();
 			}
-			if(!class_exists('mysqli')) // disable terawurfl
+			if(!terawurfl_test()) // disable terawurfl
 			{
-				$WARNINGS[] = JText::_('TeraWURFL is designed to work with MySQLi (MySQL improved) library. TeraWURFL will be disabled.');
+				$WARNINGS[] = JText::_('TeraWURFL will be disabled.');
 				$query = "UPDATE #__plugins SET published = 0 WHERE element = 'terawurfl' AND folder = 'mobile'";
 				$db->setQuery($query);
 				$db->query();
+			}
+			else
+			{
+				$db->setQuery("SELECT published FROM `#__plugins` WHERE element = 'terawurfl' AND folder = 'mobile'");
+				$published = $db->loadResult();
+				if(!$published)
+					$WARNINGS[] = JText::_('TeraWURFL plugin may be enabled (published).');
 			}
 		}
 	}
@@ -717,31 +778,7 @@ function com_uninstall()
 		$ERRORS[] = '<b>'.JText::_('Cannot uninstall:').' Mobile - TeraWURFL.</b>';
 	if(!JFolder::delete(JPATH_PLUGINS.DS.'mobile'.DS.'terawurfl'))
 		$ERRORS[] = JText::_('Cannot remove directory:').' '.JPATH_PLUGINS.DS.'mobile'.DS.'terawurfl';
-	$tables = array ('#__TeraWurflCache', '#__TeraWurflCache_TEMP', '#__TeraWurflIndex', '#__TeraWurflMerge',
-	                 '#__TeraWurfl_AOL', '#__TeraWurfl_Alcatel', '#__TeraWurfl_Android', '#__TeraWurfl_Apple',
-	                 '#__TeraWurfl_BenQ', '#__TeraWurfl_BlackBerry', '#__TeraWurfl_Bot', '#__TeraWurfl_CatchAll',
-	                 '#__TeraWurfl_Chrome', '#__TeraWurfl_DoCoMo', '#__TeraWurfl_Firefox', '#__TeraWurfl_Grundig',
-	                 '#__TeraWurfl_HTC', '#__TeraWurfl_Kddi', '#__TeraWurfl_Konqueror', '#__TeraWurfl_Kyocera',
-	                 '#__TeraWurfl_LG', '#__TeraWurfl_MSIE', '#__TeraWurfl_Mitsubishi', '#__TeraWurfl_Motorola',
-	                 '#__TeraWurfl_Nec', '#__TeraWurfl_Nintendo', '#__TeraWurfl_Nokia', '#__TeraWurfl_Opera',
-	                 '#__TeraWurfl_OperaMini', '#__TeraWurfl_Panasonic', '#__TeraWurfl_Pantech', '#__TeraWurfl_Philips',
-	                 '#__TeraWurfl_Portalmmm', '#__TeraWurfl_Qtek', '#__TeraWurfl_SPV', '#__TeraWurfl_Safari',
-	                 '#__TeraWurfl_Sagem', '#__TeraWurfl_Samsung', '#__TeraWurfl_Sanyo', '#__TeraWurfl_Sharp',
-	                 '#__TeraWurfl_Siemens', '#__TeraWurfl_SonyEricsson', '#__TeraWurfl_Toshiba', '#__TeraWurfl_Vodafone',
-	                 '#__TeraWurfl_WindowsCE');
-	foreach($tables as $table)
-	{
-		$query = "DROP TABLE IF EXISTS `{$table}`;";
-		$db->setQuery($query);
-		$db->query();
-	}
-	if(version_compare($db->getVersion(), '5.0.0', '>='))
-	{
-		$db->setQuery("DROP PROCEDURE IF EXISTS `TeraWurfl_RIS`");
-		$db->query();
-		$db->setQuery("DROP PROCEDURE IF EXISTS `TeraWurfl_FallBackDevices`");
-		$db->query();
-	}
+	clear_terawurfl_db();
 
 	//uninstall templates
 	$templateslist = array ('mobile_pda', 'mobile_wap', 'mobile_imode', 'mobile_iphone');

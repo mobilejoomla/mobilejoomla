@@ -21,30 +21,50 @@ class plgMobileTerawurfl extends JPlugin
 
 	function onDeviceDetection(&$MobileJoomla_Settings, &$MobileJoomla_Device)
 	{
+		require_once(JPATH_SITE.DS.'plugins'.DS.'mobile'.DS.'terawurfl'.DS.'TeraWurflConfig.php');
+
+		/** @var JRegistry $conf */
+		$config =& JFactory::getConfig();
+		$host = $config->getValue('host');
+		if(strpos($host, ':')!==false)
+		{
+			list($host, $port) = explode(':', $host);
+			if(is_numeric($port))
+				ini_set('mysqli.default_port', $port);
+			else
+				ini_set('mysqli.default_socket', $port);
+		}
+		if($host == '')
+			$host = 'localhost';
+		$dbprefix = $config->getValue('dbprefix');
+		TeraWurflConfig::$DB_HOST   = $host;
+		TeraWurflConfig::$DB_USER   = $config->getValue('user');
+		TeraWurflConfig::$DB_PASS   = $config->getValue('password');
+		TeraWurflConfig::$DB_SCHEMA = $config->getValue('db');
+		TeraWurflConfig::$DEVICES   = $dbprefix.TeraWurflConfig::$DEVICES;
+		TeraWurflConfig::$CACHE     = $dbprefix.TeraWurflConfig::$CACHE;
+		TeraWurflConfig::$INDEX     = $dbprefix.TeraWurflConfig::$INDEX;
+		TeraWurflConfig::$MERGE     = $dbprefix.TeraWurflConfig::$MERGE;
+
 		$mysql4 = $this->params->get('mysql4', 0);
+		if($mysql4)
+			TeraWurflConfig::$DB_CONNECTOR = 'MySQL4';
+		else
+			TeraWurflConfig::$DB_CONNECTOR = 'MySQL5';
+
 		require_once(JPATH_SITE.DS.'plugins'.DS.'mobile'.DS.'terawurfl'.DS.'TeraWurfl.php');
 
-		if(version_compare(phpversion(), '5.0.0', '<'))
+		try
 		{
 			$wurflObj = new TeraWurfl();
 			if(!is_object($wurflObj))
 				return;
 			$wurflObj->getDeviceCapabilitiesFromAgent();
 		}
-		else
+		catch(exception $e)
 		{
-			try
-			{
-				$wurflObj = new TeraWurfl();
-				if(!is_object($wurflObj))
-					return;
-				$wurflObj->getDeviceCapabilitiesFromAgent();
-			}
-			catch(exception $e)
-			{
-				error_log("Caught exception 'Exception' with message '$e->getMessage()' in $e->getFile():$e->getLine()");
-				return;
-			}
+			error_log("Caught exception 'Exception' with message '$e->getMessage()' in $e->getFile():$e->getLine()");
+			return;
 		}
 
 		if($wurflObj->getDeviceCapability('is_wireless_device'))
@@ -67,7 +87,7 @@ class plgMobileTerawurfl extends JPlugin
 					$MobileJoomla_Device['markup'] = 'chtml';
 					break;
 				case 'html_wi_oma_xhtmlmp_1_0': //application/vnd.wap.xhtml+xml
-				case 'html_wi_w3_xhtmlbasic': //application/xhtml+xml DTD XHTML Basic 1.0
+				case 'html_wi_w3_xhtmlbasic':   //application/xhtml+xml DTD XHTML Basic 1.0
 					$MobileJoomla_Device['markup'] = 'xhtml';
 					break;
 				case 'html_web_3_2': //text/html DTD HTML 3.2 Final
@@ -77,16 +97,16 @@ class plgMobileTerawurfl extends JPlugin
 			}
 		}
 
-		$MobileJoomla_Device['screenwidth'] = $wurflObj->getDeviceCapability('max_image_width');
+		$MobileJoomla_Device['screenwidth']  = $wurflObj->getDeviceCapability('max_image_width');
 		$MobileJoomla_Device['screenheight'] = $wurflObj->getDeviceCapability('max_image_height');
 
 		$MobileJoomla_Device['imageformats'] = array ();
 		if($wurflObj->getDeviceCapability('png'))
 			$MobileJoomla_Device['imageformats'][] = 'png';
-		if($wurflObj->getDeviceCapability('jpg'))
-			$MobileJoomla_Device['imageformats'][] = 'jpg';
 		if($wurflObj->getDeviceCapability('gif'))
 			$MobileJoomla_Device['imageformats'][] = 'gif';
+		if($wurflObj->getDeviceCapability('jpg'))
+			$MobileJoomla_Device['imageformats'][] = 'jpg';
 		if($wurflObj->getDeviceCapability('wbmp'))
 			$MobileJoomla_Device['imageformats'][] = 'wbmp';
 	}
