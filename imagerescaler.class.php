@@ -64,7 +64,7 @@ class ImageRescaler
 	function rescaleImage($imageurl, $scaletype = 0)
 	{
 		$src_imagename = pathinfo($imageurl, PATHINFO_FILENAME);
-		$src_ext = pathinfo($imageurl, PATHINFO_EXTENSION);
+		$src_ext = strtolower(pathinfo($imageurl, PATHINFO_EXTENSION));
 		if($src_ext == 'jpeg')
 			$src_ext = 'jpg';
 		if(!in_array($src_ext, array ('jpg', 'gif', 'png', 'wbmp')))
@@ -87,13 +87,13 @@ class ImageRescaler
 			return $imageurl;
 
 		$MobileJoomla_Settings =& MobileJoomla::getConfig();
-		$MobileJoomla_Device =& MobileJoomla::getDevice();
-		$MobileJoomla =& MobileJoomla::getInstance();
+		$MobileJoomla_Device   =& MobileJoomla::getDevice();
+		$MobileJoomla          =& MobileJoomla::getInstance();
 
 		$markupName = $MobileJoomla->getMarkup();
-		$dev_width = $MobileJoomla_Device['screenwidth'];
+		$dev_width  = $MobileJoomla_Device['screenwidth'];
 		$dev_height = $MobileJoomla_Device['screenheight'];
-		$formats = $MobileJoomla_Device['imageformats'];
+		$formats    = $MobileJoomla_Device['imageformats'];
 
 		if(isset($MobileJoomla_Settings[$markupName.'_buffer_width']))
 			$templateBuffer = (int) $MobileJoomla_Settings[$markupName.'_buffer_width'];
@@ -175,13 +175,20 @@ class ImageRescaler
 
 		$dest_image = ImageCreateTrueColor($dest_width, $dest_height);
 
-		//Additional operations to preserve transparency on PNG images
-		if($dest_ext == 'png')
+		//Additional operations to preserve transparency on images
+		switch($dest_ext)
 		{
+		case 'png':
+		case 'gif':
 			ImageAlphaBlending($dest_image, false);
 			$color = ImageColorTransparent($dest_image, ImageColorAllocateAlpha($dest_image, 0, 0, 0, 127));
 			ImageFilledRectangle($dest_image, 0, 0, $dest_width, $dest_height, $color);
 			ImageSaveAlpha($dest_image, true);
+			break;
+		default:
+			$color = ImageColorAllocate($dest_image, 255, 255, 255);
+			ImageFilledRectangle($dest_image, 0, 0, $dest_width, $dest_height, $color);
+			break;
 		}
 
 		if(function_exists('imagecopyresampled'))
@@ -197,18 +204,25 @@ class ImageRescaler
 		ImageDestroy($src_image);
 
 		ob_start();
-		switch(strtolower($dest_ext))
+		switch($dest_ext)
 		{
-			case "jpg":
-				ImageJPEG($dest_image, NULL, $MobileJoomla_Settings['jpegquality']);
+			case 'jpg':
+				ImageJPEG($dest_image, null, $MobileJoomla_Settings['jpegquality']);
 				break;
-			case "gif":
+			case 'gif':
+				ImageTrueColorToPalette($dest_image, true, 256);
 				ImageGIF($dest_image);
 				break;
-			case "wbmp":
-				ImageWBMP($dest_image);
+			case 'wbmp':
+				ImageTrueColorToPalette($dest_image, true, 2);
+				$c0 = ImageColorsForIndex($dest_image, 0);
+				$c1 = ImageColorsForIndex($dest_image, 1);
+				$i0 = 0.3*$c0->red + 0.59*$c0->green + 0.11*$c0->blue;
+				$i1 = 0.3*$c1->red + 0.59*$c1->green + 0.11*$c1->blue;
+				$foreground = $i0>$i1 ? 0 : 1;
+				ImageWBMP($dest_image, null, $foreground);
 				break;
-			case "png":
+			case 'png':
 				ImagePNG($dest_image);
 				break;
 		}
