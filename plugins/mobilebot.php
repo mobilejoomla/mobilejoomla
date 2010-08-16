@@ -116,7 +116,7 @@ class plgSystemMobileBot extends JPlugin
 					break;
 				case 'xhtml':
 				case 'iphone':
-					$MobileJoomla_Device['imageformats'] = array ('jpg', 'png', 'gif');
+					$MobileJoomla_Device['imageformats'] = array ('png', 'gif', 'jpg');
 					break;
 			}
 		}
