@@ -18,11 +18,11 @@
 		<language tag="en-GB">en-GB.plg_terawurfl.ini</language>
 	</languages>
 	<administration>
-		<menu>Mobile Joomla!</menu>
+		<menu img="../administrator/components/com_mobilejoomla/images/mj16x16.gif">Mobile Joomla!</menu>
 		<submenu>
-			<menu task="settings">Settings</menu>
+			<menu task="settings" img="js/ThemeOffice/config.png">Settings</menu>
 			<menu task="extensions">Extensions</menu>
-			<menu task="about">About</menu>
+			<menu task="about" img="js/ThemeOffice/info.png">About</menu>
 		</submenu>
 		<languages>
 			<language tag="en-GB">en-GB.com_mobilejoomla.ini</language>
@@ -39,7 +39,6 @@
 			<filename>mobilejoomla.class.php</filename>
 			<filename>toolbar.mobilejoomla.html.php</filename>
 			<filename>toolbar.mobilejoomla.php</filename>
-			<filename>uninstall.mobilejoomla.php</filename>
 			<folder>cachestorage</folder>
 			<folder>extensions</folder>
 			<folder>images</folder>
