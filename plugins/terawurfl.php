@@ -63,7 +63,7 @@ class plgMobileTerawurfl extends JPlugin
 		}
 		catch(exception $e)
 		{
-			error_log("Caught exception 'Exception' with message '$e->getMessage()' in $e->getFile():$e->getLine()");
+			error_log("Caught exception 'Exception' with message '".$e->getMessage()."' in ".$e->getFile().':'.$e->getLine());
 			return;
 		}
 
