@@ -676,7 +676,11 @@ function com_install()
 		$ERRORS[] = '<b>'.JText::_('Cannot install:').' Mobile Joomla Plugin.</b>';
 	}
 	$checkers = array ('simple' => -2, 'webbots' => -1, 'always' => 8, 'domains' => 9);
-	JFolder::create(JPATH_PLUGINS.DS.'mobile');
+	if(!JFolder::create(JPATH_PLUGINS.DS.'mobile'))
+	{
+		$status = false;
+		$ERRORS[] = '<b>'.JText::_('Cannot create directory:').' '.JPATH_PLUGINS.DS.'mobile</b>';
+	}
 	foreach($checkers as $plugin => $order)
 		if(!InstallPlugin('mobile', $PluginSource, $plugin, 'Mobile - '.ucfirst($plugin), 1, $order))
 		{
