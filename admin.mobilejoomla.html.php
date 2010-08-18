@@ -232,7 +232,7 @@ class HTML_mobilejoomla
 					<td><input class="text_area" type="text" size="80" name="mjconfig_xhtmlhomepage" id="mjconfig_xhtmlhomepage"
 					           value="<?php echo $MobileJoomla_Settings['xhtmlhomepage']; ?>"/></td>
 				</tr>
-				<tr><td></td><td><?php echo JHTML::_('select.genericlist', $lists['menuoptions'], 'xhtml_tmp', 'size="8" onchange="document.getElementById(\'mjconfig_xhtmlhomepage\').value=this.value" ', 'value', 'text', '-'); ?></td></tr>
+				<tr><td></td><td><?php echo JHTML::_('select.genericlist', $lists['menuoptions'], 'xhtml_tmp', 'size="7" onchange="document.getElementById(\'mjconfig_xhtmlhomepage\').value=this.value" ', 'value', 'text', $MobileJoomla_Settings['xhtmlhomepage']); ?></td></tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('Image adaptation method'); ?>::<?php echo JText::_('Remove or resize images.'); ?>"><?php echo JText::_('Image adaptation method'); ?></span>
@@ -398,7 +398,7 @@ class HTML_mobilejoomla
 					<td><input class="text_area" type="text" size="80" name="mjconfig_iphonehomepage" id="mjconfig_iphonehomepage"
 					           value="<?php echo $MobileJoomla_Settings['iphonehomepage']; ?>"/></td>
 				</tr>
-				<tr><td></td><td><?php echo JHTML::_('select.genericlist', $lists['menuoptions'], 'iphone_tmp', 'size="8" onchange="document.getElementById(\'mjconfig_iphonehomepage\').value=this.value" ', 'value', 'text', '-'); ?></td></tr>
+				<tr><td></td><td><?php echo JHTML::_('select.genericlist', $lists['menuoptions'], 'iphone_tmp', 'size="7" onchange="document.getElementById(\'mjconfig_iphonehomepage\').value=this.value" ', 'value', 'text', $MobileJoomla_Settings['iphonehomepage']); ?></td></tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('Image adaptation method'); ?>::<?php echo JText::_('Remove or resize images.'); ?>"><?php echo JText::_('Image adaptation method'); ?></span>
@@ -514,7 +514,7 @@ class HTML_mobilejoomla
 					<td><input class="text_area" type="text" size="80" name="mjconfig_waphomepage" id="mjconfig_waphomepage"
 					           value="<?php echo $MobileJoomla_Settings['waphomepage']; ?>"/></td>
 				</tr>
-				<tr><td></td><td><?php echo JHTML::_('select.genericlist', $lists['menuoptions'], 'wap_tmp', 'size="8" onchange="document.getElementById(\'mjconfig_waphomepage\').value=this.value" ', 'value', 'text', '-'); ?></td></tr>
+				<tr><td></td><td><?php echo JHTML::_('select.genericlist', $lists['menuoptions'], 'wap_tmp', 'size="7" onchange="document.getElementById(\'mjconfig_waphomepage\').value=this.value" ', 'value', 'text', $MobileJoomla_Settings['waphomepage']); ?></td></tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('Image adaptation method'); ?>::<?php echo JText::_('Remove or resize images.'); ?>"><?php echo JText::_('Image adaptation method'); ?></span>
@@ -628,7 +628,7 @@ class HTML_mobilejoomla
 					<td><input class="text_area" type="text" size="80" name="mjconfig_imodehomepage" id="mjconfig_imodehomepage"
 					           value="<?php echo $MobileJoomla_Settings['imodehomepage']; ?>"/></td>
 				</tr>
-				<tr><td></td><td><?php echo JHTML::_('select.genericlist', $lists['menuoptions'], 'imode_tmp', 'size="8" onchange="document.getElementById(\'mjconfig_imodehomepage\').value=this.value" ', 'value', 'text', '-'); ?></td></tr>
+				<tr><td></td><td><?php echo JHTML::_('select.genericlist', $lists['menuoptions'], 'imode_tmp', 'size="7" onchange="document.getElementById(\'mjconfig_imodehomepage\').value=this.value" ', 'value', 'text', $MobileJoomla_Settings['imodehomepage']); ?></td></tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('Image adaptation method'); ?>::<?php echo JText::_('Remove or resize images.'); ?>"><?php echo JText::_('Image adaptation method'); ?></span>
