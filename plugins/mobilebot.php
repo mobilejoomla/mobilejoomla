@@ -277,7 +277,7 @@ class plgSystemMobileBot extends JPlugin
 		$default = $menu->getDefault();
 		$home = $default->query;
 
-		if(count(array_diff_assoc($current, $home)) == 0)
+		if($current == $home)
 		{
 			$MobileJoomla->setHome(true);
 			if($homepage)
