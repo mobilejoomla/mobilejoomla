@@ -16,11 +16,10 @@ CHANGELOG
 0.9.7
 Beta release
 - Fix of mobile homepage support
+- Fix of mysqli work with nonstandard port/socket
 - Feature to select menuitem instead of typing its url in homepage parameters
-- Check for possibility of mysqli connection during install
-- Fix of work of mysqli with nonstandard port/socket
-- Disable TeraWURFL plugin in PHP4
 - Support of apple-touch icon (57x57 px) in iPhone templates
+- Check for mysqli connection during install
 - Improvement of gif and wbmp rescaling
 
 0.9.6
