@@ -1,12 +1,12 @@
 <?php
 /**
- * ###DESC###
- * ###URL###
+ * Mobile Joomla!
+ * http://www.mobilejoomla.com
  *
- * @version		###VERSION###
- * @license		###LICENSE###
- * @copyright	###COPYRIGHT###
- * @date		###DATE###
+ * @version		0.9.7
+ * @license		http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL
+ * @copyright	(C) 2008-2010 MobileJoomla!
+ * @date		August 2010
  */
 defined('_JEXEC') or die('Restricted access');
 
@@ -101,6 +101,10 @@ class ImageRescaler
 		if(!file_exists($src_imagepath))
 			return $imageurl;
 
+		list($src_width, $src_height) = getimagesize($src_imagepath);
+		if($src_width==0 || $src_height==0)
+			return $imageurl;
+
 		$MobileJoomla_Settings =& MobileJoomla::getConfig();
 		$MobileJoomla_Device   =& MobileJoomla::getDevice();
 		$MobileJoomla          =& MobileJoomla::getInstance();
@@ -115,41 +119,53 @@ class ImageRescaler
 		else
 			$templateBuffer = 0;
 
-		if($dev_width > $templateBuffer)
-			$dev_width -= $templateBuffer;
-		else
-			return $imageurl;
+		$dev_width -= $templateBuffer;
+		if($dev_width < 16)
+			$dev_width = 16;
 
-		list($src_width, $src_height) = getimagesize($src_imagepath);
-		if($src_width==0 || $src_height==0)
-			return $imageurl;
+		$forced_width  = ImageRescaler::$forced_width;
+		$forced_height = ImageRescaler::$forced_height;
+		if($forced_width==0)
+		{
+			if($forced_height==0)
+			{
+				$forced_width  = $src_width;
+				$forced_height = $src_height;
+			}
+			else
+			{
+				$forced_width = round($src_width*$forced_height/$src_height);
+				if($forced_width==0)
+					$forced_width = 1;
+			}
+		}
+		elseif($forced_height==0)
+		{
+			$forced_height = round($src_height*$forced_width/$src_width);
+			if($forced_height==0)
+				$forced_height = 1;
+		}
 
 		if($scaletype == 1)
 		{
 			$scalewidth = $MobileJoomla_Settings['templatewidth'];
 			$defscale = $dev_width/$scalewidth;
-			if(ImageRescaler::$forced_width)
-				$defscale *= ImageRescaler::$forced_width/$src_width;
 		}
 		else
 			$defscale = 1;
 
-		if(ImageRescaler::$forced_width && ImageRescaler::$forced_width < $dev_width)
-			$dev_width = ImageRescaler::$forced_width;
-		if(ImageRescaler::$forced_height && ImageRescaler::$forced_height < $dev_height)
-			$dev_height = ImageRescaler::$forced_height;
-
-		$maxscalex = $dev_width/$src_width;
-		$maxscaley = $dev_height/$src_height;
+		$maxscalex = $dev_width/$forced_width;
+		$maxscaley = $dev_height/$forced_height;
 		$scale = min($defscale, $maxscalex, $maxscaley);
-		if($scale >= 1 && in_array($src_ext, $formats))
+		if($scale >= 1 && in_array($src_ext, $formats) &&
+			$forced_width==$src_width && $forced_height==$src_height)
 		{
-			ImageRescaler::$scaledimage_width = $src_width;
+			ImageRescaler::$scaledimage_width  = $src_width;
 			ImageRescaler::$scaledimage_height = $src_height;
 			return $imageurl;
 		}
-		$dest_width = ImageRescaler::$scaledimage_width = intval($src_width*$scale);
-		$dest_height = ImageRescaler::$scaledimage_height = intval($src_height*$scale);
+		$dest_width  = ImageRescaler::$scaledimage_width  = round($forced_width *$scale);
+		$dest_height = ImageRescaler::$scaledimage_height = round($forced_height*$scale);
 
 		if(in_array($src_ext, $formats))
 			$dest_ext = $src_ext;
