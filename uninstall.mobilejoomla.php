@@ -431,7 +431,7 @@ function parse_mysql_dump($file)
 		}
 		else
 		{
-			$url = 'http://www.mobilejoomla.com/tera_dump_095.sql';
+			$url = 'http://www.mobilejoomla.com/tera_dump_097.sql';
 			if(!plain_parse_mysql_dump($url))
 				$WARNINGS[] = JText::_("Error downloading")." $url";
 		}
@@ -451,32 +451,33 @@ function bz2_parse_mysql_dump($url)
 
 	$handle = bzopen($url, 'r');
 	$sql_line = '';
+	$lastchar = '';
+	$counter = 0;
 	while(!feof($handle))
 	{
-		$buf = bzread($handle);
+		$buf = bzread($handle, 8192);
 		if(trim($buf) != '')
 		{
 			$sql_line .= $buf;
-			if(($pos = strrpos($sql_line, ";\n")) !== false)
+			if(strpos($lastchar.$buf, ";\n") !== false)
 			{
-				$queries = substr($sql_line, 0, $pos+1);
-				$sql_line = substr($sql_line, $pos+2);
-				$queries = explode(";\n", $queries);
-				foreach($queries as $query)
+				$queries = explode(";\n", $sql_line);
+				$sql_line = array_pop($queries);
+				foreach($queries as $query) if(trim($query) != '')
 				{
-					if(trim($query) != '')
-					{
-						$db->setQuery($query);
-						$db->query();
-					}
+					$db->setQuery($query);
+					$db->query();
+					$counter++;
 				}
 			}
+			$lastchar = $buf[strlen($buf)-1];
 		}
 	}
+	bzclose($handle);
 	$db->debug($debuglevel);
 	if($debuglevel)
 	{
-		$db->setQuery('/** Insert a lot of terawurfl queries **/');
+		$db->setQuery("# Insert $counter terawurfl queries");
 		$db->query();
 	}
 }
@@ -496,25 +497,34 @@ function plain_parse_mysql_dump($url)
 
 	$db->debug(0);
 
-	$query = '';
+	$sql_line = '';
+	$lastchar = '';
+	$counter = 0;
 	while(!feof($handle))
 	{
-		$sql_line = fgets($handle);
-		if(trim($sql_line) != '')
+		$buf = fread($handle, 32768);
+		if(trim($buf) != '')
 		{
-			$query .= $sql_line;
-			if(preg_match('/;\s*$/', $sql_line))
+			$sql_line .= $buf;
+			if(strpos($lastchar.$buf, ";\n") !== false)
 			{
-				$db->setQuery($query);
-				$db->query();
-				$query = '';
+				$queries = explode(";\n", $sql_line);
+				$sql_line = array_pop($queries);
+				foreach($queries as $query) if(trim($query) != '')
+				{
+					$db->setQuery($query);
+					$db->query();
+					$counter++;
+				}
 			}
+			$lastchar = $buf[strlen($buf)-1];
 		}
 	}
+	fclose($handle);
 	$db->debug($debuglevel);
 	if($debuglevel)
 	{
-		$db->setQuery('/** Insert a lot of terawurfl queries **/');
+		$db->setQuery("# Insert $counter terawurfl queries");
 		$db->query();
 	}
 	return true;
