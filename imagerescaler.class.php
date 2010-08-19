@@ -1,12 +1,12 @@
 <?php
 /**
- * Mobile Joomla!
- * http://www.mobilejoomla.com
+ * ###DESC###
+ * ###URL###
  *
- * @version		0.9.7
- * @license		http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL
- * @copyright	(C) 2008-2010 MobileJoomla!
- * @date		August 2010
+ * @version		###VERSION###
+ * @license		###LICENSE###
+ * @copyright	###COPYRIGHT###
+ * @date		###DATE###
  */
 defined('_JEXEC') or die('Restricted access');
 
