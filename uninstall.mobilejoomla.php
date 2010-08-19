@@ -546,12 +546,9 @@ function clear_terawurfl_db()
 	                 '#__TeraWurfl_Sagem', '#__TeraWurfl_Samsung', '#__TeraWurfl_Sanyo', '#__TeraWurfl_Sharp',
 	                 '#__TeraWurfl_Siemens', '#__TeraWurfl_SonyEricsson', '#__TeraWurfl_Toshiba', '#__TeraWurfl_Vodafone',
 	                 '#__TeraWurfl_WindowsCE');
-	foreach($tables as $table)
-	{
-		$query = "DROP TABLE IF EXISTS `$table`";
-		$db->setQuery($query);
-		$db->query();
-	}
+	$query = 'DROP TABLE IF EXISTS `'.implode('`, `',$tables).'`';
+	$db->setQuery($query);
+	$db->query();
 	if(version_compare($db->getVersion(), '5.0.0', '>='))
 	{
 		$db->setQuery("DROP PROCEDURE IF EXISTS `TeraWurfl_RIS`");
