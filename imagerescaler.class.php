@@ -166,6 +166,8 @@ class ImageRescaler
 		}
 		$dest_width  = ImageRescaler::$scaledimage_width  = round($forced_width *$scale);
 		$dest_height = ImageRescaler::$scaledimage_height = round($forced_height*$scale);
+		if($dest_width ==0) $dest_width  = 1;
+		if($dest_height==0) $dest_height = 1;
 
 		if(in_array($src_ext, $formats))
 			$dest_ext = $src_ext;
