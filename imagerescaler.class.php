@@ -70,14 +70,29 @@ class ImageRescaler
 		if(!in_array($src_ext, array ('jpg', 'gif', 'png', 'wbmp')))
 			return $imageurl;
 
+		$base_rel = JURI::base(true).'/';
+		$base_abs = JURI::base();
 		if(strpos($imageurl, '://') == false)
 		{
 			if($imageurl{0}!=='/')
-				$imageurl = '/'.$imageurl;
-			$src_imagepath = JPATH_SITE.$imageurl;
+			{
+				$src_imagepath = JPATH_SITE.DS.$imageurl;
+				$imageurl = $base_rel.$imageurl;
+			}
+			else
+			{
+				if($base_rel != '/')
+				{
+					if(strpos($imageurl, $base_rel)!==0)
+						return $imageurl;
+					$src_imagepath = JPATH_SITE.DS.substr($imageurl, strlen($base_rel));
+				}
+				else
+					$src_imagepath = JPATH_SITE.$imageurl;
+			}
 		}
-		elseif(strpos($imageurl, JURI::base())===0)
-			$src_imagepath = JPATH_SITE.DS.str_replace(JURI::base(), '', $imageurl);
+		elseif(strpos($imageurl, $base_abs)===0)
+			$src_imagepath = JPATH_SITE.DS.substr($imageurl, strlen($base_abs));
 		else
 			return $imageurl;
 
@@ -143,7 +158,7 @@ class ImageRescaler
 
 		$dest_imagedir = dirname($src_imagepath).DS.ImageRescaler::$thumbdir;
 		$dest_imagepath = $dest_imagedir.DS.$src_imagename.'_'.$dest_width.'x'.$dest_height.'.'.$dest_ext;
-		$dest_imageuri = JURI::base(true).implode('/', explode(DS, substr($dest_imagepath, strlen(JPATH_SITE))));
+		$dest_imageuri = $base_rel.implode('/', explode(DS, substr($dest_imagepath, strlen(JPATH_SITE))));
 		if(file_exists($dest_imagepath))
 			return $dest_imageuri;
 
