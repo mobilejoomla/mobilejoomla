@@ -94,6 +94,9 @@ class MobileJoomla_WML extends MobileJoomla
 		global $mainframe;
 		if($this->config['tmpl_wap_jfooter'])
 		{
+			/** @var JLanguage $lang */
+			$lang =& JFactory::getLanguage();
+			$lang->load('com_mobilejoomla');
 			$version = new JVersion();
 ?>
 <p><small>&copy; <?php echo JHTML::_('date', 'now', '%Y').' '.$mainframe->getCfg('sitename'); ?><br/><?php echo $version->URL; ?><br/><?php echo JText::_('Mobile version by');?> <a href="http://www.mobilejoomla.com/">Mobile Joomla!</a></small></p>
