@@ -394,8 +394,7 @@ function saveconfig($task)
 	                   'tmpl_imode_entitydecode', 'tmpl_imode_doctype',
 	                   'tmpl_iphone_header1', 'tmpl_iphone_header2', 'tmpl_iphone_pathway', 'tmpl_iphone_pathwayhome',
 	                   'tmpl_iphone_middle1', 'tmpl_iphone_middle2', 'tmpl_iphone_componenthome', 'tmpl_iphone_footer1',
-	                   'tmpl_iphone_footer2', 'tmpl_iphone_jfooter', 'tmpl_iphone_img', 'tmpl_iphone_removetags',
-	                   'desktop_url');
+	                   'tmpl_iphone_footer2', 'tmpl_iphone_jfooter', 'tmpl_iphone_img', 'tmpl_iphone_removetags');
 	$params = array ();
 	foreach($settings as $param)
 	{
