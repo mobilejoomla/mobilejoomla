@@ -304,8 +304,8 @@ function showconfig()
 			if($list_a->type == 'component')
 				$link = $list_a->link.'&Itemid='.$list_a->id;
 			else
-				$link = '';
-			$mitems[] = JHTML::_('select.option', $link, $list_a->treename, 'value', 'text', $link=='');
+				$link = '-';
+			$mitems[] = JHTML::_('select.option', $link, $list_a->treename, 'value', 'text', $link=='-');
 		}
 		if($lastMenuType !== null)
 			$mitems[] = JHTML::_('select.option', '</OPTGROUP>');
