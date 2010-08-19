@@ -95,19 +95,20 @@ class plgMobileTerawurfl extends JPlugin
 					$MobileJoomla_Device['markup'] = '';
 					break;
 			}
+			$MobileJoomla_Device['screenwidth']  = $wurflObj->getDeviceCapability('max_image_width');
+			$MobileJoomla_Device['screenheight'] = $wurflObj->getDeviceCapability('max_image_height');
+
+			$MobileJoomla_Device['imageformats'] = array ();
+			if($wurflObj->getDeviceCapability('png'))
+				$MobileJoomla_Device['imageformats'][] = 'png';
+			if($wurflObj->getDeviceCapability('gif'))
+				$MobileJoomla_Device['imageformats'][] = 'gif';
+			if($wurflObj->getDeviceCapability('jpg'))
+				$MobileJoomla_Device['imageformats'][] = 'jpg';
+			if($wurflObj->getDeviceCapability('wbmp'))
+				$MobileJoomla_Device['imageformats'][] = 'wbmp';
 		}
-
-		$MobileJoomla_Device['screenwidth']  = $wurflObj->getDeviceCapability('max_image_width');
-		$MobileJoomla_Device['screenheight'] = $wurflObj->getDeviceCapability('max_image_height');
-
-		$MobileJoomla_Device['imageformats'] = array ();
-		if($wurflObj->getDeviceCapability('png'))
-			$MobileJoomla_Device['imageformats'][] = 'png';
-		if($wurflObj->getDeviceCapability('gif'))
-			$MobileJoomla_Device['imageformats'][] = 'gif';
-		if($wurflObj->getDeviceCapability('jpg'))
-			$MobileJoomla_Device['imageformats'][] = 'jpg';
-		if($wurflObj->getDeviceCapability('wbmp'))
-			$MobileJoomla_Device['imageformats'][] = 'wbmp';
+		else
+			$MobileJoomla_Device['markup'] = '';
 	}
 }
