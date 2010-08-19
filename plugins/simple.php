@@ -63,34 +63,21 @@ class plgMobileSimple extends JPlugin
 			}
 			arsort($c, SORT_NUMERIC);
 			if(array_sum($c) == count($c))
+				$mime = 'html';
+			else
 			{
-				unset($c);
-				$c['html'] = 1;
+				$max = max($c);
+				foreach($c as $type => $val)
+					if($val != $max) unset($c[$type]);
+				if(array_key_exists('html', $c))
+					$mime = 'html';
+				elseif(array_key_exists('xhtml', $c))
+					$mime = 'xhtml';
+				elseif(array_key_exists('mhtml', $c))
+					$mime = 'mhtml';
+				elseif(array_key_exists('wml', $c))
+					$mime = 'wml';
 			}
-			$max = max($c);
-			foreach($c as $type => $val)
-				if($val != $max) unset($c[$type]);
-			if(array_key_exists('xhtml', $c))
-			{
-				unset($c);
-				$c['xhtml'] = 1;
-			}
-			elseif(array_key_exists('html', $c))
-			{
-				unset($c);
-				$c['html'] = 1;
-			}
-			elseif(array_key_exists('wml', $c))
-			{
-				unset($c);
-				$c['wml'] = 1;
-			}
-			elseif(array_key_exists('mhtml', $c))
-			{
-				unset($c);
-				$c['mhtml'] = 1;
-			}
-			$mime = key($c);
 			$MobileJoomla_Device['mimetype'] = $accept[$mime];
 		}
 		switch($mime)
