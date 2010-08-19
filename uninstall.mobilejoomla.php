@@ -16,7 +16,7 @@ jimport('joomla.filesystem.folder');
 global $MJ_version;
 $MJ_version = '###VERSION###';
 
-function InstallPlugin($group, $sourcedir, $name, $fullname, $publish = 1, $ordering = -1000)
+function InstallPlugin($group, $sourcedir, $name, $fullname, $publish = 1, $ordering = -99)
 {
 	global $ERRORS;
 	$PluginDir = JPATH_PLUGINS.DS.$group;
