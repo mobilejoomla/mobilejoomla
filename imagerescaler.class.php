@@ -70,6 +70,7 @@ class ImageRescaler
 		if(!in_array($src_ext, array ('jpg', 'gif', 'png', 'wbmp')))
 			return $imageurl;
 
+		$MobileJoomla_Settings =& MobileJoomla::getConfig();
 		$base_rel = JURI::base(true).'/';
 		$base_abs = JURI::base();
 		if(strpos($imageurl, '://') == false)
@@ -93,6 +94,8 @@ class ImageRescaler
 		}
 		elseif(strpos($imageurl, $base_abs)===0)
 			$src_imagepath = JPATH_SITE.DS.substr($imageurl, strlen($base_abs));
+		elseif(strpos($imageurl, $MobileJoomla_Settings['desktop_url'])===0)
+			$src_imagepath = JPATH_SITE.DS.substr($imageurl, strlen($MobileJoomla_Settings['desktop_url']));
 		else
 			return $imageurl;
 
@@ -105,7 +108,6 @@ class ImageRescaler
 		if($src_width==0 || $src_height==0)
 			return $imageurl;
 
-		$MobileJoomla_Settings =& MobileJoomla::getConfig();
 		$MobileJoomla_Device   =& MobileJoomla::getDevice();
 		$MobileJoomla          =& MobileJoomla::getInstance();
 
