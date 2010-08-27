@@ -13,6 +13,10 @@ defined('_JEXEC') or die('Restricted access');
 
 CHANGELOG
 
+0.9.8 ***SVN***
+Beta release
+- Fix of double slash in urls of resized images
+
 0.9.7
 Beta release
 - Fix of mobile homepage support

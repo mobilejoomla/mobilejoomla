@@ -178,7 +178,7 @@ class ImageRescaler
 
 		$dest_imagedir = dirname($src_imagepath).DS.ImageRescaler::$thumbdir;
 		$dest_imagepath = $dest_imagedir.DS.$src_imagename.'_'.$dest_width.'x'.$dest_height.'.'.$dest_ext;
-		$dest_imageuri = $base_rel.implode('/', explode(DS, substr($dest_imagepath, strlen(JPATH_SITE))));
+		$dest_imageuri = $base_rel.implode('/', explode(DS, substr($dest_imagepath, strlen(JPATH_SITE.DS))));
 		if(file_exists($dest_imagepath))
 			return $dest_imageuri;
 
