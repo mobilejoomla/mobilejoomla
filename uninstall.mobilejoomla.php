@@ -411,7 +411,10 @@ function parse_mysql_dump($file)
 		$teraSQL = $teraPath.'tera_dump.sql';
 		$teraSQL_root = JPATH_SITE.DS.'tera_dump.sql';
 
-		if((ini_get('safe_mode')==0) && JFile::exists($file))
+		$disable_functions = ini_get('disable_functions');
+		if( (ini_get('safe_mode')==0) && JFile::exists($file) &&
+			(preg_match('#\bescapeshellarg\b#', $disable_functions)==0) &&
+			(preg_match('#\bexec\b#', $disable_functions)==0) )
 		{
 			$pwd = getcwd();
 			chdir($teraPath);
