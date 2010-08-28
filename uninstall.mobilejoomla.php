@@ -487,7 +487,7 @@ function bz2_parse_mysql_dump($url)
 
 function plain_parse_mysql_dump($url)
 {
-	$handle = fopen($url, 'r');
+	$handle = @fopen($url, 'r');
 	if($handle===false)
 		return false;
 
