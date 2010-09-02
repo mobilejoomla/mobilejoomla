@@ -16,15 +16,11 @@ $MobileJoomla =& MobileJoomla::getInstance();
 
 $MobileJoomla->showXMLheader();
 $MobileJoomla->showDocType();
-
 $base = $this->baseurl."/templates/".$this->template;
-
 ?>
-
-
-<!doctype html>
-<html <?php echo $MobileJoomla->getXmlnsString(); ?>>
+<html<?php echo $MobileJoomla->getXmlnsString(); ?>>
 <head>
+<?php $MobileJoomla->showHead(); ?>
 	<meta http-equiv="Content-Type" content="<?php echo $MobileJoomla->getContentString(); ?>"/>
 	<title>Mobile Joomla!</title>
 	<style type="text/css" media="screen">@import "<?=$base?>/resources/styles/reset.css";</style>
