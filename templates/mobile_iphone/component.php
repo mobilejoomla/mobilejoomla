@@ -24,7 +24,7 @@ $base = $this->baseurl."/templates/".$this->template;
 <html <?php echo $MobileJoomla->getXmlnsString(); ?>>
 <head>
 	<meta http-equiv="Content-Type" content="<?php echo $MobileJoomla->getContentString(); ?>"/>
-	<title>Mobile Joomla!</title>
+<?php $MobileJoomla->showHead(); ?>
 	<style type="text/css" media="screen">@import "<?=$base?>/jqtouch-src/jqtouch/jqtouch.min.css";</style>
 	<style type="text/css" media="screen">@import "<?=$base?>/jqtouch-src/themes/apple/theme.min.css";</style>
 	<style type="text/css" media="screen">@import "<?=$base?>/mj_iphone.css";</style>
