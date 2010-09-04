@@ -411,14 +411,14 @@ function parse_mysql_dump($file)
 		$teraSQL = $teraPath.'tera_dump.sql';
 		$teraSQL_root = JPATH_SITE.DS.'tera_dump.sql';
 
-		$disable_functions = ini_get('disable_functions');
-		if( (ini_get('safe_mode')==0) && JFile::exists($file) &&
+		$disable_functions = @ini_get('disable_functions');
+		if( (@ini_get('safe_mode')==0) && JFile::exists($file) &&
 			(preg_match('#\bescapeshellarg\b#', $disable_functions)==0) &&
 			(preg_match('#\bexec\b#', $disable_functions)==0) )
 		{
 			$pwd = getcwd();
 			chdir($teraPath);
-			exec('bunzip2 -k '.escapeshellarg($file).' 2>&1');
+			@exec('bunzip2 -k '.escapeshellarg($file).' 2>&1');
 			chdir($pwd);
 		}
 
@@ -587,8 +587,8 @@ function com_install()
 	$UPDATES = array ();
 	$upgrade = false;
 
-	set_time_limit(1200);
-	ini_set('max_execution_time', 1200);
+	@set_time_limit(1200);
+	@ini_set('max_execution_time', 1200);
 
 	$mj_memory_limit = '16M';
 	$memory_limit = @ini_get('memory_limit');
@@ -785,9 +785,6 @@ function com_uninstall()
 	$ERRORS = array ();
 	$WARNINGS = array ();
 
-	set_time_limit(600);
-	ini_set('max_execution_time', 600);
-	ini_set('memory_limit', '32M');
 	JError::setErrorHandling(E_ERROR, 'Message');
 
 	/** @var JDatabase $db */
