@@ -561,6 +561,21 @@ function clear_terawurfl_db()
 	}
 }
 
+function str2int($str)
+{
+	$unit = strtoupper(substr($str, -1));
+	$num = intval(substr($str, 0, -1));
+	switch($unit)
+	{
+	case 'G': $num *= 1024;
+	case 'M': $num *= 1024;
+	case 'K': $num *= 1024;
+			  break;
+	default:  $num = intval($str);
+	}
+	return $num;
+}
+
 function com_install()
 {
 	global $ERRORS, $WARNINGS, $UPDATES;
@@ -574,7 +589,12 @@ function com_install()
 
 	set_time_limit(1200);
 	ini_set('max_execution_time', 1200);
-	ini_set('memory_limit', '64M');
+
+	$mj_memory_limit = '16M';
+	$memory_limit = @ini_get('memory_limit');
+	if($memory_limit && str2int($memory_limit) < str2int($mj_memory_limit))
+		@ini_set('memory_limit', $mj_memory_limit);
+
 	JError::setErrorHandling(E_ERROR, 'Message');
 
 	/** @var JDatabase $db */
