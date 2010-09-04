@@ -40,7 +40,9 @@ class plgMobileWebbots extends JPlugin
 		{ // WAP bot for sure
 			$MobileJoomla_Device['markup'] = 'wml';
 		}
-		elseif($found_desktop && !$found_mobile && $MobileJoomla_Device['markup']===false)
+		elseif($found_desktop && !$found_mobile &&
+			   $MobileJoomla_Device['markup']!=='iphone' &&
+			   $MobileJoomla_Device['markup']!=='chtml')
 		{
 			$mobile_os_list = array ('Google Wireless Transcoder', 'Windows CE', 'WindowsCE', 'Symbian', 'Android', 'armv6l', 'armv5', 'Mobile', 'CentOS', 'mowser', 'AvantGo', 'Opera Mobi', 'J2ME/MIDP', 'Smartphone', 'Go.Web', 'Palm', 'iPAQ');
 			$mobile_token_list = array ('Profile/MIDP', 'Configuration/CLDC-', '160x160', '176x220', '240x240', '240x320', '320x240', 'UP.Browser', 'UP.Link', 'SymbianOS', 'PalmOS', 'PocketPC', 'SonyEricsson', 'Nokia', 'BlackBerry', 'Vodafone', 'BenQ', 'Novarra-Vision', 'Iris', 'NetFront', 'HTC_', 'Xda_', 'SAMSUNG-SGH', 'Wapaka', 'DoCoMo');
