@@ -124,7 +124,7 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 
 	function showPathway()
 	{
-		if($this->config['tmpl_xhtml_pathway'] && ((!$this->_ishomepage && JRequest::getCmd('view') != 'frontpage') || $this->config['tmpl_xhtml_pathwayhome']))
+		if($this->config['tmpl_xhtml_pathway'] && (!$this->_ishomepage || $this->config['tmpl_xhtml_pathwayhome']))
 			echo '<jdoc:include type="module" name="breadcrumbs" style="xhtml_m" />';
 	}
 
