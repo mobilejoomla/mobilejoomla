@@ -19,7 +19,7 @@ $MobileJoomla->showDocType();
 ?>
 <html<?php echo $MobileJoomla->getXmlnsString(); ?>>
 <head>
-<?php $MobileJoomla->showHead(); ?>
+<title><?php echo $this->title; ?></title>
 </head>
 <body>
 	<p><b><?php echo $this->error->code ?> - <?php echo $this->error->message ?></b></p>

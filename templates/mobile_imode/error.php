@@ -18,8 +18,8 @@ $MobileJoomla->showDocType();
 ?>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="<?php echo $MobileJoomla->getContentString(); ?>">
-<?php $MobileJoomla->showHead(); ?>
+<meta http-equiv="Content-Type" content="<?php echo $MobileJoomla->getContentString(); ?>">
+<title><?php echo $this->title; ?></title>
 </head>
 <body>
 <div><b><?php echo $this->error->code ?> - <?php echo $this->error->message ?></b></div>
