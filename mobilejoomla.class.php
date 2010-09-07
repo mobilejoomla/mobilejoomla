@@ -129,6 +129,7 @@ class MobileJoomla
 
 	function showMainBody()
 	{
+		echo '<jdoc:include type="message" />';
 		echo '<jdoc:include type="component" />';
 	}
 
