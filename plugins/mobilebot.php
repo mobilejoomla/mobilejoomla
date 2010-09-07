@@ -271,6 +271,8 @@ class plgSystemMobileBot extends JPlugin
 		$current = $_GET;
 		unset($current['Itemid']);
 		unset($current['lang']);
+		if(session_name())
+			unset($current[session_name()]);
 
 		/** @var JMenuSite $menu */
 		$menu =& JSite::getMenu();
