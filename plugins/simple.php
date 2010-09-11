@@ -80,17 +80,25 @@ class plgMobileSimple extends JPlugin
 	
 	function checkUserAgent(&$MobileJoomla_Device)
 	{
-		$useragent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
+		$userAgentHeaders = array(
+			'HTTP_X_DEVICE_USER_AGENT',
+			'HTTP_X_ORIGINAL_USER_AGENT',
+			'HTTP_X_OPERAMINI_PHONE_UA',
+			'HTTP_X_SKYFIRE_PHONE',
+			'HTTP_X_BOLT_PHONE_UA',
+			'HTTP_USER_AGENT'
+		);
+		$useragent = '';
+		foreach($userAgentHeaders as $header)
+			if(isset($_SERVER[$header]) && $_SERVER[$header])
+			{
+				$useragent = $_SERVER[$header];
+				break;
+			}
 		if(empty($useragent))
 			return;
+
 		$useragent_commentsblock = preg_match('|\(.*?\)|', $useragent, $matches) > 0 ? $matches[0] : '';
-		function CheckSubstrs($substrs, $text)
-		{
-			foreach($substrs as $substr)
-				if(false!==strpos($text, $substr))
-					return true;
-			return false;
-		}
 
 		$iphone_list = array('Mozilla/5.0 (iPod;',
 		                     'Mozilla/5.0 (iPod touch;',
@@ -106,7 +114,8 @@ class plgMobileSimple extends JPlugin
 				return;
 			}
 
-		if(((substr($useragent, 0, 10) == 'portalmmm/') || (substr($useragent, 0, 7) == 'DoCoMo/')))
+		if(((substr($useragent, 0, 10) == 'portalmmm/') ||
+			(substr($useragent, 0, 7)  == 'DoCoMo/')))
 		{
 			$MobileJoomla_Device['markup'] = 'chtml';
 			return;
@@ -123,9 +132,9 @@ class plgMobileSimple extends JPlugin
 							  'ia_archiver', 'Mediapartners-Google', 'msnbot', 'Yahoo! Slurp', 'YahooSeeker',
 							  'Validator', 'W3C-checklink', 'CSSCheck', 'GSiteCrawler');
 		$wapbots_list = array('Wapsilon', 'WinWAP', 'WAP-Browser');
-		$found_desktop = CheckSubstrs($desktop_os_list, $useragent_commentsblock) ||
-						 CheckSubstrs($webbots_list, $useragent);
-		$found_mobilebot = CheckSubstrs($wapbots_list, $useragent);
+		$found_desktop = self::CheckSubstrs($desktop_os_list, $useragent_commentsblock) ||
+						 self::CheckSubstrs($webbots_list, $useragent);
+		$found_mobilebot = self::CheckSubstrs($wapbots_list, $useragent);
 		if($found_mobilebot && !$found_desktop)
 		{ // WAP bot for sure
 			$MobileJoomla_Device['markup'] = 'wml';
@@ -142,10 +151,18 @@ class plgMobileSimple extends JPlugin
 									   'PalmOS', 'PocketPC', 'SonyEricsson', 'Nokia', 'BlackBerry',
 									   'Vodafone', 'BenQ', 'Novarra-Vision', 'Iris', 'NetFront', 'HTC_',
 									   'Xda_', 'SAMSUNG-SGH', 'Wapaka', 'DoCoMo');
-			$found_mobile = CheckSubstrs($mobile_os_list, $useragent_commentsblock) ||
-							CheckSubstrs($mobile_token_list, $useragent);
+			$found_mobile = self::CheckSubstrs($mobile_os_list, $useragent_commentsblock) ||
+							self::CheckSubstrs($mobile_token_list, $useragent);
 			if(!$found_mobile)
 				$MobileJoomla_Device['markup'] = ''; //Desktop for sure
 		}
+	}
+
+	function CheckSubstrs($substrs, $text)
+	{
+		foreach($substrs as $substr)
+			if(false!==strpos($text, $substr))
+				return true;
+		return false;
 	}
 }
