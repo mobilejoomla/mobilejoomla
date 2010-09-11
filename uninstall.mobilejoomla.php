@@ -646,6 +646,8 @@ function com_install()
 			JFolder::delete($admin.'views');
 		if(JFolder::exists($admin.'wurfl'))
 			JFolder::delete($admin.'wurfl');
+		if(JFile::exists(JPATH_PLUGINS.DS.'mobile'.DS.'webbots.php'))
+			UninstallPlugin('mobile', 'webbots');
 	}
 
 	$extFile = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'extensions'.DS.'extensions.json';
@@ -705,7 +707,7 @@ function com_install()
 		$status = false;
 		$ERRORS[] = '<b>'.JText::_('Cannot install:').' Mobile Joomla Plugin.</b>';
 	}
-	$checkers = array ('simple' => -2, 'webbots' => -1, 'always' => 8, 'domains' => 9);
+	$checkers = array ('simple' => -2, 'always' => 8, 'domains' => 9);
 	if(!JFolder::create(JPATH_PLUGINS.DS.'mobile'))
 	{
 		$status = false;
@@ -799,7 +801,7 @@ function com_uninstall()
 	//uninstall plugins
 	if(!UninstallPlugin('system', 'mobilebot'))
 		$ERRORS[] = '<b>'.JText::_('Cannot uninstall:').' Mobile Joomla Plugin.</b>';
-	$checkers = array ('simple', 'webbots', 'always', 'domains');
+	$checkers = array ('simple', 'always', 'domains');
 	foreach($checkers as $plugin)
 		if(!UninstallPlugin('mobile', $plugin))
 			$ERRORS[] = '<b>'.JText::_('Cannot uninstall:').' Mobile - '.ucfirst($plugin).'.</b>';
