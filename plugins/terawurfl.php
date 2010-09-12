@@ -67,6 +67,8 @@ class plgMobileTerawurfl extends JPlugin
 			return;
 		}
 
+		$MobileJoomla_Device['wurfl'] =& $wurflObj;
+
 		if($wurflObj->getDeviceCapability('is_wireless_device'))
 		{
 			if($wurflObj->getDeviceCapability('device_os')=='iPhone OS')
