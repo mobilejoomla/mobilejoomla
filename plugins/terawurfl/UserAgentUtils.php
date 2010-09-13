@@ -9,7 +9,7 @@
  * 
  * @package TeraWurfl
  * @author Steve Kamerman <stevekamerman AT gmail.com>
- * @version Stable 2.1.2 $Date: 2010/05/14 15:53:02
+ * @version Stable 2.1.3 $Date: 2010/07/29 20:36:29
  * @license http://www.mozilla.org/MPL/ MPL Vesion 1.1
  */
 /**
@@ -144,6 +144,7 @@ class UserAgentUtils{
 		// Remove locale identifier
 		$ua = preg_replace('/([ ;])[a-zA-Z]{2}-[a-zA-Z]{2}([ ;\)])/','$1xx-xx$2',$ua);
 		$ua = self::normalizeBlackberry($ua);
+		$ua = rtrim($ua);
 		return $ua;
 	}
 	/**
@@ -316,6 +317,10 @@ class UserAgentUtils{
 		return false;
 	}
 	public static function LD($s,$t){
+		// PHP's levenshtein() function requires arguments to be <= 255 chars
+		if(strlen($s) > 255 || strlen($t) > 255){
+			return levenshtein(substr($s,0,255),substr($t,0,255));
+		}
 		return levenshtein($s,$t);
 	}
 }

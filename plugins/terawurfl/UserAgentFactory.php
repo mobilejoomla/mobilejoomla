@@ -9,7 +9,7 @@
  * 
  * @package TeraWurfl
  * @author Steve Kamerman <stevekamerman AT gmail.com>
- * @version Stable 2.1.2 $Date: 2010/05/14 15:53:02
+ * @version Stable 2.1.3 $Date: 2010/07/29 20:36:29
  * @license http://www.mozilla.org/MPL/ MPL Vesion 1.1
  */
 /**#@+
@@ -102,18 +102,19 @@ class UserAgentFactory{
 		if(!$isDesktop){
 			// High workload UAMs go first
 			// Nokia
-			if(UserAgentMatcher::contains($userAgent,'Nokia')){
+			if(UserAgentMatcher::contains($userAgent_lcase,'nokia')){
 				require_once realpath(dirname(__FILE__).'/UserAgentMatchers/NokiaUserAgentMatcher.php');
 				return new NokiaUserAgentMatcher($wurfl);
 			}
 			// Samsung
 			if(UserAgentMatcher::contains($userAgent,array("Samsung/SGH","SAMSUNG-SGH")) ||
-				UserAgentMatcher::startsWith($userAgent,array("SEC-","Samsung","SAMSUNG","SPH","SGH","SCH"))){
+				UserAgentMatcher::startsWith($userAgent,array("SEC-","Samsung","SAMSUNG","SPH","SGH","SCH")) ||
+				stripos($userAgent, 'samsung') !== false){
 				require_once realpath(dirname(__FILE__).'/UserAgentMatchers/SamsungUserAgentMatcher.php');
 			    return new SamsungUserAgentMatcher($wurfl);
 			}
 			// Blackberry
-			if(UserAgentMatcher::contains($userAgent, "BlackBerry")){
+			if(stripos($userAgent, "blackberry") !== false){
 				require_once realpath(dirname(__FILE__).'/UserAgentMatchers/BlackBerryUserAgentMatcher.php');
 	            return new BlackBerryUserAgentMatcher($wurfl);
 			}
@@ -137,7 +138,7 @@ class UserAgentFactory{
 			    return new AlcatelUserAgentMatcher($wurfl);
 			}
 			// Apple
-			if(UserAgentMatcher::contains($userAgent,array("iPhone","iPod","iPad"))){
+			if(UserAgentMatcher::contains($userAgent,array("iPhone","iPod","iPad","(iphone"))){
 				require_once realpath(dirname(__FILE__).'/UserAgentMatchers/AppleUserAgentMatcher.php');
 			    return new AppleUserAgentMatcher($wurfl);
 			}
@@ -157,7 +158,7 @@ class UserAgentFactory{
 			    return new GrundigUserAgentMatcher($wurfl);
 			}
 			// HTC
-			if(UserAgentMatcher::contains($userAgent,"HTC")){
+			if(UserAgentMatcher::contains($userAgent,array("HTC","XV6875"))){
 				require_once realpath(dirname(__FILE__).'/UserAgentMatchers/HTCUserAgentMatcher.php');
 			    return new HTCUserAgentMatcher($wurfl);
 			}

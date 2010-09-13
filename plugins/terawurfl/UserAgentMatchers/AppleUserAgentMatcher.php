@@ -9,7 +9,7 @@
  * 
  * @package TeraWurflUserAgentMatchers
  * @author Steve Kamerman <stevekamerman AT gmail.com>
- * @version Stable 2.1.2 $Date: 2010/05/14 15:53:02
+ * @version Stable 2.1.3 $Date: 2010/07/29 20:36:29
  * @license http://www.mozilla.org/MPL/ MPL Vesion 1.1
  */
 /**
@@ -17,6 +17,9 @@
  * @package TeraWurflUserAgentMatchers
  */
 class AppleUserAgentMatcher extends UserAgentMatcher {
+	
+	public static $constantIDs = array("apple_ipod_touch_ver1","apple_ipad_ver1","apple_iphone_ver1");
+	
 	public function __construct(TeraWurfl $wurfl){
 		parent::__construct($wurfl);
 	}
@@ -32,6 +35,6 @@ class AppleUserAgentMatcher extends UserAgentMatcher {
 		if(self::contains($ua,'iPod')) return "apple_ipod_touch_ver1";
 		if(self::contains($ua,'iPad')) return "apple_ipad_ver1";
 		if(self::contains($ua,"iPhone")) return "apple_iphone_ver1";
-		return 'apple_ipod_ver1';
+		return WurflConstants::$GENERIC;
 	}
 }

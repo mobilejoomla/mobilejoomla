@@ -9,7 +9,7 @@
  * 
  * @package TeraWurflDatabase
  * @author Steve Kamerman <stevekamerman AT gmail.com>
- * @version Stable 2.1.2 $Date: 2010/05/14 15:53:02
+ * @version Stable 2.1.3 $Date: 2010/07/29 20:36:29
  * @license http://www.mozilla.org/MPL/ MPL Vesion 1.1
  */
 /**
@@ -168,9 +168,14 @@ abstract class TeraWurflDatabase{
 	// Supporting DB Functions
 	/**
 	 * Creates the index table
-	 * @return unknown_type
+	 * @return bool success
 	 */
 	abstract public function createIndexTable();
+	/**
+	 * Creates the settings table
+	 * @return bool success
+	 */
+	abstract public function createSettingsTable();
 	/**
 	 * Truncate or drop+create the given table
 	 * @param $tablename
@@ -182,6 +187,21 @@ abstract class TeraWurflDatabase{
 	 * @return bool Success
 	 */
 	abstract public function connect();
+	
+	// Settings functions
+	/**
+	 * Adds/updates a key=>value pair in the settings table
+	 * @param string setting name (key)
+	 * @param string setting value
+	 * @return void
+	 */
+	abstract public function updateSetting($key,$value);
+	/**
+	 * Get setting from settings table by a given key
+	 * @param string setting name (key)
+	 * @return string value or NULL if not found
+	 */
+	abstract public function getSetting($key); 
 	
 	// drop+create supporting functions / procedures / views /etc...
 	/**
@@ -225,6 +245,7 @@ abstract class TeraWurflDatabase{
 		$this->createPatchTable();
 		$this->createCacheTable();
 		$this->createIndexTable();
+		$this->createSettingsTable();
 		$this->createProcedures();
 	}
 	/**

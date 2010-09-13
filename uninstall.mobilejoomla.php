@@ -302,7 +302,7 @@ function terawurfl_install_procedure()
 	if(version_compare($db->getVersion(), '5.0.0', '<'))
 		return false;
 
-	$TeraWurfl_RIS = "CREATE PROCEDURE `TeraWurfl_RIS`(IN ua VARCHAR(255), IN tolerance INT, IN matcher VARCHAR(64))
+	$TeraWurfl_RIS = "CREATE PROCEDURE `#__TeraWurfl_RIS`(IN ua VARCHAR(255), IN tolerance INT, IN matcher VARCHAR(64))
 BEGIN
 DECLARE curlen INT;
 DECLARE wurflid VARCHAR(64) DEFAULT NULL;
@@ -312,8 +312,8 @@ SELECT CHAR_LENGTH(ua)  INTO curlen;
 findua: WHILE ( curlen >= tolerance ) DO
 	SELECT CONCAT(LEFT(ua, curlen ),'%') INTO curua;
 	SELECT idx.DeviceID INTO wurflid
-		FROM `#__TeraWurflIndex` idx INNER JOIN `#__TeraWurflMerge` mrg ON idx.DeviceID = mrg.DeviceID
-		WHERE idx.matcher = matcher
+		FROM #__TeraWurflIndex idx INNER JOIN #__TeraWurflMerge mrg ON idx.DeviceID = mrg.DeviceID
+		WHERE mrg.match = 1 AND idx.matcher = matcher
 		AND mrg.user_agent LIKE curua
 		LIMIT 1;
 	IF wurflid IS NOT NULL THEN
@@ -327,11 +327,11 @@ END";
 	$db->setQuery($TeraWurfl_RIS);
 	$isSuccessful = $db->query();
 
-	$TeraWurfl_FallBackDevices = "CREATE PROCEDURE `TeraWurfl_FallBackDevices`(current_fall_back VARCHAR(64))
+	$TeraWurfl_FallBackDevices = "CREATE PROCEDURE `#__TeraWurfl_FallBackDevices`(current_fall_back VARCHAR(64))
 BEGIN
 WHILE current_fall_back != 'root' DO
-	SELECT capabilities FROM `#__TeraWurflMerge` WHERE deviceID = current_fall_back;
-	SELECT fall_back FROM `#__TeraWurflMerge` WHERE deviceID = current_fall_back INTO current_fall_back;
+	SELECT capabilities FROM #__TeraWurflMerge WHERE deviceID = current_fall_back;
+	SELECT fall_back FROM #__TeraWurflMerge WHERE deviceID = current_fall_back INTO current_fall_back;
 END WHILE;
 END";
 	$db->setQuery($TeraWurfl_FallBackDevices);
@@ -538,25 +538,26 @@ function clear_terawurfl_db()
 	/** @var JDatabase $db */
 	$db =& JFactory::getDBO();
 	$tables = array ('#__TeraWurflCache', '#__TeraWurflCache_TEMP', '#__TeraWurflIndex', '#__TeraWurflMerge',
-	                 '#__TeraWurfl_AOL', '#__TeraWurfl_Alcatel', '#__TeraWurfl_Android', '#__TeraWurfl_Apple',
+					 '#__TeraWurflSettings',
+	                 '#__TeraWurfl_Alcatel', '#__TeraWurfl_Android', '#__TeraWurfl_AOL', '#__TeraWurfl_Apple',
 	                 '#__TeraWurfl_BenQ', '#__TeraWurfl_BlackBerry', '#__TeraWurfl_Bot', '#__TeraWurfl_CatchAll',
 	                 '#__TeraWurfl_Chrome', '#__TeraWurfl_DoCoMo', '#__TeraWurfl_Firefox', '#__TeraWurfl_Grundig',
 	                 '#__TeraWurfl_HTC', '#__TeraWurfl_Kddi', '#__TeraWurfl_Konqueror', '#__TeraWurfl_Kyocera',
-	                 '#__TeraWurfl_LG', '#__TeraWurfl_MSIE', '#__TeraWurfl_Mitsubishi', '#__TeraWurfl_Motorola',
+	                 '#__TeraWurfl_LG', '#__TeraWurfl_Mitsubishi', '#__TeraWurfl_Motorola', '#__TeraWurfl_MSIE',
 	                 '#__TeraWurfl_Nec', '#__TeraWurfl_Nintendo', '#__TeraWurfl_Nokia', '#__TeraWurfl_Opera',
 	                 '#__TeraWurfl_OperaMini', '#__TeraWurfl_Panasonic', '#__TeraWurfl_Pantech', '#__TeraWurfl_Philips',
-	                 '#__TeraWurfl_Portalmmm', '#__TeraWurfl_Qtek', '#__TeraWurfl_SPV', '#__TeraWurfl_Safari',
-	                 '#__TeraWurfl_Sagem', '#__TeraWurfl_Samsung', '#__TeraWurfl_Sanyo', '#__TeraWurfl_Sharp',
-	                 '#__TeraWurfl_Siemens', '#__TeraWurfl_SonyEricsson', '#__TeraWurfl_Toshiba', '#__TeraWurfl_Vodafone',
+	                 '#__TeraWurfl_Portalmmm', '#__TeraWurfl_Qtek', '#__TeraWurfl_Safari', '#__TeraWurfl_Sagem',
+					 '#__TeraWurfl_Samsung', '#__TeraWurfl_Sanyo', '#__TeraWurfl_Sharp', '#__TeraWurfl_Siemens',
+					 '#__TeraWurfl_SonyEricsson', '#__TeraWurfl_SPV', '#__TeraWurfl_Toshiba', '#__TeraWurfl_Vodafone',
 	                 '#__TeraWurfl_WindowsCE');
 	$query = 'DROP TABLE IF EXISTS `'.implode('`, `',$tables).'`';
 	$db->setQuery($query);
 	$db->query();
 	if(version_compare($db->getVersion(), '5.0.0', '>='))
 	{
-		$db->setQuery("DROP PROCEDURE IF EXISTS `TeraWurfl_RIS`");
+		$db->setQuery("DROP PROCEDURE IF EXISTS `#__TeraWurfl_RIS`");
 		$db->query();
-		$db->setQuery("DROP PROCEDURE IF EXISTS `TeraWurfl_FallBackDevices`");
+		$db->setQuery("DROP PROCEDURE IF EXISTS `#__TeraWurfl_FallBackDevices`");
 		$db->query();
 	}
 }

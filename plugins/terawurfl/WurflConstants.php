@@ -9,7 +9,7 @@
  * 
  * @package TeraWurfl
  * @author Steve Kamerman <stevekamerman AT gmail.com>
- * @version Stable 2.1.2 $Date: 2010/05/14 15:53:02
+ * @version Stable 2.1.3 $Date: 2010/07/29 20:36:29
  * @license http://www.mozilla.org/MPL/ MPL Vesion 1.1
  */
 /**
@@ -44,8 +44,8 @@ class WurflConstants{
     public static $MOBILE_BROWSERS = array('cldc','symbian','midp','j2me','mobile','wireless','palm','phone','pocket pc','pocketpc',
     	'netfront','bolt','iris','brew','openwave','windows ce','wap2.','android','opera mini','opera mobi','maemo','fennec','blazer','vodafone');
     public static $DESKTOP_BROWSERS = array('slcc1','.net clr','trident/4','media center pc','funwebproducts','macintosh','wow64','aol 9.','america online browser','googletoolbar');
-    public static $ROBOTS = array('bot','crawler','spider','novarra','transcoder','yahoo! searchmonkey','yahoo! slurp','feedfetcher-google','toolbar');
-    	
+    public static $ROBOTS = array('bot','crawler','spider','novarra','transcoder','yahoo! searchmonkey','yahoo! slurp','feedfetcher-google','toolbar','mowser');
+    
     public function __construct(){
     	
     }

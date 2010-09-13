@@ -9,7 +9,7 @@
  * 
  * @package TeraWurflUserAgentMatchers
  * @author Steve Kamerman <stevekamerman AT gmail.com>
- * @version Stable 2.1.2 $Date: 2010/05/14 15:53:02
+ * @version Stable 2.1.3 $Date: 2010/07/29 20:36:29
  * @license http://www.mozilla.org/MPL/ MPL Vesion 1.1
  */
 /**
@@ -17,6 +17,17 @@
  * @package TeraWurflUserAgentMatchers
  */
 class BlackBerryUserAgentMatcher extends UserAgentMatcher {
+	
+	public static $constantIDs = array(
+		"blackberry_generic_ver2",
+		"blackberry_generic_ver3_sub2",
+		"blackberry_generic_ver3_sub30",
+		"blackberry_generic_ver3_sub50",
+		"blackberry_generic_ver3_sub60",
+		"blackberry_generic_ver3_sub70",
+		"blackberry_generic_ver4",
+	);
+	
 	public function __construct(TeraWurfl $wurfl){
 		parent::__construct($wurfl);
 	}

@@ -36,15 +36,11 @@ class plgMobileTerawurfl extends JPlugin
 		}
 		if($host == '')
 			$host = 'localhost';
-		$dbprefix = $config->getValue('dbprefix');
+		TeraWurflConfig::$TABLE_PREFIX = $config->getValue('dbprefix').'TeraWurfl';
 		TeraWurflConfig::$DB_HOST   = $host;
 		TeraWurflConfig::$DB_USER   = $config->getValue('user');
 		TeraWurflConfig::$DB_PASS   = $config->getValue('password');
 		TeraWurflConfig::$DB_SCHEMA = $config->getValue('db');
-		TeraWurflConfig::$DEVICES   = $dbprefix.TeraWurflConfig::$DEVICES;
-		TeraWurflConfig::$CACHE     = $dbprefix.TeraWurflConfig::$CACHE;
-		TeraWurflConfig::$INDEX     = $dbprefix.TeraWurflConfig::$INDEX;
-		TeraWurflConfig::$MERGE     = $dbprefix.TeraWurflConfig::$MERGE;
 
 		$mysql4 = $this->params->get('mysql4', 0);
 		if($mysql4)

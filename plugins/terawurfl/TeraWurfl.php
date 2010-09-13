@@ -9,7 +9,7 @@
  * 
  * @package TeraWurfl
  * @author Steve Kamerman <stevekamerman AT gmail.com>
- * @version Stable 2.1.2 $Date: 2010/05/14 15:53:02
+ * @version Stable 2.1.3 $Date: 2010/07/29 20:36:29
  * @license http://www.mozilla.org/MPL/ MPL Vesion 1.1
  */
 /**#@+
@@ -32,6 +32,10 @@ require_once realpath(dirname(__FILE__).'/UserAgentMatchers/UserAgentMatcher.php
  */
 class TeraWurfl{
 	
+	public static $SETTING_WURFL_VERSION = 'wurfl_version';
+	public static $SETTING_WURFL_DATE = 'wurfl_date';
+	public static $SETTING_LOADED_DATE = 'loaded_date';
+	public static $SETTING_PATCHES_LOADED = 'patches_loaded';
 	/**
 	 * Array of errors that were encountered while processing the request
 	 * @var Array
@@ -55,7 +59,6 @@ class TeraWurfl{
 	 * @var String
 	 */
 	public $rootdir;
-	public $tablename;
 	/**
 	 * The user agent that is being evaluated
 	 * @var String
@@ -86,7 +89,7 @@ class TeraWurfl{
 	 * The installed version of Tera-WURFL
 	 * @var String
 	 */
-	public $release_version = "2.1.2";
+	public $release_version = "2.1.3";
 	/**
 	 * The required version of PHP for this release
 	 * @var String
@@ -134,7 +137,7 @@ class TeraWurfl{
 		$dbconnector = 'TeraWurflDatabase_'.TeraWurflConfig::$DB_CONNECTOR;
 		if($this->db === false) $this->db = new $dbconnector;
 		if(!$this->db->connect()){
-			throw new Exception("Cannot connect to database: ".$this->db->getLastError());
+			//throw new Exception("Cannot connect to database: ".$this->db->getLastError());
 			return false;
 		}
 	}
@@ -153,8 +156,6 @@ class TeraWurfl{
 			$this->setMatcherHistory();
 			return WurflConstants::$GENERIC;
 		}
-		// Set the table to be used for searching by the database
-		$this->db->tablename = $this->fullTableName();
 		
 		// Check for exact match
 		if(TeraWurflConfig::$SIMPLE_DESKTOP_ENGINE_ENABLE && $this->userAgent == WurflConstants::$SIMPLE_DESKTOP_UA){
@@ -251,7 +252,7 @@ class TeraWurfl{
 	 */
 	public function getDeviceCapabilitiesFromRequest($server){
 		if(!isset($server))$server = $_SERVER;
-		return getDeviceCapabilitiesFromAgent(WurflSupport::getUserAgent($server),WurflSupport::getAcceptHeader($server));
+		return $this->getDeviceCapabilitiesFromAgent(WurflSupport::getUserAgent($server),WurflSupport::getAcceptHeader($server));
 	}
 	/**
 	 * Detects the capabilities of a device from a given user agent and optionally, the HTTP Accept Headers
@@ -283,7 +284,6 @@ class TeraWurfl{
 		}
 		// Define HTTP ACCEPT header.  Default: DO NOT use HTTP_ACCEPT headers
 		//$this->httpAccept= (is_null($httpAccept))? WurflSupport::getAcceptHeader(): $httpAccept;
-		$this->tablename = TeraWurflConfig::$DEVICES;
 		$this->userAgent = UserAgentUtils::cleanUserAgent($this->userAgent);
 		// Check cache for device
 		if(TeraWurflConfig::$CACHE_ENABLE){
@@ -326,7 +326,6 @@ class TeraWurfl{
 			throw new Exception("Invalid Device ID: ".var_export($deviceID,true)."\nMatcher: {$this->userAgentMatcher->matcherName()}\nUser Agent: ".$this->userAgent);
 			exit(1);
 		}
-		$this->db->tablename = '';
 		// Now get all the devices in the fallback tree
 		$fallbackIDs = array();
 		if($deviceID != WurflConstants::$GENERIC && $this->db->db_implements_fallback){
@@ -338,7 +337,7 @@ class TeraWurfl{
 				if(isset($dev['actual_device_root']) && $dev['actual_device_root'])$this->matchData['actual_root_device'] = $dev['id'];
 				$this->addCapabilities($dev);
 			}
-			$this->matchData['fall_back_tree'] = implode(',',$fallbackIDs);
+			$this->matchData['fall_back_tree'] = implode(',',array_reverse($fallbackIDs));
 		}else{
 			$fallbackTree = array();
 			$childDevice = $this->db->getDeviceFromID($deviceID);
@@ -423,8 +422,15 @@ class TeraWurfl{
 		// since 1.5.2, I can't return "false" because that is a valid value.  Now I return NULL, use is_null() to check
 		return null;
 	}
+	/**
+	 * Returns the value of the given setting name
+	 * @param String Setting value
+	 */
+	public function getSetting($key){
+		return $this->db->getSetting($key);
+	}
 	public function fullTableName(){
-		return $this->tablename.'_'.$this->userAgentMatcher->tableSuffix();
+		return TeraWurflConfig::$TABLE_PREFIX.'_'.$this->userAgentMatcher->tableSuffix();
 	}
 	/**
 	 * Log an error in the Tera-WURFL log file

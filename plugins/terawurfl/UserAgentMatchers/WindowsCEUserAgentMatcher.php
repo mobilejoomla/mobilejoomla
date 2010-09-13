@@ -9,7 +9,7 @@
  * 
  * @package TeraWurflUserAgentMatchers
  * @author Steve Kamerman <stevekamerman AT gmail.com>
- * @version Stable 2.1.2 $Date: 2010/05/14 15:53:02
+ * @version Stable 2.1.3 $Date: 2010/07/29 20:36:29
  * @license http://www.mozilla.org/MPL/ MPL Vesion 1.1
  */
 /**
@@ -17,6 +17,9 @@
  * @package TeraWurflUserAgentMatchers
  */
 class WindowsCEUserAgentMatcher extends UserAgentMatcher {
+	
+	public static $constantIDs = array("generic_ms_mobile_browser_ver1");
+	
 	public function __construct(TeraWurfl $wurfl){
 		parent::__construct($wurfl);
 	}
@@ -26,6 +29,6 @@ class WindowsCEUserAgentMatcher extends UserAgentMatcher {
 		return $this->ldMatch($ua, $tolerance);
 	}
 	public function recoveryMatch($ua){
-		return "ms_mobile_browser_ver1";
+		return "generic_ms_mobile_browser_ver1";
 	}
 }

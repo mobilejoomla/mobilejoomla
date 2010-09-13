@@ -9,7 +9,7 @@
  * 
  * @package TeraWurflUserAgentMatchers
  * @author Steve Kamerman <stevekamerman AT gmail.com>
- * @version Stable 2.1.2 $Date: 2010/05/14 15:53:02
+ * @version Stable 2.1.3 $Date: 2010/07/29 20:36:29
  * @license http://www.mozilla.org/MPL/ MPL Vesion 1.1
  */
 /**
@@ -17,6 +17,15 @@
  * @package TeraWurflUserAgentMatchers
  */
 class OperaMiniUserAgentMatcher extends UserAgentMatcher {
+	
+	public static $constantIDs = array(
+		"browser_opera_mini_release1",
+		"browser_opera_mini_release2",
+		"browser_opera_mini_release3",
+		"browser_opera_mini_release4",
+		"browser_opera_mini_release4"
+	);
+	
 	public function __construct(TeraWurfl $wurfl){
 		parent::__construct($wurfl);
 	}
@@ -28,20 +37,23 @@ class OperaMiniUserAgentMatcher extends UserAgentMatcher {
 	public function recoveryMatch($ua){
        $this->wurfl->toLog("Applying ".get_class($this)." recovery match ($ua)",LOG_INFO);
     	if(self::contains($ua,"Opera Mini/1")){
-    		return "opera_mini_ver1";
+    		return "browser_opera_mini_release1";
     	}
 		if(self::contains($ua,"Opera Mini/2")){
-    		return "opera_mini_ver2";
+    		return "browser_opera_mini_release2";
     	}
 		if(self::contains($ua,"Opera Mini/3")){
-    		return "opera_mini_ver3";
+    		return "browser_opera_mini_release3";
     	}
 		if(self::contains($ua,"Opera Mini/4")){
-    		return "opera_mini_ver4";
+    		return "browser_opera_mini_release4";
+    	}
+		if(self::contains($ua,"Opera Mini/5")){
+    		return "browser_opera_mini_release5";
     	}
 		if(self::contains($ua,"Opera Mobi")){
-    		return "opera_mobi_ver4";
+    		return "browser_opera_mini_release4";
     	}
-		return "opera_mini_ver1";
+		return "browser_opera_mini_release1";
 	}
 }
