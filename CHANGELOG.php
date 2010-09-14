@@ -16,6 +16,9 @@ CHANGELOG
 0.9.8 ***SVN***
 Beta release
 - Fix of double slash in urls of resized images
+- Update to TeraWURFL2.1.3
+- Improve default device detection
+- Fix of some installation issues
 
 0.9.7
 Beta release
