@@ -80,12 +80,20 @@ class plgMobileTerawurfl extends JPlugin
 				case 'html_wi_imode_html_1':
 				case 'html_wi_imode_html_2':
 				case 'html_wi_imode_html_3':
+				case 'docomo_imode_html_3':
 				case 'html_wi_imode_html_4':
 				case 'html_wi_imode_html_5':
+				case 'html_wi_imode_htmlx_1':
+				case 'html_wi_imode_htmlx_1_1':
+				case 'html_wi_imode_htmlx_2':
+				case 'html_wi_imode_htmlx_2_1':
+				case 'html_wi_imode_htmlx_2_2':
+				case 'html_wi_imode_htmlx_2_3':
 					$MobileJoomla_Device['markup'] = 'chtml';
 					break;
 				case 'html_wi_oma_xhtmlmp_1_0': //application/vnd.wap.xhtml+xml
 				case 'html_wi_w3_xhtmlbasic':   //application/xhtml+xml DTD XHTML Basic 1.0
+				case 'html_wi_mml_html':
 					$MobileJoomla_Device['markup'] = 'xhtml';
 					break;
 				case 'html_web_3_2': //text/html DTD HTML 3.2 Final
