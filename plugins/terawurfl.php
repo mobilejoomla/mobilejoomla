@@ -21,26 +21,28 @@ class plgMobileTerawurfl extends JPlugin
 
 	function onDeviceDetection(&$MobileJoomla_Settings, &$MobileJoomla_Device)
 	{
+		if(version_compare(phpversion(), '5.0.0', '<'))
+		{
+			/** @var JDatabase $db */
+			$db =& JFactory::getDBO();
+			$query = "UPDATE #__plugins SET published = 0 WHERE element = 'terawurfl' AND folder = 'mobile'";
+			$db->setQuery($query);
+			$db->query();
+			return;
+		}
+
 		require_once(JPATH_SITE.DS.'plugins'.DS.'mobile'.DS.'terawurfl'.DS.'TeraWurflConfig.php');
 
 		/** @var JRegistry $conf */
 		$config =& JFactory::getConfig();
 		$host = $config->getValue('host');
-		if(strpos($host, ':')!==false)
-		{
-			list($host, $port) = explode(':', $host);
-			if(is_numeric($port))
-				ini_set('mysqli.default_port', $port);
-			else
-				ini_set('mysqli.default_socket', $port);
-		}
-		if($host == '')
-			$host = 'localhost';
+		if($host=='' || $host[0]==':')
+			$host = 'localhost'.$host;
 		TeraWurflConfig::$TABLE_PREFIX = $config->getValue('dbprefix').'TeraWurfl';
-		TeraWurflConfig::$DB_HOST   = $host;
-		TeraWurflConfig::$DB_USER   = $config->getValue('user');
-		TeraWurflConfig::$DB_PASS   = $config->getValue('password');
-		TeraWurflConfig::$DB_SCHEMA = $config->getValue('db');
+		TeraWurflConfig::$DB_HOST      = $host;
+		TeraWurflConfig::$DB_USER      = $config->getValue('user');
+		TeraWurflConfig::$DB_PASS      = $config->getValue('password');
+		TeraWurflConfig::$DB_SCHEMA    = $config->getValue('db');
 
 		$mysql4 = $this->params->get('mysql4', 0);
 		if($mysql4)
