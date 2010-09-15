@@ -311,7 +311,7 @@ class plgSystemMobileBot extends JPlugin
 						unset($_REQUEST[$key]);
 						unset($_GET[$key]);
 					}
-					JRequest:set($mj_home, 'get');
+					JRequest::set($mj_home, 'get');
 				}
 				else
 				{
