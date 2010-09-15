@@ -162,9 +162,9 @@ class TeraWurflDatabase_MySQL4 extends TeraWurflDatabase{
 	public function createGenericDeviceTable($tablename){
 		$droptable = "DROP TABLE IF EXISTS ".$tablename;
 		$createtable = "CREATE TABLE `".$tablename."` (
-			`deviceID` varchar(128) binary NOT NULL default '',
+			`deviceID` varchar(64) binary NOT NULL default '',
 			`user_agent` varchar(255) default NULL,
-			`fall_back` varchar(128) default NULL,
+			`fall_back` varchar(64) default NULL,
 			`actual_device_root` tinyint(1) default '0',
 			`match` tinyint(1) default '1',
 			`capabilities` mediumtext,
@@ -216,7 +216,7 @@ class TeraWurflDatabase_MySQL4 extends TeraWurflDatabase{
 		$tablename = TeraWurflConfig::$TABLE_PREFIX.'Index';
 		$droptable = "DROP TABLE IF EXISTS ".$tablename;
 		$createtable = "CREATE TABLE `".$tablename."` (
-  `deviceID` varchar(128) binary NOT NULL default '',
+  `deviceID` varchar(64) binary NOT NULL default '',
   `matcher` varchar(64) NOT NULL,
   PRIMARY KEY  (`deviceID`)
 ) ENGINE=MyISAM";

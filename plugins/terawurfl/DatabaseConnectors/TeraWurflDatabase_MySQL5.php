@@ -507,7 +507,12 @@ END";
 		$this->numQueries++;
 		if(strpos(TeraWurflConfig::$DB_HOST,':')){
 			list($host,$port) = explode(':',TeraWurflConfig::$DB_HOST,2);
-			$this->dbcon = @new mysqli($this->hostPrefix.$host,TeraWurflConfig::$DB_USER,TeraWurflConfig::$DB_PASS,TeraWurflConfig::$DB_SCHEMA,$port);
+			if(is_numeric($port)){
+				$this->dbcon = @new mysqli($this->hostPrefix.$host,TeraWurflConfig::$DB_USER,TeraWurflConfig::$DB_PASS,TeraWurflConfig::$DB_SCHEMA,$port);
+			}else{
+				// $port contains the socket / named pipe
+				$this->dbcon = @new mysqli($this->hostPrefix.$host,TeraWurflConfig::$DB_USER,TeraWurflConfig::$DB_PASS,TeraWurflConfig::$DB_SCHEMA,null,$port);
+			}
 		}else{
 			$this->dbcon = @new mysqli($this->hostPrefix.TeraWurflConfig::$DB_HOST,TeraWurflConfig::$DB_USER,TeraWurflConfig::$DB_PASS,TeraWurflConfig::$DB_SCHEMA);
 		}
