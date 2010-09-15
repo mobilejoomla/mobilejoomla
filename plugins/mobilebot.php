@@ -268,27 +268,42 @@ class plgSystemMobileBot extends JPlugin
 		$document->setMimeEncoding($MobileJoomla->getContentType());
 		$MobileJoomla->setHeader();
 
+		if(JRequest::getMethod()=='POST')
+			return;
+
 		$current = $_GET;
-		unset($current['Itemid']);
 		unset($current['lang']);
-		if(session_name())
+		if(isset($current[session_name()]))
 			unset($current[session_name()]);
 
 		/** @var JMenuSite $menu */
 		$menu =& JSite::getMenu();
 		$default = $menu->getDefault();
 		$home = $default->query;
+		$home['Itemid'] = $default->id;
 
+		if(substr($homepage, 0, 10) == 'index.php?')
+		{
+			parse_str(substr($homepage, 10), $mj_home);
+			if(isset($mj_home['Itemid']))
+			{
+				$mj_home_Itemid = (int)$mj_home['Itemid'];
+				$menu->setDefault($mj_home_Itemid);
+			}
+			if($current == $mj_home)
+				$MobileJoomla->setHome(true);
+		}
+		
 		if($current == $home)
 		{
 			$MobileJoomla->setHome(true);
 			if($homepage)
 			{
-				$parsed = parse_url(JURI::base());
-				$path = isset($parsed['path']) ? $parsed['path'] : '';
+				if(isset($mj_home_Itemid))
+					$menu->setActive($mj_home_Itemid);
 
-				$_SERVER['REQUEST_URI'] = $path.$homepage;
-				if(substr($homepage, 0, 10) == 'index.php?')
+				$_SERVER['REQUEST_URI'] = JURI::base(true).'/'.$homepage;
+				if(isset($mj_home))
 				{
 					$_SERVER['QUERY_STRING'] = substr($homepage, 10);
 					foreach($current as $key => $val) //clear old variables
@@ -296,15 +311,20 @@ class plgSystemMobileBot extends JPlugin
 						unset($_REQUEST[$key]);
 						unset($_GET[$key]);
 					}
-					parse_str($_SERVER['QUERY_STRING'], $request);
-					JRequest::set($request, 'get');
+					JRequest:set($mj_home, 'get');
 				}
 				else
 				{
-					$uri = new JURI('http://'.$_SERVER['REQUEST_URI']);
+					$url = 'http';
+					$url .= (isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS'])
+							 && (strtolower($_SERVER['HTTPS'])!='off'))
+							? 's' : '';
+					$url .= '://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+
+					$uri = new JURI($url);
 					$router =& $mainframe->getRouter();
 					$result = $router->parse($uri);
-					JRequest::set($result, 'get', false);
+					JRequest::set($result, 'get');
 				}
 			}
 		}
