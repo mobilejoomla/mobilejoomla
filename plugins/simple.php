@@ -138,7 +138,7 @@ class plgMobileSimple extends JPlugin
 		if($found_mobilebot && !$found_desktop)
 		{ // WAP bot for sure
 			$MobileJoomla_Device['markup'] = 'wml';
-			return
+			return;
 		}
 
 		if($found_desktop && !$found_mobilebot)
