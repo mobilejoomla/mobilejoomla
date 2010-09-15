@@ -61,7 +61,7 @@ $document->setHeadData($headerstuff);*/
 		{
 			/** @var JLanguage $lang */
 			$lang =& JFactory::getLanguage();
-			$lang->load('com_mobilejoomla');
+			$lang->load('com_mobilejoomla', JPATH_ADMINISTRATOR);
 			$version = new JVersion();
 ?>
 <p class="jfooter">&copy; <?php echo JHTML::_('date', 'now', '%Y').' '.$mainframe->getCfg('sitename'); ?><br><?php echo $version->URL; ?><br><?php echo JText::_('Mobile version by');?> <a href="http://www.mobilejoomla.com/">Mobile Joomla!</a></p>
