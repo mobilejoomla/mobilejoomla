@@ -434,7 +434,7 @@ function parse_mysql_dump($file)
 		}
 		else
 		{
-			$url = 'http://www.mobilejoomla.com/tera_dump_097.sql';
+			$url = 'http://www.mobilejoomla.com/tera_dump_098.sql';
 			if(!plain_parse_mysql_dump($url))
 				$WARNINGS[] = JText::_("Error downloading")." $url";
 		}
