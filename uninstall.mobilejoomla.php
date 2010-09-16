@@ -391,104 +391,41 @@ function terawurfl_test()
 	return true;
 }
 
-function parse_mysql_dump($file)
+function safe_dl($name)
 {
-	global $WARNINGS;
-	if(!extension_loaded('bz2'))
-	{
-		if(JPATH_ISWIN)
-			@dl('php_bz2.dll');
-		else
-			@dl('bz2.so');
-	}
-	if(function_exists('bzopen') && JFile::exists($file))
-	{
-		bz2_parse_mysql_dump($file);
-	}
+	if(extension_loaded($name))
+		return true;
+	if(!(bool)ini_get('enable_dl')
+		|| (bool)ini_get('safe_mode')
+		|| !function_exists('dl'))
+		return false;
+	$sapi_name = php_sapi_name();
+	if($sapi_name!='cli' && (substr($sapi_name,0,3)!='cgi' || isset($_SERVER['GATEWAY_INTERFACE'])))
+		return false;
+	if(substr(PHP_OS, 0, 3) == 'WIN')
+		@dl('php_'.$name.'.dll');
 	else
-	{
-		$teraPath = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'plugins'.DS.'terawurfl'.DS;
-		$teraSQL = $teraPath.'tera_dump.sql';
-		$teraSQL_root = JPATH_SITE.DS.'tera_dump.sql';
-
-		$disable_functions = @ini_get('disable_functions');
-		if( (@ini_get('safe_mode')==0) && JFile::exists($file) &&
-			(preg_match('#\bescapeshellarg\b#', $disable_functions)==0) &&
-			(preg_match('#\bexec\b#', $disable_functions)==0) )
-		{
-			$pwd = getcwd();
-			chdir($teraPath);
-			@exec('bunzip2 -k '.escapeshellarg($file).' 2>&1');
-			chdir($pwd);
-		}
-
-		if(!JFile::exists($teraSQL) && JFile::exists($teraSQL_root))
-			$teraSQL = $teraSQL_root;
-
-		if(JFile::exists($teraSQL))
-		{
-			if(!plain_parse_mysql_dump($teraSQL))
-				$WARNINGS[] = JText::_("Error reading")." $teraSQL";
-			if($teraSQL != $teraSQL_root)
-				JFile::delete($teraSQL);
-		}
-		else
-		{
-			$url = 'http://www.mobilejoomla.com/tera_dump_098.sql';
-			if(!plain_parse_mysql_dump($url))
-				$WARNINGS[] = JText::_("Error downloading")." $url";
-		}
-	}
+		@dl($name.'.'.PHP_SHLIB_SUFFIX);
+	return extension_loaded($name);
 }
 
-function bz2_parse_mysql_dump($url)
+function parse_mysql_dump($handler, $uri)
 {
-	/** @var JRegistry $conf */
-	$conf =& JFactory::getConfig();
-	$debuglevel = $conf->getValue('config.debug');
+	static $methods = array(
+		'file' => array('open'=>'fopen',  'read'=>'fread',  'close'=>'fclose',  'eof'=>'feof'),
+		'gz'   => array('open'=>'gzopen', 'read'=>'gzread', 'close'=>'gzclose', 'eof'=>'gzeof'),
+		'bz2'  => array('open'=>'bzopen', 'read'=>'bzread', 'close'=>'bzclose', 'eof'=>'feof')
+	);
+	foreach($methods[$handler] as $key=>$func)
+		if(!function_exists($func))
+			return false;
+	$open  = $methods[$handler]['open'];
+	$read  = $methods[$handler]['read'];
+	$close = $methods[$handler]['close'];
+	$eof   = $methods[$handler]['eof'];
 
-	/** @var JDatabase $db */
-	$db =& JFactory::getDBO();
-
-	$db->debug(0);
-
-	$handle = bzopen($url, 'r');
-	$sql_line = '';
-	$lastchar = '';
-	$counter = 0;
-	while(!feof($handle))
-	{
-		$buf = bzread($handle, 8192);
-		if(trim($buf) != '')
-		{
-			$sql_line .= $buf;
-			if(strpos($lastchar.$buf, ";\n") !== false)
-			{
-				$queries = explode(";\n", $sql_line);
-				$sql_line = array_pop($queries);
-				foreach($queries as $query) if(trim($query) != '')
-				{
-					$db->setQuery($query);
-					$db->query();
-					$counter++;
-				}
-			}
-			$lastchar = $buf[strlen($buf)-1];
-		}
-	}
-	bzclose($handle);
-	$db->debug($debuglevel);
-	if($debuglevel)
-	{
-		$db->setQuery("# Insert $counter terawurfl queries");
-		$db->query();
-	}
-}
-
-function plain_parse_mysql_dump($url)
-{
-	$handle = @fopen($url, 'r');
-	if($handle===false)
+	$f = @$open($uri, 'rb');
+	if(!$f)
 		return false;
 
 	/** @var JRegistry $conf */
@@ -497,23 +434,22 @@ function plain_parse_mysql_dump($url)
 
 	/** @var JDatabase $db */
 	$db =& JFactory::getDBO();
-
 	$db->debug(0);
 
 	$sql_line = '';
 	$lastchar = '';
 	$counter = 0;
-	while(!feof($handle))
+	while(!$eof($f))
 	{
-		$buf = fread($handle, 32768);
-		if(trim($buf) != '')
+		$buf = $read($f, 32768);
+		if(trim($buf))
 		{
 			$sql_line .= $buf;
 			if(strpos($lastchar.$buf, ";\n") !== false)
 			{
 				$queries = explode(";\n", $sql_line);
 				$sql_line = array_pop($queries);
-				foreach($queries as $query) if(trim($query) != '')
+				foreach($queries as $query) if(trim($query))
 				{
 					$db->setQuery($query);
 					$db->query();
@@ -523,7 +459,8 @@ function plain_parse_mysql_dump($url)
 			$lastchar = $buf[strlen($buf)-1];
 		}
 	}
-	fclose($handle);
+	$close($f);
+
 	$db->debug($debuglevel);
 	if($debuglevel)
 	{
@@ -531,6 +468,57 @@ function plain_parse_mysql_dump($url)
 		$db->query();
 	}
 	return true;
+}
+
+function load_mysql_dump($bz2_file)
+{
+	global $WARNINGS;
+	safe_dl('bz2');
+	if(parse_mysql_dump('bz2', $bz2_file))
+		return true;
+
+	$teraPath = dirname($bz2_file).DS;
+	$teraSQL = $teraPath.'tera_dump.sql';
+	$disable_functions = ini_get('disable_functions');
+	if( !(bool)ini_get('safe_mode') && JFile::exists($bz2_file) &&
+		(preg_match('#\bescapeshellarg\b#', $disable_functions)==0) &&
+		(preg_match('#\bexec\b#', $disable_functions)==0) )
+	{
+		$pwd = getcwd();
+		chdir($teraPath);
+		@exec('bunzip2 -k '.escapeshellarg($bz2_file).' 2>&1');
+		chdir($pwd);
+	}
+
+	$teraSQL_root = JPATH_SITE.DS.'tera_dump.sql';
+	if(!JFile::exists($teraSQL) && JFile::exists($teraSQL_root))
+		$teraSQL = $teraSQL_root;
+
+	if(JFile::exists($teraSQL))
+	{
+		$dump_ok = parse_mysql_dump('file', $teraSQL);
+		if(!$dump_ok)
+			$WARNINGS[] = JText::_('Error reading')." $teraSQL";
+		if($teraSQL != $teraSQL_root)
+			JFile::delete($teraSQL);
+		return $dump_ok;
+	}
+	elseif(ini_get('allow_url_fopen'))
+	{
+		safe_dl('zlib');
+		if(parse_mysql_dump('gz', 'http://www.mobilejoomla.com/tera_dump_098.sql.gz'))
+			return true;
+		$url = 'http://www.mobilejoomla.com/tera_dump_098.sql';
+		if(parse_mysql_dump('file', $url))
+			return true;
+		$WARNINGS[] = JText::_('Error downloading')." $url";
+		return false;
+	}
+	else
+	{
+		$WARNINGS[] = JText::_('Cannot download TeraWURFL database');
+		return false;
+	}
 }
 
 function clear_terawurfl_db()
@@ -733,16 +721,16 @@ function com_install()
 		}
 		else
 		{
-			parse_mysql_dump($teraSQL);
+			$dump_ok = load_mysql_dump($teraSQL);
 			JFile::delete($teraSQL);
 			JFolder::copy($PluginSource.DS.'terawurfl', JPATH_PLUGINS.DS.'mobile'.DS.'terawurfl', '', true);
-			if(!terawurfl_install_procedure())
+			if($dump_ok && !terawurfl_install_procedure())
 			{
 				$query = "UPDATE #__plugins SET params = 'mysql4=1' WHERE element = 'terawurfl' AND folder = 'mobile'";
 				$db->setQuery($query);
 				$db->query();
 			}
-			if(!terawurfl_test()) // disable terawurfl
+			if(!$dump_ok || !terawurfl_test()) // disable terawurfl
 			{
 				$WARNINGS[] = JText::_('TeraWURFL will be disabled.');
 				$query = "UPDATE #__plugins SET published = 0 WHERE element = 'terawurfl' AND folder = 'mobile'";
