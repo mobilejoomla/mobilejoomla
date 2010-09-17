@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <install type="module" version="1.5.0">
 	<name>Header</name>
-	<version>###VERSION###</version>
-	<creationDate>###DATE###</creationDate>
-	<author>###AUTHOR###</author>
-	<copyright>###COPYRIGHT###</copyright>
-	<authorEmail>###EMAIL###</authorEmail>
-	<authorUrl>###URL###</authorUrl>
-	<license>###LICENSE###</license>
+	<version>0.9.7</version>
+	<creationDate>August 2010</creationDate>
+	<author>Mobile Joomla!</author>
+	<copyright>(C) 2008-2010 MobileJoomla!</copyright>
+	<authorEmail>hello@mobilejoomla.com</authorEmail>
+	<authorUrl>http://www.mobilejoomla.com</authorUrl>
+	<license>http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL</license>
 	<description>Displays a header.</description>
 	<files>
 		<filename module="mod_mj_header">mod_mj_header.php</filename>

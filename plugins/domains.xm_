@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <install version="1.5" type="plugin" group="mobile">
 	<name>Mobile - Domains</name>
-	<version>###VERSION###</version>
-	<author>###AUTHOR###</author>
-	<creationDate>###DATE###</creationDate>
-	<copyright>###COPYRIGHT###</copyright>
-	<license>###LICENSE###</license>
-	<authorEmail>###EMAIL###</authorEmail>
-	<authorUrl>###URL###</authorUrl>
+	<version>0.9.7</version>
+	<author>Mobile Joomla!</author>
+	<creationDate>August 2010</creationDate>
+	<copyright>(C) 2008-2010 MobileJoomla!</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL</license>
+	<authorEmail>hello@mobilejoomla.com</authorEmail>
+	<authorUrl>http://www.mobilejoomla.com</authorUrl>
 	<description>Mobile domains support</description>
 	<files>
 		<filename plugin="domains">domains.php</filename>
