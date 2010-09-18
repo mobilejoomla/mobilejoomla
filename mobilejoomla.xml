@@ -41,6 +41,7 @@
 			<filename>mobilejoomla.class.php</filename>
 			<filename>toolbar.mobilejoomla.html.php</filename>
 			<filename>toolbar.mobilejoomla.php</filename>
+			<filename>uninstall.mobilejoomla.php</filename>
 			<folder>cachestorage</folder>
 			<folder>extensions</folder>
 			<folder>images</folder>
