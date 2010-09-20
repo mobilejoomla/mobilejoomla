@@ -16,11 +16,12 @@ CHANGELOG
 0.9.8
 Beta release
 - Fix of double slash in urls of resized images
-- Update to TeraWURFL2.1.3
+- Update to TeraWURFL 2.1.3
 - Update WURFL database
 - Improve default device detection
 - Fix of some installation issues
 - Fix of homepage detection issue
+- Improve install procedure
 
 0.9.7
 Beta release
