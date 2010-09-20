@@ -363,7 +363,7 @@ function terawurfl_test()
 	if(!$test)
 		return false;
 	
-	/** @var JRegistry $conf */
+	/** @var JRegistry $config */
 	$config =& JFactory::getConfig();
 	$host = $config->getValue('host');
 	$port = NULL;

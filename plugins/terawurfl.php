@@ -33,7 +33,7 @@ class plgMobileTerawurfl extends JPlugin
 
 		require_once(JPATH_SITE.DS.'plugins'.DS.'mobile'.DS.'terawurfl'.DS.'TeraWurflConfig.php');
 
-		/** @var JRegistry $conf */
+		/** @var JRegistry $config */
 		$config =& JFactory::getConfig();
 		$host = $config->getValue('host');
 		if($host=='' || $host[0]==':')

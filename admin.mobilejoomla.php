@@ -274,6 +274,7 @@ function showconfig()
 
 	function menuoptions()
 	{
+		/** @var JDatabase $db */
 		$db =& JFactory::getDBO();
 		$query = 'SELECT id, menutype, name, link, type, parent FROM #__menu WHERE published=1 ORDER BY menutype, parent, ordering';
 		$db->setQuery($query);
