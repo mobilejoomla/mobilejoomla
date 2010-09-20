@@ -100,7 +100,7 @@ class plgMobileTerawurfl extends JPlugin
 					break;
 				case 'html_web_3_2': //text/html DTD HTML 3.2 Final
 				case 'html_web_4_0': //text/html DTD HTML 4.01 Transitional
-					$MobileJoomla_Device['markup'] = '';
+					$MobileJoomla_Device['markup'] = 'xhtml';
 					break;
 			}
 			$MobileJoomla_Device['screenwidth']  = $wurflObj->getDeviceCapability('max_image_width');
