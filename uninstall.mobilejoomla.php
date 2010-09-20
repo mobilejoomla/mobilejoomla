@@ -74,12 +74,12 @@ function InstallTemplate($sourcedir, $name)
 		$ERRORS[] = JText::_('Cannot find directory:')." $sourcedir.";
 		return false;
 	}
-	if(is_dir($TemplateDir))
+	if(is_dir($TemplateDir) && !JFolder::delete($TemplateDir))
 	{
-		if(!JFolder::delete($TemplateDir))
-			$ERRORS[] = JText::_('Cannot remove directory:').' '.$TemplateDir;
+		$ERRORS[] = JText::_('Cannot remove directory:').' '.$TemplateDir;
+		return false;
 	}
-	$status = JFolder::copy($sourcedir, $TemplateDir, '', true);
+	$status = true===JFolder::move($sourcedir, $TemplateDir);
 	if(is_file($TemplateDir.DS.'templateDetails.xm_') &&
 			!JFile::move($TemplateDir.DS.'templateDetails.xm_', $TemplateDir.DS.'templateDetails.xml'))
 	{
@@ -134,7 +134,10 @@ function InstallModule($sourcedir, $name, $title, $position, $published = 1, $sh
 	{
 		$upgrade = true;
 		if(!JFolder::delete($ModuleDir))
-			JText::_('Cannot remove directory:').' '.$ModuleDir;
+		{
+			$ERRORS[] = JText::_('Cannot remove directory:').' '.$ModuleDir;
+			return false;
+		}
 	}
 	if(!$upgrade)
 	{
@@ -150,7 +153,7 @@ function InstallModule($sourcedir, $name, $title, $position, $published = 1, $sh
 			$db->query();
 		}
 	}
-	if(!JFolder::copy($sourcedir.DS.$name, $ModuleDir, '', true))
+	if(JFolder::move($sourcedir.DS.$name, $ModuleDir) !== true)
 	{
 		$ERRORS[] = str_replace(array ('%1', '%2'),
 		                        array ($sourcedir.DS.$name, $ModuleDir.DS),
@@ -423,8 +426,9 @@ function parse_mysql_dump($handler, $uri)
 	$read  = $methods[$handler]['read'];
 	$close = $methods[$handler]['close'];
 	$eof   = $methods[$handler]['eof'];
+	$mode  = $handler=='bz2' ? 'r' : 'rb';
 
-	$f = @$open($uri, 'rb');
+	$f = @$open($uri, $mode);
 	if(!$f)
 		return false;
 
@@ -437,7 +441,6 @@ function parse_mysql_dump($handler, $uri)
 	$db->debug(0);
 
 	$sql_line = '';
-	$lastchar = '';
 	$counter = 0;
 	while(!$eof($f))
 	{
@@ -445,18 +448,14 @@ function parse_mysql_dump($handler, $uri)
 		if(trim($buf))
 		{
 			$sql_line .= $buf;
-			if(strpos($lastchar.$buf, ";\n") !== false)
+			$queries = explode(";\n", $sql_line);
+			$sql_line = array_pop($queries);
+			foreach($queries as $query)
 			{
-				$queries = explode(";\n", $sql_line);
-				$sql_line = array_pop($queries);
-				foreach($queries as $query) if(trim($query))
-				{
-					$db->setQuery($query);
-					$db->query();
-					$counter++;
-				}
+				$db->setQuery($query);
+				$db->query();
+				$counter++;
 			}
-			$lastchar = $buf[strlen($buf)-1];
 		}
 	}
 	$close($f);
@@ -660,11 +659,7 @@ function com_install()
 	$status = true;
 	foreach($templates as $template)
 	{
-		if(InstallTemplate($TemplateSource.DS.$template, $template))
-		{
-			JFolder::delete($TemplateSource.DS.$template);
-		}
-		else
+		if(!InstallTemplate($TemplateSource.DS.$template, $template))
 		{
 			$status = false;
 			$ERRORS[] = "<b>".JText::_('Cannot install:')." Mobile Joomla '$template' template.</b>";
@@ -723,7 +718,10 @@ function com_install()
 		{
 			$dump_ok = load_mysql_dump($teraSQL);
 			JFile::delete($teraSQL);
-			JFolder::copy($PluginSource.DS.'terawurfl', JPATH_PLUGINS.DS.'mobile'.DS.'terawurfl', '', true);
+			$TeraWURFLDir = JPATH_PLUGINS.DS.'mobile'.DS.'terawurfl';
+			if(is_dir($TeraWURFLDir) && !JFolder::delete($TeraWURFLDir))
+				$ERRORS[] = JText::_('Cannot remove directory:').' '.$TeraWURFLDir;
+			JFolder::move($PluginSource.DS.'terawurfl', $TeraWURFLDir);
 			if($dump_ok && !terawurfl_install_procedure())
 			{
 				$query = "UPDATE #__plugins SET params = 'mysql4=1' WHERE element = 'terawurfl' AND folder = 'mobile'";
