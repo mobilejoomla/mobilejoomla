@@ -16,8 +16,6 @@
 	<languages>
 		<language tag="en-GB">en-GB.tpl_mobile_iphone.ini</language>
 		<language tag="en-GB">en-GB.tpl_mobile_pda.ini</language>
-		<language tag="en-GB">en-GB.plg_mobile_terawurfl.ini</language>
-		<language tag="en-GB">en-GB.plg_mobile_always.ini</language>
 	</languages>
 	<administration>
 		<menu img="../administrator/components/com_mobilejoomla/images/mj16x16.gif">Mobile Joomla!</menu>
@@ -29,6 +27,8 @@
 		<languages>
 			<language tag="en-GB">en-GB.com_mobilejoomla.ini</language>
 			<language tag="en-GB">en-GB.com_mobilejoomla.menu.ini</language>
+			<language tag="en-GB">en-GB.plg_mobile_terawurfl.ini</language>
+			<language tag="en-GB">en-GB.plg_mobile_always.ini</language>
 		</languages>
 		<files>
 			<filename>admin.mobilejoomla.html.php</filename>
