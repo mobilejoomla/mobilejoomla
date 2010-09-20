@@ -13,7 +13,7 @@ defined('_JEXEC') or die('Restricted access');
 
 CHANGELOG
 
-0.9.8 ***SVN***
+0.9.8
 Beta release
 - Fix of double slash in urls of resized images
 - Update to TeraWURFL2.1.3
