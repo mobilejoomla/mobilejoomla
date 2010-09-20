@@ -1,4 +1,4 @@
-This is Mobilejoomla! source code tree.
+This is Mobile Joomla! source code tree.
 
 
 For more information visit
@@ -17,5 +17,5 @@ Forum
 http://www.mobilejoomla.com/forum.html
 
 
-For information how to develop Mobilejoomla! see
+For information how to develop Mobile Joomla! see
 http://github.com/miohtama/mobilejoomla.buildout
