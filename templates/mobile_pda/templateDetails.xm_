@@ -2,13 +2,13 @@
 <!DOCTYPE install PUBLIC "-//Joomla! 1.5//DTD template 1.0//EN" "http://dev.joomla.org/xml/1.5/template-install.dtd">
 <install version="1.5" type="template">
 	<name>mobile_pda</name>
-	<version>###VERSION###</version>
-	<author>###AUTHOR###</author>
-	<copyright>###COPYRIGHT###</copyright>
-	<creationDate>###DATE###</creationDate>
-	<authorEmail>###EMAIL###</authorEmail>
-	<authorUrl>###URL###</authorUrl>
-	<license>###LICENSE###</license>
+	<version>0.9.8</version>
+	<author>Mobile Joomla!</author>
+	<copyright>(C) 2008-2010 MobileJoomla!</copyright>
+	<creationDate>September 2010</creationDate>
+	<authorEmail>hello@mobilejoomla.com</authorEmail>
+	<authorUrl>http://www.mobilejoomla.com</authorUrl>
+	<license>http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL</license>
 	<description>MobileJoomla!</description>
 	<files>
 		<filename>index.php</filename>

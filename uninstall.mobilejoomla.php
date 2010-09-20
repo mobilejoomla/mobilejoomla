@@ -1,12 +1,12 @@
 <?php
 /**
- * ###DESC###
- * ###URL###
+ * Mobile Joomla!
+ * http://www.mobilejoomla.com
  *
- * @version		###VERSION###
- * @license		###LICENSE###
- * @copyright	###COPYRIGHT###
- * @date		###DATE###
+ * @version		0.9.8
+ * @license		http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL
+ * @copyright	(C) 2008-2010 MobileJoomla!
+ * @date		September 2010
  */
 defined('_JEXEC') or die('Restricted access');
 
@@ -14,7 +14,7 @@ jimport('joomla.filesystem.file');
 jimport('joomla.filesystem.folder');
 
 global $MJ_version;
-$MJ_version = '###VERSION###';
+$MJ_version = '0.9.8';
 
 function InstallPlugin($group, $sourcedir, $name, $fullname, $publish = 1, $ordering = -99)
 {

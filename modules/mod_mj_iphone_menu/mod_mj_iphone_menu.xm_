@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <install type="module" version="1.5.0">
 	<name>Menu</name>
-	<version>###VERSION###</version>
-	<author>###AUTHOR###</author>
-	<copyright>###COPYRIGHT###</copyright>
-	<creationDate>###DATE###</creationDate>
-	<authorEmail>###EMAIL###</authorEmail>
-	<authorUrl>###URL###</authorUrl>
-	<license>###LICENSE###</license>
+	<version>0.9.8</version>
+	<author>Mobile Joomla!</author>
+	<copyright>(C) 2008-2010 MobileJoomla!</copyright>
+	<creationDate>September 2010</creationDate>
+	<authorEmail>hello@mobilejoomla.com</authorEmail>
+	<authorUrl>http://www.mobilejoomla.com</authorUrl>
+	<license>http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL</license>
 	<description>Displays a menu.</description>
 	<files>
 		<filename module="mod_mj_iphone_menu">mod_mj_iphone_menu.php</filename>
