@@ -16,6 +16,7 @@ jimport('joomla.filesystem.folder');
 class ImageRescaler
 {
 	static $thumbdir = 'Resized';
+	static $addstyles = true;
 	static $forced_width = null;
 	static $forced_height = null;
 	static $scaledimage_width = null;
@@ -52,11 +53,14 @@ class ImageRescaler
 		$text = preg_replace('#\ssrc\s*=\s*(["\']?)(.*?)\1(?=\s|$)#ie',
 							 "' src=\"'.ImageRescaler::rescaleImage('\\2',$scaletype).'\"'", $text);
 		if(ImageRescaler::$scaledimage_width && ImageRescaler::$scaledimage_height)
-			$text = ' width="'.ImageRescaler::$scaledimage_width.'"'.
-					' height="'.ImageRescaler::$scaledimage_height.'"'.
-					' style="width:'.ImageRescaler::$scaledimage_width.'px !important;'.
-							'height:'.ImageRescaler::$scaledimage_height.'px !important;"'.
-					$text;
+		{
+			$size = ' width="'.ImageRescaler::$scaledimage_width.'"'.
+					' height="'.ImageRescaler::$scaledimage_height.'"';
+			if(ImageRescaler::$addstyles)
+				$size .= ' style="width:'.ImageRescaler::$scaledimage_width.'px !important;'.
+								'height:'.ImageRescaler::$scaledimage_height.'px !important;"';
+			$text = $size.$text;
+		}
 
 		return $text;
 	}
