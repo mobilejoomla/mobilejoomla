@@ -194,51 +194,42 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 		if($this->device['mimetype'])
 			return $this->device['mimetype'];
 
-		if(isset($_SERVER['HTTP_ACCEPT']))
+		if(!isset($_SERVER['HTTP_ACCEPT']))
+			return 'text/html';
+
+		$accept = array('xhtml' => 'application/xhtml+xml',
+						'html' => 'text/html',
+						'wml' => 'text/vnd.wap.wml',
+						'mhtml' => 'application/vnd.wap.xhtml+xml');
+		$c = array ();
+		foreach($accept as $mime_markup => $mime_type)
 		{
-			$accept = array ('xhtml' => 'application/xhtml+xml', 'html' => 'text/html', 'wml' => 'text/vnd.wap.wml', 'mhtml' => 'application/vnd.wap.xhtml+xml');
-			$c = array ();
-			foreach($accept as $mime_lang => $mime_type)
+			$c[$mime_markup] = 0;
+			if(stristr($_SERVER['HTTP_ACCEPT'], $mime_type))
 			{
-				$c[$mime_lang] = 1;
-				if(stristr($_SERVER['HTTP_ACCEPT'], $mime_type))
-				{
-					$c[$mime_lang]++;
-					if(preg_match('|'.str_replace(array ('/', '.', '+'), array ('\/', '\.', '\+'), $mime_type).';q=0(\.[1-9]+)|i', $_SERVER['HTTP_ACCEPT'], $matches))
-						$c[$mime_lang] -= (float) $matches[1];
-				}
+				if(preg_match('|'.str_replace(array('/','.','+'), array('\/','\.','\+'), $mime_type).';q=(0\.\d+)|i', $_SERVER['HTTP_ACCEPT'], $matches))
+					$c[$mime_markup] += (float) $matches[1];
+				else
+					$c[$mime_markup]++;
 			}
-			arsort($c, SORT_NUMERIC);
-			if(array_sum($c) == count($c))
-			{
-				unset($c);
-				$c['html'] = 1;
-			}
-			$max = max($c);
-			foreach($c as $type => $val)
-				if($val != $max) unset($c[$type]);
-			if(array_key_exists('xhtml', $c))
-			{
-				unset($c);
-				$c['xhtml'] = 1;
-			}
-			elseif(array_key_exists('html', $c))
-			{
-				unset($c);
-				$c['html'] = 1;
-			}
-			elseif(array_key_exists('wml', $c))
-			{
-				unset($c);
-				$c['wml'] = 1;
-			}
-			elseif(array_key_exists('mhtml', $c))
-			{
-				unset($c);
-				$c['mhtml'] = 1;
-			}
-			return $accept[key($c)];
 		}
-		return 'text/html';
+		arsort($c, SORT_NUMERIC);
+		$mime = 'html';
+		if(array_sum($c) != count($c))
+		{
+			$max = max($c);
+			foreach($c as $mime_markup=>$val)
+				if($val!=$max)
+					unset($c[$mime_markup]);
+			if(array_key_exists('html', $c))
+				$mime = 'html';
+			elseif(array_key_exists('xhtml', $c))
+				$mime = 'xhtml';
+			elseif(array_key_exists('mhtml', $c))
+				$mime = 'mhtml';
+			elseif(array_key_exists('wml', $c))
+				$mime = 'wml';
+		}
+		return $accept[$mime];
 	}
 }
