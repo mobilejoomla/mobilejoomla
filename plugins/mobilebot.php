@@ -396,5 +396,6 @@ class plgSystemMobileBot extends JPlugin
 		$text = $MobileJoomla->processPage($text);
 
 		JResponse::setBody($text);
+		JResponse::allowCache(true);
 	}
 }
