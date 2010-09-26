@@ -213,28 +213,24 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 					$c[$mime_markup]++;
 			}
 		}
-		arsort($c, SORT_NUMERIC);
+		$max = max($c);
+		foreach($c as $mime_markup=>$val)
+			if($val!=$max)
+				unset($c[$mime_markup]);
 		$mime = 'html';
-		if(array_sum($c) != count($c))
+		if(array_key_exists('html', $c))
 		{
-			$max = max($c);
-			foreach($c as $mime_markup=>$val)
-				if($val!=$max)
-					unset($c[$mime_markup]);
-			if(array_key_exists('html', $c))
-			{
-				if(strpos(@$_SERVER['HTTP_USER_AGENT'], 'Profile/MIDP-2.0 Configuration/CLDC-1.1') && array_key_exists('xhtml', $c))
-					$mime = 'xhtml';
-				else
-					$mime = 'html';
-			}
-			elseif(array_key_exists('xhtml', $c))
+			if(strpos(@$_SERVER['HTTP_USER_AGENT'], 'Profile/MIDP-2.0 Configuration/CLDC-1.1') && array_key_exists('xhtml', $c))
 				$mime = 'xhtml';
-			elseif(array_key_exists('mhtml', $c))
-				$mime = 'mhtml';
-			elseif(array_key_exists('wml', $c))
-				$mime = 'wml';
+			else
+				$mime = 'html';
 		}
+		elseif(array_key_exists('xhtml', $c))
+			$mime = 'xhtml';
+		elseif(array_key_exists('mhtml', $c))
+			$mime = 'mhtml';
+		elseif(array_key_exists('wml', $c))
+			$mime = 'wml';
 		return $accept[$mime];
 	}
 }
