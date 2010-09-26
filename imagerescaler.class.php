@@ -47,8 +47,8 @@ class ImageRescaler
 		$text = preg_replace('#\s(width|height)\s*:\s*\d+[^;]*;#i', '', $text);
 		$text = preg_replace('#\sstyle\s*=\s*([\'"]).*?\1#i', '', $text);
 
-		ImageRescaler::$scaledimage_width = null;
-		ImageRescaler::$scaledimage_height = null;
+		ImageRescaler::$scaledimage_width = ImageRescaler::$forced_width;
+		ImageRescaler::$scaledimage_height = ImageRescaler::$forced_height;
 		$text = preg_replace('#\ssrc\s*=\s*(["\']?)(.*?)\1(?=\s|$)#ie',
 							 "' src=\"'.ImageRescaler::rescaleImage('\\2',$scaletype).'\"'", $text);
 		if(ImageRescaler::$scaledimage_width && ImageRescaler::$scaledimage_height)
