@@ -397,5 +397,6 @@ class plgSystemMobileBot extends JPlugin
 
 		JResponse::setBody($text);
 		JResponse::allowCache(true);
+		JResponse::setHeader('Cache-Control', 'no-transform');
 	}
 }
