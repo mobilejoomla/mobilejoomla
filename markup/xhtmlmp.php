@@ -222,7 +222,12 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 				if($val!=$max)
 					unset($c[$mime_markup]);
 			if(array_key_exists('html', $c))
-				$mime = 'html';
+			{
+				if(strpos(@$_SERVER['HTTP_USER_AGENT'], 'Profile/MIDP-2.0 Configuration/CLDC-1.1') && array_key_exists('xhtml', $c))
+					$mime = 'xhtml';
+				else
+					$mime = 'html';
+			}
 			elseif(array_key_exists('xhtml', $c))
 				$mime = 'xhtml';
 			elseif(array_key_exists('mhtml', $c))
