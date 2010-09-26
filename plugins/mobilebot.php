@@ -357,7 +357,6 @@ class plgSystemMobileBot extends JPlugin
 		if((@$_GET['option'] == 'com_mobilejoomla') && (@$_GET['task'] == 'setmarkup') &&
 				isset($_GET['markup']) && isset($_GET['return']))
 		{
-			$mainframe->setUserState('mobilejoomla.forged_markup', 'yes');
 			$markup = plgSystemMobileBot::CheckMarkup($_GET['markup']);
 			if($markup!==false)
 				setcookie('mj.markup', $markup, time()+365*24*60*60);

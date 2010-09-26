@@ -10,12 +10,15 @@
  */
 defined('_JEXEC') or die('Restricted access');
 
-$links = array ();
+echo $params->get('show_text', ' ');
 
-$count = count($url);
-for($i = 0; $i < $count; $i++)
+$parts = array();
+foreach($links as $link)
 {
-	$links[] = ($url[$i] == '') ? ('<span>'.$text[$i].'</span>') : ('<a href="'.$url[$i].'">'.$text[$i].'</a>');
+	if($link['url'])
+		$parts[] = '<a class="markupchooser" href="'.$link['url'].'">'.$link['text'].'</a>';
+	else
+		$parts[] = '<span class="markupchooser">'.$link['text'].'</span>';
 }
 
-echo implode(' | ', $links);
+echo implode('<span class="markupchooser"> | </span>', $parts);

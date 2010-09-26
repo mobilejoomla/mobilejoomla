@@ -10,12 +10,15 @@
  */
 defined('_JEXEC') or die('Restricted access');
 
-$links = array ();
+echo $params->get('show_text', ' ');
 
-$count = count($url);
-for($i = 0; $i < $count; $i++)
+$parts = array();
+foreach($links as $link)
 {
-	$links[] = ($url[$i] == '') ? $text[$i] : ('<a href="'.$url[$i].'">'.$text[$i].'</a>');
+	if($link['url'])
+		$parts[] = '<a href="'.$link['url'].'">'.$link['text'].'</a>';
+	else
+		$parts[] = $link['text'];
 }
 
-echo implode(' | ', $links);
+echo implode(' | ', $parts);
