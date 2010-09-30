@@ -13,6 +13,10 @@ defined('_JEXEC') or die('Restricted access');
 
 CHANGELOG
 
+0.9.9-dev
+Beta release
+- Fix MarkupChooser module
+
 0.9.8
 Beta release
 - Fix of double slash in urls of resized images
