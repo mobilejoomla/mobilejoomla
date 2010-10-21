@@ -453,7 +453,12 @@ function parse_mysql_dump($handler, $uri)
 			foreach($queries as $query)
 			{
 				$db->setQuery($query);
-				$db->query();
+				if($db->query()===false)
+				{
+					global $ERRORS;
+					$ERRORS[] = 'Database error: '.$db->getErrorMsg();
+					break 2;
+				}
 				$counter++;
 			}
 		}
