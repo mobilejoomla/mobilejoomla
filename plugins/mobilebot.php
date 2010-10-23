@@ -155,6 +155,7 @@ class plgSystemMobileBot extends JPlugin
 				$handler = $config->getValue('config.cache_handler', 'file');
 				$class = 'JCacheStorage'.ucfirst($handler);
 				$path = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'cachestorage'.DS.$handler.'.php';
+				jimport('joomla.cache.storage');
 				JLoader::register($class, $path);
 			}
 			else
