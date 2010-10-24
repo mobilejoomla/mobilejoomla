@@ -24,7 +24,7 @@ class ImageRescaler
 
 	function RescaleImages($text, $scaletype)
 	{
-		return preg_replace('#<img(\s[^>]*)>#ie', "'<img'.ImageRescaler::imageParsing('\\1',$scaletype).'>'", $text);
+		return preg_replace('#<img(\s[^>]*?)\s?/?>#ie', "'<img'.ImageRescaler::imageParsing('\\1',$scaletype).' />'", $text);
 	}
 
 	function imageParsing($text, $scaletype)
