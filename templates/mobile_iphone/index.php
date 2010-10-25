@@ -29,7 +29,7 @@ if(!empty ($MobileJoomla->config['tmpl_iphone_homepage']))
 	<meta name="viewport" content="width = 320, initial-scale = 1.0, user-scalable = no, maximum-scale = 1.0">
 </head>
 <body>
-<div<?php echo ($MobileJoomla->_ishomepage) ? " id=\"home\"" : "";?> class="current">
+<div<?php echo ($MobileJoomla->_ishomepage) ? ' id="home"' : '';?> class="current">
 	<div class="toolbar">
 		<h1><?php /** @var JSite $app */ $app =& JFactory::getApplication(); echo $app->getCfg('sitename'); ?></h1>
 	<?php if(!$MobileJoomla->_ishomepage): ?>

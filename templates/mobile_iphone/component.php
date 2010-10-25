@@ -33,6 +33,8 @@ $base = $this->baseurl."/templates/".$this->template;
 	<script src="<?=$base?>/mj_iphone.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
+<div<?php echo ($MobileJoomla->_ishomepage) ? ' id="home"' : '';?> class="current">
 <?php $MobileJoomla->showMainBody(); ?>
+</div>
 </body>
 </html>
