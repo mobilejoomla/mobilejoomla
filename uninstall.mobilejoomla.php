@@ -253,6 +253,12 @@ function UpdateConfig()
 	if(substr($MobileJoomla_Settings['iphonedomain'], -1) == '.')
 		$MobileJoomla_Settings['iphonedomain'] .= $basehost;
 
+	if(!isset($MobileJoomla_Settings['mobile_sitename']) || $MobileJoomla_Settings['mobile_sitename']=='')
+	{
+		$conf =& JFactory::getConfig();
+		$MobileJoomla_Settings['mobile_sitename'] = $conf->getValue('sitename');
+	}
+
 	if(!function_exists('imagecopyresized'))
 	{
 		$WARNINGS[] = JText::_('GD2 library is not loaded.');

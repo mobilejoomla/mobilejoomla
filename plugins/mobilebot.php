@@ -150,6 +150,8 @@ class plgSystemMobileBot extends JPlugin
 			$MobileJoomla->setHeader();
 			/** @var JRegistry $config */
 			$config =& JFactory::getConfig();
+			if($MobileJoomla_Settings['mobile_sitename'])
+				$config->setValue('sitename', $MobileJoomla_Settings['mobile_sitename']);
 			if($MobileJoomla_Settings['caching'])
 			{
 				$handler = $config->getValue('config.cache_handler', 'file');

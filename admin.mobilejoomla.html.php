@@ -121,6 +121,13 @@ class HTML_mobilejoomla
 					<td><input class="text_area" type="text" size="30" name="mjconfig_desktop_url"
 					           value="<?php echo $MobileJoomla_Settings['desktop_url']; ?>"/></td>
 				</tr>
+				<tr>
+					<td class="key"><span class="editlinktip hasTip"
+					                      title="<?php echo JText::_('Mobile Sitename'); ?>::<?php echo JText::_('Short site name for mobile devices.'); ?>"><?php echo JText::_('Mobile Sitename'); ?></span>
+					</td>
+					<td><input class="text_area" type="text" size="30" name="mjconfig_mobile_sitename"
+					           value="<?php echo $MobileJoomla_Settings['mobile_sitename']; ?>"/></td>
+				</tr>
 				</tbody>
 			</table>
 		</fieldset>

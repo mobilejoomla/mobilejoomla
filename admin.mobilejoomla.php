@@ -375,7 +375,7 @@ function saveconfig($task)
 	$configfname = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php';
 	include($configfname);
 
-	$settings = array ('caching', 'domains', 'pcpage', 'templatewidth', 'jpegquality', 'desktop_url',
+	$settings = array ('caching', 'domains', 'pcpage', 'templatewidth', 'jpegquality', 'desktop_url', 'mobile_sitename',
 	                   'xhtmltemplate', 'xhtmlhomepage', 'xhtmlgzip', 'xhtmldomain', 'xhtmlredirect', 'xhtml_buffer_width',
 	                   'waptemplate', 'waphomepage', 'wapgzip', 'wapdomain', 'wapredirect', 'wml_buffer_width',
 	                   'imodetemplate', 'imodehomepage', 'imodegzip', 'imodedomain', 'imoderedirect', 'chtml_buffer_width',

@@ -16,6 +16,7 @@ CHANGELOG
 0.9.9-dev
 Beta release
 - Fix MarkupChooser module
+- Add "Mobile Sitename" setting
 
 0.9.8
 Beta release
