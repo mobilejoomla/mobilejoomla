@@ -259,6 +259,11 @@ function UpdateConfig()
 		$MobileJoomla_Settings['mobile_sitename'] = $conf->getValue('sitename');
 	}
 
+	if(!isset($MobileJoomla_Settings['tmpl_xhtml_img_addstyles']))
+		$MobileJoomla_Settings['tmpl_xhtml_img_addstyles'] = 0;
+	if(!isset($MobileJoomla_Settings['tmpl_iphone_img_addstyles']))
+		$MobileJoomla_Settings['tmpl_iphone_img_addstyles'] = 0;
+	
 	if(!function_exists('imagecopyresized'))
 	{
 		$WARNINGS[] = JText::_('GD2 library is not loaded.');

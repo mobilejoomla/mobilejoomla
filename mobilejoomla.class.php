@@ -156,9 +156,9 @@ class MobileJoomla
 	{
 	}
 
-	function RescaleImages($text, $scaletype)
+	function RescaleImages($text, $scaletype, $addstyles = false)
 	{
 		require_once(JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'imagerescaler.class.php');
-		return ImageRescaler::RescaleImages($text, $scaletype);
+		return ImageRescaler::RescaleImages($text, $scaletype, $addstyles);
 	}
 }

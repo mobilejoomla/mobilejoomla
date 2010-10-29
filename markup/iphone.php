@@ -76,7 +76,8 @@ $document->setHeadData($headerstuff);*/
 		elseif($this->config['tmpl_iphone_img'] >= 2)
 		{
 			$scaletype = $this->config['tmpl_iphone_img']-2;
-			$text = MobileJoomla::RescaleImages($text, $scaletype);
+			$addstyles = $this->config['tmpl_iphone_img_addstyles'];
+			$text = MobileJoomla::RescaleImages($text, $scaletype, $addstyles);
 		}
 
 		if($this->config['tmpl_iphone_removetags'])

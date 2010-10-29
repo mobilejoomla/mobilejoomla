@@ -21,13 +21,16 @@ class ImageRescaler
 	static $forced_height = null;
 	static $scaledimage_width = null;
 	static $scaledimage_height = null;
+	static $scaletype = 0;
 
-	function RescaleImages($text, $scaletype)
+	function RescaleImages($text, $scaletype = 0, $addstyles = false)
 	{
-		return preg_replace('#<img(\s[^>]*?)\s?/?>#ie', "'<img'.ImageRescaler::imageParsing('\\1',$scaletype).' />'", $text);
+		ImageRescaler::$scaletype = $scaletype;
+		ImageRescaler::$addstyles = $addstyles;
+		return preg_replace('#<img(\s[^>]*?)\s?/?>#ie', "'<img'.ImageRescaler::imageParsing('\\1').' />'", $text);
 	}
 
-	function imageParsing($text, $scaletype)
+	function imageParsing($text)
 	{
 		$text = stripslashes($text);
 
@@ -51,7 +54,7 @@ class ImageRescaler
 		ImageRescaler::$scaledimage_width = ImageRescaler::$forced_width;
 		ImageRescaler::$scaledimage_height = ImageRescaler::$forced_height;
 		$text = preg_replace('#\ssrc\s*=\s*(["\']?)(.*?)\1(?=\s|$)#ie',
-							 "' src=\"'.ImageRescaler::rescaleImage('\\2',$scaletype).'\"'", $text);
+							 "' src=\"'.ImageRescaler::rescaleImage('\\2').'\"'", $text);
 		if(ImageRescaler::$scaledimage_width && ImageRescaler::$scaledimage_height)
 		{
 			$size = ' width="'.ImageRescaler::$scaledimage_width.'"'.
@@ -65,7 +68,7 @@ class ImageRescaler
 		return $text;
 	}
 
-	function rescaleImage($imageurl, $scaletype = 0)
+	function rescaleImage($imageurl)
 	{
 		$src_imagename = pathinfo($imageurl, PATHINFO_FILENAME);
 		$src_ext = strtolower(pathinfo($imageurl, PATHINFO_EXTENSION));
@@ -152,7 +155,7 @@ class ImageRescaler
 				$forced_height = 1;
 		}
 
-		if($scaletype == 1)
+		if(ImageRescaler::$scaletype == 1)
 		{
 			$scalewidth = $MobileJoomla_Settings['templatewidth'];
 			$defscale = $dev_width/$scalewidth;

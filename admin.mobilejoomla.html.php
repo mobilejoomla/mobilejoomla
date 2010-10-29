@@ -247,6 +247,11 @@ class HTML_mobilejoomla
 					<td><?php echo $lists['tmpl_xhtml_img']; ?></td>
 				</tr>
 				<tr>
+					<td class="key"><span class="editlinktip hasTip"
+					                      title="<?php echo JText::_('Use style to force image size'); ?>::<?php echo JText::_('Add style attribute with image width and height to img tag.'); ?>"><?php echo JText::_('Use style to force image size'); ?></span></td>
+					<td><?php echo $lists['tmpl_xhtml_img_addstyles']; ?></td>
+				</tr>
+				<tr>
 					<td class="key"><?php echo JText::_('Gzip compression'); ?></td>
 					<td><?php echo $lists['xhtmlgzip']; ?></td>
 				</tr>
@@ -411,6 +416,11 @@ class HTML_mobilejoomla
 					                      title="<?php echo JText::_('Image adaptation method'); ?>::<?php echo JText::_('Remove or resize images.'); ?>"><?php echo JText::_('Image adaptation method'); ?></span>
 					</td>
 					<td><?php echo $lists['tmpl_iphone_img']; ?></td>
+				</tr>
+				<tr>
+					<td class="key"><span class="editlinktip hasTip"
+					                      title="<?php echo JText::_('Use style to force image size'); ?>::<?php echo JText::_('Add style attribute with image width and height to img tag.'); ?>"><?php echo JText::_('Use style to force image size'); ?></span></td>
+					<td><?php echo $lists['tmpl_iphone_img_addstyles']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><?php echo JText::_('Gzip compression'); ?></td>

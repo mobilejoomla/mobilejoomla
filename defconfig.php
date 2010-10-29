@@ -48,6 +48,7 @@ $MobileJoomla_Settings = array ('version' => '###VERSION###',
 'tmpl_xhtml_removetags' => 1,
 'tmpl_xhtml_removescripts' => 0,
 'tmpl_xhtml_img' => 2,
+'tmpl_xhtml_img_addstyles' => 0,
 'tmpl_xhtml_entitydecode' => 0,
 'tmpl_xhtml_embedcss' => 0,
 'tmpl_xhtml_contenttype' => 3,
@@ -91,5 +92,6 @@ $MobileJoomla_Settings = array ('version' => '###VERSION###',
 'tmpl_iphone_footer1' => 'mj_iphone_footer',
 'tmpl_iphone_footer2' => 'mj_iphone_footer2',
 'tmpl_iphone_jfooter' => 1,
-'tmpl_iphone_img' => 2
+'tmpl_iphone_img' => 2,
+'tmpl_iphone_img_addstyles' => 0
 );
