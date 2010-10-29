@@ -594,7 +594,7 @@ function com_install()
 	@set_time_limit(1200);
 	@ini_set('max_execution_time', 1200);
 
-	$mj_memory_limit = '16M';
+	$mj_memory_limit = '32M';
 	$memory_limit = @ini_get('memory_limit');
 	if($memory_limit && str2int($memory_limit) < str2int($mj_memory_limit))
 		@ini_set('memory_limit', $mj_memory_limit);
