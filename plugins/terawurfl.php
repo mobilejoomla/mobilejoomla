@@ -31,6 +31,9 @@ class plgMobileTerawurfl extends JPlugin
 			return;
 		}
 
+		if(!isset($_SERVER['HTTP_ACCEPT']) && !isset($_SERVER['HTTP_USER_AGENT']))
+			return;
+
 		require_once(JPATH_SITE.DS.'plugins'.DS.'mobile'.DS.'terawurfl'.DS.'TeraWurflConfig.php');
 
 		/** @var JRegistry $config */
