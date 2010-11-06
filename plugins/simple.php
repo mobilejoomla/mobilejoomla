@@ -23,6 +23,8 @@ class plgMobileSimple extends JPlugin
 	{
 		$this->checkAccept($MobileJoomla_Device);
 		$this->checkUserAgent($MobileJoomla_Device);
+		if($MobileJoomla_Device['markup'])
+			$this->checkScreenSize($MobileJoomla_Device);
 	}
 	
 	function checkAccept(&$MobileJoomla_Device)
@@ -98,8 +100,6 @@ class plgMobileSimple extends JPlugin
 		if(empty($useragent))
 			return;
 
-		$useragent_commentsblock = preg_match('|\(.*?\)|', $useragent, $matches) > 0 ? $matches[0] : '';
-
 		$iphone_list = array('Mozilla/5.0 (iPod;',
 		                     'Mozilla/5.0 (iPod touch;',
 		                     'Mozilla/5.0 (iPhone;',
@@ -121,6 +121,8 @@ class plgMobileSimple extends JPlugin
 			return;
 		}
 
+		$useragent_commentsblock = preg_match('|\(.*?\)|', $useragent, $matches) > 0 ? $matches[0] : '';
+
 		$desktop_os_list = array('Windows NT', 'Macintosh', 'Mac OS X', 'Mac_PowerPC', 'MacPPC', 'X11',
 								 'x86_64', 'ia64', 'i686', 'i586', 'i386', 'Windows+NT', 'Windows XP',
 								 'Windows 2000', 'Win2000', 'Windows ME', 'Win 9x', 'Windows 98',
@@ -132,6 +134,7 @@ class plgMobileSimple extends JPlugin
 							  'ia_archiver', 'Mediapartners-Google', 'msnbot', 'Yahoo! Slurp', 'YahooSeeker',
 							  'Validator', 'W3C-checklink', 'CSSCheck', 'GSiteCrawler');
 		$wapbots_list = array('Wapsilon', 'WinWAP', 'WAP-Browser');
+
 		$found_desktop = self::CheckSubstrs($desktop_os_list, $useragent_commentsblock) ||
 						 self::CheckSubstrs($webbots_list, $useragent);
 		$found_mobilebot = self::CheckSubstrs($wapbots_list, $useragent);
@@ -155,6 +158,55 @@ class plgMobileSimple extends JPlugin
 							self::CheckSubstrs($mobile_token_list, $useragent);
 			if(!$found_mobile)
 				$MobileJoomla_Device['markup'] = ''; //Desktop for sure
+		}
+	}
+	
+	function checkScreenSize(&$MobileJoomla_Device)
+	{
+		if(isset($_SERVER['HTTP_X_SCREEN_WIDTH']) && $_SERVER['HTTP_X_SCREEN_WIDTH']
+				&& isset($_SERVER['HTTP_X_SCREEN_HEIGHT']) && $_SERVER['HTTP_X_SCREEN_HEIGHT'])
+		{
+			$MobileJoomla_Device['screenwidth']  = (int)$_SERVER['HTTP_X_SCREEN_WIDTH'];
+			$MobileJoomla_Device['screenheight'] = (int)$_SERVER['HTTP_X_SCREEN_HEIGHT'];
+			return;
+		}
+		if(isset($_SERVER['HTTP_X_BROWSER_WIDTH']) && $_SERVER['HTTP_X_BROWSER_WIDTH']
+				&& isset($_SERVER['HTTP_X_BROWSER_HEIGHT']) && $_SERVER['HTTP_X_BROWSER_HEIGHT'])
+		{
+			$MobileJoomla_Device['screenwidth']  = (int)$_SERVER['HTTP_X_BROWSER_WIDTH'];
+			$MobileJoomla_Device['screenheight'] = (int)$_SERVER['HTTP_X_BROWSER_HEIGHT'];
+			return;
+		}
+		if(isset($_SERVER['HTTP_X_OS_PREFS'])
+				&& preg_match('#fw:(\d+);\s*fh:(\d+);#i',$_SERVER['HTTP_X_OS_PREFS'],$matches))
+		{
+			$MobileJoomla_Device['screenwidth']  = (int)$matches[1];
+			$MobileJoomla_Device['screenheight'] = (int)$matches[2];
+			return;
+		}
+
+		$screen = '';
+		if(empty($screen) && isset($_SERVER['HTTP_UA_PIXELS']))
+			$screen = $_SERVER['HTTP_UA_PIXELS'];
+		if(empty($screen) && isset($_SERVER['HTTP_X_UP_DEVCAP_SCREENPIXELS']))
+			$screen = $_SERVER['HTTP_X_UP_DEVCAP_SCREENPIXELS'];
+		if(empty($screen) && isset($_SERVER['HTTP_X_JPHONE_DISPLAY']))
+			$screen = $_SERVER['HTTP_X_JPHONE_DISPLAY'];
+		if(empty($screen) && isset($_SERVER['HTTP_X_AVANTGO_SCREENSIZE']))
+			$screen = base64_decode($_SERVER['HTTP_X_AVANTGO_SCREENSIZE']);
+		if(empty($screen) && isset($_SERVER['HTTP_USER_AGENT'])
+				&& preg_match('#\b[\d]{3,4}x[\d]{3,4}\b#', $_SERVER['HTTP_USER_AGENT'], $matches))
+		{
+			$screen = $matches[0];
+		}
+
+		if(empty($screen))
+			return;
+		$screen = preg_split('#[x*,]#i', $screen);
+		if(count($screen)==2)
+		{
+			$MobileJoomla_Device['screenwidth']  = (int)$screen[0];
+			$MobileJoomla_Device['screenheight'] = (int)$screen[1];
 		}
 	}
 
