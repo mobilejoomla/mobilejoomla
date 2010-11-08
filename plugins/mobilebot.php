@@ -214,23 +214,8 @@ class plgSystemMobileBot extends JPlugin
 		/** @var MobileJoomla $MobileJoomla */
 		$MobileJoomla =& MobileJoomla::getInstance();
 
-		if(function_exists('json_decode'))
-		{
-			$content = @file_get_contents(JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'extensions'.DS.'extensions.json');
-			$json = json_decode($content);
-			if(isset($json->extensions)) foreach($json->extensions as $extension)
-			{
-				if($extension->name == 'com_mobilemosets')
-				{
-					global $mtconf;
-					$db =& JFactory::getDBO();
-					require (JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_mtree'.DS.'config.mtree.class.php');
-					$mtconf = new mtConfig($db);
-					$mtconf->mtconfig['template']->value = 'mobile';
-					$mtconf->mtconfig['template']->default = 'mobile';
-				}
-			}
-		}
+		JPluginHelper::importPlugin('mobile');
+		$mainframe->triggerEvent('onMobile', array (&$MobileJoomla, &$MobileJoomla_Settings, &$MobileJoomla_Device));
 
 		switch($MobileJoomla_Device['markup'])
 		{
