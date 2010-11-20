@@ -750,6 +750,7 @@ function com_install()
 				$query = "UPDATE #__plugins SET published = 0 WHERE element = 'terawurfl' AND folder = 'mobile'";
 				$db->setQuery($query);
 				$db->query();
+				clear_terawurfl_db();
 			}
 			else
 			{
