@@ -70,7 +70,13 @@ class ImageRescaler
 
 	function rescaleImage($imageurl)
 	{
-		$src_imagename = pathinfo($imageurl, PATHINFO_FILENAME);
+		if(defined('PATHINFO_FILENAME'))
+			$src_imagename = pathinfo($imageurl, PATHINFO_FILENAME);
+		else
+		{
+			$base = basefile($imageurl);
+			$src_imagename = substr($base, 0, strrpos($base, '.'));
+		}
 		$src_ext = strtolower(pathinfo($imageurl, PATHINFO_EXTENSION));
 		if($src_ext == 'jpeg')
 			$src_ext = 'jpg';
