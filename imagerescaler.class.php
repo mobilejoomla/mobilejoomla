@@ -192,8 +192,14 @@ class ImageRescaler
 		$dest_imagedir = dirname($src_imagepath).DS.ImageRescaler::$thumbdir;
 		$dest_imagepath = $dest_imagedir.DS.$src_imagename.'_'.$dest_width.'x'.$dest_height.'.'.$dest_ext;
 		$dest_imageuri = $base_rel.implode('/', explode(DS, substr($dest_imagepath, strlen(JPATH_SITE.DS))));
+		
+		$src_mtime = @filemtime($src_imagepath);
 		if(file_exists($dest_imagepath))
-			return $dest_imageuri;
+		{
+			$dest_mtime = @filemtime($dest_imagepath);
+			if($src_mtime == $dest_mtime)
+				return $dest_imageuri;
+		}
 
 		if(!JFolder::exists($dest_imagedir))
 		{
@@ -278,6 +284,7 @@ class ImageRescaler
 		ob_end_clean();
 		ImageDestroy($dest_image);
 		JFile::write($dest_imagepath, $data);
+		@touch($dest_imagepath, $src_mtime);
 
 		return $dest_imageuri;
 	}
