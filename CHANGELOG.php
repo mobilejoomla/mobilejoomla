@@ -13,10 +13,13 @@ defined('_JEXEC') or die('Restricted access');
 
 CHANGELOG
 
-0.9.9-dev
+0.9.9
 Beta release
 - Fix MarkupChooser module
 - Add "Mobile Sitename" setting
+- Add "Use style to force image size" setting
+- Update rescaled images after changing of source image
+- Fix PHP4 issues
 - Many small changes
 
 0.9.8
