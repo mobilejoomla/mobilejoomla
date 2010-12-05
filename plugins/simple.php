@@ -135,9 +135,9 @@ class plgMobileSimple extends JPlugin
 							  'Validator', 'W3C-checklink', 'CSSCheck', 'GSiteCrawler');
 		$wapbots_list = array('Wapsilon', 'WinWAP', 'WAP-Browser');
 
-		$found_desktop = self::CheckSubstrs($desktop_os_list, $useragent_commentsblock) ||
-						 self::CheckSubstrs($webbots_list, $useragent);
-		$found_mobilebot = self::CheckSubstrs($wapbots_list, $useragent);
+		$found_desktop = $this->CheckSubstrs($desktop_os_list, $useragent_commentsblock) ||
+						 $this->CheckSubstrs($webbots_list, $useragent);
+		$found_mobilebot = $this->CheckSubstrs($wapbots_list, $useragent);
 		if($found_mobilebot && !$found_desktop)
 		{ // WAP bot for sure
 			$MobileJoomla_Device['markup'] = 'wml';
@@ -154,8 +154,8 @@ class plgMobileSimple extends JPlugin
 									   'PalmOS', 'PocketPC', 'SonyEricsson', 'Nokia', 'BlackBerry',
 									   'Vodafone', 'BenQ', 'Novarra-Vision', 'Iris', 'NetFront', 'HTC_',
 									   'Xda_', 'SAMSUNG-SGH', 'Wapaka', 'DoCoMo');
-			$found_mobile = self::CheckSubstrs($mobile_os_list, $useragent_commentsblock) ||
-							self::CheckSubstrs($mobile_token_list, $useragent);
+			$found_mobile = $this->CheckSubstrs($mobile_os_list, $useragent_commentsblock) ||
+							$this->CheckSubstrs($mobile_token_list, $useragent);
 			if(!$found_mobile)
 				$MobileJoomla_Device['markup'] = ''; //Desktop for sure
 		}

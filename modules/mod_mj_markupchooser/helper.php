@@ -19,8 +19,8 @@ class modMarkupChooserHelper
 	function getChangeLink($user_markup, $test_markup, $text)
 	{
 		if($user_markup == $test_markup)
-			return self::$show_chosen_markup?'':false;
+			return modMarkupChooserHelper::$show_chosen_markup?'':false;
 		else
-			return self::$base.'index2.php?option=com_mobilejoomla&amp;task=setmarkup&amp;markup='.$test_markup.'&amp;return='.self::$return;
+			return modMarkupChooserHelper::$base.'index2.php?option=com_mobilejoomla&amp;task=setmarkup&amp;markup='.$test_markup.'&amp;return='.modMarkupChooserHelper::$return;
 	}
 }
