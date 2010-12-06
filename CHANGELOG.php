@@ -20,6 +20,7 @@ Beta release
 - Add "Use style to force image size" setting
 - Update rescaled images after changing of source image
 - Fix PHP4 issues
+- Update WURFL database
 - Many small changes
 
 0.9.8
