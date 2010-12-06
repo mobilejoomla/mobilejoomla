@@ -68,6 +68,20 @@ class ImageRescaler
 		return $text;
 	}
 
+	function getmtime($file)
+	{
+		$time = @filemtime($file);
+		if(strtolower(substr(PHP_OS, 0, 3)) !== 'win')
+			return $time;
+		$fileDST = (date('I', $time) == 1);
+		$systemDST = (date('I') == 1);
+		if($fileDST==false && $systemDST==true)
+			return $time+3600;
+		elseif($fileDST==true && $systemDST==false) 
+			return $time-3600;
+		return $time;
+	}
+
 	function rescaleImage($imageurl)
 	{
 		if(defined('PATHINFO_FILENAME'))
@@ -193,10 +207,10 @@ class ImageRescaler
 		$dest_imagepath = $dest_imagedir.DS.$src_imagename.'_'.$dest_width.'x'.$dest_height.'.'.$dest_ext;
 		$dest_imageuri = $base_rel.implode('/', explode(DS, substr($dest_imagepath, strlen(JPATH_SITE.DS))));
 		
-		$src_mtime = @filemtime($src_imagepath);
+		$src_mtime = ImageRescaler::getmtime($src_imagepath);
 		if(file_exists($dest_imagepath))
 		{
-			$dest_mtime = @filemtime($dest_imagepath);
+			$dest_mtime = ImageRescaler::getmtime($dest_imagepath);
 			if($src_mtime == $dest_mtime)
 				return $dest_imageuri;
 		}
