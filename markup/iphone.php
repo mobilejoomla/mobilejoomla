@@ -119,17 +119,4 @@ $document->setHeadData($headerstuff);*/
 		}
 		return '';
 	}
-
-	function hasSubmenus()
-	{
-		/** @var JMenuSite $menu */
-		$menu = & JSite::getMenu();
-		$activemenu =& $menu->getActive();
-		$activeId = $activemenu->id;
-
-		if($menu->getItems('parent', $activeId))
-			return true;
-
-		return false;
-	}
 }
