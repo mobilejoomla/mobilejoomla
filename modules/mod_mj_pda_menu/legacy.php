@@ -215,7 +215,8 @@ function mosShowPDAMenu(&$params)
 
 	if(is_array($rows) && count($rows))
 	{
-		foreach($rows as $row)
+		$aid = $user->get('aid', 0);
+		foreach($rows as $row) if($row->access <= $aid)
 		{
 			if($activeId == $row->parent && !($exclude_menu_ids && in_array($row->id, $exclude_menu_ids)))
 				$sublinks[] = mosGetMenuLink_pda($row, 0, $params);
@@ -223,16 +224,13 @@ function mosShowPDAMenu(&$params)
 			if($row->parent != '0')
 				continue;
 
-			if($row->access <= $user->get('aid', 0))
+			if($exclude_menu_ids && in_array($row->id, $exclude_menu_ids))
 			{
-				if($exclude_menu_ids && in_array($row->id, $exclude_menu_ids))
-				{
-					//dont add
-				}
-				else
-				{
-					$links[] = mosGetMenuLink_pda($row, 0, $params);
-				}
+				//dont add
+			}
+			else
+			{
+				$links[] = mosGetMenuLink_pda($row, 0, $params);
 			}
 		}
 	}
