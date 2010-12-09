@@ -13,6 +13,9 @@ defined('_JEXEC') or die('Restricted access');
 
 CHANGELOG
 
+0.9.10
+Beta release
+
 0.9.9
 Beta release
 - Fix MarkupChooser module
