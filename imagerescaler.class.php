@@ -88,7 +88,7 @@ class ImageRescaler
 			$src_imagename = pathinfo($imageurl, PATHINFO_FILENAME);
 		else
 		{
-			$base = basefile($imageurl);
+			$base = basename($imageurl);
 			$src_imagename = substr($base, 0, strrpos($base, '.'));
 		}
 		$src_ext = strtolower(pathinfo($imageurl, PATHINFO_EXTENSION));
