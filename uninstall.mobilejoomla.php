@@ -236,6 +236,8 @@ function UpdateConfig()
 		unset($MobileJoomla_Settings['useragent']);
 	if(!isset($MobileJoomla_Settings['caching']))
 		$MobileJoomla_Settings['caching'] = 0;
+	if(!isset($MobileJoomla_Settings['httpcaching']))
+		$MobileJoomla_Settings['httpcaching'] = 1;
 
 	$MobileJoomla_Settings['desktop_url'] = JURI::root();
 

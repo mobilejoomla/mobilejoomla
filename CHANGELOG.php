@@ -15,6 +15,7 @@ CHANGELOG
 
 0.9.10
 Beta release
+- Add "Browser Caching" option
 
 0.9.9
 Beta release

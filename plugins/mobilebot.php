@@ -381,10 +381,13 @@ class plgSystemMobileBot extends JPlugin
 
 		/** @var MobileJoomla $MobileJoomla */
 		$MobileJoomla =& MobileJoomla::getInstance();
+		$MobileJoomla_Settings =& MobileJoomla::getConfig();
+
 		$text = $MobileJoomla->processPage($text);
 
 		JResponse::setBody($text);
-		JResponse::allowCache(true);
+		if($MobileJoomla_Settings['httpcaching'])
+			JResponse::allowCache(true);
 		JResponse::setHeader('Cache-Control', 'no-transform');
 	}
 }

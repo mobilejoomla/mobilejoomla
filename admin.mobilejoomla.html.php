@@ -89,6 +89,12 @@ class HTML_mobilejoomla
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
+					                      title="<?php echo JText::_('Browser Caching'); ?>::<?php echo JText::_('Allow saving mobile pages in browser cache.'); ?>"><?php echo JText::_('Browser Caching'); ?></span>
+					</td>
+					<td><?php echo $lists['httpcaching']; ?></td>
+				</tr>
+				<tr>
+					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('Domain (multisite) support'); ?>::<?php echo JText::_('Show mobile versions on aliases (like pda.site.name, wap.site.name).'); ?>"><?php echo JText::_('Domain (multisite) support'); ?></span>
 					</td>
 					<td><?php echo $lists['domains']; ?></td>

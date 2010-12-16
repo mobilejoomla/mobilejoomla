@@ -101,6 +101,10 @@ function showconfig()
 					  JHTML::_('select.option', 1, 'Global'));
 	$lists['caching'] = JHTML::_('select.radiolist', $caching, 'mjconfig_caching', 'class="inputbox"', 'value', 'text', $MobileJoomla_Settings['caching']);
 
+	$httpcaching = array (JHTML::_('select.option', 0, 'Disable'),
+						  JHTML::_('select.option', 1, 'Enable'));
+	$lists['httpcaching'] = JHTML::_('select.radiolist', $httpcaching, 'mjconfig_httpcaching', 'class="inputbox"', 'value', 'text', $MobileJoomla_Settings['httpcaching']);
+
 	$lists['domains'] = JHTML::_('select.booleanlist', 'mjconfig_domains', 'class="inputbox"', $MobileJoomla_Settings['domains']);
 
 	//XHTML/WAP2.0 devices
@@ -379,7 +383,8 @@ function saveconfig($task)
 	$configfname = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php';
 	include($configfname);
 
-	$settings = array ('caching', 'domains', 'pcpage', 'templatewidth', 'jpegquality', 'desktop_url', 'mobile_sitename',
+	$settings = array ('caching', 'httpcaching', 'domains', 'pcpage', 'templatewidth', 'jpegquality',
+					   'desktop_url', 'mobile_sitename',
 	                   'xhtmltemplate', 'xhtmlhomepage', 'xhtmlgzip', 'xhtmldomain', 'xhtmlredirect', 'xhtml_buffer_width',
 	                   'waptemplate', 'waphomepage', 'wapgzip', 'wapdomain', 'wapredirect', 'wml_buffer_width',
 	                   'imodetemplate', 'imodehomepage', 'imodegzip', 'imodedomain', 'imoderedirect', 'chtml_buffer_width',
