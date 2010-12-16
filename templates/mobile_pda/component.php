@@ -30,6 +30,7 @@ $base = $this->baseurl."/templates/".$this->template;
 	<script src="<?=$base?>/mj_xhtml.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
-<?php $MobileJoomla->showMainBody(); ?>
+<?php $MobileJoomla->showMessage(); ?>
+<?php $MobileJoomla->showComponent(); ?>
 </body>
 </html>

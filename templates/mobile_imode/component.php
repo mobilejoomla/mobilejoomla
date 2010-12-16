@@ -22,6 +22,7 @@ $MobileJoomla->showDocType();
 <?php $MobileJoomla->showHead(); ?>
 </head>
 <body>
-<?php $MobileJoomla->showMainBody(); ?>
+<?php $MobileJoomla->showMessage(); ?>
+<?php $MobileJoomla->showComponent(); ?>
 </body>
 </html>

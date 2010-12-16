@@ -51,15 +51,14 @@ class MobileJoomla_CHTML extends MobileJoomla
 		echo '<title>'.$this->getPageTitle()."</title>\n";
 	}
 
-	function showPathway()
+	function showBreadcrumbs()
 	{
 		if($this->config['tmpl_imode_pathway'] && (!$this->_ishomepage || $this->config['tmpl_imode_pathwayhome']))
 			echo '<jdoc:include type="module" name="breadcrumbs" style="chtml" />';
 	}
 
-	function showMainBody()
+	function showComponent()
 	{
-		echo '<jdoc:include type="message" />';
 		if(!$this->_ishomepage || $this->config['tmpl_imode_componenthome'])
 			echo '<jdoc:include type="component" />';
 	}

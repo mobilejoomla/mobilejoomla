@@ -122,15 +122,29 @@ class MobileJoomla
 		echo '<jdoc:include type="head" />';
 	}
 
+	/** deprecated **/
 	function showPathway()
+	{
+		$this->showBreadcrumbs();
+	}
+	function showBreadcrumbs()
 	{
 		echo '<jdoc:include type="module" name="breadcrumbs" style="-1" />';
 	}
 
+	/** deprecated **/
 	function showMainBody()
 	{
-		echo '<jdoc:include type="message" />';
+		$this->showComponent();
+	}
+	function showComponent()
+	{
 		echo '<jdoc:include type="component" />';
+	}
+	
+	function showMessage()
+	{
+		echo '<jdoc:include type="message" />';
 	}
 
 	function showFooter()

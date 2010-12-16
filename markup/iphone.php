@@ -41,15 +41,14 @@ $document->setHeadData($headerstuff);*/
 			echo '<link rel="apple-touch-icon" href="'.JURI::base(true).'/templates/'.$template.'/apple-touch-icon.png" />';
 	}
 
-	function showPathway()
+	function showBreadcrumbs()
 	{
 		if($this->config['tmpl_iphone_pathway'] && (!$this->_ishomepage || $this->config['tmpl_iphone_pathwayhome']))
 			echo '<jdoc:include type="module" name="breadcrumbs" style="iphone" />';
 	}
 
-	function showMainBody()
+	function showComponent()
 	{
-		echo '<jdoc:include type="message" />';
 		if(!$this->_ishomepage || $this->config['tmpl_iphone_componenthome'])
 			echo '<jdoc:include type="component" />';
 	}

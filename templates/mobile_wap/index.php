@@ -17,12 +17,14 @@ $MobileJoomla =& MobileJoomla::getInstance();
 $modulepos = $MobileJoomla->getPosition('header');
 $MobileJoomla->loadModules($modulepos);
 
-$MobileJoomla->showPathway();
+$MobileJoomla->showMessage();
+
+$MobileJoomla->showBreadcrumbs();
 
 $modulepos = $MobileJoomla->getPosition('middle');
 $MobileJoomla->loadModules($modulepos);
 
-$MobileJoomla->showMainBody();
+$MobileJoomla->showComponent();
 
 $modulepos = $MobileJoomla->getPosition('footer');
 $MobileJoomla->loadModules($modulepos);

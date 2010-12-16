@@ -43,6 +43,7 @@ $hasSubmenus = (bool)$menu->getItems('parent', $activemenu->id);
 	<?php endif;?>
 	</div>
 <?php
+
 $modulepos = $MobileJoomla->getPosition('header');
 if($modulepos && $this->countModules($modulepos) > 0)
 {
@@ -54,9 +55,11 @@ if($modulepos && $this->countModules($modulepos) > 0)
 	$MobileJoomla->loadModules($modulepos);
 }
 
+$MobileJoomla->showMessage();
+
 if($MobileJoomla->config['tmpl_iphone_pathway'] && (!$MobileJoomla->_ishomepage || $MobileJoomla->config['tmpl_iphone_pathwayhome'])): ?>
 	<div class="content">
-		<?php $MobileJoomla->showPathway(); ?>
+		<?php $MobileJoomla->showBreadcrumbs(); ?>
 	</div>
 <?php
 endif;
@@ -70,7 +73,7 @@ if($modulepos && $this->countModules($modulepos) > 0 && ($MobileJoomla->_ishomep
 if(!(!$MobileJoomla->config['tmpl_iphone_componenthome'] && $MobileJoomla->_ishomepage)): ?>
 	<div class="content">
 		<div class="container">
-			<?php $MobileJoomla->showMainBody(); ?>
+			<?php $MobileJoomla->showComponent(); ?>
 		</div>
 <?php
 	$modulepos = $MobileJoomla->getPosition('middle2');

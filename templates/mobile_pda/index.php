@@ -45,13 +45,15 @@ $base = JURI::base()."templates/".$this->template;
 ?>
 	<div id="content">
 <?php
+		$MobileJoomla->showMessage();
+
 		$modulepos = $MobileJoomla->getPosition('middle');
 		if($modulepos && $this->countModules($modulepos) > 0):
 			?><div id="<?php echo $modulepos; ?>"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
 		endif;
 
-		$MobileJoomla->showPathway();
-		$MobileJoomla->showMainBody();
+		$MobileJoomla->showBreadcrumbs();
+		$MobileJoomla->showComponent();
 
 		$modulepos = $MobileJoomla->getPosition('middle2');
 		if($modulepos && $this->countModules($modulepos) > 0):

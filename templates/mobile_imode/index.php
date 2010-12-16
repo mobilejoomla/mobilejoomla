@@ -31,7 +31,9 @@ $modulepos = $MobileJoomla->getPosition('header2');
 if($modulepos && $this->countModules($modulepos) > 0)
 	$MobileJoomla->loadModules($modulepos);
 
-$MobileJoomla->showPathway();
+$MobileJoomla->showMessage();
+
+$MobileJoomla->showBreadcrumbs();
 
 $modulepos = $MobileJoomla->getPosition('middle');
 if($modulepos && $this->countModules($modulepos) > 0)
@@ -40,7 +42,7 @@ $modulepos = $MobileJoomla->getPosition('middle2');
 if($modulepos && $this->countModules($modulepos) > 0)
 	$MobileJoomla->loadModules($modulepos);
 
-$MobileJoomla->showMainBody();
+$MobileJoomla->showComponent();
 
 $modulepos = $MobileJoomla->getPosition('footer');
 if($modulepos && $this->countModules($modulepos) > 0)

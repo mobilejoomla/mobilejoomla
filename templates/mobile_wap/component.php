@@ -14,5 +14,6 @@ defined('_MJ') or die('Incorrect usage of Mobile Joomla.');
 
 $MobileJoomla =& MobileJoomla::getInstance();
 
-$MobileJoomla->showMainBody();
+$MobileJoomla->showMessage();
+$MobileJoomla->showComponent();
 ?>

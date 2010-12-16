@@ -34,7 +34,8 @@ $base = $this->baseurl."/templates/".$this->template;
 </head>
 <body>
 <div<?php echo ($MobileJoomla->_ishomepage) ? ' id="home"' : '';?> class="current">
-<?php $MobileJoomla->showMainBody(); ?>
+<?php $MobileJoomla->showMessage(); ?>
+<?php $MobileJoomla->showComponent(); ?>
 </div>
 </body>
 </html>

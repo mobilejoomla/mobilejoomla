@@ -76,15 +76,14 @@ class MobileJoomla_WML extends MobileJoomla
 		echo '<jdoc:include type="modules" name="'.$position.'" style="wmlcards" />';
 	}
 
-	function showPathway()
+	function showBreadcrumbs()
 	{
 		if($this->config['tmpl_wap_pathway'] && (!$this->_ishomepage || $this->config['tmpl_wap_pathwayhome']))
 			echo '<jdoc:include type="module" name="breadcrumbs" style="wml" />';
 	}
 
-	function showMainBody()
+	function showComponent()
 	{
-		echo '<jdoc:include type="message" />';
 		if(!$this->_ishomepage || $this->config['tmpl_wap_componenthome'])
 			echo '<jdoc:include type="component" />';
 	}
