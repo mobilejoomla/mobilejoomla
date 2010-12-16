@@ -61,14 +61,14 @@ $base = JURI::base()."templates/".$this->template;
 		endif;
 ?>
 		<div class="top">
-			<a href="#header"><?php echo JText::_('Back to the top'); ?></a>
+			<a href="#header"><?php echo JText::_('TPL_MOBILE_PDA__BACK_TO_THE_TOP'); ?></a>
 		</div>
 <?php
 		if(!$MobileJoomla->_ishomepage)
 		{
 ?>
 			<div class="home">
-				<a href="<?php echo $this->baseurl;?>"><?php echo JText::_('Home'); ?></a>
+				<a href="<?php echo $this->baseurl;?>"><?php echo JText::_('TPL_MOBILE_PDA__HOME'); ?></a>
 			</div>
 <?php
 		}

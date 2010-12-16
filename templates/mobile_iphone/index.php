@@ -38,8 +38,8 @@ $hasSubmenus = (bool)$menu->getItems('parent', $activemenu->id);
 	<div class="toolbar">
 		<h1><?php /** @var JSite $app */ $app =& JFactory::getApplication(); echo $app->getCfg('sitename'); ?></h1>
 	<?php if(!$MobileJoomla->_ishomepage): ?>
-		<a class="back" href="javascript:history.go(-1)"><?php echo JText::_('Back'); ?></a>
-		<a class="home" href="<?php echo $homepage;?>"><?php echo JText::_('Home'); ?></a>
+		<a class="back" href="javascript:history.go(-1)"><?php echo JText::_('TPL_MOBILE_IPHONE__BACK'); ?></a>
+		<a class="home" href="<?php echo $homepage;?>"><?php echo JText::_('TPL_MOBILE_IPHONE__HOME'); ?></a>
 	<?php endif;?>
 	</div>
 <?php
