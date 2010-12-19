@@ -86,8 +86,8 @@ class plgSystemMobileBot extends JPlugin
 			switch($markup)
 			{
 				case 'wml':
-					$MobileJoomla_Device['screenwidth'] = 96;
-					$MobileJoomla_Device['screenheight'] = 64;
+					$MobileJoomla_Device['screenwidth'] = 64;
+					$MobileJoomla_Device['screenheight'] = 96;
 					break;
 				case 'chtml':
 					$MobileJoomla_Device['screenwidth'] = 120;
