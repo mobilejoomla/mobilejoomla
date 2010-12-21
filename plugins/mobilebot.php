@@ -347,9 +347,9 @@ class plgSystemMobileBot extends JPlugin
 		{
 			$markup = plgSystemMobileBot::CheckMarkup($_GET['markup']);
 			if($markup!==false)
-				setcookie('mj.markup', $markup, time()+365*24*60*60);
+				setcookie('mjmarkup', $markup ? $markup : '#', time()+365*24*60*60);
 			else
-				setcookie('mj.markup', '', time()-365*24*60*60);
+				setcookie('mjmarkup', '', time()-365*24*60*60);
 			$mainframe->setUserState('mobilejoomla.markup', $markup);
 			$return = base64_decode($_GET['return']);
 			$mainframe->redirect($return);
@@ -363,7 +363,9 @@ class plgSystemMobileBot extends JPlugin
 		$markup = plgSystemMobileBot::CheckMarkup($mainframe->getUserState('mobilejoomla.markup', false));
 		if($markup===false && isset($_COOKIE['mjmarkup']))
 		{
-			if(($markup = plgSystemMobileBot::CheckMarkup($_COOKIE['mjmarkup']))!==false)
+			$markup = $_COOKIE['mjmarkup'];
+			$markup = plgSystemMobileBot::CheckMarkup($markup=='#' ? '' : $markup);
+			if($markup!==false)
 				$mainframe->setUserState('mobilejoomla.markup', $markup);
 		}
 		return $markup;
