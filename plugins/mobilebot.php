@@ -194,7 +194,7 @@ class plgSystemMobileBot extends JPlugin
 		if($doctype == 'rss' || $doctype == 'atom' || (($format!=='html') && ($format!=='raw')))
 		{
 			//reset mobile content-type header
-			if(isset($GLOBALS['_JRESPONSE']))
+			if(isset($GLOBALS['_JRESPONSE']) && isset($GLOBALS['_JRESPONSE']->headers['Content-type']))
 				unset($GLOBALS['_JRESPONSE']->headers['Content-type']);
 			return;
 		}
