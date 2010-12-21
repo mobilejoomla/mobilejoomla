@@ -1023,7 +1023,7 @@ select {
     width: 98%;
 }
 
-input[type='button'], input[type='submit'] {
+input[type='button'], input[type='submit'], button[type='submit'] {
     border: 1px solid #D8D8D8;
     background-color: white;
     padding: 1em 1.3em;

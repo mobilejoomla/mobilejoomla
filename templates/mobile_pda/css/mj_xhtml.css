@@ -171,3 +171,25 @@ ol {
 	margin-left: 0.5em;
 	padding-left: 1.5em;
 }
+
+div.search td.text, div.search td.button {
+    margin:0;
+    padding: 0.7em;
+}
+
+div.search td.button {
+    width: 55px;
+    padding-top: 0.3em;
+}
+
+div.search td.text input[type="text"] {
+    width:100%;
+    margin: 0;
+    padding: 0.2em 0;
+}
+
+div.search td.button input[type="submit"] {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}

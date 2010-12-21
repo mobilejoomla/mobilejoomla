@@ -18,6 +18,7 @@
 		<filename>jqt_startup.png</filename>
 		<filename>jqtouch.png</filename>
 		<filename>template_thumbnail.png</filename>
+		<filename>grayToolbar.png</filename>
 		<folder>css</folder>
 		<folder>html</folder>
 		<folder>jqtouch-src</folder>
