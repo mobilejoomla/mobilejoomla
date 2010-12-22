@@ -176,6 +176,12 @@ input[type="button"], input[type="submit"], button[type="submit"] {
     width: 98%;
 }
 
+input[type="button"]:hover, input[type="submit"]:hover, button[type="submit"]:hover,
+input[type="button"]:active, input[type="submit"]:active, button[type="submit"]:active {
+    background-color: #666666;
+    color: white;
+}
+
 div.search {
     margin: 1em 10px;
 }
@@ -229,4 +235,13 @@ div.search td.button input[type="submit"] {
 
 #searchForm select {
     width: 100%;
+}
+
+#form-login ul li {
+    list-style-type: none;
+}
+
+#form-login a {
+    color: #060;
+    line-height: 1.5;
 }
