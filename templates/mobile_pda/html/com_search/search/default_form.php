@@ -29,6 +29,8 @@
 			</td>
 		</tr>
 	</table>
+
+	<div class="hidden">
 	<?php if ($this->params->get( 'search_areas', 1 )) : ?>
 		<?php echo JText::_( 'Search Only' );?>:
 		<?php foreach ($this->searchareas['search'] as $val => $txt) :
@@ -40,6 +42,7 @@
 			</label>
 		<?php endforeach; ?>
 	<?php endif; ?>
+	</div>
 
 
 	<table class="searchintro<?php echo $this->escape($this->params->get('pageclass_sfx')); ?>">
@@ -57,10 +60,11 @@
 	</tr>
 </table>
 
-<br />
+<p><?php echo $this->result; ?></p>
+
 <?php if($this->total > 0) : ?>
-<div align="center">
-	<div style="float: right;">
+<div>
+	<div>
 		<label for="limit">
 			<?php echo JText::_( 'Display Num' ); ?>
 		</label>
