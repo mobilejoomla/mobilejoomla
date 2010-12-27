@@ -172,24 +172,76 @@ ol {
 	padding-left: 1.5em;
 }
 
+input[type="button"], input[type="submit"], button[type="submit"] {
+    width: 98%;
+}
+
+input[type="button"]:hover, input[type="submit"]:hover, button[type="submit"]:hover,
+input[type="button"]:active, input[type="submit"]:active, button[type="submit"]:active {
+    background-color: #666666;
+    color: white;
+}
+
+div.search {
+    margin: 1em 10px;
+}
+
+div.search table {
+    border: 0;
+    padding: 0;
+    width: 98%;
+}
+
 div.search td.text, div.search td.button {
+    border: 1px solid #d8d8d8;
     margin:0;
-    padding: 0.7em;
+    padding: 0;
+    line-height: 1;
+    vertical-align: top;
 }
 
 div.search td.button {
     width: 55px;
-    padding-top: 0.3em;
 }
 
 div.search td.text input[type="text"] {
-    width:100%;
+    display: inline;
+    border: 0;
     margin: 0;
-    padding: 0.2em 0;
+    padding: 0.2em 0px;
+    width: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
 div.search td.button input[type="submit"] {
+    display: inline;
+    border: 0;
     margin: 0;
-    padding: 0;
+    padding: 0.2em 0px;
     width: 100%;
+    color: #666666;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+#searchForm table {
+    display: none;
+}
+
+#searchForm .hidden {
+    display: none;
+}
+
+#searchForm select {
+    width: 100%;
+}
+
+#form-login ul li {
+    list-style-type: none;
+}
+
+#form-login a {
+    color: #060;
+    line-height: 1.5;
 }
