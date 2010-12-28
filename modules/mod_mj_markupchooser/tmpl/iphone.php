@@ -10,6 +10,10 @@
  */
 defined('_JEXEC') or die('Restricted access');
 
+?>
+<div class="markup-chooser">
+<?
+
 echo $params->get('show_text', ' ');
 
 $parts = array();
@@ -22,3 +26,5 @@ foreach($links as $link)
 }
 
 echo implode('<span class="markupchooser"> | </span>', $parts);
+?>
+</div>

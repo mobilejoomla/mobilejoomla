@@ -12,9 +12,9 @@ defined('_JEXEC') or die('Restricted access');
 
 class modMarkupChooserHelper
 {
-	var $base = '';
-	var $return = '';
-	var $show_chosen_markup = true;
+	public static $base = '';
+	public static $return = '';
+	public static $show_chosen_markup = true;
 
 	function getChangeLink($user_markup, $test_markup, $text)
 	{
