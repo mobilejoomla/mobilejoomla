@@ -119,6 +119,14 @@ h3, div.h3 {
 	-webkit-border-radius: 0;
 }
 
+/* Remove excess padding from ul elements (jqtouch vs. mobile_iphone layout) */
+#mj_iphone_header ul,
+#mj_iphone_header2 ul,
+#mj_iphone_footer ul,
+#mj_iphone_footer2 ul {
+	margin: 15px 0px 17px;
+}
+
 div.search ul li {
 	padding: 5px 10px;
 }
