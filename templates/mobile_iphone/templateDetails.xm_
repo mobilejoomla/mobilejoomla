@@ -30,5 +30,8 @@
 		<position>mj_iphone_middle2</position>
 		<position>mj_iphone_footer</position>
 		<position>mj_iphone_footer2</position>
+		<position>mj_all_header</position>
+		<position>mj_all_middle</position>
+		<position>mj_all_footer</position>
 	</positions>
 </install>
