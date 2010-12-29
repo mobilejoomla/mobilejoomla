@@ -22,6 +22,7 @@ endif; ?>
 		<?php if ( $this->params->get( 'description_login' ) ) : ?>
 			<?php echo $this->params->get( 'description_login_text' ); ?>
 		<?php endif; ?>
+		<div style="clear:both;"></div>
 	</p>
 
 	<ul>
