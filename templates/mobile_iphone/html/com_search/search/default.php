@@ -8,7 +8,14 @@
 <?php endif; ?>
 */ ?>
 
-<?php echo $this->loadTemplate('form'); ?>
+<?php /* echo $this->loadTemplate('form'); */ ?>
+
+<?php if ($this->total === 0) : ?>
+	<div class="info">
+		<?php echo $this->result; ?>
+	</div>
+<?php endif; ?>
+
 <?php if(!$this->error && count($this->results) > 0) :
 	echo $this->loadTemplate('results');
 else :
