@@ -105,14 +105,20 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 				return $this->config['tmpl_xhtml_header1'];
 			case 'header2':
 				return $this->config['tmpl_xhtml_header2'];
+			case 'header3':
+				return $this->config['tmpl_xhtml_header3'];
 			case 'middle':
 				return $this->config['tmpl_xhtml_middle1'];
 			case 'middle2':
 				return $this->config['tmpl_xhtml_middle2'];
+			case 'middle3':
+				return $this->config['tmpl_xhtml_middle3'];
 			case 'footer':
 				return $this->config['tmpl_xhtml_footer1'];
 			case 'footer2':
 				return $this->config['tmpl_xhtml_footer2'];
+			case 'footer3':
+				return $this->config['tmpl_xhtml_footer3'];
 		}
 		return '';
 	}

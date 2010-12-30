@@ -54,6 +54,11 @@ if($modulepos && $this->countModules($modulepos) > 0)
 {
 	$MobileJoomla->loadModules($modulepos);
 }
+$modulepos = $MobileJoomla->getPosition('header3');
+if($modulepos && $this->countModules($modulepos) > 0)
+{
+	$MobileJoomla->loadModules($modulepos);
+}
 
 $MobileJoomla->showMessage();
 
@@ -83,6 +88,14 @@ if(!(!$MobileJoomla->config['tmpl_iphone_componenthome'] && $MobileJoomla->_isho
 			<?php $MobileJoomla->loadModules($modulepos); ?>
 		</div><?php
 	}
+
+	$modulepos = $MobileJoomla->getPosition('middle3');
+	if($modulepos && $this->countModules($modulepos) > 0)
+	{
+		?><div id="<?php echo $modulepos; ?>">
+			<?php $MobileJoomla->loadModules($modulepos); ?>
+		</div><?php
+	}
 ?>
 	</div>
 <?php
@@ -105,6 +118,14 @@ if($modulepos && $this->countModules($modulepos) > 0)
 		<?php $MobileJoomla->loadModules($modulepos); ?>
 	</div><?php
 }
+$modulepos = $MobileJoomla->getPosition('footer3');
+if($modulepos && $this->countModules($modulepos) > 0)
+{
+	?><div id="<?php echo $modulepos; ?>" class="current">
+		<?php $MobileJoomla->loadModules($modulepos); ?>
+	</div><?php
+}
+
 ?>
 </div>
 </body>

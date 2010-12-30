@@ -140,6 +140,7 @@ function showconfig()
 	//mobile_pda template setting
 	$lists['tmpl_xhtml_header1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_xhtml_header1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_xhtml_header1']);
 	$lists['tmpl_xhtml_header2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_xhtml_header2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_xhtml_header2']);
+	$lists['tmpl_xhtml_header3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_xhtml_header3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_xhtml_header3']);
 
 	$lists['tmpl_xhtml_pathway'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_pathway', 'class="inputbox"', $MobileJoomla_Settings['tmpl_xhtml_pathway']);
 
@@ -147,11 +148,13 @@ function showconfig()
 
 	$lists['tmpl_xhtml_middle1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_xhtml_middle1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_xhtml_middle1']);
 	$lists['tmpl_xhtml_middle2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_xhtml_middle2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_xhtml_middle2']);
+	$lists['tmpl_xhtml_middle3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_xhtml_middle3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_xhtml_middle3']);
 
 	$lists['tmpl_xhtml_componenthome'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_componenthome', 'class="inputbox"', $MobileJoomla_Settings['tmpl_xhtml_componenthome']);
 
 	$lists['tmpl_xhtml_footer1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_xhtml_footer1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_xhtml_footer1']);
 	$lists['tmpl_xhtml_footer2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_xhtml_footer2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_xhtml_footer2']);
+	$lists['tmpl_xhtml_footer3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_xhtml_footer3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_xhtml_footer3']);
 
 	$lists['tmpl_xhtml_jfooter'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_jfooter', 'class="inputbox"', $MobileJoomla_Settings['tmpl_xhtml_jfooter']);
 
@@ -257,6 +260,7 @@ function showconfig()
 	//mobile_iphone template setting
 	$lists['tmpl_iphone_header1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_iphone_header1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_iphone_header1']);
 	$lists['tmpl_iphone_header2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_iphone_header2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_iphone_header2']);
+	$lists['tmpl_iphone_header3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_iphone_header3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_iphone_header3']);
 
 	$lists['tmpl_iphone_pathway'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_iphone_pathway', 'class="inputbox"', $MobileJoomla_Settings['tmpl_iphone_pathway']);
 
@@ -264,11 +268,13 @@ function showconfig()
 
 	$lists['tmpl_iphone_middle1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_iphone_middle1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_iphone_middle1']);
 	$lists['tmpl_iphone_middle2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_iphone_middle2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_iphone_middle2']);
+	$lists['tmpl_iphone_middle3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_iphone_middle3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_iphone_middle3']);
 
 	$lists['tmpl_iphone_componenthome'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_iphone_componenthome', 'class="inputbox"', $MobileJoomla_Settings['tmpl_iphone_componenthome']);
 
 	$lists['tmpl_iphone_footer1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_iphone_footer1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_iphone_footer1']);
 	$lists['tmpl_iphone_footer2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_iphone_footer2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_iphone_footer2']);
+	$lists['tmpl_iphone_footer3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_iphone_footer3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_iphone_footer3']);
 
 	$lists['tmpl_iphone_jfooter'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_iphone_jfooter', 'class="inputbox"', $MobileJoomla_Settings['tmpl_iphone_jfooter']);
 
@@ -389,9 +395,9 @@ function saveconfig($task)
 	                   'waptemplate', 'waphomepage', 'wapgzip', 'wapdomain', 'wapredirect', 'wml_buffer_width',
 	                   'imodetemplate', 'imodehomepage', 'imodegzip', 'imodedomain', 'imoderedirect', 'chtml_buffer_width',
 	                   'iphonetemplate', 'iphonehomepage', 'iphonegzip', 'iphonedomain', 'iphoneredirect', 'iphone_buffer_width',
-	                   'tmpl_xhtml_header1', 'tmpl_xhtml_header2', 'tmpl_xhtml_pathway', 'tmpl_xhtml_pathwayhome',
-	                   'tmpl_xhtml_middle1', 'tmpl_xhtml_middle2', 'tmpl_xhtml_componenthome', 'tmpl_xhtml_footer1',
-	                   'tmpl_xhtml_footer2', 'tmpl_xhtml_jfooter', 'tmpl_xhtml_simplehead', 'tmpl_xhtml_allowextedit',
+	                   'tmpl_xhtml_header1', 'tmpl_xhtml_header2', 'tmpl_xhtml_header3', 'tmpl_xhtml_pathway', 'tmpl_xhtml_pathwayhome',
+	                   'tmpl_xhtml_middle1', 'tmpl_xhtml_middle2', 'tmpl_xhtml_middle3', 'tmpl_xhtml_componenthome', 'tmpl_xhtml_footer1',
+	                   'tmpl_xhtml_footer2', 'tmpl_xhtml_footer3', 'tmpl_xhtml_jfooter', 'tmpl_xhtml_simplehead', 'tmpl_xhtml_allowextedit',
 	                   'tmpl_xhtml_removetags', 'tmpl_xhtml_removescripts', 'tmpl_xhtml_img', 'tmpl_xhtml_img_addstyles',
 					   'tmpl_xhtml_entitydecode', 'tmpl_xhtml_embedcss', 'tmpl_xhtml_contenttype', 'tmpl_xhtml_xmlhead',
 					   'tmpl_xhtml_doctype', 'tmpl_xhtml_xmlns',
@@ -402,9 +408,9 @@ function saveconfig($task)
 	                   'tmpl_imode_middle1', 'tmpl_imode_middle2', 'tmpl_imode_componenthome', 'tmpl_imode_footer1',
 	                   'tmpl_imode_footer2', 'tmpl_imode_jfooter', 'tmpl_imode_removetags', 'tmpl_imode_img',
 	                   'tmpl_imode_entitydecode', 'tmpl_imode_doctype',
-	                   'tmpl_iphone_header1', 'tmpl_iphone_header2', 'tmpl_iphone_pathway', 'tmpl_iphone_pathwayhome',
-	                   'tmpl_iphone_middle1', 'tmpl_iphone_middle2', 'tmpl_iphone_componenthome', 'tmpl_iphone_footer1',
-	                   'tmpl_iphone_footer2', 'tmpl_iphone_jfooter', 'tmpl_iphone_img', 'tmpl_iphone_img_addstyles',
+	                   'tmpl_iphone_header1', 'tmpl_iphone_header2', 'tmpl_iphone_header3', 'tmpl_iphone_pathway', 'tmpl_iphone_pathwayhome',
+	                   'tmpl_iphone_middle1', 'tmpl_iphone_middle2', 'tmpl_iphone_middle3', 'tmpl_iphone_componenthome', 'tmpl_iphone_footer1',
+	                   'tmpl_iphone_footer2', 'tmpl_iphone_footer3', 'tmpl_iphone_jfooter', 'tmpl_iphone_img', 'tmpl_iphone_img_addstyles',
 					   'tmpl_iphone_removetags');
 	$params = array ();
 	foreach($settings as $param)
