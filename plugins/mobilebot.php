@@ -244,7 +244,10 @@ class plgSystemMobileBot extends JPlugin
 
 		//Set template
 		if($template)
+		{
+			$mainframe->setUserState('setTemplate', $template);
 			$mainframe->setTemplate($template);
+		}
 		//Set gzip
 		/** @var JRegistry $config */
 		$config =& JFactory::getConfig();
