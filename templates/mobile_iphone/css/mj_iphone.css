@@ -237,6 +237,10 @@ ul li.searchresult p.section {
 	display: inline;
 }
 
+ul li.searchresult a {
+	white-space: normal;
+}
+
 ul li.searchresult a.searchresult:hover h3, ul li.searchresult a.searchresult:active h3 {
 	color: white;
 	text-shadow: none;
