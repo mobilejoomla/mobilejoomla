@@ -15,21 +15,43 @@ defined('_MJ') or die('Incorrect usage of Mobile Joomla.');
 $MobileJoomla =& MobileJoomla::getInstance();
 
 $modulepos = $MobileJoomla->getPosition('header');
-$MobileJoomla->loadModules($modulepos);
+if($modulepos)
+	$MobileJoomla->loadModules($modulepos);
+$modulepos = $MobileJoomla->getPosition('header2');
+if($modulepos)
+	$MobileJoomla->loadModules($modulepos);
+$modulepos = $MobileJoomla->getPosition('header3');
+if($modulepos)
+	$MobileJoomla->loadModules($modulepos);
 
 $MobileJoomla->showMessage();
 
 $MobileJoomla->showBreadcrumbs();
 
 $modulepos = $MobileJoomla->getPosition('middle');
-$MobileJoomla->loadModules($modulepos);
+if($modulepos)
+	$MobileJoomla->loadModules($modulepos);
+$modulepos = $MobileJoomla->getPosition('middle2');
+if($modulepos)
+	$MobileJoomla->loadModules($modulepos);
+$modulepos = $MobileJoomla->getPosition('middle3');
+if($modulepos)
+	$MobileJoomla->loadModules($modulepos);
 
 $MobileJoomla->showComponent();
 
 $modulepos = $MobileJoomla->getPosition('footer');
-$MobileJoomla->loadModules($modulepos);
+if($modulepos)
+	$MobileJoomla->loadModules($modulepos);
+$modulepos = $MobileJoomla->getPosition('footer2');
+if($modulepos)
+	$MobileJoomla->loadModules($modulepos);
+$modulepos = $MobileJoomla->getPosition('footer3');
+if($modulepos)
+	$MobileJoomla->loadModules($modulepos);
 
 $MobileJoomla->showFooter();
 
 $modulepos = $MobileJoomla->getPosition('cards');
-$MobileJoomla->loadModules($modulepos);
+if($modulepos)
+	$MobileJoomla->loadModules($modulepos);

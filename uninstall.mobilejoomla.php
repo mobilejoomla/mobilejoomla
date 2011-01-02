@@ -266,6 +266,55 @@ function UpdateConfig()
 	if(!isset($MobileJoomla_Settings['tmpl_iphone_img_addstyles']))
 		$MobileJoomla_Settings['tmpl_iphone_img_addstyles'] = 0;
 	
+	if(!isset($MobileJoomla_Settings['tmpl_xhtml_header3']))
+		$MobileJoomla_Settings['tmpl_xhtml_header3'] = '';
+	if(!isset($MobileJoomla_Settings['tmpl_xhtml_middle3']))
+		$MobileJoomla_Settings['tmpl_xhtml_middle3'] = '';
+	if(!isset($MobileJoomla_Settings['tmpl_xhtml_footer3']))
+		$MobileJoomla_Settings['tmpl_xhtml_footer3'] = '';
+
+	if(!isset($MobileJoomla_Settings['tmpl_iphone_header3']))
+		$MobileJoomla_Settings['tmpl_iphone_header3'] = '';
+	if(!isset($MobileJoomla_Settings['tmpl_iphone_middle3']))
+		$MobileJoomla_Settings['tmpl_iphone_middle3'] = '';
+	if(!isset($MobileJoomla_Settings['tmpl_iphone_footer3']))
+		$MobileJoomla_Settings['tmpl_iphone_footer3'] = '';
+
+	if(isset($MobileJoomla_Settings['tmpl_wap_header']))
+	{
+		$MobileJoomla_Settings['tmpl_wap_header1'] = $MobileJoomla_Settings['tmpl_wap_header'];
+		unset($MobileJoomla_Settings['tmpl_wap_header']);
+	}
+	if(isset($MobileJoomla_Settings['tmpl_wap_middle']))
+	{
+		$MobileJoomla_Settings['tmpl_wap_middle1'] = $MobileJoomla_Settings['tmpl_wap_middle'];
+		unset($MobileJoomla_Settings['tmpl_wap_middle']);
+	}
+	if(isset($MobileJoomla_Settings['tmpl_wap_footer']))
+	{
+		$MobileJoomla_Settings['tmpl_wap_footer1'] = $MobileJoomla_Settings['tmpl_wap_footer'];
+		unset($MobileJoomla_Settings['tmpl_wap_footer']);
+	}
+	if(!isset($MobileJoomla_Settings['tmpl_wap_header2']))
+		$MobileJoomla_Settings['tmpl_wap_header2'] = '';
+	if(!isset($MobileJoomla_Settings['tmpl_wap_middle2']))
+		$MobileJoomla_Settings['tmpl_wap_middle2'] = '';
+	if(!isset($MobileJoomla_Settings['tmpl_wap_footer2']))
+		$MobileJoomla_Settings['tmpl_wap_footer2'] = '';
+	if(!isset($MobileJoomla_Settings['tmpl_wap_header3']))
+		$MobileJoomla_Settings['tmpl_wap_header3'] = '';
+	if(!isset($MobileJoomla_Settings['tmpl_wap_middle3']))
+		$MobileJoomla_Settings['tmpl_wap_middle3'] = '';
+	if(!isset($MobileJoomla_Settings['tmpl_wap_footer3']))
+		$MobileJoomla_Settings['tmpl_wap_footer3'] = '';
+
+	if(!isset($MobileJoomla_Settings['tmpl_imode_header3']))
+		$MobileJoomla_Settings['tmpl_imode_header3'] = '';
+	if(!isset($MobileJoomla_Settings['tmpl_imode_middle3']))
+		$MobileJoomla_Settings['tmpl_imode_middle3'] = '';
+	if(!isset($MobileJoomla_Settings['tmpl_imode_footer3']))
+		$MobileJoomla_Settings['tmpl_imode_footer3'] = '';
+
 	if(!function_exists('imagecopyresized'))
 	{
 		$WARNINGS[] = JText::_('GD2 library is not loaded.');

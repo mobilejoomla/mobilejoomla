@@ -16,6 +16,7 @@ CHANGELOG
 0.9.10
 Beta release
 - Add "Browser Caching" option
+- Add common mobile module positions: mj_all_header, mj_all_middle, and mj_all_footer
 
 0.9.9
 Beta release

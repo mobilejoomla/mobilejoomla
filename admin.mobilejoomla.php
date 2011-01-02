@@ -204,17 +204,23 @@ function showconfig()
 	$lists['tmpl_xhtml_xmlns'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_xmlns', 'class="inputbox"', $MobileJoomla_Settings['tmpl_xhtml_xmlns']);
 
 	//mobile_wap template setting
-	$lists['tmpl_wap_header'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wap_header', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wap_header']);
+	$lists['tmpl_wap_header1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wap_header1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wap_header1']);
+	$lists['tmpl_wap_header2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wap_header2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wap_header2']);
+	$lists['tmpl_wap_header3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wap_header3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wap_header3']);
 
 	$lists['tmpl_wap_pathway'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_wap_pathway', 'class="inputbox"', $MobileJoomla_Settings['tmpl_wap_pathway']);
 
 	$lists['tmpl_wap_pathwayhome'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_wap_pathwayhome', 'class="inputbox"', $MobileJoomla_Settings['tmpl_wap_pathwayhome']);
 
-	$lists['tmpl_wap_middle'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wap_middle', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wap_middle']);
+	$lists['tmpl_wap_middle1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wap_middle1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wap_middle1']);
+	$lists['tmpl_wap_middle2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wap_middle2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wap_middle2']);
+	$lists['tmpl_wap_middle3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wap_middle3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wap_middle3']);
 
 	$lists['tmpl_wap_componenthome'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_wap_componenthome', 'class="inputbox"', $MobileJoomla_Settings['tmpl_wap_componenthome']);
 
-	$lists['tmpl_wap_footer'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wap_footer', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wap_footer']);
+	$lists['tmpl_wap_footer1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wap_footer1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wap_footer1']);
+	$lists['tmpl_wap_footer2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wap_footer2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wap_footer2']);
+	$lists['tmpl_wap_footer3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wap_footer3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wap_footer3']);
 
 	$lists['tmpl_wap_jfooter'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_wap_jfooter', 'class="inputbox"', $MobileJoomla_Settings['tmpl_wap_jfooter']);
 
@@ -234,6 +240,7 @@ function showconfig()
 	//mobile_imode template setting
 	$lists['tmpl_imode_header1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_imode_header1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_imode_header1']);
 	$lists['tmpl_imode_header2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_imode_header2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_imode_header2']);
+	$lists['tmpl_imode_header3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_imode_header3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_imode_header3']);
 
 	$lists['tmpl_imode_pathway'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_imode_pathway', 'class="inputbox"', $MobileJoomla_Settings['tmpl_imode_pathway']);
 
@@ -241,11 +248,13 @@ function showconfig()
 
 	$lists['tmpl_imode_middle1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_imode_middle1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_imode_middle1']);
 	$lists['tmpl_imode_middle2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_imode_middle2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_imode_middle2']);
+	$lists['tmpl_imode_middle3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_imode_middle3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_imode_middle3']);
 
 	$lists['tmpl_imode_componenthome'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_imode_componenthome', 'class="inputbox"', $MobileJoomla_Settings['tmpl_imode_componenthome']);
 
 	$lists['tmpl_imode_footer1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_imode_footer1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_imode_footer1']);
 	$lists['tmpl_imode_footer2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_imode_footer2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_imode_footer2']);
+	$lists['tmpl_imode_footer3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_imode_footer3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_imode_footer3']);
 
 	$lists['tmpl_imode_jfooter'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_imode_jfooter', 'class="inputbox"', $MobileJoomla_Settings['tmpl_imode_jfooter']);
 
@@ -391,26 +400,39 @@ function saveconfig($task)
 
 	$settings = array ('caching', 'httpcaching', 'domains', 'pcpage', 'templatewidth', 'jpegquality',
 					   'desktop_url', 'mobile_sitename',
-	                   'xhtmltemplate', 'xhtmlhomepage', 'xhtmlgzip', 'xhtmldomain', 'xhtmlredirect', 'xhtml_buffer_width',
-	                   'waptemplate', 'waphomepage', 'wapgzip', 'wapdomain', 'wapredirect', 'wml_buffer_width',
-	                   'imodetemplate', 'imodehomepage', 'imodegzip', 'imodedomain', 'imoderedirect', 'chtml_buffer_width',
-	                   'iphonetemplate', 'iphonehomepage', 'iphonegzip', 'iphonedomain', 'iphoneredirect', 'iphone_buffer_width',
-	                   'tmpl_xhtml_header1', 'tmpl_xhtml_header2', 'tmpl_xhtml_header3', 'tmpl_xhtml_pathway', 'tmpl_xhtml_pathwayhome',
-	                   'tmpl_xhtml_middle1', 'tmpl_xhtml_middle2', 'tmpl_xhtml_middle3', 'tmpl_xhtml_componenthome', 'tmpl_xhtml_footer1',
-	                   'tmpl_xhtml_footer2', 'tmpl_xhtml_footer3', 'tmpl_xhtml_jfooter', 'tmpl_xhtml_simplehead', 'tmpl_xhtml_allowextedit',
-	                   'tmpl_xhtml_removetags', 'tmpl_xhtml_removescripts', 'tmpl_xhtml_img', 'tmpl_xhtml_img_addstyles',
+					   'xhtmltemplate', 'xhtmlhomepage', 'xhtmlgzip', 'xhtmldomain', 'xhtmlredirect', 'xhtml_buffer_width',
+					   'waptemplate', 'waphomepage', 'wapgzip', 'wapdomain', 'wapredirect', 'wml_buffer_width',
+					   'imodetemplate', 'imodehomepage', 'imodegzip', 'imodedomain', 'imoderedirect', 'chtml_buffer_width',
+					   'iphonetemplate', 'iphonehomepage', 'iphonegzip', 'iphonedomain', 'iphoneredirect', 'iphone_buffer_width',
+					   'tmpl_xhtml_header1', 'tmpl_xhtml_header2', 'tmpl_xhtml_header3',
+					   'tmpl_xhtml_pathway', 'tmpl_xhtml_pathwayhome',
+					   'tmpl_xhtml_middle1', 'tmpl_xhtml_middle2', 'tmpl_xhtml_middle3',
+					   'tmpl_xhtml_componenthome',
+					   'tmpl_xhtml_footer1', 'tmpl_xhtml_footer2', 'tmpl_xhtml_footer3',
+					   'tmpl_xhtml_jfooter', 'tmpl_xhtml_simplehead', 'tmpl_xhtml_allowextedit',
+					   'tmpl_xhtml_removetags', 'tmpl_xhtml_removescripts', 'tmpl_xhtml_img', 'tmpl_xhtml_img_addstyles',
 					   'tmpl_xhtml_entitydecode', 'tmpl_xhtml_embedcss', 'tmpl_xhtml_contenttype', 'tmpl_xhtml_xmlhead',
 					   'tmpl_xhtml_doctype', 'tmpl_xhtml_xmlns',
-	                   'tmpl_wap_header', 'tmpl_wap_pathway', 'tmpl_wap_pathwayhome', 'tmpl_wap_middle',
-	                   'tmpl_wap_componenthome', 'tmpl_wap_footer', 'tmpl_wap_cards', 'tmpl_wap_jfooter',
-	                   'tmpl_wap_removetags', 'tmpl_wap_img', 'tmpl_wap_entitydecode', 'tmpl_wap_doctype',
-	                   'tmpl_imode_header1', 'tmpl_imode_header2', 'tmpl_imode_pathway', 'tmpl_imode_pathwayhome',
-	                   'tmpl_imode_middle1', 'tmpl_imode_middle2', 'tmpl_imode_componenthome', 'tmpl_imode_footer1',
-	                   'tmpl_imode_footer2', 'tmpl_imode_jfooter', 'tmpl_imode_removetags', 'tmpl_imode_img',
-	                   'tmpl_imode_entitydecode', 'tmpl_imode_doctype',
-	                   'tmpl_iphone_header1', 'tmpl_iphone_header2', 'tmpl_iphone_header3', 'tmpl_iphone_pathway', 'tmpl_iphone_pathwayhome',
-	                   'tmpl_iphone_middle1', 'tmpl_iphone_middle2', 'tmpl_iphone_middle3', 'tmpl_iphone_componenthome', 'tmpl_iphone_footer1',
-	                   'tmpl_iphone_footer2', 'tmpl_iphone_footer3', 'tmpl_iphone_jfooter', 'tmpl_iphone_img', 'tmpl_iphone_img_addstyles',
+					   'tmpl_wap_header1', 'tmpl_wap_header2', 'tmpl_wap_header3',
+					   'tmpl_wap_pathway', 'tmpl_wap_pathwayhome',
+					   'tmpl_wap_middle1', 'tmpl_wap_middle2', 'tmpl_wap_middle3',
+					   'tmpl_wap_componenthome',
+					   'tmpl_wap_footer1', 'tmpl_wap_footer2', 'tmpl_wap_footer3',
+					   'tmpl_wap_cards', 'tmpl_wap_jfooter',
+					   'tmpl_wap_removetags', 'tmpl_wap_img', 'tmpl_wap_entitydecode', 'tmpl_wap_doctype',
+					   'tmpl_imode_header1', 'tmpl_imode_header2', 'tmpl_imode_header3',
+					   'tmpl_imode_pathway', 'tmpl_imode_pathwayhome',
+					   'tmpl_imode_middle1', 'tmpl_imode_middle2', 'tmpl_imode_middle3',
+					   'tmpl_imode_componenthome',
+					   'tmpl_imode_footer1', 'tmpl_imode_footer2', 'tmpl_imode_footer3',
+					   'tmpl_imode_jfooter', 'tmpl_imode_removetags', 'tmpl_imode_img',
+					   'tmpl_imode_entitydecode', 'tmpl_imode_doctype',
+					   'tmpl_iphone_header1', 'tmpl_iphone_header2', 'tmpl_iphone_header3',
+					   'tmpl_iphone_pathway', 'tmpl_iphone_pathwayhome',
+					   'tmpl_iphone_middle1', 'tmpl_iphone_middle2', 'tmpl_iphone_middle3',
+					   'tmpl_iphone_componenthome',
+					   'tmpl_iphone_footer1', 'tmpl_iphone_footer2', 'tmpl_iphone_footer3',
+					   'tmpl_iphone_jfooter', 'tmpl_iphone_img', 'tmpl_iphone_img_addstyles',
 					   'tmpl_iphone_removetags');
 	$params = array ();
 	foreach($settings as $param)

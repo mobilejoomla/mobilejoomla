@@ -55,11 +55,23 @@ class MobileJoomla_WML extends MobileJoomla
 		switch($pos)
 		{
 			case 'header':
-				return $this->config['tmpl_wap_header'];
+				return $this->config['tmpl_wap_header1'];
+			case 'header2':
+				return $this->config['tmpl_wap_header2'];
+			case 'header3':
+				return $this->config['tmpl_wap_header3'];
 			case 'middle':
-				return $this->config['tmpl_wap_middle'];
+				return $this->config['tmpl_wap_middle1'];
+			case 'middle2':
+				return $this->config['tmpl_wap_middle2'];
+			case 'middle3':
+				return $this->config['tmpl_wap_middle3'];
 			case 'footer':
-				return $this->config['tmpl_wap_footer'];
+				return $this->config['tmpl_wap_footer1'];
+			case 'footer2':
+				return $this->config['tmpl_wap_footer2'];
+			case 'footer3':
+				return $this->config['tmpl_wap_footer3'];
 			case 'cards':
 				return $this->config['tmpl_wap_cards'];
 		}

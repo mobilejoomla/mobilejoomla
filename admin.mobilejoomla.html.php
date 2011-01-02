@@ -608,9 +608,21 @@ class HTML_mobilejoomla
 				<tbody>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
-					                      title="<?php echo JText::_('Module position above pathway'); ?>::<?php echo JText::_('Name of the module position above pathway.'); ?>"><?php echo JText::_('Module position above pathway'); ?></span>
+					                      title="<?php echo JText::_('1st module position above pathway'); ?>::<?php echo JText::_('Name of the 1st module position above pathway.'); ?>"><?php echo JText::_('1st module position above pathway'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_wap_header']; ?></td>
+					<td><?php echo $lists['tmpl_wap_header1']; ?></td>
+				</tr>
+				<tr>
+					<td class="key"><span class="editlinktip hasTip"
+					                      title="<?php echo JText::_('2nd module position above pathway'); ?>::<?php echo JText::_('Name of the 2nd module position above pathway.'); ?>"><?php echo JText::_('2nd module position above pathway'); ?></span>
+					</td>
+					<td><?php echo $lists['tmpl_wap_header2']; ?></td>
+				</tr>
+				<tr>
+					<td class="key"><span class="editlinktip hasTip"
+					                      title="<?php echo JText::_('3rd module position above pathway'); ?>::<?php echo JText::_('Name of the 3rd module position above pathway.'); ?>"><?php echo JText::_('3rd module position above pathway'); ?></span>
+					</td>
+					<td><?php echo $lists['tmpl_wap_header3']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
@@ -626,9 +638,21 @@ class HTML_mobilejoomla
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
-					                      title="<?php echo JText::_('Module position between pathway and component'); ?>::<?php echo JText::_('Name of the module position between pathway and component.'); ?>"><?php echo JText::_('Module position between pathway and component'); ?></span>
+					                      title="<?php echo JText::_('1st module position between pathway and component'); ?>::<?php echo JText::_('Name of the 1st module position between pathway and component.'); ?>"><?php echo JText::_('1st module position between pathway and component'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_wap_middle']; ?></td>
+					<td><?php echo $lists['tmpl_wap_middle1']; ?></td>
+				</tr>
+				<tr>
+					<td class="key"><span class="editlinktip hasTip"
+					                      title="<?php echo JText::_('2nd module position between pathway and component'); ?>::<?php echo JText::_('Name of the 2nd module position between pathway and component.'); ?>"><?php echo JText::_('2nd module position between pathway and component'); ?></span>
+					</td>
+					<td><?php echo $lists['tmpl_wap_middle2']; ?></td>
+				</tr>
+				<tr>
+					<td class="key"><span class="editlinktip hasTip"
+					                      title="<?php echo JText::_('3rd module position between pathway and component'); ?>::<?php echo JText::_('Name of the 3rd module position between pathway and component.'); ?>"><?php echo JText::_('3rd module position between pathway and component'); ?></span>
+					</td>
+					<td><?php echo $lists['tmpl_wap_middle3']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
@@ -638,9 +662,21 @@ class HTML_mobilejoomla
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
-					                      title="<?php echo JText::_('Module position below component'); ?>::<?php echo JText::_('Name of the module position below component.'); ?>"><?php echo JText::_('Module position below component'); ?></span>
+					                      title="<?php echo JText::_('1st module position below component'); ?>::<?php echo JText::_('Name of the 1st module position below component.'); ?>"><?php echo JText::_('1st module position below component'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_wap_footer']; ?></td>
+					<td><?php echo $lists['tmpl_wap_footer1']; ?></td>
+				</tr>
+				<tr>
+					<td class="key"><span class="editlinktip hasTip"
+					                      title="<?php echo JText::_('2nd module position below component'); ?>::<?php echo JText::_('Name of the 2nd module position below component.'); ?>"><?php echo JText::_('2nd module position below component'); ?></span>
+					</td>
+					<td><?php echo $lists['tmpl_wap_footer2']; ?></td>
+				</tr>
+				<tr>
+					<td class="key"><span class="editlinktip hasTip"
+					                      title="<?php echo JText::_('3rd module position below component'); ?>::<?php echo JText::_('Name of the 3rd module position below component.'); ?>"><?php echo JText::_('3rd module position below component'); ?></span>
+					</td>
+					<td><?php echo $lists['tmpl_wap_footer3']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
@@ -730,6 +766,12 @@ class HTML_mobilejoomla
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
+					                      title="<?php echo JText::_('3rd module position above pathway'); ?>::<?php echo JText::_('Name of the 3rd module position above pathway.'); ?>"><?php echo JText::_('3rd module position above pathway'); ?></span>
+					</td>
+					<td><?php echo $lists['tmpl_imode_header3']; ?></td>
+				</tr>
+				<tr>
+					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('Show pathway'); ?>::<?php echo JText::_('Show pathway on the pages.'); ?>"><?php echo JText::_('Show pathway'); ?></span>
 					</td>
 					<td><?php echo $lists['tmpl_imode_pathway']; ?></td>
@@ -754,6 +796,12 @@ class HTML_mobilejoomla
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
+					                      title="<?php echo JText::_('3rd module position between pathway and component'); ?>::<?php echo JText::_('Name of the 3rd module position between pathway and component.'); ?>"><?php echo JText::_('3rd module position between pathway and component'); ?></span>
+					</td>
+					<td><?php echo $lists['tmpl_imode_middle3']; ?></td>
+				</tr>
+				<tr>
+					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('Component on home page'); ?>::<?php echo JText::_('Show component on home (main) page.'); ?>"><?php echo JText::_('Component on home page'); ?></span>
 					</td>
 					<td><?php echo $lists['tmpl_imode_componenthome']; ?></td>
@@ -769,6 +817,12 @@ class HTML_mobilejoomla
 					                      title="<?php echo JText::_('2nd module position below component'); ?>::<?php echo JText::_('Name of the 2nd module position below component.'); ?>"><?php echo JText::_('2nd module position below component'); ?></span>
 					</td>
 					<td><?php echo $lists['tmpl_imode_footer2']; ?></td>
+				</tr>
+				<tr>
+					<td class="key"><span class="editlinktip hasTip"
+					                      title="<?php echo JText::_('3rd module position below component'); ?>::<?php echo JText::_('Name of the 3rd module position below component.'); ?>"><?php echo JText::_('3rd module position below component'); ?></span>
+					</td>
+					<td><?php echo $lists['tmpl_imode_footer3']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
