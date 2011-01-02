@@ -429,6 +429,12 @@ class HTML_mobilejoomla
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
+					                      title="<?php echo JText::_('iPad support'); ?>::<?php echo JText::_('Use iPhone template for iPads.'); ?>"><?php echo JText::_('iPad support'); ?></span>
+					</td>
+					<td><?php echo $lists['iphoneipad']; ?></td>
+				</tr>
+				<tr>
+					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('Homepage'); ?>::<?php echo JText::_('Set this page as a homepage.'); ?>"><?php echo JText::_('Homepage'); ?></span>
 					</td>
 					<td><input class="text_area" type="text" size="80" name="mjconfig_iphonehomepage" id="mjconfig_iphonehomepage"

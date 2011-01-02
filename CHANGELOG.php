@@ -17,6 +17,7 @@ CHANGELOG
 Beta release
 - Add "Browser Caching" option
 - Add common mobile module positions: mj_all_header, mj_all_middle, and mj_all_footer
+- Setting to use iPhone template for iPads too.
 
 0.9.9
 Beta release

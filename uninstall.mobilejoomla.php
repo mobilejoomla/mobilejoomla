@@ -315,6 +315,9 @@ function UpdateConfig()
 	if(!isset($MobileJoomla_Settings['tmpl_imode_footer3']))
 		$MobileJoomla_Settings['tmpl_imode_footer3'] = '';
 
+	if(!isset($MobileJoomla_Settings['iphoneipad']))
+		$MobileJoomla_Settings['iphoneipad'] = 1;
+
 	if(!function_exists('imagecopyresized'))
 	{
 		$WARNINGS[] = JText::_('GD2 library is not loaded.');

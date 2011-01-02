@@ -73,7 +73,10 @@ class plgMobileTerawurfl extends JPlugin
 		if($wurflObj->getDeviceCapability('is_wireless_device'))
 		{
 			if($wurflObj->getDeviceCapability('device_os')=='iPhone OS')
-				$MobileJoomla_Device['markup'] = 'iphone';
+			{
+				if($MobileJoomla_Settings['iphoneipad'] || $wurflObj->getDeviceCapability('model_name')!='iPad')
+					$MobileJoomla_Device['markup'] = 'iphone';
+			}
 			else switch($wurflObj->getDeviceCapability('preferred_markup'))
 			{
 				case 'wml_1_1':

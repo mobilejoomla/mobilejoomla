@@ -107,6 +107,8 @@ class plgMobileSimple extends JPlugin
 		                     'Mozilla/5.0 (iPhone Simulator;',
 		                     'Mozilla/5.0 (Aspen Simulator;',
 		                     'Mozilla/5.0 (device; U; CPU iPhone OS');
+		if($MobileJoomla_Settings['iphoneipad'])
+			$iphone_list[] = 'Mozilla/5.0 (iPad;';
 		foreach($iphone_list as $iphone_ua)
 			if(strpos($useragent, $iphone_ua)===0)
 			{
