@@ -13,6 +13,8 @@ defined('_JEXEC') or die('Restricted access');
 defined('_MJ') or die('Incorrect usage of Mobile Joomla.');
 
 $MobileJoomla =& MobileJoomla::getInstance();
+$MobileJoomla_Device =& MobileJoomla::getDevice();
+
 $base = JURI::base()."templates/".$this->template;
 $homepage = JURI::base();
 if(!empty ($MobileJoomla->config['tmpl_iphone_homepage']))
@@ -31,7 +33,7 @@ $hasSubmenus = (bool)$menu->getItems('parent', $activemenu->id);
 	<style type="text/css" media="screen">@import "<?php echo $base;?>/jqtouch-src/jqtouch/jqtouch.min.css";</style>
 	<style type="text/css" media="screen">@import "<?php echo $base;?>/jqtouch-src/themes/apple/theme.min.css";</style>
 	<style type="text/css" media="screen">@import "<?php echo $base;?>/css/mj_iphone.css";</style>
-	<meta name="viewport" content="width = 320, initial-scale = 1.0, user-scalable = no, maximum-scale = 1.0">
+	<meta name="viewport" content="width = <?php echo (int)$MobileJoomla_Device['screenwidth']; ?>, initial-scale = 1.0, user-scalable = no, maximum-scale = 1.0">
 </head>
 <body>
 <div<?php echo ($MobileJoomla->_ishomepage) ? ' id="home"' : '';?> class="current">
