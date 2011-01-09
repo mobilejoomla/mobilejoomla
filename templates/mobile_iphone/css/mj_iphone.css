@@ -6,6 +6,7 @@
     line-height: 120%;
     border: 1px solid #888888;
     -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
 }
 
 .content h5 {
@@ -36,6 +37,12 @@ a {
     color: #7a8faa;
 }
 
+/* jqtouch does not define br for mozilla */
+ul {
+    	-moz-border-radius: 6px;
+}
+
+
 ul li a.mainlevel:hover, ul li a.mainlevel:active {
     -moz-background-clip: border;
     -moz-background-inline-policy: continuous;
@@ -43,6 +50,18 @@ ul li a.mainlevel:hover, ul li a.mainlevel:active {
     background: #194FDB url('../jqtouch-src/themes/apple/img/selection.png') repeat-x scroll 0 0;
     color: #FFFFFF;
 }
+
+/* By default all ul li a links get blue bg effect */
+ul li a:hover,
+ul li a:active {
+    -moz-background-clip: border;
+    -moz-background-inline-policy: continuous;
+    -moz-background-origin: padding;
+    background: #194FDB url('../jqtouch-src/themes/apple/img/selection.png') repeat-x scroll 0 0;
+    color: #FFFFFF;
+}
+
+
 
 a img {
     border: none;
@@ -73,13 +92,6 @@ p.jfooter {
     font-size: 12px;
     line-height: 120%;
     color: #333;
-}
-
-#mj_iphone_header,
-#mj_iphone_header2,
-#mj_iphone_footer,
-#mj_iphone_footer2 {
-    padding: 10px;
 }
 
 /* fixed to jQtouch */
@@ -188,6 +200,13 @@ div.search input.button, div.search button.button {
 	background-color: transparent; /* TODO: check if necessary in iPhone */
 }
 
+
+input[type=submit].whiteButton:hover {
+    color: white;
+    background: black;
+}
+
+
 .buttonWrapper, .loginButtonWrapper {
 	padding-left: 10px;
 	padding-right: 10px;
@@ -268,3 +287,28 @@ div.searchresultsnav .pagenav {
 dt.error {
 	display:none;
 }
+
+dd.error li {
+    background: red;
+    color: white;
+}
+
+dd.message li {
+    background: #ffe;
+    color: black;
+}
+
+.markup-chooser {
+        padding: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
