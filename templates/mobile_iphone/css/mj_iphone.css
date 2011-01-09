@@ -200,6 +200,11 @@ div.search input.button, div.search button.button {
 	background-color: transparent; /* TODO: check if necessary in iPhone */
 }
 
+/* Login link */
+.login-link {
+   margin: 10px;
+}
+
 
 input[type=submit].whiteButton:hover {
     color: white;
