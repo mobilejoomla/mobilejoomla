@@ -87,14 +87,20 @@ class MobileJoomla_CHTML extends MobileJoomla
 				return $this->config['tmpl_imode_header1'];
 			case 'header2':
 				return $this->config['tmpl_imode_header2'];
+			case 'header3':
+				return $this->config['tmpl_imode_header3'];
 			case 'middle':
 				return $this->config['tmpl_imode_middle1'];
 			case 'middle2':
 				return $this->config['tmpl_imode_middle2'];
+			case 'middle3':
+				return $this->config['tmpl_imode_middle3'];
 			case 'footer':
 				return $this->config['tmpl_imode_footer1'];
 			case 'footer2':
 				return $this->config['tmpl_imode_footer2'];
+			case 'footer3':
+				return $this->config['tmpl_imode_footer3'];
 		}
 		return '';
 	}

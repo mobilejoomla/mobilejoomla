@@ -6,7 +6,13 @@
 </div>
 <?php endif; ?>
 
-<?php echo $this->loadTemplate('form'); ?>
+<?php /* Hide com_search form on mobile pages */ ?>
+<?php /* echo $this->loadTemplate('form'); */ ?>
+
+<?php if ($this->total === 0) : ?>
+<p><?php echo $this->result; ?></p>
+<?php endif; ?>
+
 <?php if(!$this->error && count($this->results) > 0) :
 	echo $this->loadTemplate('results');
 else :

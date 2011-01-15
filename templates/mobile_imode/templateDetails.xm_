@@ -25,5 +25,8 @@
 		<position>mj_imode_middle2</position>
 		<position>mj_imode_footer</position>
 		<position>mj_imode_footer2</position>
+		<position>mj_all_header</position>
+		<position>mj_all_middle</position>
+		<position>mj_all_footer</position>
 	</positions>
 </install>

@@ -50,9 +50,9 @@ function mosGetMenuLink_wap($mitem, $level = 0, & $params, $open = null)
 			break;
 
 		case 'url' :
-			if(eregi('index.php\?', $mitem->link))
+			if(stripos($mitem->link, 'index.php?') !== false)
 			{
-				if(!eregi('Itemid=', $mitem->link))
+				if(stripos($mitem->link, 'Itemid=') === false)
 				{
 					$mitem->link .= '&amp;Itemid='.$mitem->id;
 				}

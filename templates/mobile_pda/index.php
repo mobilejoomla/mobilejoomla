@@ -42,6 +42,10 @@ $base = JURI::base()."templates/".$this->template;
 	if($modulepos && $this->countModules($modulepos) > 0):
 		?><div id="<?php echo $modulepos; ?>"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
 	endif;
+	$modulepos = $MobileJoomla->getPosition('header3');
+	if($modulepos && $this->countModules($modulepos) > 0):
+		?><div id="<?php echo $modulepos; ?>"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
+	endif;
 ?>
 	<div id="content">
 <?php
@@ -59,6 +63,11 @@ $base = JURI::base()."templates/".$this->template;
 		if($modulepos && $this->countModules($modulepos) > 0):
 			?><div id="<?php echo $modulepos; ?>"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
 		endif;
+		$modulepos = $MobileJoomla->getPosition('middle3');
+		if($modulepos && $this->countModules($modulepos) > 0):
+			?><div id="<?php echo $modulepos; ?>"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
+		endif;
+
 ?>
 		<div class="top">
 			<a href="#header"><?php echo JText::_('TPL_MOBILE_PDA__BACK_TO_THE_TOP'); ?></a>
@@ -84,6 +93,10 @@ $base = JURI::base()."templates/".$this->template;
 		$MobileJoomla->showFooter();
 
 		$modulepos = $MobileJoomla->getPosition('footer2');
+		if($modulepos && $this->countModules($modulepos) > 0):
+			?><div id="<?php echo $modulepos; ?>"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
+		endif;
+		$modulepos = $MobileJoomla->getPosition('footer3');
 		if($modulepos && $this->countModules($modulepos) > 0):
 			?><div id="<?php echo $modulepos; ?>"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
 		endif;

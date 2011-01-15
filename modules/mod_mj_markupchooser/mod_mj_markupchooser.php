@@ -48,10 +48,11 @@ switch($saved_markup)
 /** @var JURI $uri */
 $uri = clone(JFactory::getURI());
 $uri->delVar('naked');
-modMarkupChooserHelper::$base = $base;
-modMarkupChooserHelper::$return = base64_encode($uri->toString(array('path', 'query')));
-modMarkupChooserHelper::$show_chosen_markup = $params->get('show_choosen', 1);
 
+// Set-up mark-up chooser helper
+$return = base64_encode($uri->toString(array('path', 'query')));
+$show_chosen_markup = $params->get('show_choosen', 1);
+$helper = new modMarkupChooserHelper($base, $return, $show_chosen_markup);
 
 $links = array();
 
@@ -68,42 +69,42 @@ if($params->get('mobile_show', 1))
 	$is_mobile_markup = $markup == 'xhtml' || $markup == 'iphone' ||
 						$markup == 'wml' || $markup == 'imode' ||
 						$saved_markup=='mobile';
-	$link = modMarkupChooserHelper::getChangeLink($is_mobile_markup?'mobile':'', 'mobile', $text);
+	$link = $helper->getChangeLink($is_mobile_markup?'mobile':'', 'mobile', $text);
 	if($link!==false) $links[] = array('url'=>$link, 'text'=>$text);
 }
 
 if($params->get('web_show', 1))
 {
 	$text = $params->get('web_text', 'Standard Version');
-	$link = modMarkupChooserHelper::getChangeLink($markup, '', $text);
+	$link = $helper->getChangeLink($markup, '', $text);
 	if($link!==false) $links[] = array('url'=>$link, 'text'=>$text);
 }
 
 if($params->get('xhtml_show', 0))
 {
 	$text = $params->get('xhtml_text', 'Smartphone Version');
-	$link = modMarkupChooserHelper::getChangeLink($markup, 'xhtml', $text);
+	$link = $helper->getChangeLink($markup, 'xhtml', $text);
 	if($link!==false) $links[] = array('url'=>$link, 'text'=>$text);
 }
 
 if($params->get('iphone_show', 0))
 {
 	$text = $params->get('iphone_text', 'iPhone Version');
-	$link = modMarkupChooserHelper::getChangeLink($markup, 'iphone', $text);
+	$link = $helper->getChangeLink($markup, 'iphone', $text);
 	if($link!==false) $links[] = array('url'=>$link, 'text'=>$text);
 }
 
 if($params->get('wml_show', 0))
 {
 	$text = $params->get('wml_text', 'WAP Version');
-	$link = modMarkupChooserHelper::getChangeLink($markup, 'wml', $text);
+	$link = $helper->getChangeLink($markup, 'wml', $text);
 	if($link!==false) $links[] = array('url'=>$link, 'text'=>$text);
 }
 
 if($params->get('imode_show', 0))
 {
 	$text = $params->get('imode_text', 'iMode Version');
-	$link = modMarkupChooserHelper::getChangeLink($markup, 'imode', $text);
+	$link = $helper->getChangeLink($markup, 'imode', $text);
 	if($link!==false) $links[] = array('url'=>$link, 'text'=>$text);
 }
 
