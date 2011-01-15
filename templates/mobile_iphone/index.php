@@ -1,18 +1,20 @@
 <?php
 /**
- * ###DESC###
- * ###URL###
+ * Mobile Joomla!
+ * http://www.mobilejoomla.com
  *
- * @version		###VERSION###
- * @license		###LICENSE###
- * @copyright	###COPYRIGHT###
- * @date		###DATE###
+ * @version		0.9.10
+ * @license		http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL
+ * @copyright	(C) 2008-2010 MobileJoomla!
+ * @date		December 2010
  */
 defined('_JEXEC') or die('Restricted access');
 
 defined('_MJ') or die('Incorrect usage of Mobile Joomla.');
 
 $MobileJoomla =& MobileJoomla::getInstance();
+$MobileJoomla_Device =& MobileJoomla::getDevice();
+
 $base = JURI::base()."templates/".$this->template;
 $homepage = JURI::base();
 if(!empty ($MobileJoomla->config['tmpl_iphone_homepage']))
@@ -31,7 +33,7 @@ $hasSubmenus = (bool)$menu->getItems('parent', $activemenu->id);
 	<style type="text/css" media="screen">@import "<?php echo $base;?>/jqtouch-src/jqtouch/jqtouch.min.css";</style>
 	<style type="text/css" media="screen">@import "<?php echo $base;?>/jqtouch-src/themes/apple/theme.min.css";</style>
 	<style type="text/css" media="screen">@import "<?php echo $base;?>/css/mj_iphone.css";</style>
-	<meta name="viewport" content="width = 320, initial-scale = 1.0, user-scalable = no, maximum-scale = 1.0">
+	<meta name="viewport" content="width = <?php echo (int)$MobileJoomla_Device['screenwidth']; ?>, initial-scale = 1.0, user-scalable = no, maximum-scale = 1.0">
 </head>
 <body>
 <div<?php echo ($MobileJoomla->_ishomepage) ? ' id="home"' : '';?> class="current">
@@ -50,6 +52,11 @@ if($modulepos && $this->countModules($modulepos) > 0)
 	$MobileJoomla->loadModules($modulepos);
 }
 $modulepos = $MobileJoomla->getPosition('header2');
+if($modulepos && $this->countModules($modulepos) > 0)
+{
+	$MobileJoomla->loadModules($modulepos);
+}
+$modulepos = $MobileJoomla->getPosition('header3');
 if($modulepos && $this->countModules($modulepos) > 0)
 {
 	$MobileJoomla->loadModules($modulepos);
@@ -83,6 +90,14 @@ if(!(!$MobileJoomla->config['tmpl_iphone_componenthome'] && $MobileJoomla->_isho
 			<?php $MobileJoomla->loadModules($modulepos); ?>
 		</div><?php
 	}
+
+	$modulepos = $MobileJoomla->getPosition('middle3');
+	if($modulepos && $this->countModules($modulepos) > 0)
+	{
+		?><div id="<?php echo $modulepos; ?>">
+			<?php $MobileJoomla->loadModules($modulepos); ?>
+		</div><?php
+	}
 ?>
 	</div>
 <?php
@@ -104,6 +119,37 @@ if($modulepos && $this->countModules($modulepos) > 0)
 	?><div id="<?php echo $modulepos; ?>" class="current">
 		<?php $MobileJoomla->loadModules($modulepos); ?>
 	</div><?php
+}
+$modulepos = $MobileJoomla->getPosition('footer3');
+if($modulepos && $this->countModules($modulepos) > 0)
+{
+	?><div id="<?php echo $modulepos; ?>" class="current">
+		<?php $MobileJoomla->loadModules($modulepos); ?>
+	</div><?php
+}
+
+$dispatcher =& JDispatcher::getInstance(); 
+
+$results = $dispatcher->trigger( 'onMobileJoomlaAdCheck', array() );
+
+if(in_array('no-ads', $results)) {
+	// The user has installed plug-in to remove ads
+} else {
+	?>
+	<script type="text/javascript">
+	//<!--
+	 /* <![CDATA[ */
+	 window.googleAfmcRequest = {
+	   client: 'ca-mb-pub-5710199815985059',
+	   format: '320x50_mb',
+	   output: 'html',
+	   slotname: '1896811186',
+	 };
+	 /* ]]> */
+	//-->
+	</script>
+	<script type="text/javascript"src="http://pagead2.googlesyndication.com/pagead/show_afmc_ads.js"></script>
+	<?	
 }
 ?>
 </div>
