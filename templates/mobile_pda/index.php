@@ -100,7 +100,31 @@ $base = JURI::base()."templates/".$this->template;
 		if($modulepos && $this->countModules($modulepos) > 0):
 			?><div id="<?php echo $modulepos; ?>"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
 		endif;
-?>
+
+		$dispatcher =& JDispatcher::getInstance(); 
+
+		$results = $dispatcher->trigger( 'onMobileJoomlaAdCheck', array() );
+		
+		if(in_array('no-ads', $results)) {
+			// The user has installed plug-in to remove ads
+		} else {
+			?>
+			<script type="text/javascript">
+			//<!--
+			 /* <![CDATA[ */
+			 window.googleAfmcRequest = {
+			   client: 'ca-mb-pub-5710199815985059',
+			   format: '320x50_mb',
+			   output: 'html',
+			   slotname: '1896811186',
+			 };
+			 /* ]]> */
+			//-->
+			</script>
+			<script type="text/javascript"src="http://pagead2.googlesyndication.com/pagead/show_afmc_ads.js"></script>
+			<?	
+		}
+		?>
 	</div>
 </div>
 </body>
