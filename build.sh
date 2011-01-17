@@ -18,13 +18,6 @@ do
 	then
 		echo "Processing $F ..."
 		# assume that gnu sed is installed, so use -i option
-		sed -i "s|###VERSION###|$MJ_VERSION|g" $F
-		sed -i "s|###DATE###|$MJ_DATE|g" $F
-		sed -i "s|###URL###|$MJ_URL|g" $F
-		sed -i "s|###DESC###|$MJ_DESC|g" $F
-		sed -i "s|###AUTHOR###|$MJ_AUTHOR|g" $F
-		sed -i "s|###EMAIL###|$MJ_EMAIL|g" $F
-		sed -i "s|###COPYRIGHT###|$MJ_COPYRIGTH|g" $F
-		sed -i "s|###LICENSE###|$MJ_LICENSE|g" $F
+		sed -i -e "s|###VERSION###|$MJ_VERSION|g" -e "s|###DATE###|$MJ_DATE|g" -e "s|###URL###|$MJ_URL|g" -e "s|###DESC###|$MJ_DESC|g" -e "s|###AUTHOR###|$MJ_AUTHOR|g" -e "s|###EMAIL###|$MJ_EMAIL|g" -e "s|###COPYRIGHT###|$MJ_COPYRIGTH|g" -e "s|###LICENSE###|$MJ_LICENSE|g" $F
 	fi
 done
