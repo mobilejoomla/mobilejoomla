@@ -108,23 +108,23 @@ $base = JURI::base()."templates/".$this->template;
 		if(in_array('no-ads', $results)) {
 			// The user has installed plug-in to remove ads
 		} else {
-			?>
-			<script type="text/javascript">
-			//<!--
-			 /* <![CDATA[ */
-			 window.googleAfmcRequest = {
-			   client: 'ca-mb-pub-5710199815985059',
-			   format: '320x50_mb',
-			   output: 'html',
-			   slotname: '1896811186',
-			 };
-			 /* ]]> */
-			//-->
-			</script>
-			<script type="text/javascript"src="http://pagead2.googlesyndication.com/pagead/show_afmc_ads.js"></script>
-			<?	
+?>
+	<script type="text/javascript">
+	//<!--
+	/* <![CDATA[ */
+	window.googleAfmcRequest = {
+	  client: 'ca-mb-pub-5710199815985059',
+	  format: '320x50_mb',
+	  output: 'html',
+	  slotname: '1896811186',
+	};
+	/* ]]> */
+	//-->
+	</script>
+	<script type="text/javascript"src="http://pagead2.googlesyndication.com/pagead/show_afmc_ads.js"></script>
+<?php
 		}
-		?>
+?>
 	</div>
 </div>
 </body>
