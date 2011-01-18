@@ -1,12 +1,12 @@
 <?php
 /**
- * Mobile Joomla!
- * http://www.mobilejoomla.com
+ * ###DESC###
+ * ###URL###
  *
- * @version		0.9.10
- * @license		http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL
- * @copyright	(C) 2008-2010 MobileJoomla!
- * @date		December 2010
+ * @version		###VERSION###
+ * @license		###LICENSE###
+ * @copyright	###COPYRIGHT###
+ * @date		###DATE###
  */
 defined('_JEXEC') or die('Restricted access');
 
@@ -132,24 +132,27 @@ $dispatcher =& JDispatcher::getInstance();
 
 $results = $dispatcher->trigger( 'onMobileJoomlaAdCheck', array() );
 
-if(in_array('no-ads', $results)) {
+if(in_array('no-ads', $results))
+{
 	// The user has installed plug-in to remove ads
-} else {
-	?>
+}
+else
+{
+?>
 	<script type="text/javascript">
 	//<!--
-	 /* <![CDATA[ */
-	 window.googleAfmcRequest = {
-	   client: 'ca-mb-pub-5710199815985059',
-	   format: '320x50_mb',
-	   output: 'html',
-	   slotname: '1896811186',
-	 };
-	 /* ]]> */
+	/* <![CDATA[ */
+	window.googleAfmcRequest = {
+	  client: 'ca-mb-pub-5710199815985059',
+	  format: '320x50_mb',
+	  output: 'html',
+	  slotname: '1896811186',
+	};
+	/* ]]> */
 	//-->
 	</script>
 	<script type="text/javascript"src="http://pagead2.googlesyndication.com/pagead/show_afmc_ads.js"></script>
-	<?	
+<?php
 }
 ?>
 </div>
