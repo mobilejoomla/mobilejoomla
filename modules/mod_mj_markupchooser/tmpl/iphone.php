@@ -12,7 +12,7 @@ defined('_JEXEC') or die('Restricted access');
 
 ?>
 <div class="markup-chooser">
-<?
+<?php
 
 echo $params->get('show_text', ' ');
 
