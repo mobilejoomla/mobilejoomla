@@ -21,13 +21,13 @@ class plgMobileSimple extends JPlugin
 
 	function onDeviceDetection(&$MobileJoomla_Settings, &$MobileJoomla_Device)
 	{
-		$this->checkAccept($MobileJoomla_Device);
-		$this->checkUserAgent($MobileJoomla_Device);
+		$this->checkAccept($MobileJoomla_Settings, $MobileJoomla_Device);
+		$this->checkUserAgent($MobileJoomla_Settings, $MobileJoomla_Device);
 		if($MobileJoomla_Device['markup'])
-			$this->checkScreenSize($MobileJoomla_Device);
+			$this->checkScreenSize($MobileJoomla_Settings, $MobileJoomla_Device);
 	}
 	
-	function checkAccept(&$MobileJoomla_Device)
+	function checkAccept(&$MobileJoomla_Settings, &$MobileJoomla_Device)
 	{
 		if(!isset($_SERVER['HTTP_ACCEPT']))
 			return;
@@ -80,7 +80,7 @@ class plgMobileSimple extends JPlugin
 		}
 	}
 	
-	function checkUserAgent(&$MobileJoomla_Device)
+	function checkUserAgent(&$MobileJoomla_Settings, &$MobileJoomla_Device)
 	{
 		$userAgentHeaders = array(
 			'HTTP_X_DEVICE_USER_AGENT',
@@ -163,7 +163,7 @@ class plgMobileSimple extends JPlugin
 		}
 	}
 	
-	function checkScreenSize(&$MobileJoomla_Device)
+	function checkScreenSize(&$MobileJoomla_Settings, &$MobileJoomla_Device)
 	{
 		if(isset($_SERVER['HTTP_X_SCREEN_WIDTH']) && $_SERVER['HTTP_X_SCREEN_WIDTH']
 				&& isset($_SERVER['HTTP_X_SCREEN_HEIGHT']) && $_SERVER['HTTP_X_SCREEN_HEIGHT'])
