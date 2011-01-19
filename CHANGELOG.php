@@ -13,6 +13,11 @@ defined('_JEXEC') or die('Restricted access');
 
 CHANGELOG
 
+0.9.11
+Beta release
+- Fix notice in Mobile-Simple plugin
+- Fix issue with mobile_iphone and mobile_pda templates
+
 0.9.10
 Beta release
 - Add "Browser Caching" option
