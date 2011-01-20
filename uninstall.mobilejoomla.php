@@ -575,9 +575,9 @@ function load_mysql_dump($bz2_file)
 	elseif(ini_get('allow_url_fopen'))
 	{
 		safe_dl('zlib');
-		if(parse_mysql_dump('gz', 'http://www.mobilejoomla.com/tera_dump_099.sql.gz'))
+		if(parse_mysql_dump('gz', 'http://www.mobilejoomla.com/tera_dump.sql.gz'))
 			return true;
-		$url = 'http://www.mobilejoomla.com/tera_dump_099.sql';
+		$url = 'http://www.mobilejoomla.com/tera_dump.sql';
 		if(parse_mysql_dump('file', $url))
 			return true;
 		$WARNINGS[] = JText::_('Error downloading')." $url";
