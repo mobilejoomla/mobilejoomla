@@ -23,6 +23,7 @@ Beta release
 - Add "Browser Caching" option
 - Add common mobile module positions: mj_all_header, mj_all_middle, and mj_all_footer
 - Setting to use iPhone template for iPads too.
+- By default Ad block will be shown in mobile_pda and mobile_iphone templates
 
 0.9.9
 Beta release
