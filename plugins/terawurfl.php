@@ -53,6 +53,9 @@ class plgMobileTerawurfl extends JPlugin
 		else
 			TeraWurflConfig::$DB_CONNECTOR = 'MySQL5';
 
+		$cache  = (bool)$this->params->get('cache', 1);
+		TeraWurflConfig::$CACHE_ENABLE = $cache;
+
 		require_once(JPATH_SITE.DS.'plugins'.DS.'mobile'.DS.'terawurfl'.DS.'TeraWurfl.php');
 
 		try

@@ -17,5 +17,9 @@
 			<option value="0">PLG_MOBILE_TERAWURFL__USEMYSQL5</option>
 			<option value="1">PLG_MOBILE_TERAWURFL__MYSQL4</option>
 		</param>
+		<param name="cache" type="radio" default="1" label="PLG_MOBILE_TERAWURFL__CACHE_LABEL" description="PLG_MOBILE_TERAWURFL__CACHE_DESC">
+			<option value="0">NO</option>
+			<option value="1">YES</option>
+		</param>
 	</params>
 </install>

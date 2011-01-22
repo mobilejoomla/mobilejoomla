@@ -18,6 +18,7 @@ Beta release
 - Fix notice in Mobile-Simple plugin
 - Fix issue with mobile_iphone and mobile_pda templates
 - Update WURFL database
+- Option in TeraWURFL plugin to enable/disable caching
 
 0.9.10
 Beta release
