@@ -102,12 +102,13 @@ $base = JURI::base()."templates/".$this->template;
 		endif;
 
 		$dispatcher =& JDispatcher::getInstance(); 
-
 		$results = $dispatcher->trigger( 'onMobileJoomlaAdCheck', array() );
-		
-		if(in_array('no-ads', $results)) {
+		if(in_array('f3da4a6dd8f15c9170572d18838c841e', array_map('md5', $results)))
+		{
 			// The user has installed plug-in to remove ads
-		} else {
+		}
+		else
+		{
 ?>
 	<script type="text/javascript">
 	//<!--
