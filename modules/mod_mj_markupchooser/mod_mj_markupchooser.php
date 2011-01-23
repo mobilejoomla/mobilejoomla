@@ -16,8 +16,11 @@ require_once(dirname(__FILE__).DS.'helper.php');
 
 if(!defined('_MJ'))
 {
+	$mj_class_path = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'mobilejoomla.class.php';
+	if(!file_exists($mj_class_path))
+		return;
+	include_once($mj_class_path);
 	$markup = '';
-	include_once(JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'mobilejoomla.class.php');
 	$config =& MobileJoomla::getConfig();
 	$base = $config['desktop_url'];
 }
