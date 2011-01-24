@@ -19,6 +19,7 @@ Beta release
 - Fix issue with mobile_iphone and mobile_pda templates
 - Update WURFL database
 - Option in TeraWURFL plugin to enable/disable caching
+- Fix issue with mobile homepage
 
 0.9.10
 Beta release

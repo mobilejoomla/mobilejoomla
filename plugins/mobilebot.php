@@ -265,6 +265,7 @@ class plgSystemMobileBot extends JPlugin
 
 		$current = $_GET;
 		unset($current['lang']);
+		unset($current['tp']);
 		if(isset($current[session_name()]))
 			unset($current[session_name()]);
 
@@ -285,14 +286,19 @@ class plgSystemMobileBot extends JPlugin
 			if($current == $mj_home)
 				$MobileJoomla->setHome(true);
 		}
-		
+
 		if($current == $home)
 		{
 			$MobileJoomla->setHome(true);
 			if($homepage)
 			{
 				if(isset($mj_home_Itemid))
-					$menu->setActive($mj_home_Itemid);
+				{
+					global $Itemid;
+					$Itemid = $mj_home_Itemid;
+					$menu->setActive($Itemid);
+					$mainframe->authorize($Itemid);
+				}
 
 				$_SERVER['REQUEST_URI'] = JURI::base(true).'/'.$homepage;
 				if(isset($mj_home))
