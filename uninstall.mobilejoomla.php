@@ -747,7 +747,7 @@ function com_install()
 	$status = InstallModule($ModuleSource, 'mod_mj_imode_menu', 'Main Menu', 'mj_imode_footer') && $status;
 	$status = InstallModule($ModuleSource, 'mod_mj_iphone_menu', 'Main Menu', 'mj_iphone_middle', 1, 0) && $status;
 	$status = InstallModule($ModuleSource, 'mod_mj_markupchooser', 'Select Markup',
-	                        array ('footer', 'mj_pda_footer2', 'mj_wap_footer', 'mj_imode_footer', 'mj_iphone_footer2'), 1, 0) && $status;
+	                        array ('footer', 'mj_all_footer'), 1, 0) && $status;
 	if($status)
 		JFolder::delete($ModuleSource);
 	else
