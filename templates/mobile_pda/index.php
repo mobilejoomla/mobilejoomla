@@ -100,7 +100,9 @@ $base = JURI::base()."templates/".$this->template;
 		if($modulepos && $this->countModules($modulepos) > 0):
 			?><div id="<?php echo $modulepos; ?>"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
 		endif;
-
+?>
+	</div>
+<?
 		$dispatcher =& JDispatcher::getInstance(); 
 		$results = $dispatcher->trigger( 'onMobileJoomlaAdCheck', array() );
 		if(in_array('f3da4a6dd8f15c9170572d18838c841e', array_map('md5', $results)))
@@ -109,24 +111,26 @@ $base = JURI::base()."templates/".$this->template;
 		}
 		else
 		{
+                ?>
+                        <div class="mj-sponsor-placement">
+	                        <script type="text/javascript">
+	                        //<!--
+	                        /* <![CDATA[ */
+	                        window.googleAfmcRequest = {
+	                          client: 'ca-mb-pub-5710199815985059',
+	                          format: '320x50_mb',
+	                          output: 'html',
+	                          slotname: '1896811186',
+	                        };
+	                        /* ]]> */
+	                        //-->
+	                        </script>
+	                        <script type="text/javascript"src="http://pagead2.googlesyndication.com/pagead/show_afmc_ads.js"></script>
+                        </div>
+                <?
+                }
+
 ?>
-	<script type="text/javascript">
-	//<!--
-	/* <![CDATA[ */
-	window.googleAfmcRequest = {
-	  client: 'ca-mb-pub-5710199815985059',
-	  format: '320x50_mb',
-	  output: 'html',
-	  slotname: '1896811186',
-	};
-	/* ]]> */
-	//-->
-	</script>
-	<script type="text/javascript"src="http://pagead2.googlesyndication.com/pagead/show_afmc_ads.js"></script>
-<?php
-		}
-?>
-	</div>
 </div>
 </body>
 </html>
