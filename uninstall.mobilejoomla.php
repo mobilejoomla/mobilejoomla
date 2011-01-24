@@ -267,18 +267,18 @@ function UpdateConfig()
 		$MobileJoomla_Settings['tmpl_iphone_img_addstyles'] = 0;
 	
 	if(!isset($MobileJoomla_Settings['tmpl_xhtml_header3']))
-		$MobileJoomla_Settings['tmpl_xhtml_header3'] = '';
+		$MobileJoomla_Settings['tmpl_xhtml_header3'] = 'mj_all_header';
 	if(!isset($MobileJoomla_Settings['tmpl_xhtml_middle3']))
-		$MobileJoomla_Settings['tmpl_xhtml_middle3'] = '';
+		$MobileJoomla_Settings['tmpl_xhtml_middle3'] = 'mj_all_middle';
 	if(!isset($MobileJoomla_Settings['tmpl_xhtml_footer3']))
-		$MobileJoomla_Settings['tmpl_xhtml_footer3'] = '';
+		$MobileJoomla_Settings['tmpl_xhtml_footer3'] = 'mj_all_footer';
 
 	if(!isset($MobileJoomla_Settings['tmpl_iphone_header3']))
-		$MobileJoomla_Settings['tmpl_iphone_header3'] = '';
+		$MobileJoomla_Settings['tmpl_iphone_header3'] = 'mj_all_header';
 	if(!isset($MobileJoomla_Settings['tmpl_iphone_middle3']))
-		$MobileJoomla_Settings['tmpl_iphone_middle3'] = '';
+		$MobileJoomla_Settings['tmpl_iphone_middle3'] = 'mj_all_middle';
 	if(!isset($MobileJoomla_Settings['tmpl_iphone_footer3']))
-		$MobileJoomla_Settings['tmpl_iphone_footer3'] = '';
+		$MobileJoomla_Settings['tmpl_iphone_footer3'] = 'mj_all_footer';
 
 	if(isset($MobileJoomla_Settings['tmpl_wap_header']))
 	{
@@ -302,18 +302,18 @@ function UpdateConfig()
 	if(!isset($MobileJoomla_Settings['tmpl_wap_footer2']))
 		$MobileJoomla_Settings['tmpl_wap_footer2'] = '';
 	if(!isset($MobileJoomla_Settings['tmpl_wap_header3']))
-		$MobileJoomla_Settings['tmpl_wap_header3'] = '';
+		$MobileJoomla_Settings['tmpl_wap_header3'] = 'mj_all_header';
 	if(!isset($MobileJoomla_Settings['tmpl_wap_middle3']))
-		$MobileJoomla_Settings['tmpl_wap_middle3'] = '';
+		$MobileJoomla_Settings['tmpl_wap_middle3'] = 'mj_all_middle';
 	if(!isset($MobileJoomla_Settings['tmpl_wap_footer3']))
-		$MobileJoomla_Settings['tmpl_wap_footer3'] = '';
+		$MobileJoomla_Settings['tmpl_wap_footer3'] = 'mj_all_footer';
 
 	if(!isset($MobileJoomla_Settings['tmpl_imode_header3']))
-		$MobileJoomla_Settings['tmpl_imode_header3'] = '';
+		$MobileJoomla_Settings['tmpl_imode_header3'] = 'mj_all_header';
 	if(!isset($MobileJoomla_Settings['tmpl_imode_middle3']))
-		$MobileJoomla_Settings['tmpl_imode_middle3'] = '';
+		$MobileJoomla_Settings['tmpl_imode_middle3'] = 'mj_all_middle';
 	if(!isset($MobileJoomla_Settings['tmpl_imode_footer3']))
-		$MobileJoomla_Settings['tmpl_imode_footer3'] = '';
+		$MobileJoomla_Settings['tmpl_imode_footer3'] = 'mj_all_footer';
 
 	if(!isset($MobileJoomla_Settings['iphoneipad']))
 		$MobileJoomla_Settings['iphoneipad'] = 1;
