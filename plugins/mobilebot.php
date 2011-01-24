@@ -400,7 +400,10 @@ class plgSystemMobileBot extends JPlugin
 
 		JResponse::setBody($text);
 		if($MobileJoomla_Settings['httpcaching'])
+		{
 			JResponse::allowCache(true);
+			JResponse::setHeader('Vary', 'Cookie');
+		}
 		JResponse::setHeader('Cache-Control', 'no-transform');
 	}
 }
