@@ -20,6 +20,7 @@ Beta release
 - Update WURFL database
 - Option in TeraWURFL plugin to enable/disable caching
 - Fix issue with mobile homepage
+- Option to hide "Select Markup" module for PC browsers
 
 0.9.10
 Beta release

@@ -47,6 +47,7 @@ class plgSystemMobileBot extends JPlugin
 		$mainframe->triggerEvent('onDeviceDetection', array (&$MobileJoomla_Settings, &$MobileJoomla_Device));
 
 		$markup = $MobileJoomla_Device['markup'];
+		$MobileJoomla_Device['real_markup'] = $markup;
 
 		//get user choice
 		$user_markup = plgSystemMobileBot::getUserMarkup($MobileJoomla_Settings);

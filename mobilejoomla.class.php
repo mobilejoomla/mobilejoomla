@@ -34,7 +34,7 @@ class MobileJoomla
 		static $instance;
 		if(!is_array($instance))
 		{
-			$instance = array ('markup' => false, 'screenwidth' => 0, 'screenheight' => 0, 'imageformats' => null, 'mimetype' => null, 'param' => array ());
+			$instance = array ('markup' => false, 'real_markup' => false, 'screenwidth' => 0, 'screenheight' => 0, 'imageformats' => null, 'mimetype' => null, 'param' => array ());
 		}
 		return $instance;
 	}

@@ -13,6 +13,12 @@
 		<filename module="mod_mj_markupchooser">mod_mj_markupchooser.php</filename>
 	</files>
 	<params>
+		<param name="hide_on_pc" type="radio" default="1" label="Hide for PC browsers"
+				description="Hide this module for PC browsers.">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description=""/>
 		<param name="show_text" type="textarea" default="" label="Info text"
 				description="Text to display before the links" rows="2" cols="35"/>
 		<param name="show_choosen" type="radio" default="1" label="Show active" description="Show active markup.">
@@ -71,7 +77,5 @@
 	<params group="advanced">
 		<param name="moduleclass_sfx" type="text" default="" label="Module Class Suffix"
 				description="PARAMMODULECLASSSUFFIX"/>
-	</params>
-	<params group="other">
 	</params>
 </install>

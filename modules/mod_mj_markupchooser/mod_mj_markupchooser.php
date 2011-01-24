@@ -20,6 +20,12 @@ if(!defined('_MJ'))
 	if(!file_exists($mj_class_path))
 		return;
 	include_once($mj_class_path);
+	if($params->get('hide_on_pc', 1))
+	{
+		$MobileJoomla_Device =& MobileJoomla::getDevice();
+		if(empty($MobileJoomla_Device['real_markup']))
+			return;
+	}
 	$markup = '';
 	$config =& MobileJoomla::getConfig();
 	$base = $config['desktop_url'];
