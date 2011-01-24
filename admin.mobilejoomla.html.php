@@ -859,7 +859,7 @@ class HTML_mobilejoomla
 		<input type="hidden" name="option" value="<?php echo $option; ?>"/>
 		<input type="hidden" name="task" value=""/>
 		</form>
-		<script type="text/javascript" src="<?php echo JURI::base(true);?>/includes/js/overlib_mini.js"></script>
+		<script type="text/javascript" src="<?php echo JURI::root(true);?>/includes/js/overlib_mini.js"></script>
 		<?php
 
 	}
