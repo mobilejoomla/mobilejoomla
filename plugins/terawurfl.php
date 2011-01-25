@@ -34,6 +34,13 @@ class plgMobileTerawurfl extends JPlugin
 		if(!isset($_SERVER['HTTP_ACCEPT']) && !isset($_SERVER['HTTP_USER_AGENT']))
 			return;
 
+		//temporary patch for Google's Instant Preview
+		if(strpos($_SERVER['HTTP_USER_AGENT'], 'Google Web Preview')!==false)
+		{
+			$MobileJoomla_Device['markup'] = '';
+			return;
+		}
+		
 		require_once(JPATH_SITE.DS.'plugins'.DS.'mobile'.DS.'terawurfl'.DS.'TeraWurflConfig.php');
 
 		/** @var JRegistry $config */
