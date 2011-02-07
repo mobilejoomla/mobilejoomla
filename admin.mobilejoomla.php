@@ -13,7 +13,7 @@ defined('_JEXEC') or die('Restricted access');
 require_once(JPATH_COMPONENT.DS.'admin.mobilejoomla.html.php');
 
 $task = JRequest::getCmd('task');
-global $mainframe;
+$mainframe =& JFactory::getApplication();
 
 switch($task)
 {
@@ -21,7 +21,7 @@ switch($task)
 		saveconfig($task);
 		break;
 	case 'cancel':
-		$mainframe->redirect('index2.php');
+		$mainframe->redirect('index.php');
 		break;
 	case 'about':
 		showabout();
@@ -97,12 +97,12 @@ function showconfig()
 	$lists = array ();
 
 	//Plugin settings
-	$caching = array (JHTML::_('select.option', 0, 'Disable'),
-					  JHTML::_('select.option', 1, 'Global'));
+	$caching = array (JHTML::_('select.option', 0, JText::_('COM_MJ__DISABLE')),
+					  JHTML::_('select.option', 1, JText::_('COM_MJ__GLOBAL')));
 	$lists['caching'] = JHTML::_('select.radiolist', $caching, 'mjconfig_caching', 'class="inputbox"', 'value', 'text', $MobileJoomla_Settings['caching']);
 
-	$httpcaching = array (JHTML::_('select.option', 0, 'Disable'),
-						  JHTML::_('select.option', 1, 'Enable'));
+	$httpcaching = array (JHTML::_('select.option', 0, JText::_('COM_MJ__DISABLE')),
+						  JHTML::_('select.option', 1, JText::_('COM_MJ__ENABLE')));
 	$lists['httpcaching'] = JHTML::_('select.radiolist', $httpcaching, 'mjconfig_httpcaching', 'class="inputbox"', 'value', 'text', $MobileJoomla_Settings['httpcaching']);
 
 	$lists['domains'] = JHTML::_('select.booleanlist', 'mjconfig_domains', 'class="inputbox"', $MobileJoomla_Settings['domains']);
@@ -110,8 +110,8 @@ function showconfig()
 	//XHTML/WAP2.0 devices
 	$lists['xhtmltemplate'] = selectArray($templates, 'mjconfig_xhtmltemplate', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['xhtmltemplate']);
 
-	$gzip = array (JHTML::_('select.option', 0, 'No'),
-	               JHTML::_('select.option', 1, 'Auto'));
+	$gzip = array (JHTML::_('select.option', 0, JText::_('COM_MJ__NO')),
+	               JHTML::_('select.option', 1, JText::_('COM_MJ__AUTO')));
 	$lists['xhtmlgzip'] = JHTML::_('select.radiolist', $gzip, 'mjconfig_xhtmlgzip', 'class="inputbox"', 'value', 'text', $MobileJoomla_Settings['xhtmlgzip']);
 
 	$lists['xhtmlredirect'] = JHTML::_('select.booleanlist', 'mjconfig_xhtmlredirect', 'class="inputbox"', $MobileJoomla_Settings['xhtmlredirect']);
@@ -119,7 +119,7 @@ function showconfig()
 	//WAP devices
 	$lists['waptemplate'] = selectArray($templates, 'mjconfig_waptemplate', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['waptemplate']);
 
-	$lists['wapgzip'] = JHTML::_('select.radiolist', $gzip, 'mjconfig_wapgzip', 'class="inputbox"', 'value', 'text', $MobileJoomla_Settings['wapgzip'], 'value', 'text');
+	$lists['wapgzip'] = JHTML::_('select.radiolist', $gzip, 'mjconfig_wapgzip', 'class="inputbox"', 'value', 'text', $MobileJoomla_Settings['wapgzip']);
 
 	$lists['wapredirect'] = JHTML::_('select.booleanlist', 'mjconfig_wapredirect', 'class="inputbox"', $MobileJoomla_Settings['wapredirect']);
 
@@ -160,8 +160,8 @@ function showconfig()
 
 	$lists['tmpl_xhtml_jfooter'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_jfooter', 'class="inputbox"', $MobileJoomla_Settings['tmpl_xhtml_jfooter']);
 
-	$simplehead = array (JHTML::_('select.option', 0, JText::_('Standard Joomla')),
-	                     JHTML::_('select.option', 1, JText::_('Simplified (title only)')));
+	$simplehead = array (JHTML::_('select.option', 0, JText::_('COM_MJ__HEAD_STANDARD')),
+	                     JHTML::_('select.option', 1, JText::_('COM_MJ__HEAD_SIMPLIFIED')));
 	$lists['tmpl_xhtml_simplehead'] = JHTML::_('select.genericlist', $simplehead, 'mjconfig_tmpl_xhtml_simplehead', 'class="inputbox" size="1"', 'value', 'text', $MobileJoomla_Settings['tmpl_xhtml_simplehead']);
 
 	$lists['tmpl_xhtml_allowextedit'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_allowextedit', 'class="inputbox"', $MobileJoomla_Settings['tmpl_xhtml_allowextedit']);
@@ -170,10 +170,10 @@ function showconfig()
 
 	$lists['tmpl_xhtml_removescripts'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_removescripts', 'class="inputbox"', $MobileJoomla_Settings['tmpl_xhtml_removescripts']);
 
-	$img = array (JHTML::_('select.option', 0, JText::_('Don\'t rescale')),
-	              JHTML::_('select.option', 1, JText::_('Remove all')),
-	              JHTML::_('select.option', 2, JText::_('Rescale if bigger')),
-	              JHTML::_('select.option', 3, JText::_('Fixed rescale ratio')));
+	$img = array (JHTML::_('select.option', 0, JText::_('COM_MJ__IMG_DONT_RESCALE')),
+	              JHTML::_('select.option', 1, JText::_('COM_MJ__IMG_REMOVE_ALL')),
+	              JHTML::_('select.option', 2, JText::_('COM_MJ__IMG_RESCALE')),
+	              JHTML::_('select.option', 3, JText::_('COM_MJ__IMG_FIXED_RESCALE_RATIO')));
 	$lists['tmpl_xhtml_img'] = JHTML::_('select.genericlist', $img, 'mjconfig_tmpl_xhtml_img', 'class="inputbox" size="1"', 'value', 'text', $MobileJoomla_Settings['tmpl_xhtml_img']);
 
 	$lists['tmpl_xhtml_img_addstyles'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_img_addstyles', 'class="inputbox"', $MobileJoomla_Settings['tmpl_xhtml_img_addstyles']);
@@ -182,7 +182,7 @@ function showconfig()
 
 	$lists['tmpl_xhtml_embedcss'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_embedcss', 'class="inputbox"', $MobileJoomla_Settings['tmpl_xhtml_embedcss']);
 
-	$contenttype = array (JHTML::_('select.option', 0, 'auto'),
+	$contenttype = array (JHTML::_('select.option', 0, JText::_('COM_MJ__AUTO')),
 	                      JHTML::_('select.option', 1, 'application/vnd.wap.xhtml+xml'),
 	                      JHTML::_('select.option', 2, 'application/xhtml+xml'),
 	                      JHTML::_('select.option', 3, 'text/html'),
@@ -191,7 +191,7 @@ function showconfig()
 
 	$lists['tmpl_xhtml_xmlhead'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_xmlhead', 'class="inputbox"', $MobileJoomla_Settings['tmpl_xhtml_xmlhead']);
 
-	$xhtmldoctype = array (JHTML::_('select.option', 0, JText::_('No')),
+	$xhtmldoctype = array (JHTML::_('select.option', 0, JText::_('COM_MJ__NONE')),
 	                       JHTML::_('select.option', 1, 'WAPFORUM/WML2.0'),
 	                       JHTML::_('select.option', 2, 'WAPFORUM/XHTML Mobile 1.0'),
 	                       JHTML::_('select.option', 3, 'WAPFORUM/XHTML Mobile 1.1'),
@@ -234,7 +234,7 @@ function showconfig()
 
 	$lists['tmpl_wap_entitydecode'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_wap_entitydecode', 'class="inputbox"', $MobileJoomla_Settings['tmpl_wap_entitydecode']);
 
-	$wapdoctype = array (JHTML::_('select.option', 0, JText::_('No')),
+	$wapdoctype = array (JHTML::_('select.option', 0, JText::_('COM_MJ__NONE')),
 	                     JHTML::_('select.option', 1, 'WAPFORUM/WML1.1'),
 	                     JHTML::_('select.option', 2, 'WAPFORUM/WML1.2'));
 	$lists['tmpl_wap_doctype'] = JHTML::_('select.genericlist', $wapdoctype, 'mjconfig_tmpl_wap_doctype', 'class="inputbox" size="1"', 'value', 'text', $MobileJoomla_Settings['tmpl_wap_doctype']);
@@ -301,7 +301,12 @@ function showconfig()
 	{
 		/** @var JDatabase $db */
 		$db =& JFactory::getDBO();
-		$query = 'SELECT id, menutype, name, link, type, parent FROM #__menu WHERE published=1 ORDER BY menutype, parent, ordering';
+		$version = new JVersion;
+		$isJoomla16 = (substr($version->getShortVersion(),0,3) == '1.6');
+		if($isJoomla16)
+			$query = 'SELECT id, menutype, title AS name, link, type, parent_id AS parent FROM #__menu WHERE published=1 ORDER BY menutype, parent, ordering';
+		else
+			$query = 'SELECT id, menutype, name, link, type, parent FROM #__menu WHERE published=1 ORDER BY menutype, parent, ordering';
 		$db->setQuery($query);
 		$mitems = $db->loadObjectList();
 		$children = array();
@@ -313,10 +318,14 @@ function showconfig()
 			$children[$pt] = $list;
 		}
 		$list = array();
-		$id = intval($mitems[0]->parent);
+		if($isJoomla16)
+			$id = intval($mitems[0]->id);
+		else
+			$id = intval($mitems[0]->parent);
 		if(@$children[$id])
 			TreeRecurse($id, '', $list, $children);
 		$mitems = array();
+		$mitems[] = JHTML::_('select.option', '', '&nbsp;');
 		$lastMenuType = null;
 		foreach($list as $list_a)
 		{
@@ -334,7 +343,7 @@ function showconfig()
 			$mitems[] = JHTML::_('select.option', $link, $list_a->treename, 'value', 'text', $link=='-');
 		}
 		if($lastMenuType !== null)
-			$mitems[] = JHTML::_('select.option', '</OPTGROUP>');
+			$mitems[] = JHTML::_('select.option', '</OPTGROUP>' );
 		return $mitems;
 	}
 	function TreeRecurse($id, $indent, &$list, &$children, $level=0)
@@ -355,7 +364,7 @@ function showconfig()
 
 function saveExtensionsConfig()
 {
-	global $mainframe;
+	$mainframe =& JFactory::getApplication();
 
 	$content = file_get_contents(JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'extensions'.DS.'extensions.json');
 
@@ -384,8 +393,8 @@ function saveExtensionsConfig()
 		file_put_contents(JPATH_SITE.DS.$extension->configPath, json_encode($newconfig));
 	}
 
-	$mainframe->redirect('index2.php?option=com_mobilejoomla&task=extensions',
-	                     JText::_('The Configuration Details have been updated'));
+	$mainframe->redirect('index.php?option=com_mobilejoomla&task=extensions',
+	                     JText::_('COM_MJ__CONFIG_UPDATED'));
 }
 
 function saveconfig($task)
@@ -461,16 +470,16 @@ function saveconfig($task)
 			. "?>";
 
 	jimport('joomla.filesystem.file');
-	global $mainframe;
+	$mainframe =& JFactory::getApplication();
 	if(JFile::write($configfname, $config))
 	{
-		$mainframe->redirect('index2.php?option=com_mobilejoomla',
-		                     JText::_('The Configuration Details have been updated'));
+		$mainframe->redirect('index.php?option=com_mobilejoomla',
+		                     JText::_('COM_MJ__CONFIG_UPDATED'));
 	}
 	else
 	{
-		$mainframe->redirect('index2.php?option=com_mobilejoomla',
-		                     JText::_('An Error Has Occurred! Unable to open config file to write!'));
+		$mainframe->redirect('index.php?option=com_mobilejoomla',
+		                     JText::_('COM_MJ__UNABLE_OPEN_CONFIG'));
 	}
 }
 
@@ -483,7 +492,7 @@ function showextensions()
 {
 	if(!function_exists('json_decode'))
 	{
-		echo JText::_('ERROR: json library is not installed.');
+		echo JText::_('COM_MJ__ERROR_JSON_LIBRARY_ISNOT_INSTALLED');
 		return;
 	}
 	$content = file_get_contents(JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'extensions'.DS.'extensions.json');

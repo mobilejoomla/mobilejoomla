@@ -14,20 +14,20 @@ class TOOLBAR_mobilejoomla
 {
 	function _DEFAULT()
 	{
-		JToolBarHelper::title(JText::_('Mobile Joomla! Settings'), 'config.php');
+		JToolBarHelper::title(JText::_('COM_MJ__MOBILE_JOOMLA_SETTINGS'), 'config.php');
 		JToolBarHelper::save();
 		JToolBarHelper::cancel('cancel');
 	}
 
 	function _ABOUT()
 	{
-		JToolBarHelper::title(JText::_('About Mobile Joomla'));
+		JToolBarHelper::title(JText::_('COM_MJ__ABOUT_MOBILE_JOOMLA'));
 		JToolBarHelper::cancel('cancel');
 	}
 
 	function _EXT()
 	{
-		JToolBarHelper::title(JText::_('Extensions'));
+		JToolBarHelper::title(JText::_('COM_MJ__EXTENSIONS'));
 		JToolBarHelper::save();
 		JToolBarHelper::cancel('cancel');
 	}

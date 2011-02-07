@@ -13,12 +13,8 @@
 	<files>
 		<filename>index.html</filename>
 	</files>
-	<languages>
-		<language tag="en-GB">en-GB.tpl_mobile_iphone.ini</language>
-		<language tag="en-GB">en-GB.tpl_mobile_pda.ini</language>
-	</languages>
 	<administration>
-		<menu img="../administrator/components/com_mobilejoomla/images/mj16x16.gif">Mobile Joomla!</menu>
+		<menu img="../administrator/components/com_mobilejoomla/images/mj16x16.gif">MobileJoomla</menu>
 		<submenu>
 			<menu task="settings" img="js/ThemeOffice/config.png">Settings</menu>
 			<menu task="extensions">Extensions</menu>
@@ -26,9 +22,8 @@
 		</submenu>
 		<languages>
 			<language tag="en-GB">en-GB.com_mobilejoomla.ini</language>
+			<language tag="en-GB">en-GB.com_mobilejoomla.sys.ini</language>
 			<language tag="en-GB">en-GB.com_mobilejoomla.menu.ini</language>
-			<language tag="en-GB">en-GB.plg_mobile_terawurfl.ini</language>
-			<language tag="en-GB">en-GB.plg_mobile_always.ini</language>
 		</languages>
 		<files>
 			<filename>admin.mobilejoomla.html.php</filename>
@@ -42,13 +37,12 @@
 			<filename>toolbar.mobilejoomla.html.php</filename>
 			<filename>toolbar.mobilejoomla.php</filename>
 			<filename>uninstall.mobilejoomla.php</filename>
+			<folder>cache16</folder>
 			<folder>cachestorage</folder>
 			<folder>extensions</folder>
 			<folder>images</folder>
 			<folder>markup</folder>
-			<folder>modules</folder>
-			<folder>plugins</folder>
-			<folder>templates</folder>
+			<folder>packages</folder>
 		</files>
 	</administration>
 	<installfile>uninstall.mobilejoomla.php</installfile>

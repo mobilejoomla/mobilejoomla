@@ -10,175 +10,135 @@
  */
 defined('_JEXEC') or die('Restricted access');
 
+jimport('joomla.installer.installer');
 jimport('joomla.filesystem.file');
 jimport('joomla.filesystem.folder');
 
-global $MJ_version;
-$MJ_version = '###VERSION###';
+function MJ_version()
+{
+	return '###VERSION###';
+}
+
+function isJoomla16()
+{
+	static $is_joomla16;
+	if(isset($is_joomla16))
+		return $is_joomla16;
+	$version = new JVersion;
+ 	$is_joomla16 = (substr($version->getShortVersion(),0,3) == '1.6');
+	return $is_joomla16;
+}
+
+function getExtensionId($type, $name, $group='')
+{
+	/** @var JDatabase $db */
+	$db =& JFactory::getDBO();
+	$version = new JVersion;
+ 	if(isJoomla16())
+	{
+		if($type=='plugin')
+			$db->setQuery("SELECT extension_id FROM #__extensions WHERE `type`='$type' AND `folder`='$group' AND `element`='$name'");
+		else
+			$db->setQuery("SELECT extension_id FROM #__extensions WHERE `type`='$type' AND `element`='$name'");
+		return $db->loadResult();
+	}
+	//Joomla!1.5
+	switch($type)
+	{
+	case 'plugin':
+		$db->setQuery("SELECT id FROM #__plugins WHERE `folder`='$group' AND `element`='$name'");
+		return $db->loadResult();
+	case 'module':
+		$db->setQuery("SELECT id FROM #__modules WHERE `module`='$name' AND `client_id`=0");
+		return $db->loadResult();
+	case 'template':
+		return $name;
+	default:
+		return false;
+	}
+}
 
 function InstallPlugin($group, $sourcedir, $name, $fullname, $publish = 1, $ordering = -99)
 {
-	global $ERRORS;
-	$PluginDir = JPATH_PLUGINS.DS.$group;
-	$upgrade = false;
-	if(is_file($PluginDir.DS.$name.'.php'))
-	{
-		$upgrade = true;
-		JFile::delete($PluginDir.DS.$name.'.php');
-		JFile::delete($PluginDir.DS.$name.'.xml');
-	}
-	$status = true;
-	if(!JFile::copy($sourcedir.DS.$name.'.php', $PluginDir.DS.$name.'.php'))
-	{
-		$ERRORS[] = str_replace(array ('%1', '%2'),
-		                        array ($sourcedir.DS.$name.'.php', $PluginDir.DS.$name.'.php'),
-		                        JText::_("Cannot copy '%1' into '%2'."));
-		$status = false;
-	}
-	if(!JFile::copy($sourcedir.DS.$name.'.xm_', $PluginDir.DS.$name.'.xml'))
-	{
-		$ERRORS[] = str_replace(array ('%1', '%2'),
-		                        array ($sourcedir.DS.$name.'.xm_', $PluginDir.DS.$name.'.xml'),
-		                        JText::_("Cannot copy '%1' into '%2'."));
-		$status = false;
-	}
+	$upgrade = getExtensionId('plugin', $name, $group);
+	$installer = new JInstaller();
+	if(!$installer->install($sourcedir.DS.$name))
+		return false;
 	if(!$upgrade)
 	{
 		/** @var JDatabase $db */
 		$db =& JFactory::getDBO();
-		$db->setQuery("INSERT INTO `#__plugins` (`name`, `element`, `folder`, `published`, `ordering`) VALUES ('$fullname', '$name', '$group', $publish, $ordering)");
+		if(isJoomla16())
+			$db->setQuery("UPDATE `#__extensions` SET `enabled`=1 WHERE `type`='plugin' AND `element`='$name' AND `folder`='$group'");
+		else
+			$db->setQuery("UPDATE `#__plugins` SET `published`=1 WHERE `element`='$name' AND `folder`='$group'");
 		$db->query();
 	}
-	return $status;
+	return true;
 }
 
 function UninstallPlugin($group, $name)
 {
-	$PluginDir = JPATH_PLUGINS.DS.$group;
-	/** @var JDatabase $db */
-	$db =& JFactory::getDBO();
-	$db->setQuery('DELETE FROM #__plugins WHERE `element` = '.$db->Quote($name));
-	$db->query();
-	$status = true;
-	$status = JFile::delete($PluginDir.DS.$name.'.php') && $status;
-	$status = JFile::delete($PluginDir.DS.$name.'.xml') && $status;
-	return $status;
+	$id = getExtensionId('plugin', $name, $group);
+	$installer = new JInstaller();
+	if(!$installer->uninstall('plugin', $id))
+		return false;
+	return true;
 }
 
 function InstallTemplate($sourcedir, $name)
 {
-	global $ERRORS;
-	$TemplateDir = JPATH_ROOT.DS.'templates'.DS.$name;
-	if(!is_dir($sourcedir))
-	{
-		$ERRORS[] = JText::_('Cannot find directory:')." $sourcedir.";
+	$installer = new JInstaller();
+	if(!$installer->install($sourcedir.DS.$name))
 		return false;
-	}
-	if(is_dir($TemplateDir) && !JFolder::delete($TemplateDir))
-	{
-		$ERRORS[] = JText::_('Cannot remove directory:').' '.$TemplateDir;
-		return false;
-	}
-	$status = true===JFolder::move($sourcedir, $TemplateDir);
-	if(is_file($TemplateDir.DS.'templateDetails.xm_') &&
-			!JFile::move($TemplateDir.DS.'templateDetails.xm_', $TemplateDir.DS.'templateDetails.xml'))
-	{
-		$ERRORS[] = str_replace(array ('%1', '%2'),
-		                        array ($TemplateDir.DS.'templateDetails.xm_', $TemplateDir.DS.'templateDetails.xml'),
-		                        JText::_("Cannot rename '%1' into '%2'."));
-		$status = false;
-	}
-	else
+	if(!isJoomla16())
 	{
 		/** @var JDatabase $db */
 		$db =& JFactory::getDBO();
-		$query = 'SELECT COUNT(*) FROM #__templates_menu WHERE template = '.$db->Quote($name);
-		$db->setQuery($query);
+		$db->setQuery('SELECT COUNT(*) FROM #__templates_menu WHERE template = '.$db->Quote($name));
 		if($db->loadResult()==0)
 		{
-			$query = 'INSERT INTO #__templates_menu (template, menuid) VALUES ('.$db->Quote($name).', -1)';
-			$db->setQuery($query);
+			$db->setQuery('INSERT INTO #__templates_menu (template, menuid) VALUES ('.$db->Quote($name).', -1)');
 			$db->query();
 		}
 	}
-	return $status;
+	return true;
 }
 
 function UninstallTemplate($name)
 {
-	global $ERRORS;
-	$TemplateDir = JPATH_ROOT.DS.'templates'.DS.$name;
-	/** @var JDatabase $db */
-	$db =& JFactory::getDBO();
-	$db->setQuery('DELETE FROM #__templates_menu WHERE client_id = 0 AND template = '.$db->Quote($name));
-	$db->query();
-	if(!JFolder::delete($TemplateDir))
-	{
-		$ERRORS[] = JText::_('Cannot remove directory:').' '.$TemplateDir;
+	$id = getExtensionId('template', $name);
+	$installer = new JInstaller();
+	if(!$installer->uninstall('template', $id))
 		return false;
-	}
 	return true;
 }
 
 function InstallModule($sourcedir, $name, $title, $position, $published = 1, $showtitle = 1)
 {
-	global $ERRORS;
-	$ModuleDir = JPATH_ROOT.DS.'modules'.DS.$name;
-	if(!is_dir($sourcedir))
-	{
-		$ERRORS[] = JText::_('Cannot find directory:')." $sourcedir.";
+	if(!is_array($position))
+		$position = array ($position);
+	$upgrade = getExtensionId('module', $name);
+	$installer = new JInstaller();
+	if(!$installer->install($sourcedir.DS.$name))
 		return false;
-	}
-	$upgrade = false;
-	if(is_file($ModuleDir.DS.$name.'.php'))
-	{
-		$upgrade = true;
-		if(!JFolder::delete($ModuleDir))
-		{
-			$ERRORS[] = JText::_('Cannot remove directory:').' '.$ModuleDir;
-			return false;
-		}
-	}
 	if(!$upgrade)
 	{
-		/** @var JDatabase $db */
-		$db =& JFactory::getDBO();
-		$db->setQuery("SELECT id FROM #__modules WHERE module = '$name' AND client_id = 0");
-		$ids = $db->loadResultArray();
-		if(count($ids)>0)
+		$id = getExtensionId('module', $name);
+		if($id)
 		{
-			$db->setQuery('DELETE FROM #__modules_menu WHERE moduleid IN ('.implode(', ',$ids).')');
+			/** @var JDatabase $db */
+			$db =& JFactory::getDBO();
+			$db->setQuery("DELETE FROM `#__modules` WHERE id=$id");
 			$db->query();
-			$db->setQuery("DELETE FROM #__modules WHERE module = '$name' AND client_id = 0");
-			$db->query();
-		}
-	}
-	if(JFolder::move($sourcedir.DS.$name, $ModuleDir) !== true)
-	{
-		$ERRORS[] = str_replace(array ('%1', '%2'),
-		                        array ($sourcedir.DS.$name, $ModuleDir.DS),
-		                        JText::_("Cannot copy '%1' into '%2'."));
-		return false;
-	}
-	if(is_file($ModuleDir.DS.$name.'.xm_') &&
-			!JFile::move($ModuleDir.DS.$name.'.xm_', $ModuleDir.DS.$name.'.xml'))
-	{
-		$ERRORS[] = str_replace(array ('%1', '%2'),
-		                        array ($ModuleDir.DS.$name.'.xm_', $ModuleDir.DS.$name.'.xml'),
-		                        JText::_("Cannot rename '%1' into '%2'."));
-		return false;
-	}
-	if(!$upgrade)
-	{
-		if(!is_array($position))
-			$position = array ($position);
-		foreach($position as $pos)
-		{
-			$db->setQuery("INSERT INTO `#__modules` (`title`, `content`, `ordering`, `position`, `published`, `module`, `showtitle`, `params`) VALUES ('$title', '', 1, '$pos', $published, '$name', '$showtitle', '')");
-			$db->query();
-			$id = (int) $db->insertid();
-			$db->setQuery("INSERT INTO `#__modules_menu` VALUES ( $id, 0 )");
-			$db->query();
+			foreach($position as $pos)
+			{
+				$db->setQuery("INSERT INTO `#__modules` (`title`, `content`, `ordering`, `position`, `published`, `module`, `showtitle`, `params`) VALUES ('$title', '', 1, '$pos', $published, '$name', '$showtitle', '')");
+				$db->query();
+				$id = (int) $db->insertid();
+				$db->setQuery("INSERT INTO `#__modules_menu` (`moduleid`, `menuid`) VALUES ($id, 0)");
+				$db->query();
+			}
 		}
 	}
 	return true;
@@ -186,34 +146,15 @@ function InstallModule($sourcedir, $name, $title, $position, $published = 1, $sh
 
 function UninstallModule($name)
 {
-	$ModuleDir = JPATH_ROOT.DS.'modules'.DS.$name;
-
-	/** @var JDatabase $db */
-	$db =& JFactory::getDBO();
-	$db->setQuery("SELECT id FROM #__modules WHERE module = '$name' AND client_id = 0");
-	$ids = $db->loadResultArray();
-	if(count($ids)>0)
-	{
-		$db->setQuery('DELETE FROM #__modules_menu WHERE moduleid IN ('.implode(', ',$ids).')');
-		$db->query();
-		$db->setQuery("DELETE FROM #__modules WHERE module = '$name' AND client_id = 0");
-		$db->query();
-	}
-
-	if(!JFolder::delete($ModuleDir))
-	{
-		$ERRORS[] = JText::_('Cannot remove directory:').' '.$ModuleDir;
+	$id = getExtensionId('module', $name);
+	$installer = new JInstaller();
+	if(!$installer->uninstall('module', $id))
 		return false;
-	}
-
 	return true;
 }
 
 function UpdateConfig()
 {
-	global $ERRORS, $WARNINGS;
-	global $MJ_version;
-
 	$configfile = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php';
 	$defconfigfile = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'defconfig.php';
 
@@ -227,7 +168,7 @@ function UpdateConfig()
 	}
 	else
 	{
-		$ERRORS[] = JText::_('Cannot find:')." $defconfigfile";
+		JError::raiseError(0, JText::_('COM_MJ__CANNOT_FIND')." $defconfigfile");
 		return false;
 	}
 
@@ -320,7 +261,7 @@ function UpdateConfig()
 
 	if(!function_exists('imagecopyresized'))
 	{
-		$WARNINGS[] = JText::_('GD2 library is not loaded.');
+		JError::raiseWarning(0, JText::_('COM_MJ__GD2_LIBRARY_IS_NOT_LOADED'));
 		if($MobileJoomla_Settings['tmpl_xhtml_img'] > 1)
 			$MobileJoomla_Settings['tmpl_xhtml_img'] = 1;
 		if($MobileJoomla_Settings['tmpl_wap_img'] > 1)
@@ -344,14 +285,14 @@ function UpdateConfig()
 			. "defined( '_JEXEC' ) or die( 'Restricted access' );\n"
 			. "\n"
 			. "\$MobileJoomla_Settings=array(\n"
-			. "'version'=>'$MJ_version',\n"
+			. "'version'=>'".MJ_version()."',\n"
 			. implode(",\n", $params)."\n"
 			. ");\n"
 			. "?>";
 
 	if(!JFile::write($configfile, $config))
 	{
-		$ERRORS[] = JText::_('Cannot update:')." $configfile";
+		JError::raiseError(0, JText::_('COM_MJ__CANNOT_UPDATE').' '.$configfile);
 		return false;
 	}
 	else
@@ -410,18 +351,17 @@ END";
 
 function terawurfl_test()
 {
-	global $WARNINGS;
 	$test = true;
 
 	if(version_compare(phpversion(), '5.0.0', '<'))
 	{
-		$WARNINGS[] = JText::_('TeraWURFL is designed to work with PHP5 only.');
+		JError::raiseWarning(0, JText::_('COM_MJ__TERAWURFL_PHP5_ONLY'));
 		$test = false;
 	}
 
 	if(!class_exists('mysqli') || !function_exists('mysqli_connect'))
 	{
-		$WARNINGS[] = JText::_('TeraWURFL is designed to work with MySQLi (MySQL improved) library.');
+		JError::raiseWarning(0, JText::_('COM_MJ__TERAWURFL_MYSQLI_LIBRARY'));
 		$test = false;
 	}
 
@@ -451,7 +391,7 @@ function terawurfl_test()
 	$mysqli = new mysqli($host, $user, $pass, $dbname, $port, $socket);
 	if(mysqli_connect_error())
 	{
-		$WARNINGS[] = JText::sprintf('Failed to connect to your MySQL database server using MySQLi library. MySQLi reports the following message (#%d): %s.', mysqli_connect_errno(), mysqli_connect_error());
+		JError::raiseWarning(0, JText::sprintf('COM_MJ__FAILED_TO_CONNECT_MYSQLI', mysqli_connect_errno(), mysqli_connect_error()));
 		return false;
 	}
 	$mysqli->close();
@@ -520,8 +460,7 @@ function parse_mysql_dump($handler, $uri)
 				$db->setQuery($query);
 				if($db->query()===false)
 				{
-					global $ERRORS;
-					$ERRORS[] = 'Database error: '.$db->getErrorMsg();
+					JError::raiseError(0, 'Database error: '.$db->getErrorMsg());
 					break 2;
 				}
 				$counter++;
@@ -541,7 +480,6 @@ function parse_mysql_dump($handler, $uri)
 
 function load_mysql_dump($bz2_file)
 {
-	global $WARNINGS;
 	safe_dl('bz2');
 	if(parse_mysql_dump('bz2', $bz2_file))
 		return true;
@@ -567,7 +505,7 @@ function load_mysql_dump($bz2_file)
 	{
 		$dump_ok = parse_mysql_dump('file', $teraSQL);
 		if(!$dump_ok)
-			$WARNINGS[] = JText::_('Error reading')." $teraSQL";
+			JError::raiseWarning(0, JText::_('COM_MJ__ERROR_READING').' '.$teraSQL);
 		if($teraSQL != $teraSQL_root)
 			JFile::delete($teraSQL);
 		return $dump_ok;
@@ -580,12 +518,12 @@ function load_mysql_dump($bz2_file)
 		$url = 'http://www.mobilejoomla.com/tera_dump.sql';
 		if(parse_mysql_dump('file', $url))
 			return true;
-		$WARNINGS[] = JText::_('Error downloading')." $url";
+		JError::raiseWarning(0, JText::_('COM_MJ__ERROR_DOWNLOADING').' '.$url);
 		return false;
 	}
 	else
 	{
-		$WARNINGS[] = JText::_('Cannot download TeraWURFL database');
+		JError::raiseWarning(0, JText::_('COM_MJ__CANNOT_DOWNLOAD_TERAWURFL'));
 		return false;
 	}
 }
@@ -636,14 +574,7 @@ function str2int($str)
 
 function com_install()
 {
-	global $ERRORS, $WARNINGS, $UPDATES;
-	global $upgrade;
-	global $MJ_version;
-
-	$ERRORS = array ();
-	$WARNINGS = array ();
-	$UPDATES = array ();
-	$upgrade = false;
+	JError::setErrorHandling(E_ERROR, 'Message');
 
 	@set_time_limit(1200);
 	@ini_set('max_execution_time', 1200);
@@ -653,8 +584,6 @@ function com_install()
 	if($memory_limit && str2int($memory_limit) < str2int($mj_memory_limit))
 		@ini_set('memory_limit', $mj_memory_limit);
 
-	JError::setErrorHandling(E_ERROR, 'Message');
-
 	/** @var JDatabase $db */
 	$db =& JFactory::getDBO();
 	/** @var JLanguage $lang */
@@ -662,6 +591,7 @@ function com_install()
 	$lang->load('com_mobilejoomla');
 
 	// check for upgrade
+	$upgrade = false;
 	$prev_version = '';
 	$manifest = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'mobilejoomla.xml';
 	if(is_file($manifest))
@@ -672,14 +602,18 @@ function com_install()
 			$element =& $xml->document->getElementByPath('version');
 			$prev_version = $element ? $element->data() : '';
 			if($prev_version)
-			{
 				$upgrade = true;
-				$UPDATES[] = JText::_('Upgrading from version:').' '.$prev_version;
-			}
 		}
 	}
 
-	if($upgrade)
+	$xm_files = JFolder::files(JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'packages', '\.xm_$', 2, true);
+	if(!empty($xm_files)) foreach($xm_files as $file)
+	{
+		$newfile = str_replace('.xm_', '.xml', $file);
+		JFile::move($file, $newfile);
+	}
+
+	if($upgrade && !isJoomla16())
 	{
 		$query = "DROP TABLE IF EXISTS `#__capability`";
 		$db->setQuery($query);
@@ -724,22 +658,22 @@ function com_install()
 	UpdateConfig();
 
 	// install templates
-	$TemplateSource = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'templates';
+	$TemplateSource = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'templates';
 	$templates = array ('mobile_pda','mobile_wap','mobile_imode','mobile_iphone');
 	$status = true;
 	foreach($templates as $template)
 	{
-		if(!InstallTemplate($TemplateSource.DS.$template, $template))
+		if(!InstallTemplate($TemplateSource, $template))
 		{
 			$status = false;
-			$ERRORS[] = "<b>".JText::_('Cannot install:')." Mobile Joomla '$template' template.</b>";
+			JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_INSTALL')." Mobile Joomla '$template' template.</b>");
 		}
 	}
 	if($status)
 		JFolder::delete($TemplateSource);
 
-	//install modules (over existing)
-	$ModuleSource = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'modules';
+	//install modules
+	$ModuleSource = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'modules';
 	$status = true;
 	$status = InstallModule($ModuleSource, 'mod_mj_header', 'Header Module', 'mj_pda_header', 1, 0) && $status;
 	$status = InstallModule($ModuleSource, 'mod_mj_pda_menu', 'Main Menu', 'mj_pda_header2', 1, 0) && $status;
@@ -751,27 +685,27 @@ function com_install()
 	if($status)
 		JFolder::delete($ModuleSource);
 	else
-		$ERRORS[] = '<b>'.JText::_('Cannot install:').' Mobile Joomla modules.</b>';
+		JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_INSTALL').' Mobile Joomla modules.</b>');
 
 	//install plugins
-	$PluginSource = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'plugins';
+	$PluginSource = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'plugins';
 	$status = true;
 	if(!InstallPlugin('system', $PluginSource, 'mobilebot', 'Mobile Joomla Plugin'))
 	{
 		$status = false;
-		$ERRORS[] = '<b>'.JText::_('Cannot install:').' Mobile Joomla Plugin.</b>';
+		JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_INSTALL').' Mobile Joomla Plugin.</b>');
 	}
-	$checkers = array ('simple' => -2, 'always' => 8, 'domains' => 9);
 	if(!JFolder::create(JPATH_PLUGINS.DS.'mobile'))
 	{
 		$status = false;
-		$ERRORS[] = '<b>'.JText::_('Cannot create directory:').' '.JPATH_PLUGINS.DS.'mobile</b>';
+		JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_CREATE_DIRECTORY').' '.JPATH_PLUGINS.DS.'mobile</b>');
 	}
+	$checkers = array ('simple' => -2, 'always' => 8, 'domains' => 9);
 	foreach($checkers as $plugin => $order)
 		if(!InstallPlugin('mobile', $PluginSource, $plugin, 'Mobile - '.ucfirst($plugin), 1, $order))
 		{
 			$status = false;
-			$ERRORS[] = '<b>'.JText::_('Cannot install:').' Mobile - '.ucfirst($plugin).'.</b>';
+			JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_INSTALL').' Mobile - '.ucfirst($plugin).'.</b>');
 		}
 
 	// install terawurfl plugin
@@ -782,7 +716,7 @@ function com_install()
 		if(!InstallPlugin('mobile', $PluginSource, 'terawurfl', 'Mobile - TeraWURFL', 1, 0))
 		{
 			$status = false;
-			$ERRORS[] = '<b>'.JText::_('Cannot install:').' Mobile - TeraWURFL</b>';
+			JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_INSTALL').' Mobile - TeraWURFL</b>');
 		}
 		else
 		{
@@ -790,61 +724,60 @@ function com_install()
 			JFile::delete($teraSQL);
 			$TeraWURFLDir = JPATH_PLUGINS.DS.'mobile'.DS.'terawurfl';
 			if(is_dir($TeraWURFLDir) && !JFolder::delete($TeraWURFLDir))
-				$ERRORS[] = JText::_('Cannot remove directory:').' '.$TeraWURFLDir;
+				JError::raiseError(0, JText::_('COM_MJ__CANNOT_REMOVE_DIRECTORY').' '.$TeraWURFLDir);
 			JFolder::move($PluginSource.DS.'terawurfl', $TeraWURFLDir);
 			if($dump_ok && !terawurfl_install_procedure())
 			{
-				$query = "UPDATE #__plugins SET params = 'mysql4=1' WHERE element = 'terawurfl' AND folder = 'mobile'";
+				if(isJoomla16())
+					$query = "UPDATE #__extensions SET params = 'mysql4=1' WHERE element = 'terawurfl' AND folder = 'mobile'";
+				else
+					$query = "UPDATE #__plugins SET params = 'mysql4=1' WHERE element = 'terawurfl' AND folder = 'mobile'";
 				$db->setQuery($query);
 				$db->query();
 			}
 			if(!$dump_ok || !terawurfl_test()) // disable terawurfl
 			{
-				$WARNINGS[] = JText::_('TeraWURFL will be disabled.');
-				$query = "UPDATE #__plugins SET published = 0 WHERE element = 'terawurfl' AND folder = 'mobile'";
+				JError::raiseWarning(0, JText::_('COM_MJ__TERAWURFL_WILL_BE_DISABLED'));
+				if(isJoomla16())
+					$query = "UPDATE #__extensions SET enabled = 0 WHERE element = 'terawurfl' AND folder = 'mobile'";
+				else
+					$query = "UPDATE #__plugins SET published = 0 WHERE element = 'terawurfl' AND folder = 'mobile'";
 				$db->setQuery($query);
 				$db->query();
 				clear_terawurfl_db();
 			}
 			else
 			{
-				$db->setQuery("SELECT published FROM `#__plugins` WHERE element = 'terawurfl' AND folder = 'mobile'");
+				if(isJoomla16())
+					$db->setQuery("SELECT enabled FROM `#__extensions` WHERE element = 'terawurfl' AND folder = 'mobile'");
+				else
+					$db->setQuery("SELECT published FROM `#__plugins` WHERE element = 'terawurfl' AND folder = 'mobile'");
 				$published = $db->loadResult();
 				if(!$published)
-					$WARNINGS[] = JText::_('TeraWURFL plugin may be enabled (published).');
+					JError::raiseWarning(0, JText::_('COM_MJ__TERAWURFL_MAY_BE_ENABLED'));
 			}
 		}
 	}
 	if($status)
 		JFolder::delete($PluginSource);
 
-	//Show install log
+	//Show install status
 	$msg = '';
-	if(count($ERRORS))
-		$msg .= '<font color=red><b>'.JText::_('Errors:').'</b></font><br />'.implode('<br />', $ERRORS).'<br /><br />';
-	if(count($WARNINGS))
-		$msg .= '<font color=blue><b>'.JText::_('Warnings:').'</b></font><br />'.implode('<br />', $WARNINGS).'<br /><br />';
-	if(count($UPDATES))
-		$msg .= '<font color=green><b>'.JText::_('Updated extensions:').'</b></font><br />'.implode('<br />', $UPDATES).'<br /><br />';
-	if(count($ERRORS) == 0)
-		$msg .= str_replace('[VER]', $MJ_version, JText::_('MJ_INSTALL_OK'));
+	if($upgrade)
+		$msg .= '<font color=green><b>'.JText::_('COM_MJ__UPDATED_EXTENSIONS')."</b></font><br />$prev_version<br /><br />";
+	if(count(JError::getErrors()) == 0)
+		$msg .= str_replace('[VER]', MJ_version(), JText::_('COM_MJ__INSTALL_OK'));
 ?>
 	<link rel="stylesheet" type="text/css"
-	      href="http://www.mobilejoomla.com/checker.php?v=<?php echo urlencode($MJ_version); ?>&s=1"/>
+	      href="http://www.mobilejoomla.com/checker.php?v=<?php echo urlencode(MJ_version()); ?>&s=1"/>
 	<a href="http://www.mobilejoomla.com/" id="mjupdate" target="_blank"></a>
+	<?php echo $msg; ?>
 <?php
-	echo $msg;
-	return true;
+	return count(JError::getErrors()) == 0;
 }
 
 function com_uninstall()
 {
-	global $ERRORS, $WARNINGS;
-	global $MJ_version;
-
-	$ERRORS = array ();
-	$WARNINGS = array ();
-
 	JError::setErrorHandling(E_ERROR, 'Message');
 
 	/** @var JDatabase $db */
@@ -853,22 +786,22 @@ function com_uninstall()
 	$lang =& JFactory::getLanguage();
 	$lang->load('com_mobilejoomla');
 
-	$db->setQuery("SELECT template FROM #__templates_menu WHERE client_id = 0 AND menuid = 0");
+	if(isJoomla16())
+		$db->setQuery("SELECT template FROM #__template_styles WHERE client_id = 0 AND home = 1 LIMIT 1");
+	else
+		$db->setQuery("SELECT template FROM #__templates_menu WHERE client_id = 0 AND menuid = 0");
 	$cur_template = $db->loadResult();
 
 	//uninstall plugins
 	if(!UninstallPlugin('system', 'mobilebot'))
-		$ERRORS[] = '<b>'.JText::_('Cannot uninstall:').' Mobile Joomla Plugin.</b>';
+		JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_UNINSTALL').' Mobile Joomla Plugin.</b>');
 	$checkers = array ('simple', 'always', 'domains');
 	foreach($checkers as $plugin)
 		if(!UninstallPlugin('mobile', $plugin))
-			$ERRORS[] = '<b>'.JText::_('Cannot uninstall:').' Mobile - '.ucfirst($plugin).'.</b>';
-
+			JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_UNINSTALL').' Mobile - '.ucfirst($plugin).'.</b>');
 	//uninstall terawurfl
 	if(!UninstallPlugin('mobile', 'terawurfl'))
-		$ERRORS[] = '<b>'.JText::_('Cannot uninstall:').' Mobile - TeraWURFL.</b>';
-	if(!JFolder::delete(JPATH_PLUGINS.DS.'mobile'.DS.'terawurfl'))
-		$ERRORS[] = JText::_('Cannot remove directory:').' '.JPATH_PLUGINS.DS.'mobile'.DS.'terawurfl';
+		JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_UNINSTALL').' Mobile - TeraWURFL.</b>');
 	clear_terawurfl_db();
 
 	//uninstall templates
@@ -876,30 +809,26 @@ function com_uninstall()
 	foreach($templateslist as $t)
 	{
 		if($cur_template == $t)
-			$ERRORS[] = "<b>".str_replace('%1', $t, JText::_("Cannot delete '%1' template because it is your default template."))."</b>";
+			JError::raiseError(0, '<b>'.str_replace('%1', $t, JText::_('COM_MJ__CANNOT_DELETE_DEFAULT_TEMPLATE')).'</b>');
 		elseif(!UninstallTemplate($t))
-			$ERRORS[] = "<b>".JText::_('Cannot uninstall:')." Mobile Joomla '$t' template.</b>";
+			JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_UNINSTALL')." Mobile Joomla '$t' template.</b>");
 	}
 
 	//uninstall modules
 	$moduleslist = array ('mod_mj_pda_menu', 'mod_mj_wap_menu', 'mod_mj_imode_menu', 'mod_mj_iphone_menu', 'mod_mj_markupchooser', 'mod_mj_header');
 	foreach($moduleslist as $m)
 		if(!UninstallModule($m))
-			$ERRORS[] = "<b>".JText::_('Cannot uninstall:')." Mobile Joomla '$m' module.</b>";
+			JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_UNINSTALL')." Mobile Joomla '$m' module.</b>");
 
-	//Show uninstall log
+	//Show uninstall status
 	$msg = '';
-	if(count($ERRORS))
-		$msg .= '<font color=red><b>'.JText::_('Errors:').'</b></font><br />'.implode('<br />', $ERRORS).'<br /><br />';
-	if(count($WARNINGS))
-		$msg .= '<font color=blue><b>'.JText::_('Warnings:').'</b></font><br />'.implode('<br />', $WARNINGS).'<br /><br />';
-	if(count($ERRORS) == 0)
-		$msg .= '<b>'.str_replace('[VER]', $MJ_version, JText::_('MJ_UNINSTALL_OK')).'</b>';
-	?>
+	if(count(JError::getErrors()) == 0)
+		$msg .= '<b>'.str_replace('[VER]', MJ_version(), JText::_('COM_MJ__UNINSTALL_OK')).'</b>';
+?>
 	<link rel="stylesheet" type="text/css"
-	      href="http://www.mobilejoomla.com/checker.php?v=<?php echo urlencode($MJ_version); ?>&s=2"/>
+	      href="http://www.mobilejoomla.com/checker.php?v=<?php echo urlencode(MJ_version()); ?>&s=2"/>
 	<a href="http://www.mobilejoomla.com/" id="mjupdate" target="_blank"></a>
-	<?php
-	echo $msg;
+	<?php echo $msg; ?>
+<?php
 	return true;
 }

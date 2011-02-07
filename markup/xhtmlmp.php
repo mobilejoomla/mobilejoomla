@@ -70,7 +70,7 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 			echo '<title>'.$this->getPageTitle().'</title>'."\n";
 		else
 			echo '<jdoc:include type="head" />';
-		global $mainframe;
+		$mainframe =& JFactory::getApplication();
 		$cur_template = $mainframe->getTemplate();
 		if($showstylesheet && is_file(JPATH_SITE.DS.'templates'.DS.$cur_template.DS.'css'.DS.'template_css.css'))
 		{
@@ -142,7 +142,7 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 
 	function showFooter()
 	{
-		global $mainframe;
+		$mainframe =& JFactory::getApplication();
 		if($this->config['tmpl_xhtml_jfooter'])
 		{
 			/** @var JLanguage $lang */
@@ -150,7 +150,7 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 			$lang->load('com_mobilejoomla', JPATH_ADMINISTRATOR);
 			$version = new JVersion();
 ?>
-<p class="jfooter">&copy; <?php echo JHTML::_('date', 'now', '%Y').' '.$mainframe->getCfg('sitename'); ?><br/><?php echo $version->URL; ?><br/><?php echo JText::_('Mobile version by');?> <a href="http://www.mobilejoomla.com/">Mobile Joomla!</a></p>
+<p class="jfooter">&copy; <?php echo JHTML::_('date', 'now', '%Y').' '.$mainframe->getCfg('sitename'); ?><br/><?php echo $version->URL; ?><br/><?php echo JText::_('COM_MJ__MOBILE_VERSION_BY');?> <a href="http://www.mobilejoomla.com/">Mobile Joomla!</a></p>
 <?php
 		}
 	}

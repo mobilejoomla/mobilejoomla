@@ -13,6 +13,10 @@ defined('_JEXEC') or die('Restricted access');
 
 CHANGELOG
 
+0.9.12
+Beta release
+- Support of Joomla!1.6
+
 0.9.11
 Beta release
 - Fix notice in Mobile-Simple plugin

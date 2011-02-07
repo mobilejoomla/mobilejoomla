@@ -102,7 +102,7 @@ class MobileJoomla_WML extends MobileJoomla
 
 	function showFooter()
 	{
-		global $mainframe;
+		$mainframe =& JFactory::getApplication();
 		if($this->config['tmpl_wap_jfooter'])
 		{
 			/** @var JLanguage $lang */
@@ -110,7 +110,7 @@ class MobileJoomla_WML extends MobileJoomla
 			$lang->load('com_mobilejoomla', JPATH_ADMINISTRATOR);
 			$version = new JVersion();
 ?>
-<p><small>&copy; <?php echo JHTML::_('date', 'now', '%Y').' '.$mainframe->getCfg('sitename'); ?><br/><?php echo $version->URL; ?><br/><?php echo JText::_('Mobile version by');?> <a href="http://www.mobilejoomla.com/">Mobile Joomla!</a></small></p>
+<p><small>&copy; <?php echo JHTML::_('date', 'now', '%Y').' '.$mainframe->getCfg('sitename'); ?><br/><?php echo $version->URL; ?><br/><?php echo JText::_('COM_MJ__MOBILE_VERSION_BY');?> <a href="http://www.mobilejoomla.com/">Mobile Joomla!</a></small></p>
 <?php
 		}
 	}
