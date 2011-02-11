@@ -227,19 +227,22 @@ class ImageRescaler
 		switch($src_ext)
 		{
 			case 'jpg':
-				$src_image = ImageCreateFromJPEG($dest_imagepath);
+				$src_image = @ImageCreateFromJPEG($dest_imagepath);
 				break;
 			case 'gif':
-				$src_image = ImageCreateFromGIF($dest_imagepath);
+				$src_image = @ImageCreateFromGIF($dest_imagepath);
 				break;
 			case 'wbmp':
-				$src_image = ImageCreateFromWBMP($dest_imagepath);
+				$src_image = @ImageCreateFromWBMP($dest_imagepath);
 				break;
 			case 'png':
-				$src_image = ImageCreateFromPNG($dest_imagepath);
+				$src_image = @ImageCreateFromPNG($dest_imagepath);
 				break;
 		}
 		JFile::delete($dest_imagepath);
+
+		if($src_image==false)
+			return $imageurl;
 
 		$dest_image = ImageCreateTrueColor($dest_width, $dest_height);
 
