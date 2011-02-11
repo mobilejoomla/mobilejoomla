@@ -121,7 +121,7 @@ class ImageRescaler
 		}
 		elseif(strpos($imageurl, $base_abs)===0)
 			$src_imagepath = JPATH_SITE.DS.substr($imageurl, strlen($base_abs));
-		elseif(strpos($imageurl, $MobileJoomla_Settings['desktop_url'])===0)
+		elseif($MobileJoomla_Settings['desktop_url'] && strpos($imageurl, $MobileJoomla_Settings['desktop_url'])===0)
 			$src_imagepath = JPATH_SITE.DS.substr($imageurl, strlen($MobileJoomla_Settings['desktop_url']));
 		else
 			return $imageurl;
