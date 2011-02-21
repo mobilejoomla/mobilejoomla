@@ -128,14 +128,30 @@ function InstallModule($sourcedir, $name, $title, $position, $published = 1, $sh
 		{
 			/** @var JDatabase $db */
 			$db =& JFactory::getDBO();
+
+			$db->setQuery("SELECT `params` FROM `#__modules` WHERE id=$id");
+			$params = $db->Quote($db->loadResult());
+
 			$db->setQuery("DELETE FROM `#__modules` WHERE id=$id");
 			$db->query();
-			$access = $admin ? 3 : 0;
+
+			$db->setQuery("DELETE FROM `#__modules_menu` WHERE moduleid=$id");
+			$db->query();
+
+			$access = isJoomla16() ? 1 : 0;
 			foreach($position as $pos)
 			{
-				$db->setQuery("INSERT INTO `#__modules` (`title`, `content`, `ordering`, `position`, `published`, `module`, `showtitle`, `params`, `access`, `client_id`) VALUES ('$title', '', 1, '$pos', $published, '$name', '$showtitle', '', $access, $admin)");
+				$db->setQuery("SELECT MAX(ordering) FROM `#__modules` WHERE `position`='$pos'");
+				$ordering = $db->loadResult();
+				++$ordering;
+
+				if(isJoomla16())
+					$db->setQuery("INSERT INTO `#__modules` (`title`, `ordering`, `position`, `published`, `module`, `showtitle`, `params`, `access`, `client_id`, `language`) VALUES ('$title', $ordering, '$pos', $published, '$name', $showtitle, $params, $access, $admin, '*')");
+				else
+					$db->setQuery("INSERT INTO `#__modules` (`title`, `ordering`, `position`, `published`, `module`, `showtitle`, `params`, `access`, `client_id`) VALUES ('$title', $ordering, '$pos', $published, '$name', $showtitle, $params, $access, $admin)");
 				$db->query();
 				$id = (int) $db->insertid();
+
 				$db->setQuery("INSERT INTO `#__modules_menu` (`moduleid`, `menuid`) VALUES ($id, 0)");
 				$db->query();
 			}
