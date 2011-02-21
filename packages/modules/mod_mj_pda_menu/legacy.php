@@ -223,6 +223,7 @@ function mosShowPDAMenu(&$params)
 	$exclude_menu_ids = explode(',', $params->get('excludemenu'));
 	$links = array ();
 	$sublinks = array ();
+	$menu_root = $is_joomla16 ? 1 : 0;
 
 	if(is_array($rows) && count($rows))
 	{
@@ -232,7 +233,7 @@ function mosShowPDAMenu(&$params)
 			if($activeId == $row->parent && !($exclude_menu_ids && in_array($row->id, $exclude_menu_ids)))
 				$sublinks[] = mosGetMenuLink_pda($row, 0, $params);
 
-			if($row->parent != '0')
+			if($row->parent != $menu_root)
 				continue;
 
 			if($exclude_menu_ids && in_array($row->id, $exclude_menu_ids))

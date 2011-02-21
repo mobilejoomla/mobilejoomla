@@ -223,12 +223,13 @@ function mosShowIPHONEMenu(&$params)
 
 	$exclude_menu_ids = explode(',', $params->get('excludemenu'));
 	$links = array ();
+	$menu_root = $is_joomla16 ? 1 : 0;
 	if(is_array($rows) && count($rows))
 	{
 		$aid = $user->get('aid', 0);
 		foreach($rows as $row) if($is_joomla16 || ($row->access <= $aid))
 		{
-			if(!$hasSub && $row->parent != '0')
+			if(!$hasSub && $row->parent != $menu_root)
 				continue;
 
 			if($exclude_menu_ids && in_array($row->id, $exclude_menu_ids))

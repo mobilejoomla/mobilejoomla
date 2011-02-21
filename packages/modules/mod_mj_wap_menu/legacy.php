@@ -126,6 +126,7 @@ function mosShowWAPMenu(&$params)
 
 	$exclude_menu_ids = explode(',', $params->get('excludemenu'));
 	$links = array ();
+	$menu_root = $is_joomla16 ? 1 : 0;
 	if(is_array($rows) && count($rows))
 	{
 		$aid = $user->get('aid', 0);
@@ -134,7 +135,7 @@ function mosShowWAPMenu(&$params)
 			if($activeMenu->id == $row->parent && !($exclude_menu_ids && in_array($row->id, $exclude_menu_ids)))
 				$sublinks[] = mosGetMenuLink_wap($row, 0, $params);
 
-			if($row->parent != '0')
+			if($row->parent != $menu_root)
 				continue;
 
 			if($exclude_menu_ids && in_array($row->id, $exclude_menu_ids))
