@@ -305,6 +305,10 @@ class plgSystemMobileBot extends JPlugin
 		$current = $_GET;
 		unset($current['lang']);
 		unset($current['tp']);
+		unset($current['mjmarkup']);
+		unset($current['mjscreenwidth']);
+		unset($current['mjscreenheight']);
+		unset($current['mjimageformats']);
 		if(isset($current[session_name()]))
 			unset($current[session_name()]);
 
