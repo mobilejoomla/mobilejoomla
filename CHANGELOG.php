@@ -16,6 +16,7 @@ CHANGELOG
 0.9.12
 Beta release
 - Support of Joomla!1.6
+- Backend Cpanel icon module
 
 0.9.11
 Beta release

@@ -33,7 +33,6 @@ function getExtensionId($type, $name, $group='')
 {
 	/** @var JDatabase $db */
 	$db =& JFactory::getDBO();
-	$version = new JVersion;
  	if(isJoomla16())
 	{
 		if($type=='plugin')
@@ -69,9 +68,9 @@ function InstallPlugin($group, $sourcedir, $name, $fullname, $publish = 1, $orde
 		/** @var JDatabase $db */
 		$db =& JFactory::getDBO();
 		if(isJoomla16())
-			$db->setQuery("UPDATE `#__extensions` SET `enabled`=1 WHERE `type`='plugin' AND `element`='$name' AND `folder`='$group'");
+			$db->setQuery("UPDATE `#__extensions` SET `enabled`=$publish, `ordering`=$ordering WHERE `type`='plugin' AND `element`='$name' AND `folder`='$group'");
 		else
-			$db->setQuery("UPDATE `#__plugins` SET `published`=1 WHERE `element`='$name' AND `folder`='$group'");
+			$db->setQuery("UPDATE `#__plugins` SET `published`=$publish, `ordering`=$ordering  WHERE `element`='$name' AND `folder`='$group'");
 		$db->query();
 	}
 	return true;
@@ -114,7 +113,7 @@ function UninstallTemplate($name)
 	return true;
 }
 
-function InstallModule($sourcedir, $name, $title, $position, $published = 1, $showtitle = 1)
+function InstallModule($sourcedir, $name, $title, $position, $published = 1, $showtitle = 1, $admin = 0)
 {
 	if(!is_array($position))
 		$position = array ($position);
@@ -131,9 +130,10 @@ function InstallModule($sourcedir, $name, $title, $position, $published = 1, $sh
 			$db =& JFactory::getDBO();
 			$db->setQuery("DELETE FROM `#__modules` WHERE id=$id");
 			$db->query();
+			$access = $admin ? 3 : 0;
 			foreach($position as $pos)
 			{
-				$db->setQuery("INSERT INTO `#__modules` (`title`, `content`, `ordering`, `position`, `published`, `module`, `showtitle`, `params`) VALUES ('$title', '', 1, '$pos', $published, '$name', '$showtitle', '')");
+				$db->setQuery("INSERT INTO `#__modules` (`title`, `content`, `ordering`, `position`, `published`, `module`, `showtitle`, `params`, `access`, `client_id`) VALUES ('$title', '', 1, '$pos', $published, '$name', '$showtitle', '', $access, $admin)");
 				$db->query();
 				$id = (int) $db->insertid();
 				$db->setQuery("INSERT INTO `#__modules_menu` (`moduleid`, `menuid`) VALUES ($id, 0)");
@@ -155,8 +155,8 @@ function UninstallModule($name)
 
 function UpdateConfig()
 {
-	$configfile = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php';
-	$defconfigfile = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'defconfig.php';
+	$configfile = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php';
+	$defconfigfile = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'defconfig.php';
 
 	if(is_file($configfile))
 	{
@@ -295,10 +295,6 @@ function UpdateConfig()
 		JError::raiseError(0, JText::_('COM_MJ__CANNOT_UPDATE').' '.$configfile);
 		return false;
 	}
-	else
-	{
-		JFile::delete($defconfigfile);
-	}
 
 	return true;
 }
@@ -424,7 +420,7 @@ function parse_mysql_dump($handler, $uri)
 		'gz'   => array('open'=>'gzopen', 'read'=>'gzread', 'close'=>'gzclose', 'eof'=>'gzeof'),
 		'bz2'  => array('open'=>'bzopen', 'read'=>'bzread', 'close'=>'bzclose', 'eof'=>'feof')
 	);
-	foreach($methods[$handler] as $key=>$func)
+	foreach($methods[$handler] as $func)
 		if(!function_exists($func))
 			return false;
 	$open  = $methods[$handler]['open'];
@@ -593,7 +589,7 @@ function com_install()
 	// check for upgrade
 	$upgrade = false;
 	$prev_version = '';
-	$manifest = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'mobilejoomla.xml';
+	$manifest = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'mobilejoomla.xml';
 	if(is_file($manifest))
 	{
 		$xml =& JFactory::getXMLParser('Simple');
@@ -606,7 +602,7 @@ function com_install()
 		}
 	}
 
-	$xm_files = JFolder::files(JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'packages', '\.xm_$', 2, true);
+	$xm_files = JFolder::files(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages', '\.xm_$', 2, true);
 	if(!empty($xm_files)) foreach($xm_files as $file)
 	{
 		$newfile = str_replace('.xm_', '.xml', $file);
@@ -618,7 +614,7 @@ function com_install()
 		$query = "DROP TABLE IF EXISTS `#__capability`";
 		$db->setQuery($query);
 		$db->query();
-		$admin = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS;
+		$admin = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS;
 		if(JFile::exists($admin.'images'.DS.'update16x16.gif'))
 			JFile::delete($admin.'images'.DS.'update16x16.gif');
 		if(JFile::exists($admin.'images'.DS.'wurfl16x16.gif'))
@@ -642,8 +638,8 @@ function com_install()
 			UninstallPlugin('mobile', 'webbots');
 	}
 
-	$extFile = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'extensions'.DS.'extensions.json';
-	$extDistFile = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'extensions'.DS.'extensions.json.dist';
+	$extFile = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'extensions'.DS.'extensions.json';
+	$extDistFile = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'extensions'.DS.'extensions.json.dist';
 
 	if(!JFile::exists($extFile))
 	{
@@ -658,7 +654,7 @@ function com_install()
 	UpdateConfig();
 
 	// install templates
-	$TemplateSource = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'templates';
+	$TemplateSource = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'templates';
 	$templates = array ('mobile_pda','mobile_wap','mobile_imode','mobile_iphone');
 	$status = true;
 	foreach($templates as $template)
@@ -673,7 +669,7 @@ function com_install()
 		JFolder::delete($TemplateSource);
 
 	//install modules
-	$ModuleSource = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'modules';
+	$ModuleSource = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'modules';
 	$status = true;
 	$status = InstallModule($ModuleSource, 'mod_mj_header', 'Header Module', 'mj_pda_header', 1, 0) && $status;
 	$status = InstallModule($ModuleSource, 'mod_mj_pda_menu', 'Main Menu', 'mj_pda_header2', 1, 0) && $status;
@@ -682,13 +678,14 @@ function com_install()
 	$status = InstallModule($ModuleSource, 'mod_mj_iphone_menu', 'Main Menu', 'mj_iphone_middle', 1, 0) && $status;
 	$status = InstallModule($ModuleSource, 'mod_mj_markupchooser', 'Select Markup',
 	                        array ('footer', 'mj_all_footer'), 1, 0) && $status;
+	$status = InstallModule($ModuleSource, 'mod_mj_adminicon', 'MobileJoomla CPanel Icons', 'icon', 1, 0, 1) && $status;
 	if($status)
 		JFolder::delete($ModuleSource);
 	else
 		JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_INSTALL').' Mobile Joomla modules.</b>');
 
 	//install plugins
-	$PluginSource = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'plugins';
+	$PluginSource = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'plugins';
 	$status = true;
 	if(!InstallPlugin('system', $PluginSource, 'mobilebot', 'Mobile Joomla Plugin'))
 	{
@@ -765,7 +762,11 @@ function com_install()
 	$msg = '';
 	if($upgrade)
 		$msg .= '<font color=green><b>'.JText::_('COM_MJ__UPDATED_EXTENSIONS')."</b></font><br />$prev_version<br /><br />";
-	if(count(JError::getErrors()) == 0)
+	$count = 0;
+	foreach(JError::getErrors() as $error)
+		if($error->get('level'))
+			$count++;
+	if($count == 0)
 		$msg .= str_replace('[VER]', MJ_version(), JText::_('COM_MJ__INSTALL_OK'));
 ?>
 	<link rel="stylesheet" type="text/css"
@@ -773,7 +774,7 @@ function com_install()
 	<a href="http://www.mobilejoomla.com/" id="mjupdate" target="_blank"></a>
 	<?php echo $msg; ?>
 <?php
-	return count(JError::getErrors()) == 0;
+	return true;
 }
 
 function com_uninstall()
@@ -815,14 +816,18 @@ function com_uninstall()
 	}
 
 	//uninstall modules
-	$moduleslist = array ('mod_mj_pda_menu', 'mod_mj_wap_menu', 'mod_mj_imode_menu', 'mod_mj_iphone_menu', 'mod_mj_markupchooser', 'mod_mj_header');
+	$moduleslist = array ('mod_mj_pda_menu', 'mod_mj_wap_menu', 'mod_mj_imode_menu', 'mod_mj_iphone_menu', 'mod_mj_markupchooser', 'mod_mj_header', 'mod_mj_adminicon');
 	foreach($moduleslist as $m)
 		if(!UninstallModule($m))
 			JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_UNINSTALL')." Mobile Joomla '$m' module.</b>");
 
 	//Show uninstall status
 	$msg = '';
-	if(count(JError::getErrors()) == 0)
+	$count = 0;
+	foreach(JError::getErrors() as $error)
+		if($error->get('level'))
+			$count++;
+	if($count == 0)
 		$msg .= '<b>'.str_replace('[VER]', MJ_version(), JText::_('COM_MJ__UNINSTALL_OK')).'</b>';
 ?>
 	<link rel="stylesheet" type="text/css"

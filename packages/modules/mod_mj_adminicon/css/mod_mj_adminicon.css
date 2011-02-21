@@ -1,0 +1,50 @@
+#mjicon div.icon {
+	text-align: center;
+	margin-right: 5px;
+	float: left;
+	margin-bottom: 5px;
+}
+
+#mjicon div.icon16 {
+	background-color: white;
+	margin-right: 15px;
+	margin-bottom: 15px;
+}
+
+#mjicon div.icon a {
+	display: block;
+	float: left;
+	border: 1px solid #f0f0f0;
+	height: 97px;
+	width: 108px;
+	color: #666;
+	vertical-align: middle;
+	text-decoration: none;
+}
+
+#mjicon div.icon a:hover {
+	border-left: 1px solid #eee;
+	border-top: 1px solid #eee;
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	background: #f9f9f9;
+	color: #0B55C4;
+}
+
+#mjicon img { padding: 10px 0; margin: 0 auto; }
+#mjicon span { display: block; text-align: center; }
+
+#mjupdate div.icon a {
+	border: 1px solid #f66;
+	background-color: #ffd;
+	color: #666;
+}
+
+#mjupdate div.icon a:hover {
+	border-left: 1px solid #f99;
+	border-top: 1px solid #f99;
+	border-right: 1px solid #c33;
+	border-bottom: 1px solid #c33;
+	background: #ffc;
+	color: #0B55C4;
+}
