@@ -14,6 +14,8 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
+jimport('joomla.html.parameter');
+
 /**
  * Utility function for writing a menu link
  */
@@ -213,7 +215,10 @@ function mosShowPDAMenu(&$params)
 	$is_joomla16 = (substr($version->getShortVersion(),0,3) == '1.6');
 	if($is_joomla16 && is_array($rows))
 		foreach($rows as $key=>$row)
+		{
 			$rows[$key]->parent = $rows[$key]->parent_id;
+			$rows[$key]->name = $rows[$key]->title;
+		}
 
 	$exclude_menu_ids = explode(',', $params->get('excludemenu'));
 	$links = array ();
@@ -222,7 +227,7 @@ function mosShowPDAMenu(&$params)
 	if(is_array($rows) && count($rows))
 	{
 		$aid = $user->get('aid', 0);
-		foreach($rows as $row) if($row->access <= $aid)
+		foreach($rows as $row) if($is_joomla16 || ($row->access <= $aid))
 		{
 			if($activeId == $row->parent && !($exclude_menu_ids && in_array($row->id, $exclude_menu_ids)))
 				$sublinks[] = mosGetMenuLink_pda($row, 0, $params);

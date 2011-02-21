@@ -24,8 +24,8 @@
 	</params>
 	<config><fields name="params">
 	<fieldset name="basic">
-		<field name="menutype" type="mos_menu" default="menu" label="Menu Name"
-				description="The name of the menu (default is menu)"/>
+		<field name="menutype" type="menu" default="mainmenu" label="Menu Name"
+				description="The name of the menu (default is mainmenu)"/>
 	</fieldset>
 	<fieldset name="other">
 		<field name="excludemenu" type="text" default="" label="Exclude Menu Items"
