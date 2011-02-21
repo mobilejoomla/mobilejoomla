@@ -159,7 +159,18 @@ class plgSystemMobileBot extends JPlugin
 			{
 				if($is_joomla16)
 				{
-//					include_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'cache16'.DS.'storage.php';
+					JRequest::setVar('mjmarkup', $MobileJoomla_Device['markup']);
+					JRequest::setVar('mjscreenwidth', $MobileJoomla_Device['screenwidth']);
+					JRequest::setVar('mjscreenheight', $MobileJoomla_Device['screenheight']);
+					JRequest::setVar('mjimageformats', implode('', $MobileJoomla_Device['imageformats']));
+					$registeredurlparams = $mainframe->get('registeredurlparams');
+					if(empty($registeredurlparams))
+						$registeredurlparams = new stdClass();
+					$registeredurlparams->mjmarkup = 'WORD';
+					$registeredurlparams->mjscreenwidth = 'INT';
+					$registeredurlparams->mjscreenheight = 'INT';
+					$registeredurlparams->mjimageformats = 'WORD';
+					$mainframe->set('registeredurlparams', $registeredurlparams);
 				}
 				else
 				{
@@ -175,7 +186,18 @@ class plgSystemMobileBot extends JPlugin
 				$config->setValue('config.caching', false);
 				if($is_joomla16)
 				{
-					include_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'cache16'.DS.'storage.php';
+					JRequest::setVar('mjmarkup', $MobileJoomla_Device['markup']);
+					JRequest::setVar('mjscreenwidth', $MobileJoomla_Device['screenwidth']);
+					JRequest::setVar('mjscreenheight', $MobileJoomla_Device['screenheight']);
+					JRequest::setVar('mjimageformats', implode('', $MobileJoomla_Device['imageformats']));
+					$registeredurlparams = $mainframe->get('registeredurlparams');
+					if(empty($registeredurlparams))
+						$registeredurlparams = new stdClass();
+					$registeredurlparams->mjmarkup = 'WORD';
+					$registeredurlparams->mjscreenwidth = 'INT';
+					$registeredurlparams->mjscreenheight = 'INT';
+					$registeredurlparams->mjimageformats = 'WORD';
+					$mainframe->set('registeredurlparams', $registeredurlparams); 				}
 				}
 				else
 				{
