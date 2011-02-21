@@ -664,6 +664,11 @@ function com_install()
 			$status = false;
 			JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_INSTALL')." Mobile Joomla '$template' template.</b>");
 		}
+		elseif(isJoomla16()) // remove J1.5 views until 1.6-compatible is not released
+		{
+			JFolder::delete(JPATH_SITE.DS.'templates'.DS.$template.DS.'html');
+			JFolder::create(JPATH_SITE.DS.'templates'.DS.$template.DS.'html');
+		}
 	}
 	if($status)
 		JFolder::delete($TemplateSource);
