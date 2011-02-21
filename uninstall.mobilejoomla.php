@@ -48,7 +48,7 @@ function getExtensionId($type, $name, $group='')
 		$db->setQuery("SELECT id FROM #__plugins WHERE `folder`='$group' AND `element`='$name'");
 		return $db->loadResult();
 	case 'module':
-		$db->setQuery("SELECT id FROM #__modules WHERE `module`='$name' AND `client_id`=0");
+		$db->setQuery("SELECT id FROM #__modules WHERE `module`='$name'");
 		return $db->loadResult();
 	case 'template':
 		return $name;
@@ -129,14 +129,20 @@ function InstallModule($sourcedir, $name, $title, $position, $published = 1, $sh
 			/** @var JDatabase $db */
 			$db =& JFactory::getDBO();
 
-			$db->setQuery("SELECT `params` FROM `#__modules` WHERE id=$id");
+			if(isJoomla16())
+				$db->setQuery("SELECT `params` FROM `#__extensions` WHERE extension_id=$id");
+			else
+				$db->setQuery("SELECT `params` FROM `#__modules` WHERE id=$id");
 			$params = $db->Quote($db->loadResult());
 
-			$db->setQuery("DELETE FROM `#__modules` WHERE id=$id");
+			$db->setQuery("DELETE FROM `#__modules` WHERE `module`='$name'");
 			$db->query();
 
-			$db->setQuery("DELETE FROM `#__modules_menu` WHERE moduleid=$id");
-			$db->query();
+			if(!isJoomla16())
+			{
+				$db->setQuery("DELETE FROM `#__modules_menu` WHERE moduleid=$id");
+				$db->query();
+			}
 
 			$access = isJoomla16() ? 1 : 0;
 			foreach($position as $pos)
@@ -740,10 +746,6 @@ function com_install()
 		{
 			$dump_ok = load_mysql_dump($teraSQL);
 			JFile::delete($teraSQL);
-			$TeraWURFLDir = JPATH_PLUGINS.DS.'mobile'.DS.'terawurfl';
-			if(is_dir($TeraWURFLDir) && !JFolder::delete($TeraWURFLDir))
-				JError::raiseError(0, JText::_('COM_MJ__CANNOT_REMOVE_DIRECTORY').' '.$TeraWURFLDir);
-			JFolder::move($PluginSource.DS.'terawurfl', $TeraWURFLDir);
 			if($dump_ok && !terawurfl_install_procedure())
 			{
 				if(isJoomla16())
