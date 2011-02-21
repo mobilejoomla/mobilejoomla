@@ -197,7 +197,7 @@ class plgSystemMobileBot extends JPlugin
 					$registeredurlparams->mjscreenwidth = 'INT';
 					$registeredurlparams->mjscreenheight = 'INT';
 					$registeredurlparams->mjimageformats = 'WORD';
-					$mainframe->set('registeredurlparams', $registeredurlparams); 				}
+					$mainframe->set('registeredurlparams', $registeredurlparams);
 				}
 				else
 				{
