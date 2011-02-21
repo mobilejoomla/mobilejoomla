@@ -218,7 +218,8 @@ class ImageRescaler
 		if(!JFolder::exists($dest_imagedir))
 		{
 			JFolder::create($dest_imagedir);
-			JFile::write($dest_imagedir.DS.'index.html', '<html><body bgcolor="#FFFFFF"></body></html>');
+			$indexhtml = '<html><body bgcolor="#FFFFFF"></body></html>';
+			JFile::write($dest_imagedir.DS.'index.html', $indexhtml);
 		}
 
 		if(!JFile::copy($src_imagepath, $dest_imagepath))
