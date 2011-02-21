@@ -110,9 +110,9 @@ if($params->get('wml_show', 0))
 	if($link!==false) $links[] = array('url'=>$link, 'text'=>$text);
 }
 
-if($params->get('imode_show', 0))
+if($params->get('chtml_show', 0))
 {
-	$text = $params->get('imode_text', 'iMode Version');
+	$text = $params->get('chtml_text', 'iMode Version');
 	$link = $helper->getChangeLink($markup, 'chtml');
 	if($link!==false) $links[] = array('url'=>$link, 'text'=>$text);
 }

@@ -379,7 +379,7 @@ class plgSystemMobileBot extends JPlugin
 			case 'xhtml':
 			case 'iphone':
 			case 'wml':
-			case 'imode':
+			case 'chtml':
 				break;
 			default:
 				$markup = false;

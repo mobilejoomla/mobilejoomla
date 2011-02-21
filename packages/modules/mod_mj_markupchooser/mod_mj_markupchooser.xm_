@@ -68,13 +68,19 @@
 		<param name="iphone_text" type="text" default="iPhone Version" label="iPhone Version Link Text"
 				description="iPhone markup link text"/>
 		<param name="@spacer" type="spacer" default="" label="" description=""/>
+		<param name="chtml_show" type="radio" default="0" label="Show iMode link" description="Show iMode version link.">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="chtml_text" type="text" default="iMode Version" label="iMode Version Link Text"
+				description="iMode version link text"/>
+		<param name="@spacer" type="spacer" default="" label="" description=""/>
 		<param name="wml_show" type="radio" default="0" label="Show WML link" description="Show WML version link.">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>
 		<param name="wml_text" type="text" default="WAP Version" label="WAP Version Link Text"
 				description="WAP version link text"/>
-		<param name="@spacer" type="spacer" default="" label="" description=""/>
 	</params>
 	<params group="advanced">
 		<param name="moduleclass_sfx" type="text" default="" label="Module Class Suffix"
@@ -135,13 +141,19 @@
 		<field name="iphone_text" type="text" default="iPhone Version" label="iPhone Version Link Text"
 				description="iPhone markup link text"/>
 		<field name="@spacer" type="spacer" default="" label="" description=""/>
+		<field name="chtml_show" type="radio" default="0" label="Show iMode link" description="Show iMode version link.">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</field>
+		<field name="chtml_text" type="text" default="iMode Version" label="iMode Version Link Text"
+				description="iMode version link text"/>
+		<field name="@spacer" type="spacer" default="" label="" description=""/>
 		<field name="wml_show" type="radio" default="0" label="Show WML link" description="Show WML version link.">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</field>
 		<field name="wml_text" type="text" default="WAP Version" label="WAP Version Link Text"
 				description="WAP version link text"/>
-		<field name="@spacer" type="spacer" default="" label="" description=""/>
 	</fieldset>
 	<fieldset name="advanced">
 		<field name="moduleclass_sfx" type="text" default="" label="Module Class Suffix"
