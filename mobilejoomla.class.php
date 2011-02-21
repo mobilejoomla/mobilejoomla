@@ -21,7 +21,7 @@ class MobileJoomla
 		static $instance;
 		if(!is_array($instance))
 		{
-			$config = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php';
+			$config = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php';
 			$MobileJoomla_Settings = array ();
 			include($config);
 			$instance = &$MobileJoomla_Settings;
@@ -49,7 +49,7 @@ class MobileJoomla
 			$class = 'MobileJoomla_'.strtoupper($markup);
 			if(!class_exists($class))
 			{
-				$path = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'markup'.DS.$markup.'.php';
+				$path = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'markup'.DS.$markup.'.php';
 				require_once($path);
 				if(!class_exists($class))
 					JError::raiseError(500, 'Class not found: '.$class);
@@ -172,7 +172,7 @@ class MobileJoomla
 
 	function RescaleImages($text, $scaletype, $addstyles = false)
 	{
-		require_once(JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'imagerescaler.class.php');
+		require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'imagerescaler.class.php');
 		return ImageRescaler::RescaleImages($text, $scaletype, $addstyles);
 	}
 }

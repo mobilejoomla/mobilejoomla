@@ -39,7 +39,7 @@ class HTML_mobilejoomla
 {
 	function getMJVersion()
 	{
-		$manifest = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'mobilejoomla.xml';
+		$manifest = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'mobilejoomla.xml';
 		if(is_file($manifest))
 		{
 			$xml =& JFactory::getXMLParser('Simple');
@@ -72,7 +72,7 @@ class HTML_mobilejoomla
 
 	function showconfig(&$lists, $MobileJoomla_Settings)
 	{
-		global $option;
+		jimport('joomla.filesystem.file');
 		JHTML::_('behavior.tooltip');
 		JHTML::_('behavior.switcher');
 		HTML_mobilejoomla::CheckForUpdate();
@@ -97,7 +97,10 @@ class HTML_mobilejoomla
 				</td>
 				<td width="500">
 					<span class="componentheading">/ administrator / components / com_mobilejoomla / config.php <?php echo JText::_('COM_MJ__IS') ?>
-						: <b><?php echo !is_file('components/com_mobilejoomla/config.php') ? '<font color="red">'.JText::_('COM_MJ__MISSING').'</font>' : is_writable('components/com_mobilejoomla/config.php') ? '<font color="green">'.JText::_('COM_MJ__WRITEABLE').'</font>' : '<font color="red">'.JText::_('COM_MJ__UNWRITEABLE').'</font>' ?></b></span>
+						: <b><?php echo
+							!JFile::exists(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php') ? '<font color="red">'.JText::_('COM_MJ__MISSING').'</font>'
+							: is_writable(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php') ? '<font color="green">'.JText::_('COM_MJ__WRITEABLE').'</font>'
+							: '<font color="red">'.JText::_('COM_MJ__UNWRITEABLE').'</font>' ?></b></span>
 				</td>
 			</tr>
 		</table>
@@ -888,7 +891,7 @@ class HTML_mobilejoomla
 		echo $tabs->endPane();
 		echo JHTML::_('form.token');
 		?>
-		<input type="hidden" name="option" value="<?php echo $option; ?>"/>
+		<input type="hidden" name="option" value="<?php echo JRequest::getString('option'); ?>"/>
 		<input type="hidden" name="task" value=""/>
 		</form>
 		<script type="text/javascript" src="<?php echo JURI::root(true);?>/includes/js/overlib_mini.js"></script>

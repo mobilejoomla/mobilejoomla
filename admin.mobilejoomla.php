@@ -17,7 +17,7 @@ $mainframe =& JFactory::getApplication();
 
 switch($task)
 {
-	case 'save':
+	case 'apply':
 		saveconfig($task);
 		break;
 	case 'cancel':
@@ -52,7 +52,7 @@ function selectArray(&$arr, $tag_name, $tag_attribs, $key, $text, $selected = NU
 function showconfig()
 {
 	/** @var array $MobileJoomla_Settings */
-	include(JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php');
+	include(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php');
 
 	/** @var JDatabase $db */
 	$db =& JFactory::getDBO();
@@ -366,7 +366,7 @@ function saveExtensionsConfig()
 {
 	$mainframe =& JFactory::getApplication();
 
-	$content = file_get_contents(JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'extensions'.DS.'extensions.json');
+	$content = file_get_contents(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'extensions'.DS.'extensions.json');
 
 	$json = json_decode($content);
 
@@ -397,7 +397,7 @@ function saveExtensionsConfig()
 	                     JText::_('COM_MJ__CONFIG_UPDATED'));
 }
 
-function saveconfig($task)
+function saveconfig()
 {
 	if(JRequest::getVar('ext', false))
 	{
@@ -406,7 +406,7 @@ function saveconfig($task)
 		return;
 	}
 
-	$configfname = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php';
+	$configfname = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php';
 	include($configfname);
 
 	$settings = array ('caching', 'httpcaching', 'domains', 'pcpage', 'templatewidth', 'jpegquality',
@@ -495,7 +495,7 @@ function showextensions()
 		echo JText::_('COM_MJ__ERROR_JSON_LIBRARY_ISNOT_INSTALLED');
 		return;
 	}
-	$content = file_get_contents(JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'extensions'.DS.'extensions.json');
+	$content = file_get_contents(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'extensions'.DS.'extensions.json');
 
 	$json = json_decode($content);
 

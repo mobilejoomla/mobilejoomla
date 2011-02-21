@@ -15,7 +15,7 @@ class TOOLBAR_mobilejoomla
 	function _DEFAULT()
 	{
 		JToolBarHelper::title(JText::_('COM_MJ__MOBILE_JOOMLA_SETTINGS'), 'config.php');
-		JToolBarHelper::save();
+		JToolBarHelper::apply();
 		JToolBarHelper::cancel('cancel');
 	}
 

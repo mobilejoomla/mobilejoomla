@@ -26,7 +26,6 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 
 	function getContentType()
 	{
-		$contenttype = 'text/html';
 		if($this->config['tmpl_xhtml_contenttype'] == 0)
 			$contenttype = $this->ContentType_Auto();
 		else

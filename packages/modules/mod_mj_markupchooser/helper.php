@@ -28,7 +28,7 @@ class modMarkupChooserHelper
         /**
          * No idea what this chould do, but it was definitely broken by how it used static variables and did not run on PHP 5.3 -mikko
          */
-	function getChangeLink($user_markup, $test_markup, $text)
+	function getChangeLink($user_markup, $test_markup)
 	{
 		if($user_markup == $test_markup)
 			return $this->show_chosen_markup?'':false;

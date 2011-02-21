@@ -34,7 +34,7 @@ class plgSystemMobileBot extends JPlugin
 			return;
 
 		//load MobileJoomla class
-		require_once(JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'mobilejoomla.class.php');
+		require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'mobilejoomla.class.php');
 
 		//load config
 		$MobileJoomla_Settings =& MobileJoomla::getConfig();
@@ -159,13 +159,13 @@ class plgSystemMobileBot extends JPlugin
 			{
 				if($is_joomla16)
 				{
-					include_once JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'cache16'.DS.'storage.php';
+//					include_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'cache16'.DS.'storage.php';
 				}
 				else
 				{
 					$handler = $config->getValue('config.cache_handler', 'file');
 					$class = 'JCacheStorage'.ucfirst($handler);
-					$path = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'cachestorage'.DS.$handler.'.php';
+					$path = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'cachestorage'.DS.$handler.'.php';
 					jimport('joomla.cache.storage');
 					JLoader::register($class, $path);
 				}
@@ -175,7 +175,7 @@ class plgSystemMobileBot extends JPlugin
 				$config->setValue('config.caching', false);
 				if($is_joomla16)
 				{
-					include_once JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'cache16'.DS.'storage.php';
+					include_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'cache16'.DS.'storage.php';
 				}
 				else
 				{

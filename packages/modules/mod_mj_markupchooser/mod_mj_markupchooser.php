@@ -16,7 +16,7 @@ require_once(dirname(__FILE__).DS.'helper.php');
 
 if(!defined('_MJ'))
 {
-	$mj_class_path = JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_mobilejoomla'.DS.'mobilejoomla.class.php';
+	$mj_class_path = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'mobilejoomla.class.php';
 	if(!file_exists($mj_class_path))
 		return;
 	include_once($mj_class_path);
@@ -48,7 +48,7 @@ switch($saved_markup)
 	case 'iphone':
 	case 'mobile':
 	case 'wml':
-	case 'imode':
+	case 'chtml':
 		break;
 	default:
 		$saved_markup = false;
@@ -68,7 +68,7 @@ $links = array();
 if($params->get('auto_show', 0))
 {
 	$text = $params->get('auto_text', 'Automatic Version');
-	$link = modMarkupChooserHelper::getChangeLink($saved_markup===false?'-':'', '-', $text);
+	$link = modMarkupChooserHelper::getChangeLink($saved_markup===false?'-':'', '-');
 	if($link!==false) $links[] = array('url'=>$link, 'text'=>$text);
 }
 
@@ -76,44 +76,44 @@ if($params->get('mobile_show', 1))
 {
 	$text = $params->get('mobile_text', 'Mobile Version');
 	$is_mobile_markup = $markup == 'xhtml' || $markup == 'iphone' ||
-						$markup == 'wml' || $markup == 'imode' ||
+						$markup == 'wml' || $markup == 'chtml' ||
 						$saved_markup=='mobile';
-	$link = $helper->getChangeLink($is_mobile_markup?'mobile':'', 'mobile', $text);
+	$link = $helper->getChangeLink($is_mobile_markup?'mobile':'', 'mobile');
 	if($link!==false) $links[] = array('url'=>$link, 'text'=>$text);
 }
 
 if($params->get('web_show', 1))
 {
 	$text = $params->get('web_text', 'Standard Version');
-	$link = $helper->getChangeLink($markup, '', $text);
+	$link = $helper->getChangeLink($markup, '');
 	if($link!==false) $links[] = array('url'=>$link, 'text'=>$text);
 }
 
 if($params->get('xhtml_show', 0))
 {
 	$text = $params->get('xhtml_text', 'Smartphone Version');
-	$link = $helper->getChangeLink($markup, 'xhtml', $text);
+	$link = $helper->getChangeLink($markup, 'xhtml');
 	if($link!==false) $links[] = array('url'=>$link, 'text'=>$text);
 }
 
 if($params->get('iphone_show', 0))
 {
 	$text = $params->get('iphone_text', 'iPhone Version');
-	$link = $helper->getChangeLink($markup, 'iphone', $text);
+	$link = $helper->getChangeLink($markup, 'iphone');
 	if($link!==false) $links[] = array('url'=>$link, 'text'=>$text);
 }
 
 if($params->get('wml_show', 0))
 {
 	$text = $params->get('wml_text', 'WAP Version');
-	$link = $helper->getChangeLink($markup, 'wml', $text);
+	$link = $helper->getChangeLink($markup, 'wml');
 	if($link!==false) $links[] = array('url'=>$link, 'text'=>$text);
 }
 
 if($params->get('imode_show', 0))
 {
 	$text = $params->get('imode_text', 'iMode Version');
-	$link = $helper->getChangeLink($markup, 'imode', $text);
+	$link = $helper->getChangeLink($markup, 'chtml');
 	if($link!==false) $links[] = array('url'=>$link, 'text'=>$text);
 }
 
