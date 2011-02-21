@@ -15,7 +15,7 @@
 		<folder>tmpl</folder>
 	</files>
 	<params>
-		<param name="menutype" type="mos_menu" default="" label="Menu Name"
+		<param name="menutype" type="mos_menu" default="mainmenu" label="Menu Name"
 				description="The name of the menu (default is mainmenu)"/>
 	</params>
 	<params group="other">
@@ -24,8 +24,8 @@
 	</params>
 	<config><fields name="params">
 	<fieldset name="basic">
-		<field name="menutype" type="mos_menu" default="" label="Menu Name"
-				description="The name of the menu (default is mainmenu)"/>
+		<field name="menutype" type="mos_menu" default="menu" label="Menu Name"
+				description="The name of the menu (default is menu)"/>
 	</fieldset>
 	<fieldset name="other">
 		<field name="excludemenu" type="text" default="" label="Exclude Menu Items"
