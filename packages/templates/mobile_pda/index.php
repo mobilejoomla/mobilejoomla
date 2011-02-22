@@ -113,19 +113,20 @@ $base = JURI::base()."templates/".$this->template;
 		{
                 ?>
                         <div class="mj-sponsor-placement">
-	                        <script type="text/javascript">
-	                        //<!--
-	                        /* <![CDATA[ */
-	                        window.googleAfmcRequest = {
-	                          client: 'ca-mb-pub-5710199815985059',
-	                          format: '320x50_mb',
-	                          output: 'html',
-	                          slotname: '1896811186',
-	                        };
-	                        /* ]]> */
-	                        //-->
-	                        </script>
-							<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_afmc_ads.js"></script>
+                        <script type="text/javascript">
+                        	//<!--
+                        	/* <![CDATA[ */
+                        	 (function(){
+                        		var loc = "cloud-ad.appspot.com/ad.js"
+                        		var script = document.createElement('script');
+                        		var uri = "?domain=" + encodeURIComponent(window.location.hostname);
+                        		var src = ('https:' == document.location.protocol ? 'https://' : 'http://') + loc + uri;
+                        		var strings = ['<script src="',  src, '" type="text/javascript">', '<', '/script>'].join('');
+                        		document.write(strings);
+                        	})();
+                        	/* ]]> */
+                        	//-->
+                        </script>
                         </div>
                 <?
                 }
