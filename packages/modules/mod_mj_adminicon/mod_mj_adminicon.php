@@ -26,7 +26,7 @@ include_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'admin
 HTML_MobileJoomla::CheckForUpdate();
 ?>
 <div id="mjicon">
-	<div style="float:<?php echo ($lang->isRTL()) ? 'right' : 'left'; ?>;">
+	<div id="mjnoupdate" style="float:<?php echo ($lang->isRTL()) ? 'right' : 'left'; ?>;">
 		<div class="icon <?php echo $extra; ?>">
 			<a href="index.php?option=com_mobilejoomla">
 				<img src="modules/mod_mj_adminicon/images/icon-48.png" />
@@ -36,7 +36,14 @@ HTML_MobileJoomla::CheckForUpdate();
 	</div>
 	<div id="mjupdate" style="float:<?php echo ($lang->isRTL()) ? 'right' : 'left'; ?>;">
 		<div class="icon <?php echo $extra; ?>">
-			<a href="http://www.mobilejoomla.com/download.html" target="_blank">
+			<form method="post" action="<?php echo JRoute::_('index.php?option=com_installer&view=install');?>" id="mjdownload" style="display:none;">
+				<input type="hidden" name="install_url" value="http://www.mobilejoomla.com/latest.tar.gz" />
+				<input type="hidden" name="type" value="" /> 
+				<input type="hidden" name="installtype" value="url" /> 
+				<input type="hidden" name="task" value="install.install" /> 
+				<?php echo JHtml::_('form.token'); ?>
+			</form>
+			<a href="http://www.mobilejoomla.com/download.html" target="_blank" onclick="document.getElementById('mjdownload').submit();return false;">
 				<img src="modules/mod_mj_adminicon/images/icon-48.png" />
 				<span><?php echo JText::_('COM_MJ__UPDATE_AVAILABLE'); ?></span>
 			</a>
