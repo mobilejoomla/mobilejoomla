@@ -4,12 +4,11 @@
  * 
  * Tera-WURFL was written by Steve Kamerman, and is based on the
  * Java WURFL Evolution package by Luca Passani and WURFL PHP Tools by Andrea Trassati.
- * This version uses a MySQL database to store the entire WURFL file, multiple patch
+ * This version uses a database to store the entire WURFL file, multiple patch
  * files, and a persistent caching mechanism to provide extreme performance increases.
  * 
  * @package TeraWurflUserAgentMatchers
  * @author Steve Kamerman <stevekamerman AT gmail.com>
- * @version Stable 2.1.3 $Date: 2010/09/18 15:43:21
  * @license http://www.mozilla.org/MPL/ MPL Vesion 1.1
  */
 /**
@@ -21,7 +20,7 @@ class PortalmmmUserAgentMatcher extends UserAgentMatcher {
 		parent::__construct($wurfl);
 	}
 	public function applyConclusiveMatch($ua) {
-		$this->wurfl->toLog("Applying ".get_class($this)." Conclusive Match: Direct Match",LOG_INFO);
-		return $this->risMatch($ua,5);
+		// Exact match only
+		return WurflConstants::$GENERIC;
 	}
 }

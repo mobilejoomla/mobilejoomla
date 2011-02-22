@@ -4,12 +4,11 @@
  * 
  * Tera-WURFL was written by Steve Kamerman, and is based on the
  * Java WURFL Evolution package by Luca Passani and WURFL PHP Tools by Andrea Trassati.
- * This version uses a MySQL database to store the entire WURFL file, multiple patch
+ * This version uses a database to store the entire WURFL file, multiple patch
  * files, and a persistent caching mechanism to provide extreme performance increases.
  * 
  * @package TeraWurfl
  * @author Steve Kamerman <stevekamerman AT gmail.com>
- * @version Stable 2.1.3 $Date: 2010/09/18 15:43:21
  * @license http://www.mozilla.org/MPL/ MPL Vesion 1.1
  */
 /**
@@ -139,11 +138,13 @@ class UserAgentUtils{
 	 */
 	public static function cleanUserAgent($ua){
 		$ua = self::removeUPLinkFromUA($ua);
-		// Remove serial number
+		// Remove serial numbers
 		$ua = preg_replace('/\/SN\d{15}/','/SNXXXXXXXXXXXXXXX',$ua);
+		$ua = preg_replace('/\[(ST|TF|NT)\d+\]/','',$ua);
 		// Remove locale identifier
 		$ua = preg_replace('/([ ;])[a-zA-Z]{2}-[a-zA-Z]{2}([ ;\)])/','$1xx-xx$2',$ua);
 		$ua = self::normalizeBlackberry($ua);
+		$ua = self::normalizeAndroid($ua);
 		$ua = rtrim($ua);
 		return $ua;
 	}
@@ -156,6 +157,14 @@ class UserAgentUtils{
 		$pos = strpos($ua,'BlackBerry');
 		if($pos !== false && $pos > 0) $ua = substr($ua,$pos);
 		return $ua;
+	}
+	/**
+	 * Normalizes Android version numbers
+	 * @param String User agent
+	 * @return String User agent
+	 */
+	public static function normalizeAndroid($ua){
+		return preg_replace('/(Android \d\.\d)([^; \/\)]+)/','$1',$ua);
 	}
 	/**
 	 * Removes UP.Link traces from user agent strings
@@ -202,7 +211,7 @@ class UserAgentUtils{
     /**
      * Returns the character position (index) of the target string in the given user agent, starting from a given index.  If target is not in user agent, returns length of user agent.
      * @param String User agent
-     * @param String Target string to search for
+     * @param String Target string to search for, or, Array of Strings to search for
      * @param int Character postition in the user agent at which to start looking for the target
      * @return int Character position (index) or user agent length
      */
@@ -211,15 +220,23 @@ class UserAgentUtils{
 		if($startingIndex === false) {
 			return $length;
 		}
-		$pos = strpos($ua, $target, $startingIndex);
-		return ($pos === false)? $length : $pos;
+		if(is_array($target)){
+			foreach($target as $target_n){
+				$pos = strpos($ua, $target_n, $startingIndex);
+				if($pos !== false) return $pos;
+			}
+			return $length;
+		}else{
+			$pos = strpos($ua, $target, $startingIndex);
+			return ($pos === false)? $length : $pos;
+		}
 	}
 	/**
 	 * The character postition of the Nth occurance of a target string in a user agent
 	 * @param String User agent
 	 * @param String Target string to search for in user agent
 	 * @param int The Nth occurence to find
-	 * @return int Character position
+	 * @return int Character position or -1 if $needle is not found $ordinal times
 	 */
 	public static function ordinalIndexOf($ua, $needle, $ordinal) {
 		if (is_null($ua) || empty($ua) || !is_integer($ordinal)){

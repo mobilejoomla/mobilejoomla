@@ -4,12 +4,11 @@
  *
  * Tera-WURFL was written by Steve Kamerman, and is based on the
  * Java WURFL Evolution package by Luca Passani and WURFL PHP Tools by Andrea Trassati.
- * This version uses a MySQL database to store the entire WURFL file, multiple patch
+ * This version uses a database to store the entire WURFL file, multiple patch
  * files, and a persistent caching mechanism to provide extreme performance increases.
  *
  * @package TeraWurflDatabase
  * @author Steve Kamerman <stevekamerman AT gmail.com>
- * @version Stable 2.1.3 $Date: 2010/09/18 15:43:21
  * @license http://www.mozilla.org/MPL/ MPL Vesion 1.1
  */
 /**
@@ -62,7 +61,8 @@ class TeraWurflDatabase_MySQL5 extends TeraWurflDatabase{
 	// Device Table Functions (device,hybrid,patch)
 	public function getDeviceFromID($wurflID){
 		$this->numQueries++;
-		$res = $this->dbcon->query("SELECT * FROM `".TeraWurflConfig::$TABLE_PREFIX.'Merge'."` WHERE `deviceID`=".$this->SQLPrep($wurflID)) or die($this->dbcon->error);
+		$res = $this->dbcon->query("SELECT * FROM `".TeraWurflConfig::$TABLE_PREFIX.'Merge'."` WHERE `deviceID`=".$this->SQLPrep($wurflID));
+		if(!$res) throw new Exception("Error: ".$this->dbcon->error);
 		if($res->num_rows == 0){
 			$res->close();
 			throw new Exception("Tried to lookup an invalid WURFL Device ID: $wurflID");
@@ -121,20 +121,9 @@ class TeraWurflDatabase_MySQL5 extends TeraWurflDatabase{
 		$wurflid = $data['DeviceID'];
 		return ($wurflid == 'NULL' || is_null($wurflid))? WurflConstants::$GENERIC: $wurflid;
 	}
-	// TODO: Implement with Stored Proc
 	// LD == Levesthein Distance
 	public function getDeviceFromUA_LD($userAgent,$tolerance,UserAgentMatcher &$matcher){
 		throw new Exception("Error: this function (LD) is not yet implemented in MySQL");
-		$safe_ua = $this->SQLPrep($userAgent);
-		$this->numQueries++;
-		//$res = $this->dbcon->query("call ".TeraWurflConfig::$TABLE_PREFIX."_LD($safe_ua,$tolerance)");
-		// TODO: check for false
-		$data = array();
-		while($row = $res->fetch_assoc()){
-			$data[]=$row;
-		}
-		$this->cleanConnection();
-		return $data;
 	}
 	public function getDeviceFallBackTree($wurflID){
 		if($this->use_nested_set){
@@ -152,7 +141,10 @@ class TeraWurflDatabase_MySQL5 extends TeraWurflDatabase{
 				$res->free();
 			}
 		}while($this->dbcon->more_results() && $this->dbcon->next_result());
-		if($data[$i-1]['id'] != WurflConstants::$GENERIC){
+		if($i == 0){
+			$tw = new TeraWurfl();
+			$tw->toLog("Tera-WURFL Error: database fallback procedure returned no records, verify that ".TeraWurflConfig::$TABLE_PREFIX."_FallBackDevices exists.",LOG_ERR,__CLASS__.'::'.__FUNCTION__);
+		}else if($data[$i-1]['id'] != WurflConstants::$GENERIC){
 			$tw = new TeraWurfl();
 			$tw->toLog("WURFL Error: device {$data[$i-1]['id']} falls back on an inexistent device: {$data[$i-1]['fall_back']}",LOG_ERR,__CLASS__.'::'.__FUNCTION__);
 		}
@@ -311,7 +303,7 @@ ORDER BY parent.`rt`",
 		$this->createGenericDeviceTable($tablename);
 		$createtable = "INSERT INTO `$tablename` ".implode(" UNION ALL ",$tables);
 		$this->numQueries++;
-		$this->dbcon->query($createtable) or die("ERROR: ".$this->dbcon->error);
+		if(!$this->dbcon->query($createtable)) throw new Exception("Error: ".$this->dbcon->error);
 		return true;
 	}
 	/**
@@ -358,7 +350,8 @@ ORDER BY parent.`rt`",
 	public function getDeviceFromCache($userAgent){
 		$tablename = TeraWurflConfig::$TABLE_PREFIX.'Cache';
 		$this->numQueries++;
-		$res = $this->dbcon->query("SELECT * FROM `$tablename` WHERE `user_agent`=".$this->SQLPrep($userAgent)) or die("Error: ".$this->dbcon->error);
+		$res = $this->dbcon->query("SELECT * FROM `$tablename` WHERE `user_agent`=".$this->SQLPrep($userAgent));
+		if(!$res) throw new Exception("Error: ".$this->dbcon->error);
 		if($res->num_rows == 0){
 			$res->close();
 			//echo "[[UA NOT FOUND IN CACHE: $userAgent]]";
@@ -369,13 +362,13 @@ ORDER BY parent.`rt`",
 		return unserialize($data['cache_data']);
 
 	}
-	public function saveDeviceInCache($userAgent,$device){
+	public function saveDeviceInCache($userAgent,&$device){
 		if(strlen($userAgent)==0) return true;
 		$tablename = TeraWurflConfig::$TABLE_PREFIX.'Cache';
 		$ua = $this->SQLPrep($userAgent);
 		$packed_device = $this->SQLPrep(serialize($device));
 		$this->numQueries++;
-		$this->dbcon->query("INSERT DELAYED INTO `$tablename` (`user_agent`,`cache_data`) VALUES ($ua,$packed_device)")or die("Error: ".$this->dbcon->error);
+		if(!$this->dbcon->query("INSERT DELAYED INTO `$tablename` (`user_agent`,`cache_data`) VALUES ($ua,$packed_device)")) throw new Exception("Error: ".$this->dbcon->error);
 		if($this->dbcon->affected_rows > 0){
 			return true;
 		}

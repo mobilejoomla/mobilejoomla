@@ -4,12 +4,11 @@
  * 
  * Tera-WURFL was written by Steve Kamerman, and is based on the
  * Java WURFL Evolution package by Luca Passani and WURFL PHP Tools by Andrea Trassati.
- * This version uses a MySQL database to store the entire WURFL file, multiple patch
+ * This version uses a database to store the entire WURFL file, multiple patch
  * files, and a persistent caching mechanism to provide extreme performance increases.
  * 
  * @package TeraWurflUserAgentMatchers
  * @author Steve Kamerman <stevekamerman AT gmail.com>
- * @version Stable 2.1.3 $Date: 2010/09/18 15:43:21
  * @license http://www.mozilla.org/MPL/ MPL Vesion 1.1
  */
 /**
@@ -19,11 +18,11 @@
 class OperaMiniUserAgentMatcher extends UserAgentMatcher {
 	
 	public static $constantIDs = array(
-		"browser_opera_mini_release1",
-		"browser_opera_mini_release2",
-		"browser_opera_mini_release3",
-		"browser_opera_mini_release4",
-		"browser_opera_mini_release4"
+		'browser_opera_mini_release1',
+		'browser_opera_mini_release2',
+		'browser_opera_mini_release3',
+		'browser_opera_mini_release4',
+		'browser_opera_mini_release5',
 	);
 	
 	public function __construct(TeraWurfl $wurfl){
@@ -35,25 +34,13 @@ class OperaMiniUserAgentMatcher extends UserAgentMatcher {
 		return $this->risMatch($ua, $tolerance);
 	}
 	public function recoveryMatch($ua){
-       $this->wurfl->toLog("Applying ".get_class($this)." recovery match ($ua)",LOG_INFO);
-    	if(self::contains($ua,"Opera Mini/1")){
-    		return "browser_opera_mini_release1";
-    	}
-		if(self::contains($ua,"Opera Mini/2")){
-    		return "browser_opera_mini_release2";
-    	}
-		if(self::contains($ua,"Opera Mini/3")){
-    		return "browser_opera_mini_release3";
-    	}
-		if(self::contains($ua,"Opera Mini/4")){
-    		return "browser_opera_mini_release4";
-    	}
-		if(self::contains($ua,"Opera Mini/5")){
-    		return "browser_opera_mini_release5";
-    	}
-		if(self::contains($ua,"Opera Mobi")){
-    		return "browser_opera_mini_release4";
-    	}
-		return "browser_opera_mini_release1";
+		$this->wurfl->toLog("Applying ".get_class($this)." recovery match ($ua)",LOG_INFO);
+		if(preg_match('#Opera Mini/([1-5])#',$ua,$matches)){
+			return 'browser_opera_mini_release'.$matches[1];
+		}
+		if(self::contains($ua,'Opera Mobi')){
+			return 'browser_opera_mini_release4';
+		}
+		return 'browser_opera_mini_release1';
 	}
 }

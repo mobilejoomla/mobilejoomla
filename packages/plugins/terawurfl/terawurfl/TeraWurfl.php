@@ -4,18 +4,18 @@
  * 
  * Tera-WURFL was written by Steve Kamerman, and is based on the
  * Java WURFL Evolution package by Luca Passani and WURFL PHP Tools by Andrea Trassati.
- * This version uses a MySQL database to store the entire WURFL file, multiple patch
+ * This version uses a database to store the entire WURFL file, multiple patch
  * files, and a persistent caching mechanism to provide extreme performance increases.
  * 
  * @package TeraWurfl
  * @author Steve Kamerman <stevekamerman AT gmail.com>
- * @version Stable 2.1.3 $Date: 2010/09/18 15:43:21
  * @license http://www.mozilla.org/MPL/ MPL Vesion 1.1
  */
+if(!class_exists('TeraWurflConfig'))
+	require_once realpath(dirname(__FILE__).'/TeraWurflConfig.php');
 /**#@+
  * Include required files
  */
-require_once realpath(dirname(__FILE__).'/TeraWurflConfig.php');
 require_once realpath(dirname(__FILE__).'/DatabaseConnectors/TeraWurflDatabase.php');
 require_once realpath(dirname(__FILE__).'/TeraWurflLoader.php');
 require_once realpath(dirname(__FILE__).'/UserAgentFactory.php');
@@ -89,7 +89,7 @@ class TeraWurfl{
 	 * The installed version of Tera-WURFL
 	 * @var String
 	 */
-	public $release_version = "2.1.3";
+	public $release_version = "2.1.4";
 	/**
 	 * The required version of PHP for this release
 	 * @var String
@@ -264,12 +264,10 @@ class TeraWurfl{
 		$this->db->numQueries = 0;
 		$this->matchData = array(
 			"num_queries" => 0,
-			"actual_root_device" => '',
 			"match_type" => '',
 			"matcher" => '',
 			"match"	=> false,
 			"lookup_time" => 0,
-			"fall_back_tree" => ''
 		);
 		$this->lookup_start = microtime(true);
 		$this->foundInCache = false;
@@ -326,6 +324,8 @@ class TeraWurfl{
 			throw new Exception("Invalid Device ID: ".var_export($deviceID,true)."\nMatcher: {$this->userAgentMatcher->matcherName()}\nUser Agent: ".$this->userAgent);
 			exit(1);
 		}
+		$this->matchData['actual_root_device'] = '';
+		$this->matchData['fall_back_tree'] = '';
 		// Now get all the devices in the fallback tree
 		$fallbackIDs = array();
 		if($deviceID != WurflConstants::$GENERIC && $this->db->db_implements_fallback){
@@ -454,9 +454,6 @@ class TeraWurfl{
 		}
 		$_textToLog = date('r')." [".php_uname('n')." ".getmypid()."]"."[$func] ".$warn_banner . $text;
 		$logfile = $this->rootdir.TeraWurflConfig::$DATADIR.TeraWurflConfig::$LOG_FILE;
-		if(!is_writeable($logfile)){
-			throw new Exception("Tera-WURFL Error: cannot write to log file ($logfile)");
-		}
 		$_logFP = fopen($logfile, "a+");
 		fputs($_logFP, $_textToLog."\n");
 		fclose($_logFP);
@@ -466,7 +463,8 @@ class TeraWurfl{
 	 * @param Array New properties to be added
 	 * @return void
 	 */
-	public function addTopLevelSettings(Array $newCapabilities){
+	public function addTopLevelSettings($newCapabilities){
+		if(!is_array($newCapabilities)) return;
 		foreach($newCapabilities as $key => $val){
 			if(is_array($val))continue;
 			$this->capabilities[$key] = $val;
