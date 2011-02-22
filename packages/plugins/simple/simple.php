@@ -101,12 +101,12 @@ class plgMobileSimple extends JPlugin
 			return;
 
 		$iphone_list = array('Mozilla/5.0 (iPod;',
-		                     'Mozilla/5.0 (iPod touch;',
-		                     'Mozilla/5.0 (iPhone;',
-		                     'Apple iPhone ',
-		                     'Mozilla/5.0 (iPhone Simulator;',
-		                     'Mozilla/5.0 (Aspen Simulator;',
-		                     'Mozilla/5.0 (device; U; CPU iPhone OS');
+							 'Mozilla/5.0 (iPod touch;',
+							 'Mozilla/5.0 (iPhone;',
+							 'Apple iPhone ',
+							 'Mozilla/5.0 (iPhone Simulator;',
+							 'Mozilla/5.0 (Aspen Simulator;',
+							 'Mozilla/5.0 (device; U; CPU iPhone OS');
 		if($MobileJoomla_Settings['iphoneipad'])
 			$iphone_list[] = 'Mozilla/5.0 (iPad;';
 		foreach($iphone_list as $iphone_ua)
@@ -135,31 +135,37 @@ class plgMobileSimple extends JPlugin
 		$webbots_list = array('Bot', 'bot', 'BOT', 'Crawler', 'crawler', 'Spider', 'Googlebot',
 							  'ia_archiver', 'Mediapartners-Google', 'msnbot', 'Yahoo! Slurp', 'YahooSeeker',
 							  'Validator', 'W3C-checklink', 'CSSCheck', 'GSiteCrawler');
-		$wapbots_list = array('Wapsilon', 'WinWAP', 'WAP-Browser');
 
 		$found_desktop = $this->CheckSubstrs($desktop_os_list, $useragent_commentsblock) ||
 						 $this->CheckSubstrs($webbots_list, $useragent);
+		if($found_desktop)
+		{
+			$MobileJoomla_Device['markup'] = '';
+			return;
+		}
+
+		$wapbots_list = array('Wapsilon', 'WinWAP', 'WAP-Browser');
 		$found_mobilebot = $this->CheckSubstrs($wapbots_list, $useragent);
-		if($found_mobilebot && !$found_desktop)
-		{ // WAP bot for sure
+		if($found_mobilebot)
+		{
 			$MobileJoomla_Device['markup'] = 'wml';
 			return;
 		}
 
-		if($found_desktop && !$found_mobilebot)
+		$mobile_os_list = array('Google Wireless Transcoder', 'Windows CE', 'WindowsCE', 'Symbian',
+								'Android', 'armv6l', 'armv5', 'Mobile', 'CentOS', 'mowser', 'AvantGo',
+								'Opera Mobi', 'J2ME/MIDP', 'Smartphone', 'Go.Web', 'Palm', 'iPAQ');
+		$mobile_token_list = array('Profile/MIDP', 'Configuration/CLDC-', '160x160', '176x220',
+								   '240x240', '240x320', '320x240', 'UP.Browser', 'UP.Link', 'SymbianOS',
+								   'PalmOS', 'PocketPC', 'SonyEricsson', 'Nokia', 'BlackBerry',
+								   'Vodafone', 'BenQ', 'Novarra-Vision', 'Iris', 'NetFront', 'HTC_',
+								   'Xda_', 'SAMSUNG-SGH', 'Wapaka', 'DoCoMo');
+		$found_mobile = $this->CheckSubstrs($mobile_os_list, $useragent_commentsblock) ||
+						$this->CheckSubstrs($mobile_token_list, $useragent);
+		if($found_mobile)
 		{
-			$mobile_os_list = array('Google Wireless Transcoder', 'Windows CE', 'WindowsCE', 'Symbian',
-									'Android', 'armv6l', 'armv5', 'Mobile', 'CentOS', 'mowser', 'AvantGo',
-									'Opera Mobi', 'J2ME/MIDP', 'Smartphone', 'Go.Web', 'Palm', 'iPAQ');
-			$mobile_token_list = array('Profile/MIDP', 'Configuration/CLDC-', '160x160', '176x220',
-									   '240x240', '240x320', '320x240', 'UP.Browser', 'UP.Link', 'SymbianOS',
-									   'PalmOS', 'PocketPC', 'SonyEricsson', 'Nokia', 'BlackBerry',
-									   'Vodafone', 'BenQ', 'Novarra-Vision', 'Iris', 'NetFront', 'HTC_',
-									   'Xda_', 'SAMSUNG-SGH', 'Wapaka', 'DoCoMo');
-			$found_mobile = $this->CheckSubstrs($mobile_os_list, $useragent_commentsblock) ||
-							$this->CheckSubstrs($mobile_token_list, $useragent);
-			if(!$found_mobile)
-				$MobileJoomla_Device['markup'] = ''; //Desktop for sure
+			$MobileJoomla_Device['markup'] = 'xhtml';
+			return;
 		}
 	}
 	
