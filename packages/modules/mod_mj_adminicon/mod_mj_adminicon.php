@@ -37,7 +37,7 @@ HTML_MobileJoomla::CheckForUpdate();
 				<input type="hidden" name="option" value="com_installer" />
 				<input type="hidden" name="task" value="<?php echo $is_joomla16 ? 'install.install' : 'doInstall'; ?>" />
 				<input type="hidden" name="installtype" value="url" />
-				<input type="hidden" name="install_url" value="http://www.mobilejoomla.com/latest.php" />
+				<input type="hidden" name="install_url" value="http://www.mobilejoomla.com/latest.tar.gz" />
 				<input type="hidden" name="type" value="" />
 				<?php echo JHtml::_('form.token'); ?>
 			</form>
