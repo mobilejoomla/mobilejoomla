@@ -17,7 +17,6 @@
 		<menu img="../administrator/components/com_mobilejoomla/images/mj16x16.gif">MobileJoomla</menu>
 		<submenu>
 			<menu task="settings" img="js/ThemeOffice/config.png">Settings</menu>
-			<menu task="extensions">Extensions</menu>
 			<menu task="about" img="js/ThemeOffice/info.png">About</menu>
 		</submenu>
 		<languages>
