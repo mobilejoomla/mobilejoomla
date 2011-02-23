@@ -145,7 +145,6 @@ else
     	/* <![CDATA[ */
     	 (function(){
     		var loc = "cloud-ad.appspot.com/ad.js"
-    		var script = document.createElement('script');
     		var uri = "?domain=" + encodeURIComponent(window.location.hostname);
     		var src = ('https:' == document.location.protocol ? 'https://' : 'http://') + loc + uri;
     		var strings = ['<script src="',  src, '" type="text/javascript">', '<', '/script>'].join('');
