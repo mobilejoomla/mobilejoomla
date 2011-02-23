@@ -692,6 +692,11 @@ function com_install()
 			JFolder::create(JPATH_SITE.DS.'templates'.DS.$template.DS.'html');
 		}
 	}
+
+	$apple_touch_icon = JPATH_SITE.DS.'templates'.DS.'mobile_iphone'.DS.'apple-touch-icon.png';
+	if(!JFile::exists($apple_touch_icon))
+		JFile::move($TemplateSource.DS.'mobile_iphone'.DS.'apple-touch-icon.png', $apple_touch_icon);
+
 	if($status)
 		JFolder::delete($TemplateSource);
 
