@@ -941,6 +941,7 @@ class HTML_mobilejoomla
 
 	function showextensions($tabs)
 	{
+		HTML_mobilejoomla::CheckForUpdate();
 ?>
 		<div id="mjupdate">
 			<h2><?php echo JText::_('COM_MJ__UPDATE_AVAILABLE');?></h2>
