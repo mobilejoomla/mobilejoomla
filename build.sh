@@ -7,7 +7,7 @@ MJ_URL="http://www.mobilejoomla.com"
 MJ_DESC="Mobile Joomla!"
 MJ_AUTHOR="Mobile Joomla!"
 MJ_EMAIL="hello@mobilejoomla.com"
-MJ_COPYRIGTH="(C) 2008-$CUR_YEAR MobileJoomla!"
+MJ_COPYRIGTH="(C) 2008-$CUR_YEAR Mobile Joomla!"
 MJ_LICENSE="http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL"
 
 # do replacements

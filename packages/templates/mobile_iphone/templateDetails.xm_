@@ -9,7 +9,7 @@
 	<authorEmail>###EMAIL###</authorEmail>
 	<authorUrl>###URL###</authorUrl>
 	<license>###LICENSE###</license>
-	<description>MobileJoomla!</description>
+	<description>Mobile Joomla!</description>
 	<files>
 		<filename>index.php</filename>
 		<filename>component.php</filename>
