@@ -26,7 +26,7 @@ HTML_MobileJoomla::CheckForUpdate();
 	<div id="mjnoupdate" style="float:<?php echo ($lang->isRTL()) ? 'right' : 'left'; ?>;">
 		<div class="icon <?php echo $is_joomla16 ? 'icon16' : 'icon15'; ?>">
 			<a href="index.php?option=com_mobilejoomla">
-				<img src="modules/mod_mj_adminicon/images/icon-48.png" />
+				<img src="modules/mod_mj_adminicon/images/mj-cpanel.png" />
 				<span><?php echo JText::_('COM_MJ__MOBILEJOOMLA'); ?></span>
 			</a>
 		</div>
@@ -42,7 +42,7 @@ HTML_MobileJoomla::CheckForUpdate();
 				<?php echo JHtml::_('form.token'); ?>
 			</form>
 			<a href="http://www.mobilejoomla.com/download.html" target="_blank" onclick="document.getElementById('mjdownload').submit();return false;">
-				<img src="modules/mod_mj_adminicon/images/icon-48.png" />
+				<img src="modules/mod_mj_adminicon/images/mj-update.png" />
 				<span><?php echo JText::_('COM_MJ__UPDATE_AVAILABLE'); ?></span>
 			</a>
 		</div>
