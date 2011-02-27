@@ -294,6 +294,8 @@ function UpdateConfig()
 			$MobileJoomla_Settings['tmpl_iphone_img'] = 1;
 	}
 
+	$MobileJoomla_Settings['httpcaching'] = 0;
+
 	$params = array ();
 	foreach($MobileJoomla_Settings as $param => $value)
 	{
