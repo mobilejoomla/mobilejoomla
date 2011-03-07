@@ -681,6 +681,9 @@ jQuery(document).ready(mjAjaxDownload);
 //]]>
 </script>
 <style type="text/css">
+#mjheader {
+	font-weight: bold;
+}
 #mjstages {
 	list-style-type: none;
 	margin: 0;
@@ -715,6 +718,7 @@ jQuery(document).ready(mjAjaxDownload);
 	background-image: url('components/com_mobilejoomla/images/error.png');
 }
 </style>
+<div class="mjheader"><?php echo JText::_('COM_MJ__UPDATE_HEADER'); ?></div>
 <ul id="mjstages">
 	<li id="mjdownload"><?php echo JText::_('COM_MJ__UPDATE_DOWNLOAD'); ?></li>
 	<li id="mjunpack"><?php echo JText::_('COM_MJ__UPDATE_UNPACK'); ?></li>
