@@ -15,11 +15,13 @@ CHANGELOG
 
 0.9.12
 Beta release
-- Partial support of Joomla!1.6
 - Backend Cpanel icon module
+- One-click updater
 - Update to TeraWURFL 2.1.4
 - Update WURFL database
 - Improve default Mobile-Simple detector
+- Fix issue with IE9 browser
+- Partial support of Joomla!1.6
 
 0.9.11
 Beta release
