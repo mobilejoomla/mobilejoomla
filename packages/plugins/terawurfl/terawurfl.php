@@ -41,6 +41,13 @@ class plgMobileTerawurfl extends JPlugin
 			return;
 		}
 		
+		//temporary patch for MS Internet Explorer 9.0
+		if(strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE 9.0')!==false)
+		{
+			$MobileJoomla_Device['markup'] = '';
+			return;
+		}
+		
 		require_once(dirname(__FILE__).DS.'terawurfl'.DS.'TeraWurflConfig.php');
 
 		/** @var JRegistry $config */
