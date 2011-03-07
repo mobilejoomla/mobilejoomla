@@ -15,6 +15,7 @@ require_once(JPATH_COMPONENT.DS.'admin.mobilejoomla.html.php');
 $task = JRequest::getCmd('task');
 $mainframe =& JFactory::getApplication();
 
+// TODO: transform into JController-based controller
 switch($task)
 {
 	case 'apply':
@@ -28,6 +29,9 @@ switch($task)
 		break;
 	case 'extensions':
 		showextensions();
+		break;
+	case 'update':
+		update();
 		break;
 	default:
 		showconfig();
@@ -500,4 +504,224 @@ function showextensions()
 	$json = json_decode($content);
 
 	HTML_mobilejoomla::showextensions($json->extensions);
+}
+
+function _initStatus()
+{
+	JError::setErrorHandling(E_ERROR, 'Message');
+	@set_time_limit(1200);
+	@ini_set('max_execution_time', 1200);
+}
+function _sendStatus()
+{
+	$msg = array();
+	foreach(JError::getErrors() as $error)
+		if($error->get('level'))
+			$msg[] = $error->get('message');
+	if(count($msg))
+		$msg = '<p>'.implode('</p><p>', $msg).'</p>';
+	else
+		$msg = 'ok';
+	echo $msg;
+	jexit();
+}
+function update()
+{
+	jimport('joomla.filesystem.file');
+	jimport('joomla.filesystem.folder');
+	jimport('joomla.installer.helper');
+	jimport('joomla.installer.installer');
+	$mainframe =& JFactory::getApplication();
+	$option = JRequest::getString('option');
+
+	$state = JRequest::getWord('state');
+	switch($state)
+	{
+	case 'download':
+		_initStatus();
+		$url = 'http://www.mobilejoomla.com/latest.php';
+		$filename = JInstallerHelper::downloadPackage($url);
+		if($filename)
+			$mainframe->setUserState( "$option.updatefilename", $filename );
+		_sendStatus();
+		break;
+	case 'unpack':
+		_initStatus();
+		$filename = $mainframe->getUserState( "$option.updatefilename", false );
+		$config =& JFactory::getConfig();
+		$path = $config->getValue('config.tmp_path').DS.$filename;
+		if($path)
+		{
+			$result = JInstallerHelper::unpack($path);
+			$mainframe->setUserState( "$option.updatefilename", false );
+			if($result!==false)
+			{
+				$mainframe->setUserState( "$option.updatedir", $result['dir'] );
+				JFile::delete($path);
+			}
+		}
+		else
+			JError::raiseWarning(1, JText::_('COM_MJ__UPDATE_UNKNOWN_PATH'));
+		_sendStatus();
+		break;
+	case 'install':
+		_initStatus();
+		$dir = $mainframe->getUserState( "$option.updatedir", false );
+		if($dir)
+		{
+			$installer = new JInstaller();
+			$installer->install($dir);
+			$mainframe->setUserState( "$option.updatedir", false );
+			JFolder::delete($dir);
+		}
+		else
+			JError::raiseWarning(1, JText::_('COM_MJ__UPDATE_UNKNOWN_PATH'));
+		_sendStatus();
+		break;
+	default: // TODO: move into view
+?>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+jQuery.noConflict();
+function mjOnError()
+{
+	jQuery("#mjlink").css('display','block');
+}
+function mjTestStatus(textStatus)
+{
+	switch(textStatus){
+		case "success": break;
+		case "notmodified": break;
+		case "error": jQuery("#mjstatus").html("Connection error"); mjOnError(); break;
+		case "timeout": jQuery("#mjstatus").html("Connection timeout"); mjOnError(); break;
+		case "abort": jQuery("#mjstatus").html("Connection abort"); mjOnError(); break;
+		case "parsererror": jQuery("#mjstatus").html("Connection parseerror"); mjOnError(); break;
+	}
+}
+function mjAjaxDownload()
+{
+	jQuery("#mjdownload").addClass("highlight").addClass("ajaxload");
+	jQuery.ajax({
+		type: "GET",
+		url: "index.php?option=com_mobilejoomla&task=update&state=download&tmpl=none",
+		success: function(data){
+			if(data!="ok") {
+				jQuery("#mjdownload").addClass("error");
+				jQuery("#mjstatus").html(data);
+				mjOnError();
+			} else {
+				jQuery("#mjdownload").addClass("pass");
+				mjAjaxUnpack(); 
+			}
+		},
+		error: function(){
+			jQuery("#mjdownload").addClass("error");
+			mjOnError();
+		},
+		complete: function(jqXHR, textStatus){
+			jQuery("#mjdownload").removeClass("ajaxload");
+			mjTestStatus(textStatus);
+		}
+	});
+}
+function mjAjaxUnpack()
+{
+	jQuery("#mjunpack").addClass("highlight").addClass("ajaxload");
+	jQuery.ajax({
+		type: "GET",
+		url: "index.php?option=com_mobilejoomla&task=update&state=unpack&tmpl=none",
+		success: function(data){
+			if(data!="ok") {
+				jQuery("#mjunpack").addClass("error");
+				jQuery("#mjstatus").html(data);
+				mjOnError();
+			} else {
+				jQuery("#mjunpack").addClass("pass");
+				mjAjaxInstall(); 
+			}
+		},
+		error: function(){
+			jQuery("#mjunpack").addClass("error");
+			mjOnError();
+		},
+		complete: function(jqXHR, textStatus){
+			jQuery("#mjunpack").removeClass("ajaxload");
+			mjTestStatus(textStatus);
+		}
+	});
+}
+function mjAjaxInstall()
+{
+	jQuery("#mjinstall").addClass("highlight").addClass("ajaxload");
+	jQuery.ajax({
+		type: "GET",
+		url: "index.php?option=com_mobilejoomla&task=update&state=install&tmpl=none",
+		success: function(data){
+			if(data!="ok") {
+				jQuery("#mjinstall").addClass("error");
+				jQuery("#mjstatus").html(data);
+				mjOnError();
+			} else {
+				jQuery("#mjinstall").addClass("pass");
+				window.parent.location.reload();
+			}
+		},
+		error: function(){
+			jQuery("#mjinstall").addClass("error");
+			mjOnError();
+		},
+		complete: function(jqXHR, textStatus){
+			jQuery("#mjinstall").removeClass("ajaxload");
+			mjTestStatus(textStatus);
+		}
+	});
+}
+jQuery(document).ready(mjAjaxDownload);
+//]]>
+</script>
+<style type="text/css">
+#mjstages {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+#mjstages li {
+	height: 22px;
+	padding: 10px 0 0 32px;
+	margin: 0;
+}
+#mjlink {
+	display: none;
+	font-weight: bold;
+	color: #933;
+}
+#mjstatus p {
+	font-size: 80%;
+}
+.highlight {
+	font-weight: bold;
+}
+.ajaxload {
+	background-repeat: no-repeat;
+	background-image: url('components/com_mobilejoomla/images/ajax-loader.gif');
+}
+.pass {
+	background-repeat: no-repeat;
+	background-image: url('components/com_mobilejoomla/images/tick.png');
+}
+.error {
+	background-repeat: no-repeat;
+	background-image: url('components/com_mobilejoomla/images/error.png');
+}
+</style>
+<ul id="mjstages">
+	<li id="mjdownload"><?php echo JText::_('COM_MJ__UPDATE_DOWNLOAD'); ?></li>
+	<li id="mjunpack"><?php echo JText::_('COM_MJ__UPDATE_UNPACK'); ?></li>
+	<li id="mjinstall"><?php echo JText::_('COM_MJ__UPDATE_INSTALL'); ?></li>
+</ul>
+<div id="mjlink"><?php echo JText::_('COM_MJ__UPDATE_DOWNLOAD_LINK'); ?></div>
+<div id="mjstatus"></div>
+<?php
+	}
 }

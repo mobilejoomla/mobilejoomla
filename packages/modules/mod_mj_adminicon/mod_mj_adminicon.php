@@ -21,6 +21,8 @@ $is_joomla16 = (substr($version->getShortVersion(),0,3) == '1.6');
 
 include_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'admin.mobilejoomla.html.php';
 HTML_MobileJoomla::CheckForUpdate();
+
+JHTML::_('behavior.modal', 'a.modal');
 ?>
 <div id="mjicon">
 	<div id="mjnoupdate" style="float:<?php echo ($lang->isRTL()) ? 'right' : 'left'; ?>;">
@@ -33,15 +35,7 @@ HTML_MobileJoomla::CheckForUpdate();
 	</div>
 	<div id="mjupdate" style="float:<?php echo ($lang->isRTL()) ? 'right' : 'left'; ?>;">
 		<div class="icon <?php echo $is_joomla16 ? 'icon16' : 'icon15'; ?>">
-			<form method="post" action="index.php" id="mjdownload" style="display:none;">
-				<input type="hidden" name="option" value="com_installer" />
-				<input type="hidden" name="task" value="<?php echo $is_joomla16 ? 'install.install' : 'doInstall'; ?>" />
-				<input type="hidden" name="installtype" value="url" />
-				<input type="hidden" name="install_url" value="http://www.mobilejoomla.com/latest.tar.gz" />
-				<input type="hidden" name="type" value="" />
-				<?php echo JHtml::_('form.token'); ?>
-			</form>
-			<a href="http://www.mobilejoomla.com/download.html" target="_blank" onclick="document.getElementById('mjdownload').submit();return false;">
+			<a class="modal" href="index.php?tmpl=component&option=com_mobilejoomla&task=update" rel="{handler: 'iframe', size: {x: 300, y: 200}}">
 				<img src="modules/mod_mj_adminicon/images/mj-update.png" />
 				<span><?php echo JText::_('COM_MJ__UPDATE_AVAILABLE'); ?></span>
 			</a>
