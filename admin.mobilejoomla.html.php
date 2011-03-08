@@ -59,14 +59,23 @@ class HTML_mobilejoomla
 		$version = HTML_mobilejoomla::getMJVersion();
 		if($version)
 		{
-			?>
-			<style>#mjupdate {
-				display: none
-			}</style>
-			<link rel="stylesheet" type="text/css"
-			      href="http://www.mobilejoomla.com/checker.php?v=<?php echo urlencode($version); ?>"/>
-			<?php
+?>
+<style>#mjupdate {display: none}</style>
+<link rel="stylesheet" type="text/css" href="http://www.mobilejoomla.com/checker.php?v=<?php echo urlencode($version); ?>"/>
+<?php
 		}
+	}
+	
+	function showUpdateNotification()
+	{
+		HTML_mobilejoomla::CheckForUpdate();
+		JHTML::_('behavior.modal', 'a.modal');
+?>
+		<div id="mjupdate">
+			<h2><?php echo JText::_('COM_MJ__UPDATE_AVAILABLE');?></h2>
+			<?php echo JText::sprintf('COM_MJ__UPDATE_NOTIFICATION', 'class="modal" href="index.php?tmpl=component&option=com_mobilejoomla&task=update" rel="{handler: \'iframe\', size: {x: 300, y: 210}}"'); ?>
+		</div>
+<?php
 	}
 
 	function showconfig(&$lists, $MobileJoomla_Settings)
@@ -74,14 +83,8 @@ class HTML_mobilejoomla
 		jimport('joomla.filesystem.file');
 		JHTML::_('behavior.tooltip');
 		JHTML::_('behavior.switcher');
-		HTML_mobilejoomla::CheckForUpdate();
-		JHTML::_('behavior.modal', 'a.modal');
+		HTML_mobilejoomla::showUpdateNotification();
 		?>
-		<div id="mjupdate">
-			<h2><?php echo JText::_('COM_MJ__UPDATE_AVAILABLE');?></h2>
-			New MobileJoomla version is available for
-			<a class="modal" href="index.php?tmpl=component&option=com_mobilejoomla&task=update" rel="{handler: 'iframe', size: {x: 300, y: 210}}">updating</a>.
-		</div>
 		<form action="index.php" method="post" name="adminForm" id="adminForm">
 		<table cellpadding="1" cellspacing="1" border="0" width="90%">
 			<tr>
@@ -899,8 +902,6 @@ class HTML_mobilejoomla
 
 	function showabout()
 	{
-		HTML_mobilejoomla::CheckForUpdate();
-		JHTML::_('behavior.modal', 'a.modal');
 		$version = HTML_mobilejoomla::getMJVersion();
 		?>
 		<!--fieldset class="adminform"-->
@@ -910,44 +911,28 @@ class HTML_mobilejoomla
 			<tr>
 				<td>
 					<h2>MobileJoomla <?php echo $version;?></h2>
-				<?php echo JText::_('COM_MJ__MOBILEJOOMLA_DESCRIPTION'); ?>
+					<?php echo JText::_('COM_MJ__MOBILEJOOMLA_DESCRIPTION'); ?>
 					<br/>
 					<br/>
 					<a href="http://www.mobilejoomla.com/"><?php echo JText::_('COM_MJ__VISIT_MOBILEJOOMLA'); ?></a>
 					<br/>
 					<br/>
-
-					<div id="mjupdate">
-						<h2><?php echo JText::_('COM_MJ__UPDATE_AVAILABLE');?></h2>
-						New MobileJoomla version is available for
-						<a class="modal" href="index.php?tmpl=component&option=com_mobilejoomla&task=update" rel="{handler: 'iframe', size: {x: 300, y: 210}}">updating</a>.
-					</div>
+					<?php HTML_mobilejoomla::showUpdateNotification(); ?>
 					<div id="mjnoupdate">
 						<h2><?php echo JText::_('COM_MJ__NO_UPDATES');?></h2>
 						<?php echo JText::_('COM_MJ__MOBILEJOOMLA_UPTODATE');?>
 					</div>
-
 				</td>
 			</tr>
 			</tbody>
 		</table>
 		<!--/fieldset-->
 		<?php
-
 	}
 
 	function showextensions($tabs)
 	{
-		HTML_mobilejoomla::CheckForUpdate();
-?>
-		<div id="mjupdate">
-			<h2><?php echo JText::_('COM_MJ__UPDATE_AVAILABLE');?></h2>
-			New MobileJoomla version is available for
-			<a href="http://www.mobilejoomla.com/download.html"
-			   alt="<?php echo JText::_('COM_MJ__LEARN_MORE'); ?>"
-			   target="_blank">updating</a>.
-		</div>
-<?php
+		HTML_mobilejoomla::showUpdateNotification();
 		jimport('joomla.html.pane');
 		JHTML::_('behavior.tooltip');
 		JHTML::_('behavior.switcher');
