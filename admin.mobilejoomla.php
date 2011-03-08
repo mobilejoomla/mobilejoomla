@@ -593,10 +593,10 @@ function mjTestStatus(textStatus)
 	switch(textStatus){
 		case "success": break;
 		case "notmodified": break;
-		case "error": jQuery("#mjstatus").html("Connection error"); mjOnError(); break;
-		case "timeout": jQuery("#mjstatus").html("Connection timeout"); mjOnError(); break;
-		case "abort": jQuery("#mjstatus").html("Connection abort"); mjOnError(); break;
-		case "parsererror": jQuery("#mjstatus").html("Connection parseerror"); mjOnError(); break;
+		case "error": jQuery("#mjstatus").html("<?php echo JText::_('COM_MJ__UPDATE_AJAX_ERROR'); ?>"); mjOnError(); break;
+		case "timeout": jQuery("#mjstatus").html("<?php echo JText::_('COM_MJ__UPDATE_AJAX_TIMEOUT'); ?>"); mjOnError(); break;
+		case "abort": jQuery("#mjstatus").html("<?php echo JText::_('COM_MJ__UPDATE_AJAX_ABORT'); ?>"); mjOnError(); break;
+		case "parsererror": jQuery("#mjstatus").html("<?php echo JText::_('COM_MJ__UPDATE_AJAX_PARSEERROR'); ?>"); mjOnError(); break;
 	}
 }
 function mjAjaxDownload()
@@ -681,8 +681,12 @@ jQuery(document).ready(mjAjaxDownload);
 //]]>
 </script>
 <style type="text/css">
-#mjheader {
+.mjheader {
+	font-size: 20px;
 	font-weight: bold;
+	line-height: 48px;
+	margin-left: 5px;
+	padding-left: 5px;
 }
 #mjstages {
 	list-style-type: none;
@@ -696,26 +700,39 @@ jQuery(document).ready(mjAjaxDownload);
 }
 #mjlink {
 	display: none;
+	background: url("components/com_mobilejoomla/images/warning.png") no-repeat scroll 10px 50% #FDFBB9;
 	font-weight: bold;
-	color: #933;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+	border: 3px solid #f00;
+	line-height: 135%;
+	margin-top: 15px;
+	padding: 10px 10px 10px 48px;
+	text-align: left;
 }
-#mjstatus p {
+#mjstatus {
 	font-size: 80%;
+	padding: 16px 8px 0;
 }
 .highlight {
 	font-weight: bold;
 }
 .ajaxload {
-	background-repeat: no-repeat;
-	background-image: url('components/com_mobilejoomla/images/ajax-loader.gif');
+	background: url("components/com_mobilejoomla/images/ajax-loader.gif") no-repeat scroll 0 50% #FFF;
+	line-height: 100%;
+	text-align: left;
 }
 .pass {
-	background-repeat: no-repeat;
-	background-image: url('components/com_mobilejoomla/images/tick.png');
+	background: url("components/com_mobilejoomla/images/tick.png") no-repeat scroll 8px 50% #FFF;
+	line-height: 100%;
+	text-align: left;
 }
 .error {
-	background-repeat: no-repeat;
-	background-image: url('components/com_mobilejoomla/images/error.png');
+	background: url("components/com_mobilejoomla/images/error.png") no-repeat scroll 8px 50% #FDFBB9;
+	color: #f00;
+	line-height: 100%;
+	text-align: left;
 }
 </style>
 <div class="mjheader"><?php echo JText::_('COM_MJ__UPDATE_HEADER'); ?></div>

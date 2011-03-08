@@ -71,9 +71,22 @@ class HTML_mobilejoomla
 		HTML_mobilejoomla::CheckForUpdate();
 		JHTML::_('behavior.modal', 'a.modal');
 ?>
+<style>
+#mjupdate {
+	background: url("components/com_mobilejoomla/images/warning.png") no-repeat scroll 10px 50% #FDFBB9;
+	font-weight: bold;
+	border: 3px solid #f00;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+	line-height: 100%;
+	padding: 0 10px 10px 48px;
+	text-align: left;
+}
+</style>
 		<div id="mjupdate">
 			<h2><?php echo JText::_('COM_MJ__UPDATE_AVAILABLE');?></h2>
-			<?php echo JText::sprintf('COM_MJ__UPDATE_NOTIFICATION', 'class="modal" href="index.php?tmpl=component&option=com_mobilejoomla&task=update" rel="{handler: \'iframe\', size: {x: 300, y: 210}}"'); ?>
+			<?php echo JText::sprintf('COM_MJ__UPDATE_NOTIFICATION', 'class="modal" href="index.php?tmpl=component&option=com_mobilejoomla&task=update" rel="{handler: \'iframe\', size: {x: 480, y: 320}}"'); ?>
 		</div>
 <?php
 	}

@@ -35,7 +35,7 @@ JHTML::_('behavior.modal', 'a.modal');
 	</div>
 	<div id="mjupdate" style="float:<?php echo ($lang->isRTL()) ? 'right' : 'left'; ?>;">
 		<div class="icon <?php echo $is_joomla16 ? 'icon16' : 'icon15'; ?>">
-			<a class="modal" href="index.php?tmpl=component&option=com_mobilejoomla&task=update" rel="{handler: 'iframe', size: {x: 300, y: 210}}">
+			<a class="modal" href="index.php?tmpl=component&option=com_mobilejoomla&task=update" rel="{handler: 'iframe', size: {x: 480, y: 320}}">
 				<img src="modules/mod_mj_adminicon/images/mj-update.png" />
 				<span><?php echo JText::_('COM_MJ__UPDATE_AVAILABLE'); ?></span>
 			</a>
