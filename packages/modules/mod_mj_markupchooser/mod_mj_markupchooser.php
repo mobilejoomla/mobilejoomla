@@ -12,14 +12,14 @@ defined('_JEXEC') or die('Restricted access');
 
 /** @var JParameter $params */
 
+// check that MJ plugin was loaded
+if(!class_exists('MobileJoomla'))
+	return;
+
 require_once(dirname(__FILE__).DS.'helper.php');
 
 if(!defined('_MJ'))
 {
-	$mj_class_path = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'mobilejoomla.class.php';
-	if(!file_exists($mj_class_path))
-		return;
-	include_once($mj_class_path);
 	if($params->get('hide_on_pc', 1))
 	{
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
