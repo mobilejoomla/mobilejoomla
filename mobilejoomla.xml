@@ -14,7 +14,7 @@
 		<filename>index.html</filename>
 	</files>
 	<administration>
-		<menu img="../administrator/components/com_mobilejoomla/images/mj16x16.gif">MobileJoomla</menu>
+		<menu img="components/com_mobilejoomla/images/mj16x16.gif">MobileJoomla</menu>
 		<submenu>
 			<menu task="settings" img="js/ThemeOffice/config.png">Settings</menu>
 			<menu task="about" img="js/ThemeOffice/info.png">About</menu>
