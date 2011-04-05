@@ -100,7 +100,7 @@ class ImageRescaler
 		$MobileJoomla_Settings =& MobileJoomla::getConfig();
 		$base_rel = JURI::base(true).'/';
 		$base_abs = JURI::base();
-		if(strpos($imageurl, '://') == false)
+		if(strpos($imageurl, '//') == false)
 		{
 			if($imageurl{0}!=='/')
 			{
