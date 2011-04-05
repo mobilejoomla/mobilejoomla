@@ -1,4 +1,5 @@
 a, a:link, a:visited {
+a, a:link, a:visited {
     color: #003399;
 }
 
@@ -48,7 +49,7 @@ ul#mainlevel li a#active_menu {
 }
 
 #content {
-    margin-top: 10px;
+	margin: 10px 2px 2px;
 }
 
 #content h5 {
@@ -244,4 +245,34 @@ div.search td.button input[type="submit"] {
 #form-login a {
     color: #060;
     line-height: 1.5;
+}
+
+body {
+	overflow:auto;
+	font-size:12px;
+}
+#wrap {
+	overflow:visible;
+}
+.contentheading, .contentpagetitle {
+	font-size: 18px;
+}
+.categoryview {
+	text-align: left;
+}
+.sectiontableheader {
+	font-weight: bold;
+}
+.sectiontableheader, .sectiontableentry1, .sectiontableentry2 {
+	text-indent: -1em;
+	margin: 0 0 0.5em 1em;
+}
+span.num, span.itemtitle, span.itemdate {
+	padding-right: 0.5em;
+}
+span.num {
+	min-width: 1.5em;
+}
+span.itemhits {
+	font-style: italic;
 }
