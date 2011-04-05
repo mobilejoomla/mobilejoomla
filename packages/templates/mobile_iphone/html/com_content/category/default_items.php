@@ -10,7 +10,7 @@ function tableOrdering( order, dir, task )
 }
 </script>
 <form action="<?php echo $this->action; ?>" method="post" name="adminForm">
-<div>
+<div class="categoryview">
 <?php if ($this->params->get('filter') || $this->params->get('show_pagination_limit')) : ?>
 <div>
 <?php if ($this->params->get('filter')) : ?>
@@ -27,44 +27,44 @@ function tableOrdering( order, dir, task )
 <?php endif; ?>
 <?php if ($this->params->get('show_headings')) : ?>
 <div class="sectiontableheader<?php echo $this->params->get( 'pageclass_sfx' ); ?>">
-<?php echo JText::_('Num'); ?>
+<span class="num"><?php echo JText::_('Num'); ?></span>
 <?php if ($this->params->get('show_title')) : ?>
-<?php echo JHTML::_('grid.sort',  'Item Title', 'a.title', $this->lists['order_Dir'], $this->lists['order'] ); ?>
+<span class="itemtitle"><?php echo JHTML::_('grid.sort',  'Item Title', 'a.title', $this->lists['order_Dir'], $this->lists['order'] ); ?></span>
 <?php endif; ?>
 <?php if ($this->params->get('show_date')) : ?>
-<?php echo JHTML::_('grid.sort',  'Date', 'a.created', $this->lists['order_Dir'], $this->lists['order'] ); ?>
+<span class="itemdate"><?php echo JHTML::_('grid.sort',  'Date', 'a.created', $this->lists['order_Dir'], $this->lists['order'] ); ?></span>
 <?php endif; ?>
 <?php if ($this->params->get('show_author')) : ?>
-<?php echo JHTML::_('grid.sort',  'Author', 'author', $this->lists['order_Dir'], $this->lists['order'] ); ?>
+<span class="itemauthor"><?php echo JHTML::_('grid.sort',  'Author', 'author', $this->lists['order_Dir'], $this->lists['order'] ); ?></span>
 <?php endif; ?>
 <?php if ($this->params->get('show_hits')) : ?>
-<?php echo JHTML::_('grid.sort',  'Hits', 'a.hits', $this->lists['order_Dir'], $this->lists['order'] ); ?>
+<span class="itemhits"><?php echo JHTML::_('grid.sort',  'Hits', 'a.hits', $this->lists['order_Dir'], $this->lists['order'] ); ?></span>
 <?php endif; ?>
 </div>
 <?php endif; ?>
 <?php foreach ($this->items as $item) : ?>
 <div class="sectiontableentry<?php echo ($item->odd +1 ) . $this->params->get( 'pageclass_sfx' ); ?>" >
-<?php echo $this->pagination->getRowOffset( $item->count ); ?>
+<span class="num"><?php echo $this->pagination->getRowOffset( $item->count ); ?></span>
 <?php if ($this->params->get('show_title')) : ?>
 <?php if ($item->access <= $this->user->get('aid', 0)) : ?>
-<a href="<?php echo $item->link; ?>"><?php echo $item->title; ?></a>
+<span class="itemtitle"><a href="<?php echo $item->link; ?>"><?php echo $item->title; ?></a></span>
 <?php $this->item = $item; echo JHTML::_('icon.edit', $item, $this->params, $this->access) ?>
 <?php else : ?>
 <?php
 			echo $this->escape($item->title).' : ';
 			$link = JRoute::_('index.php?option=com_user&view=login');
 ?>
-<a href="<?php echo $link; ?>"><?php echo JText::_( 'Register to read more...' ); ?></a>
+<span class="itemtitle"><a href="<?php echo $link; ?>"><?php echo JText::_( 'Register to read more...' ); ?></a></span>
 <?php endif; ?>
 <?php endif; ?>
 <?php if ($this->params->get('show_date')) : ?>
-<?php echo $item->created; ?>
+<span class="itemdate"><?php echo $item->created; ?></span>
 <?php endif; ?>
 <?php if ($this->params->get('show_author')) : ?>
-<?php echo $item->created_by_alias ? $item->created_by_alias : $item->author; ?>
+<span class="itemauthor"><?php echo $item->created_by_alias ? $item->created_by_alias : $item->author; ?></span>
 <?php endif; ?>
 <?php if ($this->params->get('show_hits')) : ?>
-<?php echo $item->hits ? $item->hits : '-'; ?>
+<span class="itemhits"><?php echo $item->hits ? $item->hits : '-'; ?></span>
 <?php endif; ?>
 </div>
 <?php endforeach; ?>
