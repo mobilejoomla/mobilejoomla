@@ -60,6 +60,7 @@ class plgMobileTerawurfl extends JPlugin
 		TeraWurflConfig::$DB_USER      = $config->getValue('user');
 		TeraWurflConfig::$DB_PASS      = $config->getValue('password');
 		TeraWurflConfig::$DB_SCHEMA    = $config->getValue('db');
+		TeraWurflConfig::$LOG_LEVEL    = 0;
 
 		$mysql4 = $this->params->get('mysql4', 0);
 		if($mysql4)
