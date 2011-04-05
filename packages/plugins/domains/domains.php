@@ -58,6 +58,10 @@ class plgMobileDomains extends JPlugin
 			}
 			elseif($MobileJoomla_Device['markup']!=='') //Redirect to special domain
 			{
+				$uri =& JURI::getInstance();
+				$parsed = parse_url($uri->toString());
+				$path = isset($parsed['path']) ? $parsed['path'] : '';
+
 				/** @var JSite $mainframe */
 				$mainframe =& JFactory::getApplication();
 				if($MobileJoomla_Settings['xhtmlredirect'] && ($MobileJoomla_Device['markup'] == 'xhtml') && $domain_xhtml)
