@@ -9,7 +9,7 @@ function modChrome_wml($module, &$params, &$attribs)
 		{
 			?><p><strong><?php echo $module->title; ?></strong></p><?php
 		}
-		echo $module->content.'<br />';
+		echo '<p>'.$module->content.'<br /></p>';
 	}
 }
 
