@@ -286,13 +286,38 @@ class ImageRescaler
 				ImageGIF($dest_image);
 				break;
 			case 'wbmp':
-				ImageTrueColorToPalette($dest_image, true, 2);
-				$c0 = ImageColorsForIndex($dest_image, 0);
-				$c1 = ImageColorsForIndex($dest_image, 1);
-				$i0 = 0.3*$c0->red + 0.59*$c0->green + 0.11*$c0->blue;
-				$i1 = 0.3*$c1->red + 0.59*$c1->green + 0.11*$c1->blue;
-				$foreground = $i0>$i1 ? 0 : 1;
-				ImageWBMP($dest_image, null, $foreground);
+				// Floyd-Steinberg dithering
+				$black = ImageColorAllocate($dest_image, 0,0,0);
+				$white = ImageColorAllocate($dest_image, 255,255,255);
+				$next_err = array_fill(0, $width, 0);
+				for($y=0; $y<$height; $y++)
+				{
+					$cur_err = $next_err;
+					$next_err = array(-1=>0, 0=>0);
+					for($x=0, $err=0; $x<$width; $x++)
+					{
+						$rgb = ImageColorAt($dest_image, $x, $y);
+						$r = ($rgb >> 16) & 0xFF;
+						$g = ($rgb >> 8) & 0xFF;
+						$b = $rgb & 0xFF;
+						$color = $err + $cur_err[$x] + 0.299*$r + 0.587*$g + 0.114*$b;
+						if($color >= 128)
+						{
+							ImageSetPixel($dest_image, $x, $y, $white);
+							$err = $color-255;
+						}
+						else
+						{
+							ImageSetPixel($dest_image, $x, $y, $black);
+							$err = $color;
+						}
+						$next_err[$x-1] += $err*3/16;
+						$next_err[$x]   += $err*5/16;
+						$next_err[$x+1]  = $err/16;
+						$err *= 7/16;
+					}
+				}
+				ImageWBMP($dest_image);
 				break;
 			case 'png':
 				ImagePNG($dest_image);
