@@ -149,6 +149,7 @@ class MobileJoomla_WML extends MobileJoomla
 		$text = preg_replace('# id="(.*?)"#is', '', $text);
 		$text = preg_replace('# style="(.*?)"#is', '', $text);
 		$text = preg_replace('# title="(.*?)"#is', '', $text);
+		$text = preg_replace('# target="_blank"#is', '', $text);
 		$text = trim($text);
 
 		$title = $this->getPageTitle();
