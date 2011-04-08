@@ -19,7 +19,7 @@ class plgMobileDomains extends JPlugin
 		parent::__construct($subject, $config);
 	}
 
-	function onDeviceDetection(&$MobileJoomla_Settings, &$MobileJoomla_Device)
+	function onAfterDeviceDetection(&$MobileJoomla_Settings, &$MobileJoomla_Device)
 	{
 		// Check for special domains
 		if($MobileJoomla_Settings['domains'] == '1')

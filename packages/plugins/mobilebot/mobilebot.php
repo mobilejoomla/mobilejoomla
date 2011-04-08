@@ -130,6 +130,9 @@ class plgSystemMobileBot extends JPlugin
 		}
 
 		$MobileJoomla_Device['markup'] = $markup;
+
+		$mainframe->triggerEvent('onAfterDeviceDetection', array (&$MobileJoomla_Settings, &$MobileJoomla_Device));
+
 		switch($markup)
 		{
 			case 'xhtml':
