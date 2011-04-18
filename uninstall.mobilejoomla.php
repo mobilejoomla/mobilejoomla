@@ -679,6 +679,7 @@ function com_install()
 
 	// install templates
 	$TemplateSource = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'templates';
+	$TemplateSource .= isJoomla16() ? '16' : '15';
 	$templates = array ('mobile_pda','mobile_wap','mobile_imode','mobile_iphone');
 	$status = true;
 	foreach($templates as $template)
@@ -687,11 +688,6 @@ function com_install()
 		{
 			$status = false;
 			JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_INSTALL')." Mobile Joomla '$template' template.</b>");
-		}
-		elseif(isJoomla16()) // remove J1.5 views until 1.6-compatible is not released
-		{
-			JFolder::delete(JPATH_SITE.DS.'templates'.DS.$template.DS.'html');
-			JFolder::create(JPATH_SITE.DS.'templates'.DS.$template.DS.'html');
 		}
 	}
 
