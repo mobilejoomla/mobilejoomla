@@ -110,6 +110,13 @@ function UninstallTemplate($name)
 	$installer = new JInstaller();
 	if(!$installer->uninstall('template', $id))
 		return false;
+	if(!isJoomla16())
+	{
+		/** @var JDatabase $db */
+		$db =& JFactory::getDBO();
+		$db->setQuery('DELETE FROM #__templates_menu WHERE template = '.$db->Quote($name));
+		$db->query();
+	}
 	return true;
 }
 
