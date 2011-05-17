@@ -13,6 +13,15 @@ defined('_JEXEC') or die('Restricted access');
 
 CHANGELOG
 
+0.9.13
+Beta release
+- Mobile templates for Joomla!1.6
+- Improve mobile_pda template
+- Fix issue with incorrect "Standard version" link on subdomain
+- Fix issue with possible warning at TeraWURFL plugin
+- Fix to keep path at redirect to subdomain
+- Support of absolute URLs starting with // at image rescaling
+
 0.9.12
 Beta release
 - Backend Cpanel icon module
