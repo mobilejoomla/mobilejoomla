@@ -21,6 +21,9 @@ Beta release
 - Fix issue with possible warning at TeraWURFL plugin
 - Fix to keep path at redirect to subdomain
 - Support of absolute URLs starting with // at image rescaling
+- Fix issue with uninstalling of MJ on Joomla!1.5
+- Update WURFL database (24.04.2011)
+- Update TeraWURFL to current snapshot (19.05.2011)
 
 0.9.12
 Beta release
