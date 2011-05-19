@@ -11,7 +11,7 @@
  * @author Steve Kamerman <stevekamerman AT gmail.com>
  * @license http://www.mozilla.org/MPL/ MPL Vesion 1.1
  */
-if(!class_exists('TeraWurflConfig'))
+if(!class_exists('TeraWurflConfig',false))
 	require_once realpath(dirname(__FILE__).'/TeraWurflConfig.php');
 /**#@+
  * Include required files

@@ -154,6 +154,7 @@ class UserAgentUtils{
 	 * @return String User agent
 	 */
 	public static function normalizeBlackberry($ua){
+		$ua = str_ireplace('blackberry','BlackBerry',$ua);
 		$pos = strpos($ua,'BlackBerry');
 		if($pos !== false && $pos > 0) $ua = substr($ua,$pos);
 		return $ua;
@@ -296,10 +297,8 @@ class UserAgentUtils{
 		}
 		if(UserAgentMatcher::contains($lowerua,WurflConstants::$MOBILE_BROWSERS)) return true;
 		if(UserAgentMatcher::regexContains($ua,array(
-				// ARM Processor
-				'/armv[5-9][l0-9]/',
 				// Screen resolution in UA
-				'/[^\d]\d{3}x\d{3}/'
+				'/[^\d]\d{3}x\d{3}/',
 			)
 		)){
 			return true;

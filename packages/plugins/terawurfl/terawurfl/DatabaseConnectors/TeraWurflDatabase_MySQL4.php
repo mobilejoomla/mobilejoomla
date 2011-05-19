@@ -46,7 +46,8 @@ class TeraWurflDatabase_MySQL4 extends TeraWurflDatabase{
 	// Device Table Functions (device,hybrid,patch)
 	public function getDeviceFromID($wurflID){
 		$this->numQueries++;
-		$res = $this->dbcon->query("SELECT * FROM `".TeraWurflConfig::$TABLE_PREFIX.'Merge'."` WHERE `deviceID`=".$this->SQLPrep($wurflID)) or die($this->dbcon->error);
+		$res = $this->dbcon->query("SELECT * FROM `".TeraWurflConfig::$TABLE_PREFIX.'Merge'."` WHERE `deviceID`=".$this->SQLPrep($wurflID));
+		if(!$res) throw new Exception("Error: ".$this->dbcon->error);
 		if($res->num_rows == 0){
 			$res->close();
 			throw new Exception("Tried to lookup an invalid WURFL Device ID: $wurflID");
@@ -203,7 +204,7 @@ class TeraWurflDatabase_MySQL4 extends TeraWurflDatabase{
 		$this->createGenericDeviceTable($tablename);
 		$createtable = "INSERT INTO `$tablename` ".implode(" UNION ALL ",$tables);
 		$this->numQueries++;
-		$this->dbcon->query($createtable) or die("ERROR: ".$this->dbcon->error);
+		if(!$this->dbcon->query($createtable)) throw new Exception("Error: ".$this->dbcon->error);
 		return true;
 	}
 	/**
@@ -250,7 +251,8 @@ class TeraWurflDatabase_MySQL4 extends TeraWurflDatabase{
 	public function getDeviceFromCache($userAgent){
 		$tablename = TeraWurflConfig::$TABLE_PREFIX.'Cache';
 		$this->numQueries++;
-		$res = $this->dbcon->query("SELECT * FROM `$tablename` WHERE `user_agent`=".$this->SQLPrep($userAgent)) or die("Error: ".$this->dbcon->error);
+		$res = $this->dbcon->query("SELECT * FROM `$tablename` WHERE `user_agent`=".$this->SQLPrep($userAgent));
+		if(!$res) throw new Exception("Error: ".$this->dbcon->error);
 		if($res->num_rows == 0){
 			$res->close();
 			//echo "[[UA NOT FOUND IN CACHE: $userAgent]]";

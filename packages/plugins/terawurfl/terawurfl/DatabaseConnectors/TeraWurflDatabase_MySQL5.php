@@ -527,7 +527,7 @@ END";
 		$query = "SELECT `value` FROM `".TeraWurflConfig::$TABLE_PREFIX.'Settings'."` WHERE `id` = ".$this->SQLPrep($key);
 		$this->numQueries++;
 		$res = $this->dbcon->query($query);
-		if($res->num_rows == 0) return null;
+		if(!$res || $res->num_rows == 0) return null;
 		$row = $res->fetch_assoc();
 		return $row['value'];
 	}
