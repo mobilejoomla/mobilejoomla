@@ -151,7 +151,10 @@ function InstallModule($sourcedir, $name, $title, $position, $published = 1, $sh
 				$db->query();
 			}
 
-			$access = isJoomla16() ? 1 : 0;
+			if($admin)
+				$access = isJoomla16() ? 3 : 2;
+			else
+				$access = isJoomla16() ? 1 : 0;
 			foreach($position as $pos)
 			{
 				$db->setQuery("SELECT MAX(ordering) FROM `#__modules` WHERE `position`='$pos'");
