@@ -688,8 +688,16 @@ function com_install()
 	UpdateConfig();
 
 	// install templates
-	$TemplateSource = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'templates';
-	$TemplateSource .= isJoomla16() ? '16' : '15';
+	if(isJoomla16())
+	{
+		$TemplateSource = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'templates16';
+		JFolder::delete(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'templates15');
+	}
+	else
+	{
+		$TemplateSource = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'templates15';
+		JFolder::delete(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'templates16');
+	}
 	$templates = array ('mobile_pda','mobile_wap','mobile_imode','mobile_iphone');
 	$status = true;
 	foreach($templates as $template)
