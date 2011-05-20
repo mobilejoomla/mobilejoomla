@@ -98,6 +98,17 @@ class HTML_mobilejoomla
 		JHTML::_('behavior.switcher');
 		HTML_mobilejoomla::showUpdateNotification();
 		?>
+<style>
+table.admintable td.key {
+	margin-right: 10px;
+}
+fieldset.adminform label {
+	width: auto;
+	min-width: 20px;
+	clear: none;
+	margin: 1px 10px 0 5px;
+}
+</style>
 		<form action="index.php" method="post" name="adminForm" id="adminForm">
 		<table cellpadding="1" cellspacing="1" border="0" width="90%">
 			<tr>
