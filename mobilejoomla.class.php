@@ -45,7 +45,10 @@ class MobileJoomla
 		if(!is_object($instance))
 		{
 			if($markup == '')
-				return null;
+			{
+				$nullvar = null;
+				return $nullvar;
+			}
 			$class = 'MobileJoomla_'.strtoupper($markup);
 			if(!class_exists($class))
 			{
