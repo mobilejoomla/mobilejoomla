@@ -131,7 +131,7 @@ class plgMobileSimple extends JPlugin
 								 'Windows 95', 'Win16', 'Win95', 'Win98', 'WinNT', 'Linux ppc', '(OS/2',
 								 '; OS/2', 'OpenBSD', 'FreeBSD', 'NetBSD', 'SunOS', 'BeOS', 'Solaris',
 								 'Debian', 'HP-UX', 'HPUX', 'IRIX', 'Unix', 'UNIX', 'OpenVMS', 'RISC',
-								 'Darwin', 'Konqueror', 'MSIE 7.0', 'MSIE 8.0');
+								 'Darwin', 'Konqueror', 'MSIE 7.0', 'MSIE 8.0', 'MSIE 9.0');
 		$webbots_list = array('Bot', 'bot', 'BOT', 'Crawler', 'crawler', 'Spider', 'Googlebot',
 							  'ia_archiver', 'Mediapartners-Google', 'msnbot', 'Yahoo! Slurp', 'YahooSeeker',
 							  'Validator', 'W3C-checklink', 'CSSCheck', 'GSiteCrawler');
