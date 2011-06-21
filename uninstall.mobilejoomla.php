@@ -145,11 +145,11 @@ function InstallModule($sourcedir, $name, $title, $position, $published = 1, $sh
 			$db->setQuery("DELETE FROM `#__modules` WHERE `module`='$name'");
 			$db->query();
 
-			if(!isJoomla16())
-			{
-				$db->setQuery("DELETE FROM `#__modules_menu` WHERE moduleid=$id");
-				$db->query();
-			}
+//			if(!isJoomla16())
+//			{
+//				$db->setQuery("DELETE FROM `#__modules_menu` WHERE moduleid=$id");
+//				$db->query();
+//			}
 
 			if($admin)
 				$access = isJoomla16() ? 3 : 2;
