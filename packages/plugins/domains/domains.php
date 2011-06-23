@@ -21,6 +21,12 @@ class plgMobileDomains extends JPlugin
 
 	function onAfterDeviceDetection(&$MobileJoomla_Settings, &$MobileJoomla_Device)
 	{
+		$version = new JVersion;
+		$is_joomla15 = (substr($version->getShortVersion(),0,3) == '1.5');
+		if($is_joomla15)
+			$config_live_site = 'config.live_site';
+		else
+			$config_live_site = 'live_site';
 		// Check for special domains
 		if($MobileJoomla_Settings['domains'] == '1')
 		{
@@ -36,25 +42,25 @@ class plgMobileDomains extends JPlugin
 			{ // Smartphone (xhtml-mp/wap2) domain
 				$MobileJoomla_Device['markup'] = 'xhtml';
 				$config =& JFactory::getConfig();
-				$config->setValue('config.live_site', $http.'://'.$_SERVER['HTTP_HOST'].$path);
+				$config->setValue($config_live_site, $http.'://'.$_SERVER['HTTP_HOST'].$path);
 			}
 			elseif($domain_wap && $_SERVER['HTTP_HOST'] == $domain_wap)
 			{ // WAP (wml) domain
 				$MobileJoomla_Device['markup'] = 'wml';
 				$config =& JFactory::getConfig();
-				$config->setValue('config.live_site', $http.'://'.$_SERVER['HTTP_HOST'].$path);
+				$config->setValue($config_live_site, $http.'://'.$_SERVER['HTTP_HOST'].$path);
 			}
 			elseif($domain_imode && $_SERVER['HTTP_HOST'] == $domain_imode)
 			{ // iMode (chtml) domain
 				$MobileJoomla_Device['markup'] = 'chtml';
 				$config =& JFactory::getConfig();
-				$config->setValue('config.live_site', $http.'://'.$_SERVER['HTTP_HOST'].$path);
+				$config->setValue($config_live_site, $http.'://'.$_SERVER['HTTP_HOST'].$path);
 			}
 			elseif($domain_iphone && $_SERVER['HTTP_HOST'] == $domain_iphone)
 			{ // iPhone/iPod domain
 				$MobileJoomla_Device['markup'] = 'iphone';
 				$config =& JFactory::getConfig();
-				$config->setValue('config.live_site', $http.'://'.$_SERVER['HTTP_HOST'].$path);
+				$config->setValue($config_live_site, $http.'://'.$_SERVER['HTTP_HOST'].$path);
 			}
 			elseif($MobileJoomla_Device['markup']!=='') //Redirect to special domain
 			{
