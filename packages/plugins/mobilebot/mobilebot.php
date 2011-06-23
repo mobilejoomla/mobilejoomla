@@ -151,16 +151,18 @@ class plgSystemMobileBot extends JPlugin
 
 		if(isset($MobileJoomla))
 		{
+			// set headers here to be compatible with System-Cache
 			$MobileJoomla->setHeader();
+
 			/** @var JRegistry $config */
 			$config =& JFactory::getConfig();
 			if($MobileJoomla_Settings['mobile_sitename'])
 				$config->setValue('sitename', $MobileJoomla_Settings['mobile_sitename']);
 			$version = new JVersion;
-			$is_joomla16 = (substr($version->getShortVersion(),0,3) == '1.6');
+			$is_joomla15 = (substr($version->getShortVersion(),0,3) == '1.5');
 			if($MobileJoomla_Settings['caching'])
 			{
-				if($is_joomla16)
+				if(!$is_joomla15)
 				{
 					JRequest::setVar('mjmarkup', $MobileJoomla_Device['markup']);
 					JRequest::setVar('mjscreenwidth', $MobileJoomla_Device['screenwidth']);
@@ -187,7 +189,7 @@ class plgSystemMobileBot extends JPlugin
 			else
 			{
 				$config->setValue('config.caching', false);
-				if($is_joomla16)
+				if(!$is_joomla15)
 				{
 					JRequest::setVar('mjmarkup', $MobileJoomla_Device['markup']);
 					JRequest::setVar('mjscreenwidth', $MobileJoomla_Device['screenwidth']);
@@ -228,6 +230,9 @@ class plgSystemMobileBot extends JPlugin
 		if($mainframe->isAdmin()) // don't use MobileJoomla in backend
 			return;
 
+		$version = new JVersion;
+		$is_joomla15 = (substr($version->getShortVersion(),0,3) == '1.5');
+
 		// don't filter RSS and non-html
 		/** @var JDocument $document */
 		$document =& JFactory::getDocument();
@@ -236,8 +241,13 @@ class plgSystemMobileBot extends JPlugin
 		if($doctype == 'rss' || $doctype == 'atom' || (($format!=='html') && ($format!=='raw')))
 		{
 			//reset mobile content-type header
-			if(isset($GLOBALS['_JRESPONSE']) && isset($GLOBALS['_JRESPONSE']->headers['Content-type']))
-				unset($GLOBALS['_JRESPONSE']->headers['Content-type']);
+			if(!$is_joomla15)
+				JResponse::clearHeaders();
+			else
+			{
+				if(isset($GLOBALS['_JRESPONSE']) && isset($GLOBALS['_JRESPONSE']->headers['Content-type']))
+					unset($GLOBALS['_JRESPONSE']->headers['Content-type']);
+			}
 			return;
 		}
 
