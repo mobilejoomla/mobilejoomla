@@ -12,13 +12,13 @@ defined('_JEXEC') or die('Restricted access');
 
 function getMenuList($menuoptions, $name, $value)
 {
-	static $is_joomla16;
-	if(!isset($is_joomla16))
+	static $is_joomla15;
+	if(!isset($is_joomla15))
 	{
 		$version = new JVersion;
-		$is_joomla16 = (substr($version->getShortVersion(),0,3) == '1.6');
+		$is_joomla15 = (substr($version->getShortVersion(),0,3) == '1.5');
 	}
-	if($is_joomla16)
+	if(!$is_joomla15)
 		return JHTML::_('select.genericlist',
 						$menuoptions,
 						$name.'_tmp',

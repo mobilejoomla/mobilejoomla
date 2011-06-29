@@ -109,7 +109,7 @@ class MobileJoomla_WML extends MobileJoomla
 			$lang =& JFactory::getLanguage();
 			$lang->load('com_mobilejoomla', JPATH_ADMINISTRATOR);
 			$version = new JVersion();
-			$fyear = (substr($version->getShortVersion(),0,3) == '1.6') ? 'Y' : '%Y';
+			$fyear = (substr($version->getShortVersion(),0,3) != '1.5') ? 'Y' : '%Y';
 ?>
 <p><small>&copy; <?php echo JHTML::_('date', 'now', $fyear).' '.$mainframe->getCfg('sitename'); ?><br/><?php echo $version->URL; ?><br/><?php echo JText::_('COM_MJ__MOBILE_VERSION_BY');?> <a href="http://www.mobilejoomla.com/">Mobile Joomla!</a></small></p>
 <?php

@@ -19,21 +19,21 @@ function MJ_version()
 	return '###VERSION###';
 }
 
-function isJoomla16()
+function isJoomla15()
 {
-	static $is_joomla16;
-	if(isset($is_joomla16))
-		return $is_joomla16;
+	static $is_joomla15;
+	if(isset($is_joomla15))
+		return $is_joomla15;
 	$version = new JVersion;
- 	$is_joomla16 = (substr($version->getShortVersion(),0,3) == '1.6');
-	return $is_joomla16;
+ 	$is_joomla15 = (substr($version->getShortVersion(),0,3) == '1.5');
+	return $is_joomla15;
 }
 
 function getExtensionId($type, $name, $group='')
 {
 	/** @var JDatabase $db */
 	$db =& JFactory::getDBO();
- 	if(isJoomla16())
+ 	if(!isJoomla15())
 	{
 		if($type=='plugin')
 			$db->setQuery("SELECT extension_id FROM #__extensions WHERE `type`='$type' AND `folder`='$group' AND `element`='$name'");
@@ -67,7 +67,7 @@ function InstallPlugin($group, $sourcedir, $name, $fullname, $publish = 1, $orde
 	{
 		/** @var JDatabase $db */
 		$db =& JFactory::getDBO();
-		if(isJoomla16())
+		if(!isJoomla15())
 			$db->setQuery("UPDATE `#__extensions` SET `enabled`=$publish, `ordering`=$ordering WHERE `type`='plugin' AND `element`='$name' AND `folder`='$group'");
 		else
 			$db->setQuery("UPDATE `#__plugins` SET `published`=$publish, `ordering`=$ordering  WHERE `element`='$name' AND `folder`='$group'");
@@ -90,7 +90,7 @@ function InstallTemplate($sourcedir, $name)
 	$installer = new JInstaller();
 	if(!$installer->install($sourcedir.DS.$name))
 		return false;
-	if(!isJoomla16())
+	if(isJoomla15())
 	{
 		/** @var JDatabase $db */
 		$db =& JFactory::getDBO();
@@ -110,7 +110,7 @@ function UninstallTemplate($name)
 	$installer = new JInstaller();
 	if(!$installer->uninstall('template', $id))
 		return false;
-	if(!isJoomla16())
+	if(isJoomla15())
 	{
 		/** @var JDatabase $db */
 		$db =& JFactory::getDBO();
@@ -136,7 +136,7 @@ function InstallModule($sourcedir, $name, $title, $position, $published = 1, $sh
 			/** @var JDatabase $db */
 			$db =& JFactory::getDBO();
 
-			if(isJoomla16())
+			if(!isJoomla15())
 				$db->setQuery("SELECT `params` FROM `#__extensions` WHERE extension_id=$id");
 			else
 				$db->setQuery("SELECT `params` FROM `#__modules` WHERE id=$id");
@@ -145,23 +145,17 @@ function InstallModule($sourcedir, $name, $title, $position, $published = 1, $sh
 			$db->setQuery("DELETE FROM `#__modules` WHERE `module`='$name'");
 			$db->query();
 
-//			if(!isJoomla16())
-//			{
-//				$db->setQuery("DELETE FROM `#__modules_menu` WHERE moduleid=$id");
-//				$db->query();
-//			}
-
 			if($admin)
-				$access = isJoomla16() ? 3 : 2;
+				$access = isJoomla15() ? 2 : 3;
 			else
-				$access = isJoomla16() ? 1 : 0;
+				$access = isJoomla15() ? 0 : 1;
 			foreach($position as $pos)
 			{
 				$db->setQuery("SELECT MAX(ordering) FROM `#__modules` WHERE `position`='$pos'");
 				$ordering = $db->loadResult();
 				++$ordering;
 
-				if(isJoomla16())
+				if(!isJoomla15())
 					$db->setQuery("INSERT INTO `#__modules` (`title`, `ordering`, `position`, `published`, `module`, `showtitle`, `params`, `access`, `client_id`, `language`) VALUES ('$title', $ordering, '$pos', $published, '$name', $showtitle, $params, $access, $admin, '*')");
 				else
 					$db->setQuery("INSERT INTO `#__modules` (`title`, `ordering`, `position`, `published`, `module`, `showtitle`, `params`, `access`, `client_id`) VALUES ('$title', $ordering, '$pos', $published, '$name', $showtitle, $params, $access, $admin)");
@@ -643,7 +637,7 @@ function com_install()
 		JFile::move($file, $newfile);
 	}
 
-	if($upgrade && !isJoomla16())
+	if($upgrade && isJoomla15())
 	{
 		$query = "DROP TABLE IF EXISTS `#__capability`";
 		$db->setQuery($query);
@@ -688,7 +682,7 @@ function com_install()
 	UpdateConfig();
 
 	// install templates
-	if(isJoomla16())
+	if(!isJoomla15())
 	{
 		$TemplateSource = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'templates16';
 		JFolder::delete(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'templates15');
@@ -769,7 +763,7 @@ function com_install()
 			JFile::delete($teraSQL);
 			if($dump_ok && !terawurfl_install_procedure())
 			{
-				if(isJoomla16())
+				if(!isJoomla15())
 					$query = "UPDATE #__extensions SET params = 'mysql4=1' WHERE element = 'terawurfl' AND folder = 'mobile'";
 				else
 					$query = "UPDATE #__plugins SET params = 'mysql4=1' WHERE element = 'terawurfl' AND folder = 'mobile'";
@@ -779,7 +773,7 @@ function com_install()
 			if(!$dump_ok || !terawurfl_test()) // disable terawurfl
 			{
 				JError::raiseWarning(0, JText::_('COM_MJ__TERAWURFL_WILL_BE_DISABLED'));
-				if(isJoomla16())
+				if(!isJoomla15())
 					$query = "UPDATE #__extensions SET enabled = 0 WHERE element = 'terawurfl' AND folder = 'mobile'";
 				else
 					$query = "UPDATE #__plugins SET published = 0 WHERE element = 'terawurfl' AND folder = 'mobile'";
@@ -789,7 +783,7 @@ function com_install()
 			}
 			else
 			{
-				if(isJoomla16())
+				if(!isJoomla15())
 					$db->setQuery("SELECT enabled FROM `#__extensions` WHERE element = 'terawurfl' AND folder = 'mobile'");
 				else
 					$db->setQuery("SELECT published FROM `#__plugins` WHERE element = 'terawurfl' AND folder = 'mobile'");
@@ -831,7 +825,7 @@ function com_uninstall()
 	$lang =& JFactory::getLanguage();
 	$lang->load('com_mobilejoomla');
 
-	if(isJoomla16())
+	if(!isJoomla15())
 		$db->setQuery("SELECT template FROM #__template_styles WHERE client_id = 0 AND home = 1 LIMIT 1");
 	else
 		$db->setQuery("SELECT template FROM #__templates_menu WHERE client_id = 0 AND menuid = 0");

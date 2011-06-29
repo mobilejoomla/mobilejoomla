@@ -306,8 +306,8 @@ function showconfig()
 		/** @var JDatabase $db */
 		$db =& JFactory::getDBO();
 		$version = new JVersion;
-		$isJoomla16 = (substr($version->getShortVersion(),0,3) == '1.6');
-		if($isJoomla16)
+		$isJoomla15 = (substr($version->getShortVersion(),0,3) == '1.5');
+		if(!$isJoomla15)
 			$query = 'SELECT id, menutype, title AS name, link, type, parent_id AS parent FROM #__menu WHERE published=1 ORDER BY menutype, parent, ordering';
 		else
 			$query = 'SELECT id, menutype, name, link, type, parent FROM #__menu WHERE published=1 ORDER BY menutype, parent, ordering';
@@ -322,7 +322,7 @@ function showconfig()
 			$children[$pt] = $list;
 		}
 		$list = array();
-		if($isJoomla16)
+		if(!$isJoomla15)
 			$id = intval($mitems[0]->id);
 		else
 			$id = intval($mitems[0]->parent);

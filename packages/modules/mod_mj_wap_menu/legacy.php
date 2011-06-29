@@ -116,7 +116,7 @@ function mosShowWAPMenu(&$params)
 	$rows = $menu->getItems('menutype', $params->get('menutype'));
 
 	$version = new JVersion;
-	$is_joomla16 = (substr($version->getShortVersion(),0,3) == '1.6');
+	$is_joomla16 = (substr($version->getShortVersion(),0,3) != '1.5');
 	if($is_joomla16 && is_array($rows))
 		foreach($rows as $key=>$row)
 		{

@@ -16,7 +16,7 @@ $MobileJoomla =& MobileJoomla::getInstance();
 $MobileJoomla_Device =& MobileJoomla::getDevice();
 
 $version = new JVersion;
-$is_joomla16 = (substr($version->getShortVersion(),0,3) == '1.6');
+$is_joomla16 = (substr($version->getShortVersion(),0,3) != '1.5');
 
 $base = JURI::base()."templates/".$this->template;
 $homepage = JURI::base();
