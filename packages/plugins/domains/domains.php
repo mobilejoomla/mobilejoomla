@@ -21,67 +21,87 @@ class plgMobileDomains extends JPlugin
 
 	function onAfterDeviceDetection(&$MobileJoomla_Settings, &$MobileJoomla_Device)
 	{
+		if($MobileJoomla_Settings['domains'] != '1')
+			return;
+
 		$version = new JVersion;
 		$is_joomla15 = (substr($version->getShortVersion(),0,3) == '1.5');
 		if($is_joomla15)
 			$config_live_site = 'config.live_site';
 		else
 			$config_live_site = 'live_site';
+
 		// Check for special domains
-		if($MobileJoomla_Settings['domains'] == '1')
+		$parsed = parse_url(JURI::base());
+		$path = isset($parsed['path']) ? $parsed['path'] : '';
+		$http = isset($parsed['scheme']) ? $parsed['scheme'] : 'http';
+
+		$domain_xhtml = $MobileJoomla_Settings['xhtmldomain'];
+		$domain_wap = $MobileJoomla_Settings['wapdomain'];
+		$domain_imode = $MobileJoomla_Settings['imodedomain'];
+		$domain_iphone = $MobileJoomla_Settings['iphonedomain'];
+
+		/** @var JRegistry $config */
+		$config =& JFactory::getConfig();
+
+		if($domain_xhtml && $_SERVER['HTTP_HOST'] == $domain_xhtml)
+		{ // Smartphone (xhtml-mp/wap2) domain
+			$MobileJoomla_Device['markup'] = 'xhtml';
+			$config->setValue($config_live_site, $http.'://'.$_SERVER['HTTP_HOST'].$path);
+		}
+		elseif($domain_wap && $_SERVER['HTTP_HOST'] == $domain_wap)
+		{ // WAP (wml) domain
+			$MobileJoomla_Device['markup'] = 'wml';
+			$config->setValue($config_live_site, $http.'://'.$_SERVER['HTTP_HOST'].$path);
+		}
+		elseif($domain_imode && $_SERVER['HTTP_HOST'] == $domain_imode)
+		{ // iMode (chtml) domain
+			$MobileJoomla_Device['markup'] = 'chtml';
+			$config->setValue($config_live_site, $http.'://'.$_SERVER['HTTP_HOST'].$path);
+		}
+		elseif($domain_iphone && $_SERVER['HTTP_HOST'] == $domain_iphone)
+		{ // iPhone/iPod domain
+			$MobileJoomla_Device['markup'] = 'iphone';
+			$config->setValue($config_live_site, $http.'://'.$_SERVER['HTTP_HOST'].$path);
+		}
+	}
+
+	function onBeforeMobileMarkupInit(&$MobileJoomla_Settings, &$MobileJoomla_Device)
+	{
+		if($MobileJoomla_Settings['domains'] != '1')
+			return;
+		if($MobileJoomla_Device['markup'] == '')
+			return;
+
+		$uri =& JURI::getInstance();
+		$parsed = parse_url($uri->toString());
+		$path = isset($parsed['path']) ? $parsed['path'] : '';
+		$http = isset($parsed['scheme']) ? $parsed['scheme'] : 'http';
+
+		/** @var JSite $mainframe */
+		$mainframe =& JFactory::getApplication();
+		switch($MobileJoomla_Device['markup'])
 		{
-			$parsed = parse_url(JURI::base());
-			$path = isset($parsed['path']) ? $parsed['path'] : '';
-			$http = isset($parsed['scheme']) ? $parsed['scheme'] : 'http';
+		case 'xhtml':
 			$domain_xhtml = $MobileJoomla_Settings['xhtmldomain'];
+			if($MobileJoomla_Settings['xhtmlredirect'] && $domain_xhtml)
+				$mainframe->redirect($http.'://'.$domain_xhtml.$path);
+			break;
+		case 'wml':
 			$domain_wap = $MobileJoomla_Settings['wapdomain'];
+			if($MobileJoomla_Settings['wapredirect'] && $domain_wap)
+				$mainframe->redirect($http.'://'.$domain_wap.$path);
+			break;
+		case 'chtml':
 			$domain_imode = $MobileJoomla_Settings['imodedomain'];
+			if($MobileJoomla_Settings['imoderedirect'] && $domain_imode)
+				$mainframe->redirect($http.'://'.$domain_imode.$path);
+			break;
+		case 'iphone':
 			$domain_iphone = $MobileJoomla_Settings['iphonedomain'];
-			/** @var JRegistry $config */
-			if($domain_xhtml && $_SERVER['HTTP_HOST'] == $domain_xhtml)
-			{ // Smartphone (xhtml-mp/wap2) domain
-				$MobileJoomla_Device['markup'] = 'xhtml';
-				$config =& JFactory::getConfig();
-				$config->setValue($config_live_site, $http.'://'.$_SERVER['HTTP_HOST'].$path);
-			}
-			elseif($domain_wap && $_SERVER['HTTP_HOST'] == $domain_wap)
-			{ // WAP (wml) domain
-				$MobileJoomla_Device['markup'] = 'wml';
-				$config =& JFactory::getConfig();
-				$config->setValue($config_live_site, $http.'://'.$_SERVER['HTTP_HOST'].$path);
-			}
-			elseif($domain_imode && $_SERVER['HTTP_HOST'] == $domain_imode)
-			{ // iMode (chtml) domain
-				$MobileJoomla_Device['markup'] = 'chtml';
-				$config =& JFactory::getConfig();
-				$config->setValue($config_live_site, $http.'://'.$_SERVER['HTTP_HOST'].$path);
-			}
-			elseif($domain_iphone && $_SERVER['HTTP_HOST'] == $domain_iphone)
-			{ // iPhone/iPod domain
-				$MobileJoomla_Device['markup'] = 'iphone';
-				$config =& JFactory::getConfig();
-				$config->setValue($config_live_site, $http.'://'.$_SERVER['HTTP_HOST'].$path);
-			}
-			elseif($MobileJoomla_Device['markup']!=='') //Redirect to special domain
-			{
-				$uri =& JURI::getInstance();
-				$parsed = parse_url($uri->toString());
-				$path = isset($parsed['path']) ? $parsed['path'] : '';
-
-				/** @var JSite $mainframe */
-				$mainframe =& JFactory::getApplication();
-				if($MobileJoomla_Settings['xhtmlredirect'] && ($MobileJoomla_Device['markup'] == 'xhtml') && $domain_xhtml)
-					$mainframe->redirect($http.'://'.$domain_xhtml.$path);
-
-				if($MobileJoomla_Settings['wapredirect'] && ($MobileJoomla_Device['markup'] == 'wml') && $domain_wap)
-					$mainframe->redirect($http.'://'.$domain_wap.$path);
-
-				if($MobileJoomla_Settings['imoderedirect'] && ($MobileJoomla_Device['markup'] == 'chtml') && $domain_imode)
-					$mainframe->redirect($http.'://'.$domain_imode.$path);
-
-				if($MobileJoomla_Settings['iphoneredirect'] && ($MobileJoomla_Device['markup'] == 'iphone') && $domain_iphone)
-					$mainframe->redirect($http.'://'.$domain_iphone.$path);
-			}
+			if($MobileJoomla_Settings['iphoneredirect'] && $domain_iphone)
+				$mainframe->redirect($http.'://'.$domain_iphone.$path);
+			break;
 		}
 	}
 }

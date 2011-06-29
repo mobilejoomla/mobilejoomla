@@ -16,8 +16,6 @@ defined('_JEXEC') or die('Restricted access');
 if(!class_exists('MobileJoomla'))
 	return;
 
-require_once(dirname(__FILE__).DS.'helper.php');
-
 if(!defined('_MJ'))
 {
 	if($params->get('hide_on_pc', 1))
@@ -38,83 +36,85 @@ else
 	$base = $MobileJoomla->config['desktop_url'];
 }
 
-/** @var JSite $mainframe */
-$mainframe =& JFactory::getApplication();
-$saved_markup = $mainframe->getUserState('mobilejoomla.markup', false);
-switch($saved_markup)
-{
-	case '':
-	case 'xhtml':
-	case 'iphone':
-	case 'mobile':
-	case 'wml':
-	case 'chtml':
-		break;
-	default:
-		$saved_markup = false;
-}
-
-/** @var JURI $uri */
-$uri = clone(JFactory::getURI());
-$uri->delVar('naked');
-
-// Set-up mark-up chooser helper
-$return = base64_encode($uri->toString(array('path', 'query')));
 $show_chosen_markup = $params->get('show_choosen', 1);
-$helper = new modMarkupChooserHelper($base, $return, $show_chosen_markup);
 
 $links = array();
 
 if($params->get('auto_show', 0))
 {
-	$text = $params->get('auto_text', 'Automatic Version');
-	$link = modMarkupChooserHelper::getChangeLink($saved_markup===false?'-':'', '-');
-	if($link!==false) $links[] = array('url'=>$link, 'text'=>$text);
+	$chosen = MobileJoomla::isCurrentMarkup('auto');
+	if($show_chosen_markup || !$chosen)
+	{
+		$text = $params->get('auto_text', 'Automatic Version');
+		$link = $chosen ? false : MobileJoomla::getDeviceViewURI('auto');
+		$links[] = array('url'=>$link, 'text'=>$text);
+	}
 }
 
 if($params->get('mobile_show', 1))
 {
-	$text = $params->get('mobile_text', 'Mobile Version');
-	$is_mobile_markup = $markup == 'xhtml' || $markup == 'iphone' ||
-						$markup == 'wml' || $markup == 'chtml' ||
-						$saved_markup=='mobile';
-	$link = $helper->getChangeLink($is_mobile_markup?'mobile':'', 'mobile');
-	if($link!==false) $links[] = array('url'=>$link, 'text'=>$text);
+	$chosen = MobileJoomla::isCurrentMarkup('mobile');
+	if($show_chosen_markup || !$chosen)
+	{
+		$text = $params->get('mobile_text', 'Mobile Version');
+		$link = $chosen ? false : MobileJoomla::getDeviceViewURI('mobile');
+		$links[] = array('url'=>$link, 'text'=>$text);
+	}
 }
 
 if($params->get('web_show', 1))
 {
-	$text = $params->get('web_text', 'Standard Version');
-	$link = $helper->getChangeLink($markup, '');
-	if($link!==false) $links[] = array('url'=>$link, 'text'=>$text);
+	$chosen = MobileJoomla::isCurrentMarkup('desktop');
+	if($show_chosen_markup || !$chosen)
+	{
+		$text = $params->get('web_text', 'Standard Version');
+		$link = $chosen ? false : MobileJoomla::getDeviceViewURI('desktop');
+		$links[] = array('url'=>$link, 'text'=>$text);
+	}
 }
 
 if($params->get('xhtml_show', 0))
 {
-	$text = $params->get('xhtml_text', 'Smartphone Version');
-	$link = $helper->getChangeLink($markup, 'xhtml');
-	if($link!==false) $links[] = array('url'=>$link, 'text'=>$text);
+	$chosen = MobileJoomla::isCurrentMarkup('xhtml');
+	if($show_chosen_markup || !$chosen)
+	{
+		$text = $params->get('xhtml_text', 'Smartphone Version');
+		$link = $chosen ? false : MobileJoomla::getDeviceViewURI('xhtml');
+		$links[] = array('url'=>$link, 'text'=>$text);
+	}
 }
 
 if($params->get('iphone_show', 0))
 {
-	$text = $params->get('iphone_text', 'iPhone Version');
-	$link = $helper->getChangeLink($markup, 'iphone');
-	if($link!==false) $links[] = array('url'=>$link, 'text'=>$text);
+	$chosen = MobileJoomla::isCurrentMarkup('iphone');
+	if($show_chosen_markup || !$chosen)
+	{
+		$text = $params->get('iphone_text', 'iPhone Version');
+		$link = $chosen ? false : MobileJoomla::getDeviceViewURI('iphone');
+		$links[] = array('url'=>$link, 'text'=>$text);
+	}
 }
 
 if($params->get('wml_show', 0))
 {
-	$text = $params->get('wml_text', 'WAP Version');
-	$link = $helper->getChangeLink($markup, 'wml');
-	if($link!==false) $links[] = array('url'=>$link, 'text'=>$text);
+	$chosen = MobileJoomla::isCurrentMarkup('wml');
+	if($show_chosen_markup || !$chosen)
+	{
+		$text = $params->get('wml_text', 'WAP Version');
+		$link = $chosen ? false : MobileJoomla::getDeviceViewURI('wml');
+		$links[] = array('url'=>$link, 'text'=>$text);
+	}
 }
 
 if($params->get('chtml_show', 0))
 {
-	$text = $params->get('chtml_text', 'iMode Version');
-	$link = $helper->getChangeLink($markup, 'chtml');
-	if($link!==false) $links[] = array('url'=>$link, 'text'=>$text);
+	$chosen = MobileJoomla::isCurrentMarkup('chtml');
+	if($show_chosen_markup || !$chosen)
+	{
+		$text = $params->get('chtml_text', 'iMode Version');
+		$link = $chosen ? false : MobileJoomla::getDeviceViewURI('chtml');
+		$links[] = array('url'=>$link, 'text'=>$text);
+	}
 }
 
 require(JModuleHelper::getLayoutPath('mod_mj_markupchooser', $markup?$markup:'default'));

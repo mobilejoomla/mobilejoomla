@@ -96,7 +96,7 @@ class MobileJoomla
 
 	function setHeader()
 	{
-		JResponse::setHeader('Content-type', $this->getContentString(), true);
+		JResponse::setHeader('Content-Type', $this->getContentString(), true);
 	}
 
 	function showXMLheader()
@@ -177,5 +177,83 @@ class MobileJoomla
 	{
 		require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'imagerescaler.class.php');
 		return ImageRescaler::RescaleImages($text, $scaletype, $addstyles);
+	}
+
+	function isCurrentMarkup($markup)
+	{
+		$MobileJoomla_Device =& MobileJoomla::getDevice();
+		if($markup=='auto')
+			$markup = $MobileJoomla_Device['real_markup'];
+		elseif($markup=='desktop')
+			$markup = '';
+		elseif($markup=='mobile')
+			$markup = $MobileJoomla_Device['real_markup']=='' ? 'xhtml' : $MobileJoomla_Device['real_markup'];
+		return $markup === $MobileJoomla_Device['markup'];
+	}
+
+	function getDeviceViewURI($device)
+	{
+		$MobileJoomla_Settings =& MobileJoomla::getConfig();
+		$MobileJoomla_Device =& MobileJoomla::getDevice();
+
+		$uri = clone(JFactory::getURI());
+		$uri->delVar('device');
+
+		$desktop_uri = new JURI($MobileJoomla_Settings['desktop_url']);
+		$uri->setHost($desktop_uri->getHost());
+
+		if($device=='mobile')
+			$device = $MobileJoomla_Device['real_markup']=='' ? 'xhtml' : 'auto';
+
+		if(($device=='desktop') && ($MobileJoomla_Device['real_markup']==''))
+			$device = 'auto';
+
+		if($MobileJoomla_Settings['domains'] == '1')
+		{
+			switch($device)
+			{
+			case 'xhtml':
+				if($MobileJoomla_Settings['xhtmldomain'] && $MobileJoomla_Settings['xhtmlredirect'])
+				{
+					$uri->setHost($MobileJoomla_Settings['xhtmldomain']);
+					$device = false;
+				}
+				break;
+			case 'wml':
+				if($MobileJoomla_Settings['wapdomain'] && $MobileJoomla_Settings['wapredirect'])
+				{
+					$uri->setHost($MobileJoomla_Settings['wapdomain']);
+					$device = false;
+				}
+				break;
+			case 'chtml':
+				if($MobileJoomla_Settings['imodedomain'] && $MobileJoomla_Settings['imoderedirect'])
+				{
+					$uri->setHost($MobileJoomla_Settings['imodedomain']);
+					$device = false;
+				}
+				break;
+			case 'iphone':
+				if($MobileJoomla_Settings['iphonedomain'] && $MobileJoomla_Settings['iphoneredirect'])
+				{
+					$uri->setHost($MobileJoomla_Settings['iphonedomain']);
+					$device = false;
+				}
+				break;
+			case 'desktop':
+				break;
+			case 'auto':
+			default:
+				$device = false;
+			}
+		}
+
+		if($device === $MobileJoomla_Device['real_markup'])
+			$device = false;
+
+		if($device !== false)
+			$uri->setVar('device', $device);
+
+		return $uri->toString();
 	}
 }

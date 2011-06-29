@@ -40,17 +40,18 @@ class plgSystemMobileBot extends JPlugin
 		$MobileJoomla_Settings =& MobileJoomla::getConfig();
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
 
-		// check for markup chooser module
-		plgSystemMobileBot::processMarkupChange($MobileJoomla_Settings);
-
 		JPluginHelper::importPlugin('mobile');
 		$mainframe->triggerEvent('onDeviceDetection', array (&$MobileJoomla_Settings, &$MobileJoomla_Device));
 
+		$MobileJoomla_Device['real_markup'] = $MobileJoomla_Device['markup'];
+
+		$mainframe->triggerEvent('onAfterDeviceDetection', array (&$MobileJoomla_Settings, &$MobileJoomla_Device));
+
 		$markup = $MobileJoomla_Device['markup'];
-		$MobileJoomla_Device['real_markup'] = $markup;
+		$MobileJoomla_Device['default_markup'] = $markup;
 
 		//get user choice
-		$user_markup = plgSystemMobileBot::getUserMarkup($MobileJoomla_Settings);
+		$user_markup = plgSystemMobileBot::getUserMarkup();
 		if($user_markup!==false)
 			switch($user_markup)
 			{
@@ -81,6 +82,8 @@ class plgSystemMobileBot extends JPlugin
 				break;
 			}
 		}
+
+		$MobileJoomla_Device['markup'] = $markup;
 
 		if(($MobileJoomla_Device['screenwidth'] == 0) || ($MobileJoomla_Device['screenheight'] == 0))
 		{
@@ -129,11 +132,11 @@ class plgSystemMobileBot extends JPlugin
 			$MobileJoomla_Settings['tmpl_iphone_img'] = 1;
 		}
 
-		$MobileJoomla_Device['markup'] = $markup;
+		$mainframe->triggerEvent('onBeforeMobileMarkupInit', array (&$MobileJoomla_Settings, &$MobileJoomla_Device));
 
-		$mainframe->triggerEvent('onAfterDeviceDetection', array (&$MobileJoomla_Settings, &$MobileJoomla_Device));
+		plgSystemMobileBot::updateUserMarkup();
 
-		switch($markup)
+		switch($MobileJoomla_Device['markup'])
 		{
 			case 'xhtml':
 				$MobileJoomla =& MobileJoomla::getInstance('xhtmlmp');
@@ -218,9 +221,18 @@ class plgSystemMobileBot extends JPlugin
 					}
 				}
 			}
+			$router =& $mainframe->getRouter();
+			$router->attachBuildRule(array($this, 'buildRule'));
 		}
 		else
 			$MobileJoomla_Device['markup'] = false;
+	}
+
+	function buildRule(&$router, &$uri)
+	{
+		$MobileJoomla_Device =& MobileJoomla::getDevice();
+		if($MobileJoomla_Device['markup'] != $MobileJoomla_Device['default_markup'])
+			$uri->setVar('device', $MobileJoomla_Device['markup']);
 	}
 
 	function onAfterRoute()
@@ -241,13 +253,11 @@ class plgSystemMobileBot extends JPlugin
 		if($doctype == 'rss' || $doctype == 'atom' || (($format!=='html') && ($format!=='raw')))
 		{
 			//reset mobile content-type header
-			if(!$is_joomla15)
-				JResponse::clearHeaders();
-			else
-			{
-				if(isset($GLOBALS['_JRESPONSE']) && isset($GLOBALS['_JRESPONSE']->headers['Content-type']))
-					unset($GLOBALS['_JRESPONSE']->headers['Content-type']);
-			}
+			$headers = JResponse::getHeaders();
+			JResponse::clearHeaders();
+			foreach($headers as $header)
+				if(strtolower($header['name']) != 'content-type')
+					JResponse::setHeader($header['name'], $header['value']);
 			return;
 		}
 
@@ -316,7 +326,9 @@ class plgSystemMobileBot extends JPlugin
 			return;
 
 		$current = $_GET;
+		unset($current['device']);
 		unset($current['lang']);
+		unset($current['language']);
 		unset($current['tp']);
 		unset($current['limit']); // fix for sh404sef
 		unset($current['mjmarkup']);
@@ -392,50 +404,40 @@ class plgSystemMobileBot extends JPlugin
 			return false;
 		switch($markup)
 		{
+			case 'desktop':
+				return '';
 			case '':
-			case 'mobile':
 			case 'xhtml':
 			case 'iphone':
 			case 'wml':
 			case 'chtml':
-				break;
-			default:
-				$markup = false;
+				return $markup;
 		}
-		return $markup;
+		return false;
 	}
 
-	function processMarkupChange(&$MobileJoomla_Settings)
+	function getUserMarkup()
 	{
 		/** @var JSite $mainframe */
 		$mainframe =& JFactory::getApplication();
-		if((@$_GET['option'] == 'com_mobilejoomla') && (@$_GET['task'] == 'setmarkup') &&
-				isset($_GET['markup']) && isset($_GET['return']))
-		{
-			$markup = plgSystemMobileBot::CheckMarkup($_GET['markup']);
-			if($markup!==false)
-				setcookie('mjmarkup', $markup ? $markup : '#', time()+365*24*60*60);
-			else
-				setcookie('mjmarkup', '', time()-365*24*60*60);
-			$mainframe->setUserState('mobilejoomla.markup', $markup);
-			$return = base64_decode($_GET['return']);
-			$mainframe->redirect($return);
-		}
+
+		$markup = false;
+
+		if(isset($_GET['device']))
+			$markup = plgSystemMobileBot::CheckMarkup($_GET['device']);
+
+		if($markup === false)
+			$markup = plgSystemMobileBot::CheckMarkup($mainframe->getUserState('mobilejoomla.markup', false));
+
+		return $markup;
 	}
 
-	function getUserMarkup(&$MobileJoomla_Settings)
+	function updateUserMarkup()
 	{
 		/** @var JSite $mainframe */
 		$mainframe =& JFactory::getApplication();
-		$markup = plgSystemMobileBot::CheckMarkup($mainframe->getUserState('mobilejoomla.markup', false));
-		if($markup===false && isset($_COOKIE['mjmarkup']))
-		{
-			$markup = $_COOKIE['mjmarkup'];
-			$markup = plgSystemMobileBot::CheckMarkup($markup=='#' ? '' : $markup);
-			if($markup!==false)
-				$mainframe->setUserState('mobilejoomla.markup', $markup);
-		}
-		return $markup;
+		$MobileJoomla_Device =& MobileJoomla::getDevice();
+		$mainframe->setUserState('mobilejoomla.markup', $MobileJoomla_Device['markup']);
 	}
 
 	function onAfterRender()
@@ -456,10 +458,7 @@ class plgSystemMobileBot extends JPlugin
 
 		JResponse::setBody($text);
 		if($MobileJoomla_Settings['httpcaching'])
-		{
 			JResponse::allowCache(true);
-			JResponse::setHeader('Vary', 'Cookie');
-		}
 		JResponse::setHeader('Cache-Control', 'no-transform');
 	}
 }
