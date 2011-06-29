@@ -16,6 +16,7 @@ CHANGELOG
 0.9.13
 Beta release
 - Mobile templates for Joomla!1.6
+- Initial support of Joomla!1.7
 - Improve mobile_pda template
 - Fix issue with incorrect "Standard version" link on subdomain
 - Fix issue with possible warning at TeraWURFL plugin
@@ -24,6 +25,10 @@ Beta release
 - Fix issue with uninstalling of MJ on Joomla!1.5
 - Update WURFL database (24.04.2011)
 - Update TeraWURFL to current snapshot (19.05.2011)
+- Fix issue with incorrect IE9 detecting in Mobile-Simple plugin
+- Fix redirect to subdomain issue in Joomla!1.6
+- New stable method for switching between mobile markup
+- Many small changes
 
 0.9.12
 Beta release
