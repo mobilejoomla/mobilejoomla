@@ -1,4 +1,13 @@
 <?php
+/**
+ * ###DESC###
+ * ###URL###
+ *
+ * @version		###VERSION###
+ * @license		###LICENSE###
+ * @copyright	###COPYRIGHT###
+ * @date		###DATE###
+ */
 defined('_JEXEC') or die('Restricted access');
 
 function modChrome_wml($module, &$params, &$attribs)
@@ -22,7 +31,6 @@ function modChrome_wmlcards($module, &$params, &$attribs)
 		{
 			?><p><strong><?php echo $module->title; ?></strong></p><?php
 		}
-		echo $module->content;
-		echo "</card>\n";
+		echo '<p>'.$module->content."</p></card>\n";
 	}
 }
