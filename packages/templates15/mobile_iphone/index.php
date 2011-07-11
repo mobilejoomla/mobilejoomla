@@ -15,9 +15,6 @@ defined('_MJ') or die('Incorrect usage of Mobile Joomla.');
 $MobileJoomla =& MobileJoomla::getInstance();
 $MobileJoomla_Device =& MobileJoomla::getDevice();
 
-$version = new JVersion;
-$is_joomla16 = (substr($version->getShortVersion(),0,3) != '1.5');
-
 $base = JURI::base()."templates/".$this->template;
 $homepage = JURI::base();
 if(!empty ($MobileJoomla->config['tmpl_iphone_homepage']))
@@ -26,7 +23,7 @@ if(!empty ($MobileJoomla->config['tmpl_iphone_homepage']))
 /** @var JMenuSite $menu */
 $menu =& JSite::getMenu();
 $activemenu =& $menu->getActive();
-$hasSubmenus = (bool)$menu->getItems($is_joomla16 ? 'parent_id' : 'parent', $activemenu->id);
+$hasSubmenus = (bool)$menu->getItems('parent', $activemenu->id);
 ?>
 <!doctype html>
 <html <?php echo $MobileJoomla->getXmlnsString(); ?>>
