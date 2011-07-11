@@ -39,11 +39,13 @@ a {
 
 /* jqtouch does not define br for mozilla */
 ul {
-    	-moz-border-radius: 6px;
+	-moz-border-radius: 6px;
 }
 
 
-ul li a.mainlevel:hover, ul li a.mainlevel:active {
+ul li a.mainlevel:hover, ul li a.mainlevel:active,
+ul.vmenu li a:hover, ul.vmenu li a:active
+{
     -moz-background-clip: border;
     -moz-background-inline-policy: continuous;
     -moz-background-origin: padding;
@@ -306,14 +308,3 @@ dd.message li {
 .markup-chooser {
         padding: 10px;
 }
-
-
-
-
-
-
-
-
-
-
-

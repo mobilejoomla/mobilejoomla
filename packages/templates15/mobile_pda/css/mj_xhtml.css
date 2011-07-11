@@ -1,5 +1,4 @@
 a, a:link, a:visited {
-a, a:link, a:visited {
     color: #003399;
 }
 
@@ -26,23 +25,33 @@ ul ul {
     margin-bottom: 0.3em;
 }
 
-ul#mainlevel {
+ul#mainlevel, ul.hmenu, ul.hsubmenu {
     margin: 0;
-    padding: 5px 10px;
+    padding: 5px 10px !important;
     border-bottom: 1px solid #d8d8d8;
-    list-style: none;
+    list-style: none !important;
 }
 
-ul#mainlevel li {
+ul.vmenu, ul.vsubmenu {
+    margin: 0;
+	padding: 5px 10px !important;
+	list-style: none !important;
+}
+
+ul#mainlevel li, ul.hmenu li, ul.hsubmenu li {
     display: inline;
-    padding-right: 15px;
+    padding-right: 10px;
 }
 
-ul#mainlevel li a {
+ul.vsubmenu li {
+	padding-left: 1em;
+}
+
+ul#mainlevel li a, ul.hmenu li a, ul.vmenu li a, ul.hsubmenu li a, ul.vsubmenu li a {
     color: #006600;
 }
 
-ul#mainlevel li a#active_menu {
+ul#mainlevel li a#active_menu, ul.menu li a.current {
     color: #000;
     text-decoration: none;
     font-weight: bold;

@@ -1,0 +1,53 @@
+<?php
+/**
+ * ###DESC###
+ * ###URL###
+ *
+ * @version		###VERSION###
+ * @license		###LICENSE###
+ * @copyright	###COPYRIGHT###
+ * @date		###DATE###
+ */
+defined('_JEXEC') or die('Restricted access');
+
+require_once(dirname(__FILE__).DS.'helper.php'); 
+
+/** @var JParameter $params */
+$params->def('menutype', 'mainmenu');
+$params->def('layout', 'v');
+$params->def('class_sfx', '');
+$params->def('excludemenu', '');
+$params->def('format', 0);
+
+/** @var JMenuSite $sitemenu */
+$sitemenu =& JSite::getMenu();
+$active	= $sitemenu->getActive();
+
+if(isset($active) && $active->menutype==$params->get('menutype'))
+{
+	$rows = (array)JMobileMenuHelper::getSiblings($active);
+	$subrows = (array)JMobileMenuHelper::getChildrens($active);
+}
+else
+{
+	$rows = (array)JMobileMenuHelper::getRoot($params->get('menutype'));
+	$subrows = array();
+}
+
+$exclude_menu_ids = explode(',', $params->get('excludemenu'));
+JMobileMenuHelper::prepareMenu(&$rows, $exclude_menu_ids);
+JMobileMenuHelper::prepareMenu(&$subrows, $exclude_menu_ids);
+
+if($params->get('layout')=='v')
+{
+	$params->set('class_prefix', 'menu');
+	JMobileMenuHelper::renderMenu($rows, $params, $subrows);
+}
+else
+{
+	$params->set('class_prefix', 'menu');
+	JMobileMenuHelper::renderMenu($rows, $params);
+	$params->set('class_prefix', 'submenu');
+	JMobileMenuHelper::renderMenu($subrows, $params);
+}
+

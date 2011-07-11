@@ -714,10 +714,8 @@ function com_install()
 	$ModuleSource = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'modules';
 	$status = true;
 	$status = InstallModule($ModuleSource, 'mod_mj_header', 'Header Module', 'mj_pda_header', 1, 0) && $status;
-	$status = InstallModule($ModuleSource, 'mod_mj_pda_menu', 'Main Menu', 'mj_pda_header2', 1, 0) && $status;
-	$status = InstallModule($ModuleSource, 'mod_mj_wap_menu', 'Main Menu', 'mj_wap_footer') && $status;
-	$status = InstallModule($ModuleSource, 'mod_mj_imode_menu', 'Main Menu', 'mj_imode_footer') && $status;
-	$status = InstallModule($ModuleSource, 'mod_mj_iphone_menu', 'Main Menu', 'mj_iphone_middle', 1, 0) && $status;
+	$status = InstallModule($ModuleSource, 'mod_mj_menu', 'Mobile Menu',
+							array('mj_pda_header2', 'mj_wap_footer', 'mj_imode_footer', 'mj_iphone_middle'), !$upgrade, 0) && $status;
 	$status = InstallModule($ModuleSource, 'mod_mj_markupchooser', 'Select Markup',
 	                        array ('footer', 'mj_all_footer'), 1, 0) && $status;
 	$status = InstallModule($ModuleSource, 'mod_mj_adminicon', 'MobileJoomla CPanel Icons', 'icon', 1, 0, 1) && $status;
@@ -854,7 +852,11 @@ function com_uninstall()
 	}
 
 	//uninstall modules
-	$moduleslist = array ('mod_mj_pda_menu', 'mod_mj_wap_menu', 'mod_mj_imode_menu', 'mod_mj_iphone_menu', 'mod_mj_markupchooser', 'mod_mj_header', 'mod_mj_adminicon');
+	$moduleslist = array ('mod_mj_pda_menu', 'mod_mj_wap_menu', 'mod_mj_imode_menu', 'mod_mj_iphone_menu');
+	foreach($moduleslist as $m)
+		UninstallModule($m);
+
+	$moduleslist = array ('mod_mj_menu', 'mod_mj_markupchooser', 'mod_mj_header', 'mod_mj_adminicon');
 	foreach($moduleslist as $m)
 		if(!UninstallModule($m))
 			JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_UNINSTALL')." Mobile Joomla '$m' module.</b>");
