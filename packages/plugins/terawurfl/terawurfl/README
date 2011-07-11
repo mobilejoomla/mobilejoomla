@@ -1,36 +1,27 @@
-Tera-WURFL README
-Version Stable 2.1.4
+ScientiaMobile WURFL API, Database Edition (formerly Tera-WURFL)
+http://www.scientiamobile.com/
 http://www.tera-wurfl.com/
-https://github.com/kamermans/Tera-WURFL
-http://www.linkedin.com/pub/steve-kamerman/8/761/89
 -----------------------
 
-ABOUT TERA-WURFL
-Tera-WURFL is a PHP based library with a database backend (MySQL, MSSQL, 
-MongoDB) that uses the Wireless Universal Resource File (WURFL). The WURFL 
-website  nicely defines the WURFL as follows: "The WURFL is an "ambitious" 
-configuration file that contains info about all known Wireless devices on 
-earth. Of course, new devices are created and released at all times. While 
-this configuration file is bound to be out of date one day after each update,
-chances are that the WURFL lists all of the WAP devices you can purchase in 
-the nearest shops."
+ABOUT THE SCIENTIAMOBILE WURFL API, DATABASE EDITION
 
-Tera-WURFL takes some functionality from the original PHP Tools Library by 
-Andrea Trasatti and a prerelease version of the Java WURFL Evolution. It 
-serves as a drop in replacement for the original PHP Tools with only minor 
-changes to your existing code. Since Tera-WURFL uses a database backend, 
-the real world performance increase over the existing PHP Tools implementation 
-is extremely high - normally between 5x and 10x faster!
-
-The author of Tera-WURFL is Steve Kamerman, a professional PHP Programmer,
-MySQL DBA, Flash/Flex Actionscript Developer, Linux Administrator, 
-IT Manager and part-time American Soldier. This project was originally 
-sponsored by Tera Technologies and was developed as an internal project 
-used for delivering content to customers of the mobile ringtone and image 
-creation site Tera-Tones.com.
+The Database-Edition WURFL API is a PHP library with database backend support
+for MySQL, Microsoft SQL Server and MongoDB that uses the Wireless Universal 
+Resource File (WURFL) to detect the capabilities of mobile devices.  This API
+is copyrighted by ScientiaMobile, and was originally written by Steve Kamerman,
+COO of ScientiaMobile, Inc.
 
 Read more about Tera-WURFL and download the latest release at:
 http://www.tera-wurfl.com/
 
-See what else Steve Kamerman has cookin' at his blog:
-http://www.stevekamerman.com/
+LICENSE
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU Affero General Public License as published by the Free 
+Software Foundation, either version 3 of the License, or (at your option) any
+later version.
+
+Please refer to the COPYING file distributed with this package for the
+complete text of the applicable GNU Affero General Public License.
+
+If you are not able to comply with the terms of the AGPL license, commercial
+licenses are available from ScientiaMobile, Inc at http://www.ScientiaMobile.com/

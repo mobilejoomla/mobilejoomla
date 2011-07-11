@@ -1,15 +1,19 @@
 <?php
 /**
- * Tera_WURFL - PHP MySQL driven WURFL
- * 
- * Tera-WURFL was written by Steve Kamerman, and is based on the
- * Java WURFL Evolution package by Luca Passani and WURFL PHP Tools by Andrea Trassati.
- * This version uses a database to store the entire WURFL file, multiple patch
- * files, and a persistent caching mechanism to provide extreme performance increases.
- * 
- * @package TeraWurfl
- * @author Steve Kamerman <stevekamerman AT gmail.com>
- * @license http://www.mozilla.org/MPL/ MPL Vesion 1.1
+ * Copyright (c) 2011 ScientiaMobile, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * Refer to the COPYING file distributed with this package.
+ *
+ * @package    WURFL
+ * @copyright  ScientiaMobile, Inc.
+ * @author     Steve Kamerman <steve AT scientiamobile.com>
+ * @license    GNU Affero General Public License
+ * @version    $id$
  */
 if(!class_exists('TeraWurflConfig',false))
 	require_once realpath(dirname(__FILE__).'/TeraWurflConfig.php');
@@ -89,7 +93,7 @@ class TeraWurfl{
 	 * The installed version of Tera-WURFL
 	 * @var String
 	 */
-	public $release_version = "2.1.4";
+	public $release_version = "2.1.5";
 	/**
 	 * The required version of PHP for this release
 	 * @var String
@@ -278,7 +282,7 @@ class TeraWurfl{
 		// Use the ultra high performance SimpleDesktopMatcher if enabled
 		if(TeraWurflConfig::$SIMPLE_DESKTOP_ENGINE_ENABLE){
 			require_once realpath(dirname(__FILE__).'/UserAgentMatchers/SimpleDesktopUserAgentMatcher.php');
-			if(SimpleDesktopUserAgentMatcher::isDesktopBrowser($userAgent)) $this->userAgent = WurflConstants::$SIMPLE_DESKTOP_UA;
+			if(SimpleDesktopUserAgentMatcher::isDesktopBrowser($this->userAgent)) $this->userAgent = WurflConstants::$SIMPLE_DESKTOP_UA;
 		}
 		// Define HTTP ACCEPT header.  Default: DO NOT use HTTP_ACCEPT headers
 		//$this->httpAccept= (is_null($httpAccept))? WurflSupport::getAcceptHeader(): $httpAccept;

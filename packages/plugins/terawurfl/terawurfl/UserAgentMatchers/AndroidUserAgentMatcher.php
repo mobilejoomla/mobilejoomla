@@ -1,15 +1,19 @@
 <?php
 /**
- * Tera_WURFL - PHP MySQL driven WURFL
- * 
- * Tera-WURFL was written by Steve Kamerman, and is based on the
- * Java WURFL Evolution package by Luca Passani and WURFL PHP Tools by Andrea Trassati.
- * This version uses a database to store the entire WURFL file, multiple patch
- * files, and a persistent caching mechanism to provide extreme performance increases.
- * 
- * @package TeraWurflUserAgentMatchers
- * @author Steve Kamerman <stevekamerman AT gmail.com>
- * @license http://www.mozilla.org/MPL/ MPL Vesion 1.1
+ * Copyright (c) 2011 ScientiaMobile, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * Refer to the COPYING file distributed with this package.
+ *
+ * @package    WURFL_UserAgentMatcher
+ * @copyright  ScientiaMobile, Inc.
+ * @author     Steve Kamerman <steve AT scientiamobile.com>
+ * @license    GNU Affero General Public License
+ * @version    $id$
  */
 /**
  * Provides a specific user agent matching technique
@@ -24,6 +28,8 @@ class AndroidUserAgentMatcher extends UserAgentMatcher {
 		'generic_android_ver2',
 		'generic_android_ver2_1',
 		'generic_android_ver2_2',
+		'generic_android_ver2_3',
+		'generic_android_ver3_0',
 	);
 	
 	public function __construct(TeraWurfl $wurfl){
@@ -40,7 +46,7 @@ class AndroidUserAgentMatcher extends UserAgentMatcher {
 		if(UserAgentUtils::checkIfContains($ua, 'Froyo')){
 			return 'generic_android_ver2_2';
 		}
-		if(preg_match('#Android[\s/](\d).(\d)#',$ua,$matches)){
+		if(preg_match('#Android[\s/](\d)\.(\d)#',$ua,$matches)){
 			$version = 'generic_android_ver'.$matches[1].'_'.$matches[2];
 			if($version == 'generic_android_ver2_0') $version = 'generic_android_ver2';
 			if(in_array($version,self::$constantIDs)){
