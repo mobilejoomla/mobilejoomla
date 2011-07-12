@@ -11,7 +11,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 ?>
-<ul class="<?php echo $params->get('classprefix') . htmlspecialchars($params->get('class_sfx')); ?>">
+<ul class="<?php echo $params->get('layout') . $params->get('class_prefix') . htmlspecialchars($params->get('class_sfx')); ?>">
 <?php
 foreach($menu as $item)
 {

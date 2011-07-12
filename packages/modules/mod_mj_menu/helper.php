@@ -23,35 +23,56 @@ class JMobileMenuHelper
 		return $is_joomla15;
 	}
 
-	function getRoot($menutype)
+	function getItems($attributes, $values)
 	{
 		$is_joomla15 = JMobileMenuHelper::_isJoomla15();
 		/** @var JMenuSite $menu */
 		$menu =& JSite::getMenu();
 		if($is_joomla15)
-			return $menu->getItems(array('menutype', 'parent'), array($item->menutype, 0));
+		{
+			$attribute = array_shift($attributes);
+			$value = array_shift($values);
+			$items = $menu->getItems($attribute, $value);
+			foreach($items as $key=>$item)
+				for($i=0, $count=count($attributes); $i<$count; $i++)
+					if($item->$attributes[$i] != $values[$i])
+					{
+						unset($items[$key]);
+						break;
+					}
+			return $items;
+		}
 		else
-			return $menu->getItems(array('menutype', 'parent_id'), array($item->menutype, 1));
+			return $menu->getItems($attributes, $values);
+	}
+
+	function getRoot($menutype)
+	{
+		$is_joomla15 = JMobileMenuHelper::_isJoomla15();
+		if($is_joomla15)
+			return JMobileMenuHelper::getItems(array('menutype', 'parent'),
+											   array($menutype, 0));
+		else
+			return JMobileMenuHelper::getItems(array('menutype', 'parent_id'),
+											   array($menutype, 1));
 	}
 
 	function getSiblings($item)
 	{
 		$is_joomla15 = JMobileMenuHelper::_isJoomla15();
-		/** @var JMenuSite $menu */
-		$menu =& JSite::getMenu();
 		if($is_joomla15)
-			return $menu->getItems(array('menutype', 'parent'), array($item->menutype, $item->parent));
+			return JMobileMenuHelper::getItems(array('menutype', 'parent'),
+											   array($item->menutype, $item->parent));
 		else
-			return $menu->getItems(array('menutype', 'parent_id'), array($item->menutype, $item->parent_id));
+			return JMobileMenuHelper::getItems(array('menutype', 'parent_id'),
+											   array($item->menutype, $item->parent_id));
 	}
 
 	function getChildrens($item)
 	{
 		$is_joomla15 = JMobileMenuHelper::_isJoomla15();
-		/** @var JMenuSite $menu */
-		$menu =& JSite::getMenu();
-		return $menu->getItems(array('menutype', $is_joomla15 ? 'parent' : 'parent_id'),
-							   array($item->menutype, $item->id));
+		return JMobileMenuHelper::getItems(array('menutype', $is_joomla15 ? 'parent' : 'parent_id'),
+										   array($item->menutype, $item->id));
 	}
 
 	function prepareMenu(&$menu, $exclude_menu_ids)
