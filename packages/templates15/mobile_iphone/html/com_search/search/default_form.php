@@ -69,22 +69,5 @@ $custom_lists['searchphrase' ] = JHTML::_('select.genericlist',  $searchphrases,
 	</div>
 <?php endif; ?>
 
-<?php /*
-	<table class="searchintro<?php echo $this->escape($this->params->get('pageclass_sfx')); ?>">
-	<tr>
-		<td colspan="3" >
-			<br />
-			<?php echo JText::_( 'Search Keyword' ) .' <b>'. $this->escape($this->searchword) .'</b>'; ?>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<br />
-			<?php echo $this->result; ?>
-		</td>
-	</tr>
-</table>
- */?>
-
 <input type="hidden" name="task"   value="search" />
 </form>

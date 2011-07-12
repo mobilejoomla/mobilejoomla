@@ -8,6 +8,7 @@
 <?php endif; ?>
 */ ?>
 
+<?php /* Hide com_search form on mobile pages */ ?>
 <?php /* echo $this->loadTemplate('form'); */ ?>
 
 <?php if ($this->total === 0) : ?>
