@@ -33,6 +33,9 @@ class plgSystemMobileBot extends JPlugin
 		if($mainframe->isAdmin()) // don't use MobileJoomla in backend
 			return;
 
+		$version = new JVersion;
+		$is_joomla15 = (substr($version->getShortVersion(),0,3) == '1.5');
+
 		//load MobileJoomla class
 		require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'mobilejoomla.class.php');
 
@@ -41,7 +44,24 @@ class plgSystemMobileBot extends JPlugin
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
 
 		JPluginHelper::importPlugin('mobile');
-		$mainframe->triggerEvent('onDeviceDetection', array (&$MobileJoomla_Settings, &$MobileJoomla_Device));
+
+		$cached_settings = $mainframe->getUserState('mobilejoomla.settings', false);
+		$cached_device = $mainframe->getUserState('mobilejoomla.device', false);
+		if($cached_settings===false || $cached_device===false)
+		{
+			$mainframe->triggerEvent('onDeviceDetection', array (&$MobileJoomla_Settings, &$MobileJoomla_Device));
+			$mainframe->setUserState('mobilejoomla.settings', serialize($MobileJoomla_Settings));
+			$mainframe->setUserState('mobilejoomla.device', serialize($MobileJoomla_Device));
+		}
+		else
+		{
+			if($is_joomla15)
+				Jloader::register('TeraWurfl', JPATH_PLUGINS.DS.'mobile'.DS.'terawurfl'.DS.'TeraWurfl.php');
+			else
+				Jloader::register('TeraWurfl', JPATH_PLUGINS.DS.'mobile'.DS.'terawurfl'.DS.'terawurfl'.DS.'TeraWurfl.php');
+			$MobileJoomla_Settings = unserialize($cached_settings);
+			$MobileJoomla_Device = unserialize($cached_device);
+		}
 
 		$MobileJoomla_Device['real_markup'] = $MobileJoomla_Device['markup'];
 
@@ -153,8 +173,6 @@ class plgSystemMobileBot extends JPlugin
 			$config =& JFactory::getConfig();
 			if($MobileJoomla_Settings['mobile_sitename'])
 				$config->setValue('sitename', $MobileJoomla_Settings['mobile_sitename']);
-			$version = new JVersion;
-			$is_joomla15 = (substr($version->getShortVersion(),0,3) == '1.5');
 
 			if(!$is_joomla15) //Joomla!1.6+
 			{
