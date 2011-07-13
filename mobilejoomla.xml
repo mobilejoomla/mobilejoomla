@@ -36,6 +36,7 @@
 			<filename>toolbar.mobilejoomla.html.php</filename>
 			<filename>toolbar.mobilejoomla.php</filename>
 			<filename>uninstall.mobilejoomla.php</filename>
+			<filename>access.xml</filename>
 			<folder>cachestorage</folder>
 			<folder>extensions</folder>
 			<folder>images</folder>

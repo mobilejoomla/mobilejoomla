@@ -10,6 +10,11 @@
  */
 defined('_JEXEC') or die('Restricted access');
 
+//ACL check
+if(version_compare(JVERSION,'1.6.0','ge') &&
+		!(JFactory::getUser()->authorise('core.manage', 'com_mobilejoomla')))
+	return JError::raiseWarning(403, JText::_('JERROR_ALERTNOAUTHOR'));
+
 require_once(JPATH_COMPONENT.DS.'admin.mobilejoomla.html.php');
 
 $task = JRequest::getCmd('task');
