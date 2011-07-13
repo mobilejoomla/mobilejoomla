@@ -19,10 +19,6 @@ $homepage = $this->baseurl.'/';
 if(!empty ($MobileJoomla->config['tmpl_iphone_homepage']))
 	$homepage = $MobileJoomla->config['tmpl_iphone_homepage'];
 
-/** @var JMenuSite $menu */
-$menu =& JSite::getMenu();
-$activemenu =& $menu->getActive();
-$hasSubmenus = (bool)$menu->getItems('parent', $activemenu->id);
 ?>
 <!doctype html>
 <html <?php echo $MobileJoomla->getXmlnsString(); ?>>
@@ -71,7 +67,7 @@ if($MobileJoomla->config['tmpl_iphone_pathway'] && (!$MobileJoomla->_ishomepage 
 endif;
 
 $modulepos = $MobileJoomla->getPosition('middle');
-if($modulepos && $this->countModules($modulepos) > 0 && ($MobileJoomla->_ishomepage || $hasSubmenus))
+if($modulepos && $this->countModules($modulepos) > 0)
 {
 	?><div id="<?php echo $modulepos; ?>"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
 }
