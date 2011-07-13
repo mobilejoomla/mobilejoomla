@@ -16,7 +16,7 @@ $parts = array();
 foreach($links as $link)
 {
 	if($link['url'])
-		$parts[] = '<a class="markupchooser" href="'.$link['url'].'">'.$link['text'].'</a>';
+		$parts[] = '<a class="markupchooser" href="'.$link['url'].'" rel="nofollow">'.$link['text'].'</a>';
 	else
 		$parts[] = '<span class="markupchooser">'.$link['text'].'</span>';
 }
