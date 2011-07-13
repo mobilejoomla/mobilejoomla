@@ -155,24 +155,26 @@ class plgSystemMobileBot extends JPlugin
 				$config->setValue('sitename', $MobileJoomla_Settings['mobile_sitename']);
 			$version = new JVersion;
 			$is_joomla15 = (substr($version->getShortVersion(),0,3) == '1.5');
-			if($MobileJoomla_Settings['caching'])
+
+			if(!$is_joomla15) //Joomla!1.6+
 			{
-				if(!$is_joomla15)
-				{
-					JRequest::setVar('mjmarkup', $MobileJoomla_Device['markup']);
-					JRequest::setVar('mjscreenwidth', $MobileJoomla_Device['screenwidth']);
-					JRequest::setVar('mjscreenheight', $MobileJoomla_Device['screenheight']);
-					JRequest::setVar('mjimageformats', implode('', $MobileJoomla_Device['imageformats']));
-					$registeredurlparams = $mainframe->get('registeredurlparams');
-					if(empty($registeredurlparams))
-						$registeredurlparams = new stdClass();
-					$registeredurlparams->mjmarkup = 'WORD';
-					$registeredurlparams->mjscreenwidth = 'INT';
-					$registeredurlparams->mjscreenheight = 'INT';
-					$registeredurlparams->mjimageformats = 'WORD';
-					$mainframe->set('registeredurlparams', $registeredurlparams);
-				}
-				else
+				if(!$MobileJoomla_Settings['caching'])
+					$config->setValue('config.caching', false);
+
+				$cachekey = $MobileJoomla_Device['markup'].'_'.
+							$MobileJoomla_Device['screenwidth'].'_'.
+							$MobileJoomla_Device['screenheight'].'_'.
+							implode('', $MobileJoomla_Device['imageformats']);
+				JRequest::setVar('mjcachekey', $cachekey);
+				$registeredurlparams = $mainframe->get('registeredurlparams');
+				if(empty($registeredurlparams))
+					$registeredurlparams = new stdClass();
+				$registeredurlparams->mjcachekey = 'CMD';
+				$mainframe->set('registeredurlparams', $registeredurlparams);
+			}
+			else //Joomla!1.5
+			{
+				if($MobileJoomla_Settings['caching'])
 				{
 					$handler = $config->getValue('config.cache_handler', 'file');
 					$class = 'JCacheStorage'.ucfirst($handler);
@@ -180,27 +182,9 @@ class plgSystemMobileBot extends JPlugin
 					jimport('joomla.cache.storage');
 					JLoader::register($class, $path);
 				}
-			}
-			else
-			{
-				$config->setValue('config.caching', false);
-				if(!$is_joomla15)
+				else //disable System-Cache plugin
 				{
-					JRequest::setVar('mjmarkup', $MobileJoomla_Device['markup']);
-					JRequest::setVar('mjscreenwidth', $MobileJoomla_Device['screenwidth']);
-					JRequest::setVar('mjscreenheight', $MobileJoomla_Device['screenheight']);
-					JRequest::setVar('mjimageformats', implode('', $MobileJoomla_Device['imageformats']));
-					$registeredurlparams = $mainframe->get('registeredurlparams');
-					if(empty($registeredurlparams))
-						$registeredurlparams = new stdClass();
-					$registeredurlparams->mjmarkup = 'WORD';
-					$registeredurlparams->mjscreenwidth = 'INT';
-					$registeredurlparams->mjscreenheight = 'INT';
-					$registeredurlparams->mjimageformats = 'WORD';
-					$mainframe->set('registeredurlparams', $registeredurlparams);
-				}
-				else
-				{
+					$config->setValue('config.caching', false);
 					$dispatcher =& JDispatcher::getInstance();
 					foreach($dispatcher->_observers as $index => $object)
 					{
@@ -323,10 +307,7 @@ class plgSystemMobileBot extends JPlugin
 		unset($current['language']);
 		unset($current['tp']);
 		unset($current['limit']); // fix for sh404sef
-		unset($current['mjmarkup']);
-		unset($current['mjscreenwidth']);
-		unset($current['mjscreenheight']);
-		unset($current['mjimageformats']);
+		unset($current['mjcachekey']);
 		if(isset($current[session_name()]))
 			unset($current[session_name()]);
 
