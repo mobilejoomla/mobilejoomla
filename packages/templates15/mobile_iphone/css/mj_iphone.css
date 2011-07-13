@@ -317,3 +317,7 @@ div.pagination ul a {
 	margin: 0;
 	padding: 0 5px 1px;
 }
+
+p {
+	color: #333;
+}
