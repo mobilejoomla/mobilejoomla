@@ -203,10 +203,10 @@ class MobileJoomla
 		$uri->setHost($desktop_uri->getHost());
 
 		if($device=='mobile')
-			$device = $MobileJoomla_Device['real_markup']=='' ? 'xhtml' : 'auto';
+			$device = $MobileJoomla_Device['real_markup']=='' ? 'xhtml' : $MobileJoomla_Device['real_markup'];
 
-		if(($device=='desktop') && ($MobileJoomla_Device['real_markup']==''))
-			$device = 'auto';
+		if($device=='auto')
+			$device = $MobileJoomla_Device['real_markup']=='' ? 'desktop' : $MobileJoomla_Device['real_markup'];
 
 		if($MobileJoomla_Settings['domains'] == '1')
 		{
@@ -214,42 +214,40 @@ class MobileJoomla
 			{
 			case 'xhtml':
 				if($MobileJoomla_Settings['xhtmldomain'] && $MobileJoomla_Settings['xhtmlredirect'])
-				{
 					$uri->setHost($MobileJoomla_Settings['xhtmldomain']);
-					$device = false;
-				}
 				break;
 			case 'wml':
 				if($MobileJoomla_Settings['wapdomain'] && $MobileJoomla_Settings['wapredirect'])
-				{
 					$uri->setHost($MobileJoomla_Settings['wapdomain']);
-					$device = false;
-				}
 				break;
 			case 'chtml':
 				if($MobileJoomla_Settings['imodedomain'] && $MobileJoomla_Settings['imoderedirect'])
-				{
 					$uri->setHost($MobileJoomla_Settings['imodedomain']);
-					$device = false;
-				}
 				break;
 			case 'iphone':
 				if($MobileJoomla_Settings['iphonedomain'] && $MobileJoomla_Settings['iphoneredirect'])
-				{
 					$uri->setHost($MobileJoomla_Settings['iphonedomain']);
-					$device = false;
-				}
 				break;
 			case 'desktop':
 				break;
-			case 'auto':
 			default:
 				$device = false;
 			}
 		}
-
-		if($device === $MobileJoomla_Device['real_markup'])
-			$device = false;
+		else
+		{
+			switch($device)
+			{
+			case 'xhtml':
+			case 'wml':
+			case 'chtml':
+			case 'iphone':
+			case 'desktop':
+				break;
+			default:
+				$device = false;
+			}
+		}
 
 		if($device !== false)
 			$uri->setVar('device', $device);

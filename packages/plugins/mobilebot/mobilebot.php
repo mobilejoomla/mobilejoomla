@@ -53,15 +53,7 @@ class plgSystemMobileBot extends JPlugin
 		//get user choice
 		$user_markup = plgSystemMobileBot::getUserMarkup();
 		if($user_markup!==false)
-			switch($user_markup)
-			{
-				case 'mobile':
-					if(empty($markup))
-						$markup = 'xhtml';
-					break;
-				default:
-					$markup = $user_markup;
-			}
+			$markup = $user_markup;
 
 		// template preview
 		if(isset($_GET['template']) && $_GET['template'] != '')
