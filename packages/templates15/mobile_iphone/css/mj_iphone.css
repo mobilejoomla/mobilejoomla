@@ -308,3 +308,12 @@ dd.message li {
 .markup-chooser {
         padding: 10px;
 }
+
+div.pagination {
+	text-align: center;
+}
+div.pagination ul a {
+	display: inline;
+	margin: 0;
+	padding: 0 5px 1px;
+}

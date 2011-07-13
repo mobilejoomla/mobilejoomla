@@ -28,7 +28,7 @@ Beta release
 - Fix issue with incorrect IE9 detecting in Mobile-Simple plugin
 - Fix redirect to subdomain issue in Joomla!1.6
 - Support of absolute URLs starting with // at image rescaling
-- Improve mobile_pda template
+- Improve mobile_pda and mobile_iphone templates
 - Many small changes
 
 0.9.12
