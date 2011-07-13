@@ -18,7 +18,7 @@ Beta release
 - Mobile templates for Joomla!1.6
 - Initial support of Joomla!1.7
 - Update to TeraWURFL 2.1.5
-- Update WURFL database (16.06.2011)
+- Update WURFL database (13.07.2011)
 - New stable method for switching between mobile markups
 - New mobile menu module with support of both horizontal and vertical layouts
 - Fix issue with incorrect "Standard version" link on subdomain
@@ -28,6 +28,7 @@ Beta release
 - Fix issue with incorrect IE9 detecting in Mobile-Simple plugin
 - Fix redirect to subdomain issue in Joomla!1.6
 - Support of absolute URLs starting with // at image rescaling
+- Support of single-subdomain mode
 - Improve mobile_pda and mobile_iphone templates
 - Many small changes
 
