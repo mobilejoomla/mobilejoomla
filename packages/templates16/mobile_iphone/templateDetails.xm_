@@ -15,7 +15,6 @@
 		<filename>component.php</filename>
 		<filename>error.php</filename>
 		<filename>mj_iphone.js</filename>
-		<filename>mj_iphone.css</filename>
 		<filename>jqt_startup.png</filename>
 		<filename>jqtouch.png</filename>
 		<filename>template_thumbnail.png</filename>
@@ -39,4 +38,27 @@
 		<position>mj_all_middle</position>
 		<position>mj_all_footer</position>
 	</positions>
+	<params>
+		<param name="theme" type="list" default="apple"
+			label="TPL_MOBILE_IPHONE__FIELD_THEME_LABEL"
+			description="TPL_MOBILE_IPHONE__FIELD_THEME_DESC"
+		>
+			<option value="apple">TPL_MOBILE_IPHONE__OPTION_APPLE</option>
+			<option value="jqt">TPL_MOBILE_IPHONE__OPTION_JQT</option>
+		</param>
+	</params>
+	<config>
+		<fields name="params">
+			<fieldset name="advanced">
+				<field name="theme" type="list" default="apple"
+					label="TPL_MOBILE_IPHONE__FIELD_THEME_LABEL"
+					description="TPL_MOBILE_IPHONE__FIELD_THEME_DESC"
+					filter="word"
+				>
+					<option value="apple">TPL_MOBILE_IPHONE__OPTION_APPLE</option>
+					<option value="jqt">TPL_MOBILE_IPHONE__OPTION_JQT</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
 </install>

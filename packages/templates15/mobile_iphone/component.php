@@ -14,10 +14,7 @@ defined('_MJ') or die('Incorrect usage of Mobile Joomla.');
 
 $MobileJoomla =& MobileJoomla::getInstance();
 
-$MobileJoomla->showXMLheader();
-$MobileJoomla->showDocType();
-
-$base = $this->baseurl."/templates/".$this->template;
+$base = $this->baseurl.'/templates/'.$this->template;
 
 ?>
 <!doctype html>
@@ -26,11 +23,9 @@ $base = $this->baseurl."/templates/".$this->template;
 	<meta http-equiv="Content-Type" content="<?php echo $MobileJoomla->getContentString(); ?>"/>
 <?php $MobileJoomla->showHead(); ?>
 	<style type="text/css" media="screen">@import "<?php echo $base;?>/jqtouch-src/jqtouch/jqtouch.min.css";</style>
-	<style type="text/css" media="screen">@import "<?php echo $base;?>/jqtouch-src/themes/apple/theme.min.css";</style>
-	<style type="text/css" media="screen">@import "<?php echo $base;?>/mj_iphone.css";</style>
-	<script src="<?php echo $base;?>/jqtouch-src/jqtouch/jquery.1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="<?php echo $base;?>/jqtouch-src/jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
-	<script src="<?php echo $base;?>/mj_iphone.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css" media="screen">@import "<?php echo $base;?>/jqtouch-src/themes/<?php echo $this->params->get('theme', 'apple'); ?>/theme.min.css";</style>
+	<style type="text/css" media="screen">@import "<?php echo $base;?>/css/mj_iphone.css";</style>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"/>
 </head>
 <body>
 <div<?php echo ($MobileJoomla->_ishomepage) ? ' id="home"' : '';?> class="current">
