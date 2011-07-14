@@ -47,11 +47,15 @@ ul.vsubmenu li {
 	padding-left: 1em;
 }
 
+ul.hmenu {
+	margin-top: 0;
+}
+
 ul#mainlevel li a, ul.hmenu li a, ul.vmenu li a, ul.hsubmenu li a, ul.vsubmenu li a {
     color: #006600;
 }
 
-ul#mainlevel li a#active_menu, ul.menu li a.current {
+ul#mainlevel li a#active_menu, ul.hmenu li a.current, ul.vmenu li a.current {
     color: #000;
     text-decoration: none;
     font-weight: bold;
@@ -284,4 +288,8 @@ span.num {
 }
 span.itemhits {
 	font-style: italic;
+}
+
+div.clear {
+	clear: both;
 }
