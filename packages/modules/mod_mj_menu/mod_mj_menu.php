@@ -38,16 +38,17 @@ $exclude_menu_ids = explode(',', $params->get('excludemenu'));
 JMobileMenuHelper::prepareMenu(&$rows, $exclude_menu_ids);
 JMobileMenuHelper::prepareMenu(&$subrows, $exclude_menu_ids);
 
+$params->set('class_prefix', 'menu');
+$params->set('has_submenu', count($subrows)?1:0);
+
 if($params->get('layout')=='v')
 {
-	$params->set('class_prefix', 'menu');
 	JMobileMenuHelper::renderMenu($rows, $params, $subrows);
 }
 else
 {
-	$params->set('class_prefix', 'menu');
 	JMobileMenuHelper::renderMenu($rows, $params);
-	$params->set('class_prefix', 'submenu');
-	JMobileMenuHelper::renderMenu($subrows, $params);
+	if(count($subrows))
+		JMobileMenuHelper::renderSubmenu($subrows, $params);
 }
 

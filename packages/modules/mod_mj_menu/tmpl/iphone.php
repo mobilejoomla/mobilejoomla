@@ -11,6 +11,9 @@
 defined('_JEXEC') or die('Restricted access');
 
 ?>
+<?php if(!$is_submenu) : ?>
+<div class="menu<?php echo htmlspecialchars($params->get('class_sfx')); ?>">
+<?php endif; ?>
 <ul class="<?php echo $params->get('layout') . $params->get('class_prefix') . htmlspecialchars($params->get('class_sfx')); ?>">
 <?php
 foreach($menu as $item)
@@ -36,13 +39,12 @@ foreach($menu as $item)
 <?php
 	echo $outline[0] . $text . $outline[1];
 	if($is_active && count($submenu))
-	{
-		$prev = $params->get('class_prefix');
-		$params->set('class_prefix', 'submenu');
-		JMobileMenuHelper::renderMenu($submenu, $params);
-		$params->set('class_prefix', $prev);
-	}
+		JMobileMenuHelper::renderSubmenu($submenu, $params);
 ?>
 </li>
 <?php } ?>
 </ul>
+<?php if( ($is_vertical xor $is_submenu) || ((!$is_vertical) && (!$is_submenu) && !$params->get('has_submenu')) ) : ?>
+</div>
+<div class="clear"></div>
+<?php endif; ?>

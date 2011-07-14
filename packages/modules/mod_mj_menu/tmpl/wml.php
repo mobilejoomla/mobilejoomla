@@ -12,6 +12,9 @@ defined('_JEXEC') or die('Restricted access');
 
 $separator = $is_vertical ? '<br/>' : ' | ';
 
+if($is_submenu)
+	echo '<br/>';
+
 $firstpass = true;
 foreach($menu as $item)
 {
@@ -39,16 +42,11 @@ foreach($menu as $item)
 	else
 		echo $separator;
 
-	if($is_submenu)
+	if($is_submenu && $is_vertical)
 		echo '- ';
 
 	echo $outline[0] . $text . $outline[1];
 
 	if($is_active && count($submenu))
-	{
-		$prev = $params->get('class_prefix');
-		$params->set('class_prefix', 'submenu');
-		JMobileMenuHelper::renderMenu($submenu, $params);
-		$params->set('class_prefix', $prev);
-	}
+		JMobileMenuHelper::renderSubmenu($submenu, $params);
 }

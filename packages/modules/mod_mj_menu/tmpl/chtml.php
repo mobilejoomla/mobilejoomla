@@ -44,12 +44,7 @@ foreach($menu as $item)
 	echo $outline[0] . $text . $outline[1];
 
 	if($is_active && count($submenu))
-	{
-		$prev = $params->get('class_prefix');
-		$params->set('class_prefix', 'submenu');
-		JMobileMenuHelper::renderMenu($submenu, $params);
-		$params->set('class_prefix', $prev);
-	}
+		JMobileMenuHelper::renderSubmenu($submenu, $params);
 
 	if($is_vertical) echo '</li>';
 }

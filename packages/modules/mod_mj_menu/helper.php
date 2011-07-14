@@ -133,7 +133,7 @@ class JMobileMenuHelper
 		}
 	}
 	
-	function renderMenu($menu, $params, $submenu = array())
+	function renderMenu($menu, &$params, $submenu = array())
 	{
 		/** @var MobileJoomla $MobileJoomla */
 		$MobileJoomla =& MobileJoomla::getInstance();
@@ -158,5 +158,13 @@ class JMobileMenuHelper
 		$is_submenu = $params->get('class_prefix')=='submenu';
 
 		require(JModuleHelper::getLayoutPath('mod_mj_menu', $markup));
+	}
+
+	function renderSubmenu($menu, &$params)
+	{
+		$prev = $params->get('class_prefix');
+		$params->set('class_prefix', 'submenu');
+		JMobileMenuHelper::renderMenu($submenu, $params);
+		$params->set('class_prefix', $prev);
 	}
 }
