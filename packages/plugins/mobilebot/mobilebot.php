@@ -47,7 +47,7 @@ class plgSystemMobileBot extends JPlugin
 
 		$cached_settings = $mainframe->getUserState('mobilejoomla.settings', false);
 		$cached_device = $mainframe->getUserState('mobilejoomla.device', false);
-		if($cached_settings===false || $cached_device===false)
+		if(!is_array($cached_settings) || !is_array($cached_device))
 		{
 			$mainframe->triggerEvent('onDeviceDetection', array (&$MobileJoomla_Settings, &$MobileJoomla_Device));
 			$mainframe->setUserState('mobilejoomla.settings', serialize($MobileJoomla_Settings));
