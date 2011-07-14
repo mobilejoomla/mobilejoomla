@@ -854,7 +854,10 @@ function com_uninstall()
 	//uninstall modules
 	$moduleslist = array ('mod_mj_pda_menu', 'mod_mj_wap_menu', 'mod_mj_imode_menu', 'mod_mj_iphone_menu');
 	foreach($moduleslist as $m)
-		UninstallModule($m);
+	{
+		if(JFolder::exists(JPATH_SITE.DS.'modules'.DS.$m))
+			UninstallModule($m);
+	}
 
 	$moduleslist = array ('mod_mj_menu', 'mod_mj_markupchooser', 'mod_mj_header', 'mod_mj_adminicon');
 	foreach($moduleslist as $m)
