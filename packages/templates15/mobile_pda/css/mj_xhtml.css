@@ -55,7 +55,7 @@ ul#mainlevel li a, ul.hmenu li a, ul.vmenu li a, ul.hsubmenu li a, ul.vsubmenu l
     color: #006600;
 }
 
-ul#mainlevel li a#active_menu, ul.hmenu li a.current, ul.vmenu li a.current {
+ul#mainlevel li a#active_menu, ul.hmenu li.current a, ul.vmenu li.current a {
     color: #000;
     text-decoration: none;
     font-weight: bold;

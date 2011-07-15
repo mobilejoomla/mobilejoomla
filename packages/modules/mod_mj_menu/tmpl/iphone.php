@@ -36,13 +36,13 @@ foreach($menu as $item)
 	}
 ?>
 <li<?php echo $is_active ? ' class="current"' : ''; ?>>
+<?php echo $outline[0] . $text . $outline[1]; ?>
+</li>
 <?php
-	echo $outline[0] . $text . $outline[1];
 	if($is_active && count($submenu))
 		JMobileMenuHelper::renderSubmenu($submenu, $params);
+}
 ?>
-</li>
-<?php } ?>
 </ul>
 <?php if( ($is_vertical xor $is_submenu) || ((!$is_vertical) && (!$is_submenu) && !$params->get('has_submenu')) ) : ?>
 </div>

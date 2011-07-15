@@ -43,10 +43,10 @@ foreach($menu as $item)
 
 	echo $outline[0] . $text . $outline[1];
 
+	if($is_vertical) echo '</li>';
+
 	if($is_active && count($submenu))
 		JMobileMenuHelper::renderSubmenu($submenu, $params);
-
-	if($is_vertical) echo '</li>';
 }
 
 echo $is_vertical ? '</ul>' : '</p>';
