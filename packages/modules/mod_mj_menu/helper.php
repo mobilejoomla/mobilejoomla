@@ -160,7 +160,7 @@ class JMobileMenuHelper
 		require(JModuleHelper::getLayoutPath('mod_mj_menu', $markup));
 	}
 
-	function renderSubmenu($menu, &$params)
+	function renderSubmenu($submenu, &$params)
 	{
 		$prev = $params->get('class_prefix');
 		$params->set('class_prefix', 'submenu');
