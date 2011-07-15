@@ -13,8 +13,8 @@ defined('_JEXEC') or die('Restricted access');
 
 CHANGELOG
 
-0.9.13
-Beta release
+1.0.0
+RC release
 - Mobile templates for Joomla!1.6
 - Initial support of Joomla!1.7
 - Update to TeraWURFL 2.1.5
