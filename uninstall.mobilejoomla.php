@@ -145,6 +145,7 @@ function InstallModule($sourcedir, $name, $title, $position, $published = 1, $sh
 			$db->setQuery("DELETE FROM `#__modules` WHERE `module`='$name'");
 			$db->query();
 
+			$published = $published ? 1 : 0;
 			if($admin)
 				$access = isJoomla15() ? 2 : 3;
 			else
