@@ -762,10 +762,23 @@ function com_install()
 			JFile::delete($teraSQL);
 			if($dump_ok && !terawurfl_install_procedure())
 			{
-				if(!isJoomla15())
-					$query = "UPDATE #__extensions SET params = 'mysql4=1' WHERE element = 'terawurfl' AND folder = 'mobile'";
-				else
-					$query = "UPDATE #__plugins SET params = 'mysql4=1' WHERE element = 'terawurfl' AND folder = 'mobile'";
+				$table = isJoomla15() ? '#__plugins' : '#__extensions';
+
+				$query = "SELECT params FROM $table WHERE element = 'terawurfl' AND folder = 'mobile'";
+				$db->setQuery($query);
+				$data = $db->loadResult();
+
+				jimport('joomla.registry.format');
+				$parser = JRegistryFormat::getInstance(isJoomla15() ? 'ini' : 'json');
+				$data = $parser->stringToObject($data);
+				if(!isset($data))
+					$data = new stdClass;
+				$data->cache = isset($data->cache) ? $data->cache : 0;
+				$data->mysql4 = 1;
+				$data = $parser->objectToString($data);
+				$data = $db->Quote($data);
+
+				$query = "UPDATE $table SET params = $data WHERE element = 'terawurfl' AND folder = 'mobile'";
 				$db->setQuery($query);
 				$db->query();
 			}
