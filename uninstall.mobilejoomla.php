@@ -870,7 +870,8 @@ function com_uninstall()
 	foreach($moduleslist as $m)
 	{
 		if(JFolder::exists(JPATH_SITE.DS.'modules'.DS.$m))
-			UninstallModule($m);
+			if(!UninstallModule($m))
+				JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_UNINSTALL')." Mobile Joomla '$m' module.</b>");
 	}
 
 	$moduleslist = array ('mod_mj_menu', 'mod_mj_markupchooser', 'mod_mj_header', 'mod_mj_adminicon');
