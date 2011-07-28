@@ -36,19 +36,23 @@ class ImageRescaler
 
 		ImageRescaler::$forced_width = 0;
 		ImageRescaler::$forced_height = 0;
+
 		// img attribules
 		if(preg_match('#\swidth\s*=\s*([\'"]?)(\d+)\1#i', $text, $matches))
 			ImageRescaler::$forced_width = intval($matches[2]);
 		if(preg_match('#\sheight\s*=\s*([\'"]?)(\d+)\1#i', $text, $matches))
 			ImageRescaler::$forced_height = intval($matches[2]);
+
 		// styles
-		if(preg_match('#\swidth\s*:\s*(\d+)\s*(px|!|;)#i', $text, $matches))
+		if(preg_match('#\Wwidth\s*:\s*(\d+)\s*(px|!|;)#i', $text, $matches))
 			ImageRescaler::$forced_width = intval($matches[1]);
-		if(preg_match('#\sheight\s*:\s*(\d+)\s*(px|!|;)#i', $text, $matches))
+		if(preg_match('#\Wheight\s*:\s*(\d+)\s*(px|!|;)#i', $text, $matches))
 			ImageRescaler::$forced_height = intval($matches[1]);
+		$styles = '';
+		if(preg_match('#\Wfloat\s*:\s*(left|right)\s*(!|;)#i', $text, $matches))
+			$styles .= 'float:'.$matches[1].';';
 
 		$text = preg_replace('#\s(width|height)\s*=\s*([\'"]?)\d*%?\2#i', '', $text);
-		$text = preg_replace('#\s(width|height)\s*:\s*\d+[^;]*;#i', '', $text);
 		$text = preg_replace('#\sstyle\s*=\s*([\'"]).*?\1#i', '', $text);
 
 		ImageRescaler::$scaledimage_width = ImageRescaler::$forced_width;
@@ -57,13 +61,15 @@ class ImageRescaler
 							 "' src=\"'.ImageRescaler::rescaleImage('\\2').'\"'", $text);
 		if(ImageRescaler::$scaledimage_width && ImageRescaler::$scaledimage_height)
 		{
-			$size = ' width="'.ImageRescaler::$scaledimage_width.'"'.
-					' height="'.ImageRescaler::$scaledimage_height.'"';
+			$text = ' width="'.ImageRescaler::$scaledimage_width.'"'.
+					' height="'.ImageRescaler::$scaledimage_height.'"'.
+					$text;
 			if(ImageRescaler::$addstyles)
-				$size .= ' style="width:'.ImageRescaler::$scaledimage_width.'px !important;'.
-								'height:'.ImageRescaler::$scaledimage_height.'px !important;"';
-			$text = $size.$text;
+				$styles .= 'width:'.ImageRescaler::$scaledimage_width.'px !important;'.
+						   'height:'.ImageRescaler::$scaledimage_height.'px !important;';
 		}
+		if($styles)
+			$text .= ' style="'.$styles.'"';
 
 		return $text;
 	}
