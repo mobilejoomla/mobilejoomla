@@ -313,15 +313,15 @@ function showconfig()
 		$version = new JVersion;
 		$isJoomla15 = (substr($version->getShortVersion(),0,3) == '1.5');
 		if(!$isJoomla15)
-			$query = 'SELECT id, menutype, title AS name, link, type, parent_id AS parent FROM #__menu WHERE published=1 ORDER BY menutype, parent, ordering';
+			$query = 'SELECT id, menutype, title, link, type, parent_id FROM #__menu WHERE published=1 ORDER BY menutype, parent_id, ordering';
 		else
-			$query = 'SELECT id, menutype, name, link, type, parent FROM #__menu WHERE published=1 ORDER BY menutype, parent, ordering';
+			$query = 'SELECT id, menutype, name AS title, link, type, parent AS parent_id FROM #__menu WHERE published=1 ORDER BY menutype, parent, ordering';
 		$db->setQuery($query);
 		$mitems = $db->loadObjectList();
 		$children = array();
 		foreach($mitems as $v)
 		{
-			$pt = $v->parent;
+			$pt = $v->parent_id;
 			$list = @$children[$pt] ? $children[$pt] : array();
 			array_push($list, $v);
 			$children[$pt] = $list;
@@ -330,7 +330,7 @@ function showconfig()
 		if(!$isJoomla15)
 			$id = intval($mitems[0]->id);
 		else
-			$id = intval($mitems[0]->parent);
+			$id = intval($mitems[0]->parent_id);
 		if(@$children[$id])
 			TreeRecurse($id, '', $list, $children);
 		$mitems = array();
@@ -361,7 +361,7 @@ function showconfig()
 		{
 			$id = $v->id;
 			$list[$id] = $v;
-			$list[$id]->treename = $indent.$v->name;
+			$list[$id]->treename = $indent.$v->title;
 			if(@$children[$id] && $level<=99)
 				TreeRecurse($id, $indent.'&nbsp;&nbsp;', $list, $children, $level+1);
 		}
