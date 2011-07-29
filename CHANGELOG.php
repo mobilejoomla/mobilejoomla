@@ -15,14 +15,15 @@ CHANGELOG
 
 1.0.0
 RC release
-- Mobile templates for Joomla!1.6
-- Initial support of Joomla!1.7
+- Support of Joomla!1.6/1.7
+- Mobile templates for Joomla!1.6/1.7
 - Update to TeraWURFL 2.1.5
 - Update WURFL database (13.07.2011)
 - New stable method for switching between mobile markups
 - New mobile menu module with support of both horizontal and vertical layouts
+- Speedup by caching device parameters
 - Fix issue with incorrect "Standard version" link on subdomain
-- Fix issue with possible warning at TeraWURFL plugin
+- Fix issue with possible warning in TeraWURFL plugin
 - Fix to keep path at redirect to subdomain
 - Fix issue with uninstalling of MJ on Joomla!1.5
 - Fix issue with incorrect IE9 detecting in Mobile-Simple plugin
@@ -30,6 +31,7 @@ RC release
 - Support of absolute URLs starting with // at image rescaling
 - Support of single-subdomain mode
 - Improve mobile_pda and mobile_iphone templates
+- Keep float:left/right style for rescaled images
 - Many small changes
 
 0.9.12
