@@ -11,6 +11,7 @@
 	background-color: white;
 	margin-right: 15px;
 	margin-bottom: 15px;
+	padding: 5px 0 5px 10px;
 }
 
 #mjicon div.icon15 a, #mjicon div.icon16 a {
@@ -106,4 +107,9 @@
 #position-icon div.panel {display:inline;border:none}
 #position-icon h3.title {display:none}
 #position-icon div.content {display:inline}
-div#position-icon.pane-sliders .icon {background:none}
+div#position-icon.pane-sliders .icon {
+	background:none!important;
+}
+div#position-icon.pane-sliders div#cpanel div.icon a, div#position-icon.pane-sliders div#mjicon div.icon a {
+	background: #fff!important;
+}
