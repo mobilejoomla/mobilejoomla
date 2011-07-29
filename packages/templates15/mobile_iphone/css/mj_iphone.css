@@ -312,10 +312,20 @@ dd.message li {
 div.pagination {
 	text-align: center;
 }
-div.pagination ul a {
+div.pagination ul li {
+	display: inline;
+	border-top: 0;
+	padding: 10px 0;
+}
+div.pagination ul a, div.pagination ul span {
 	display: inline;
 	margin: 0;
-	padding: 0 5px 1px;
+	padding: 0 15px 1px;
+	-webkit-border-radius: 0;
+	border-radius: 0;
+}
+div.pagination ul span {
+	color: #999;
 }
 
 p {
