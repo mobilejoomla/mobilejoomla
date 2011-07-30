@@ -16,8 +16,8 @@
 	<administration>
 		<menu img="components/com_mobilejoomla/images/mj16x16.gif">MobileJoomla</menu>
 		<submenu>
-			<menu task="settings" img="js/ThemeOffice/config.png">Settings</menu>
-			<menu task="about" img="js/ThemeOffice/info.png">About</menu>
+			<menu task="settings" img="class:config">Settings</menu>
+			<menu task="about" img="class:info">About</menu>
 		</submenu>
 		<languages>
 			<language tag="en-GB">en-GB.com_mobilejoomla.ini</language>
