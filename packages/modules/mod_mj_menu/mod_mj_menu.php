@@ -38,17 +38,16 @@ if(isset($active) && $active->menutype==$params->get('menutype'))
 {
 	$rows = (array)JMobileMenuHelper::getSiblings($active);
 	$subrows = (array)JMobileMenuHelper::getChildrens($active);
+	if($params->get('type')=='submenu')
+	{
+		if(!$MobileJoomla->isHome())
+			$rows = $subrows;
+		$subrows = array();
+	}
 }
 else
 {
 	$rows = (array)JMobileMenuHelper::getRoot($params->get('menutype'));
-	$subrows = array();
-}
-
-if($params->get('type')=='submenu')
-{
-	if(!$MobileJoomla->isHome())
-		$rows = $subrows;
 	$subrows = array();
 }
 
