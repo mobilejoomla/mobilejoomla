@@ -12,13 +12,23 @@ defined('_JEXEC') or die('Restricted access');
 
 require_once(dirname(__FILE__).DS.'helper.php'); 
 
+$MobileJoomla =& MobileJoomla::getInstance();
+
 /** @var JParameter $params */
 $params->def('menutype', 'mainmenu');
-$params->def('layout', 'h');
+$params->def('layout', '');
 $params->def('type', 'submenu');
 $params->def('class_sfx', '');
 $params->def('excludemenu', '');
 $params->def('format', 0);
+
+if($params->get('layout')=='')
+{
+	if($MobileJoomla->getMarkup() == 'iphone')
+		$params->set('layout', 'v');
+	else
+		$params->set('layout', 'h');
+}
 
 /** @var JMenuSite $sitemenu */
 $sitemenu =& JSite::getMenu();
@@ -37,8 +47,7 @@ else
 
 if($params->get('type')=='submenu')
 {
-	$MobileJoomla =& MobileJoomla::getInstance();
-	if(!$MobileJoomla->_ishomepage)
+	if(!$MobileJoomla->isHome())
 		$rows = $subrows;
 	$subrows = array();
 }
@@ -59,4 +68,3 @@ else
 	if(count($subrows))
 		JMobileMenuHelper::renderSubmenu($subrows, $params);
 }
-

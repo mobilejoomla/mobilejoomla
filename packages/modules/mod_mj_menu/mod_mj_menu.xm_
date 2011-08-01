@@ -17,8 +17,9 @@
 	<params>
 		<param name="menutype" type="mos_menu" default="mainmenu" label="Menu Name"
 				description="The name of the menu (default is mainmenu)"/>
-		<param name="layout" type="list" default="h" label="Layout"
+		<param name="layout" type="list" default="" label="Layout"
 				description="">
+			<option value="">Auto</option>
 			<option value="h">Horizontal</option>
 			<option value="v">Vertical</option>
 		</param>
