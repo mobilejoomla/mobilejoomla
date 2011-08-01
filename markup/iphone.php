@@ -125,4 +125,9 @@ $document->setHeadData($headerstuff);*/
 		}
 		return '';
 	}
+
+	function getAccessKey()
+	{
+		return false;
+	}
 }

@@ -254,4 +254,13 @@ class MobileJoomla
 
 		return $uri->toString();
 	}
+
+	function getAccessKey()
+	{
+		static $last_keynum = 0;
+		if($last_keynum>=10)
+			return false;
+		$last_keynum++;
+		return $last_keynum==10 ? '0' : $last_keynum;
+	}
 }
