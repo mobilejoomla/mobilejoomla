@@ -15,6 +15,7 @@ require_once(dirname(__FILE__).DS.'helper.php');
 /** @var JParameter $params */
 $params->def('menutype', 'mainmenu');
 $params->def('layout', 'h');
+$params->def('type', 'submenu');
 $params->def('class_sfx', '');
 $params->def('excludemenu', '');
 $params->def('format', 0);
@@ -31,6 +32,14 @@ if(isset($active) && $active->menutype==$params->get('menutype'))
 else
 {
 	$rows = (array)JMobileMenuHelper::getRoot($params->get('menutype'));
+	$subrows = array();
+}
+
+if($params->get('type')=='submenu')
+{
+	$MobileJoomla =& MobileJoomla::getInstance();
+	if(!$MobileJoomla->_ishomepage)
+		$rows = $subrows;
 	$subrows = array();
 }
 

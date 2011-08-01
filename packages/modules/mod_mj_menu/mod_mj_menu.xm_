@@ -22,6 +22,11 @@
 			<option value="h">Horizontal</option>
 			<option value="v">Vertical</option>
 		</param>
+		<param name="type" type="list" default="submenu" label="Type"
+				description="">
+			<option value="submenu">Submenu only</option>
+			<option value="menu">Current level with submenu</option>
+		</param>
 	</params>
 	<params group="advanced">
 		<param name="class_sfx" type="text" default="" label="Menu Class Suffix"
