@@ -14,6 +14,9 @@
 		<filename>helper.php</filename>
 		<folder>tmpl</folder>
 	</files>
+	<languages>
+		<language tag="en-GB">en-GB.mod_mj_menu.ini</language>
+	</languages>
 	<params>
 		<param name="menutype" type="mos_menu" default="mainmenu" label="Menu Name"
 				description="The name of the menu (default is mainmenu)"/>
