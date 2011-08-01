@@ -21,7 +21,7 @@ foreach($menu as $item)
 	if($item->type == 'separator')
 		$outline = array('', '');
 	else
-		$outline = array('<a href="'.$item->flink.'">', '</a>');
+		$outline = array('<a href="'.$item->flink.'"'.$item->accesskey.'>', '</a>');
 	$text = $item->title;
 	if($is_active)
 		$text = '<b>'. $text .'</b>';

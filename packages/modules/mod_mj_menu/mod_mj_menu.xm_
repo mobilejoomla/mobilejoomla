@@ -47,6 +47,11 @@
 			<option value="4">Image above Text</option>
 			<option value="5">Image below Text</option>
 		</param>
+		<param name="accesskey" type="radio" default="1" label="Accesskey attribute"
+				description="Enable Accesskey attribute">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
 	</params>
 	<config><fields name="params">
 	<fieldset name="basic">
@@ -75,6 +80,11 @@
 			<option value="3">Image on the Right</option>
 			<option value="4">Image above Text</option>
 			<option value="5">Image below Text</option>
+		</field>
+		<field name="accesskey" type="radio" default="1" label="Accesskey attribute"
+				description="Enable Accesskey attribute">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
 		</field>
 	</fieldset>
 	</fields></config>

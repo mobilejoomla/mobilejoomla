@@ -21,6 +21,7 @@ $params->def('type', 'submenu');
 $params->def('class_sfx', '');
 $params->def('excludemenu', '');
 $params->def('format', 0);
+$params->def('accesskey', 1);
 
 if($params->get('layout')=='')
 {
@@ -52,8 +53,8 @@ else
 }
 
 $exclude_menu_ids = explode(',', $params->get('excludemenu'));
-JMobileMenuHelper::prepareMenu(&$rows, $exclude_menu_ids);
-JMobileMenuHelper::prepareMenu(&$subrows, $exclude_menu_ids);
+JMobileMenuHelper::prepareMenu(&$rows, $exclude_menu_ids, $params);
+JMobileMenuHelper::prepareMenu(&$subrows, $exclude_menu_ids, $params);
 
 $params->set('has_submenu', count($subrows)?1:0);
 

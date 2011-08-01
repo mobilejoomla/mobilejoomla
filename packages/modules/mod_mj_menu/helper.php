@@ -75,8 +75,9 @@ class JMobileMenuHelper
 										   array($item->menutype, $item->id));
 	}
 
-	function prepareMenu(&$menu, $exclude_menu_ids)
+	function prepareMenu(&$menu, $exclude_menu_ids, $params)
 	{
+		$MobileJoomla =& MobileJoomla::getInstance();
 		$is_joomla15 = JMobileMenuHelper::_isJoomla15();
 
 		/** @var JUser $user */
@@ -130,6 +131,14 @@ class JMobileMenuHelper
 				$item->flink = JRoute::_($item->flink, true, $item->params->get('secure'));
 			else
 				$item->flink = JRoute::_($item->flink);
+
+			$item->accesskey = '';
+			if($params->get('accesskey'))
+			{
+				$key = $MobileJoomla->getAccessKey();
+				if($key!==false)
+					$item->accesskey = ' accesskey="'.$key.'"';
+			}
 		}
 	}
 	

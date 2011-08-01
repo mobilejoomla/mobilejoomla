@@ -22,7 +22,7 @@ foreach($menu as $item)
 	if($item->type == 'separator')
 		$outline = array('<span>', '</span>');
 	else
-		$outline = array('<a href="'.$item->flink.'">', '</a>');
+		$outline = array('<a href="'.$item->flink.'"'.$item->accesskey.'>', '</a>');
 	$text = $item->title;
 	$img  = $item->menu_image ? '<img src="'.$item->menu_image.'" />' : '';
 	switch($params->get('format'))
