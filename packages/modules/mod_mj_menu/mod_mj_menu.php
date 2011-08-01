@@ -14,7 +14,7 @@ require_once(dirname(__FILE__).DS.'helper.php');
 
 /** @var JParameter $params */
 $params->def('menutype', 'mainmenu');
-$params->def('layout', 'v');
+$params->def('layout', 'h');
 $params->def('class_sfx', '');
 $params->def('excludemenu', '');
 $params->def('format', 0);
