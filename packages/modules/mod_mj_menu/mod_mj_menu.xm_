@@ -62,6 +62,11 @@
 			<option value="v">Vertical</option>
 			<option value="h">Horizontal</option>
 		</field>
+		<field name="type" type="list" default="submenu" label="Type"
+				description="">
+			<option value="submenu">Submenu only</option>
+			<option value="menu">Current level with submenu</option>
+		</field>
 	</fieldset>
 	<fieldset name="advanced">
 		<field name="class_sfx" type="text" default="" label="Menu Class Suffix"
