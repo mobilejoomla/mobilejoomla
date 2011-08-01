@@ -1,7 +1,7 @@
 <?php
 // no direct access
 defined('_JEXEC') or die;
-$class = ' class="first"';
+$class = ' class="arrow first"';
 ?>
 <?php if (count($this->children[$this->category->id]) > 0) : ?>
 <ul>
@@ -9,10 +9,10 @@ $class = ' class="first"';
 <?php
 		if ($this->params->get('show_empty_categories') || $child->getNumItems(true) || count($child->getChildren())) :
 			if (!isset($this->children[$this->category->id][$id + 1])) :
-				$class = ' class="last"';
+				$class = ' class="arrow last"';
 			endif;
 		?>
-<li<?php echo $class; ?>><?php $class = ''; ?>
+<li<?php echo $class; ?>><?php $class = ' class="arrow"'; ?>
 <span class="item-title"><a href="<?php echo JRoute::_(ContentHelperRoute::getCategoryRoute($child->id));?>"><?php echo $this->escape($child->title); ?></a></span>
 <?php if ($this->params->get('show_subcat_desc') == 1) :?>
 <?php if ($child->description) : ?>
