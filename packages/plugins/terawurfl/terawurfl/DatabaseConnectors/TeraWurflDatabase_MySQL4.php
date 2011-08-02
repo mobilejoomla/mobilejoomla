@@ -45,7 +45,8 @@ class TeraWurflDatabase_MySQL4 extends TeraWurflDatabase{
 	 * Destructor, disconnect from database
 	 */
 	public function __destruct(){
-		@$this->dbcon->close();
+		if(is_object($this->dbcon))
+			@$this->dbcon->close();
 	}
 	// Device Table Functions (device,hybrid,patch)
 	public function getDeviceFromID($wurflID){
