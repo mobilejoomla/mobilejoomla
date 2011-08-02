@@ -1,3 +1,7 @@
+a {
+	padding: 0 5px;
+}
+
 a, a:link, a:visited {
     color: #003399;
 }
@@ -299,4 +303,8 @@ div.clear {
 }
 .image-right {
 	float:right;
+}
+
+.pagenav {
+	padding: 0 5px;
 }
