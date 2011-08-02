@@ -14,9 +14,15 @@ defined('_MJ') or die('Incorrect usage of Mobile Joomla.');
 
 $MobileJoomla =& MobileJoomla::getInstance();
 
+$base = $this->baseurl.'/templates/'.$this->template;
+$home = $this->baseurl.'/';
+
+$MobileJoomla_Device =& MobileJoomla::getDevice();
+if($MobileJoomla_Device['markup'] != $MobileJoomla_Device['default_markup'])
+	$home .= '?device='$MobileJoomla_Device['markup'];
+
 $MobileJoomla->showXMLheader();
 $MobileJoomla->showDocType();
-$base = JURI::base()."templates/".$this->template;
 ?>
 <html<?php echo $MobileJoomla->getXmlnsString(); ?>>
 <head>
@@ -77,7 +83,7 @@ $base = JURI::base()."templates/".$this->template;
 		{
 ?>
 			<div class="home">
-				<a href="<?php echo JRoute::_('index.php'); ?>"><?php echo JText::_('TPL_MOBILE_PDA__HOME'); ?></a>
+				<a href="<?php echo $home; ?>"><?php echo JText::_('TPL_MOBILE_PDA__HOME'); ?></a>
 			</div>
 <?php
 		}
