@@ -18,7 +18,11 @@ defined('_JEXEC') or die('Restricted access');
 <?php
 foreach($menu as $item)
 {
-	$is_active = $item->id == $active_id;
+	if($params->get('type')=='submenu')
+		$is_active = false;
+	else
+		$is_active = ($item->id == $active_id);
+
 	if($item->type == 'separator')
 		$outline = array('<span>', '</span>');
 	else
