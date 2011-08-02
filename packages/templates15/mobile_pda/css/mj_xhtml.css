@@ -293,3 +293,10 @@ span.itemhits {
 div.clear {
 	clear: both;
 }
+
+.image-left {
+	float:left;
+}
+.image-right {
+	float:right;
+}

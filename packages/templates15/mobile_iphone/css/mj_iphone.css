@@ -331,3 +331,10 @@ div.pagination ul span {
 p {
 	color: #333;
 }
+
+.image-left {
+	float:left;
+}
+.image-right {
+	float:right;
+}
