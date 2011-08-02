@@ -1,6 +1,6 @@
 /* MJ iPhone styles */
 .content .container {
-	padding: 0 2px;
+	padding: 10px;
     margin: 10px;
     background-color: white;
     line-height: 120%;
@@ -140,8 +140,9 @@ h3, div.h3 {
 #mj_iphone_header ul,
 #mj_iphone_header2 ul,
 #mj_iphone_footer ul,
-#mj_iphone_footer2 ul {
-	margin: 15px 0px 17px;
+#mj_iphone_footer2 ul,
+.content ul {
+	margin: 15px 2px 17px;
 }
 
 div.search ul li {
