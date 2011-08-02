@@ -40,9 +40,11 @@ a {
 /* jqtouch does not define br for mozilla */
 ul {
 	-moz-border-radius: 6px;
-	margin: 15px 2px 17px 2px;
 }
 
+ul ul {
+	margin: 15px 2px 17px 2px;
+}
 
 ul li a.mainlevel:hover, ul li a.mainlevel:active,
 ul.vmenu li a:hover, ul.vmenu li a:active
