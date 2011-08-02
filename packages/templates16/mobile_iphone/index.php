@@ -15,9 +15,6 @@ defined('_MJ') or die('Incorrect usage of Mobile Joomla.');
 $MobileJoomla =& MobileJoomla::getInstance();
 
 $base = $this->baseurl.'/templates/'.$this->template;
-$homepage = $this->baseurl.'/';
-if(!empty ($MobileJoomla->config['tmpl_iphone_homepage']))
-	$homepage = $MobileJoomla->config['tmpl_iphone_homepage'];
 
 ?>
 <!doctype html>
@@ -36,7 +33,7 @@ if(!empty ($MobileJoomla->config['tmpl_iphone_homepage']))
 		<h1><?php /** @var JSite $app */ $app =& JFactory::getApplication(); echo $app->getCfg('sitename'); ?></h1>
 	<?php if(!$MobileJoomla->isHome()): ?>
 		<a class="back" href="javascript:history.go(-1)"><?php echo JText::_('TPL_MOBILE_IPHONE__BACK'); ?></a>
-		<a class="home" href="<?php echo $homepage;?>"><?php echo JText::_('TPL_MOBILE_IPHONE__HOME'); ?></a>
+		<a class="home" href="<?php echo JRoute::_('index.php'); ?>"><?php echo JText::_('TPL_MOBILE_IPHONE__HOME'); ?></a>
 	<?php endif;?>
 	</div>
 <?php

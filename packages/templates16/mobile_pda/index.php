@@ -77,7 +77,7 @@ $base = JURI::base()."templates/".$this->template;
 		{
 ?>
 			<div class="home">
-				<a href="<?php echo $this->baseurl;?>"><?php echo JText::_('TPL_MOBILE_PDA__HOME'); ?></a>
+				<a href="<?php echo JRoute::_('index.php'); ?>"><?php echo JText::_('TPL_MOBILE_PDA__HOME'); ?></a>
 			</div>
 <?php
 		}
