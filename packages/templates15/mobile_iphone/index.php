@@ -19,7 +19,7 @@ $home = $this->baseurl.'/';
 
 $MobileJoomla_Device =& MobileJoomla::getDevice();
 if($MobileJoomla_Device['markup'] != $MobileJoomla_Device['default_markup'])
-	$home .= '?device='$MobileJoomla_Device['markup'];
+	$home .= '?device='.$MobileJoomla_Device['markup'];
 ?>
 <!doctype html>
 <html <?php echo $MobileJoomla->getXmlnsString(); ?>>
