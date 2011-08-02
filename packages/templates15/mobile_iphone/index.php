@@ -31,10 +31,10 @@ if(!empty ($MobileJoomla->config['tmpl_iphone_homepage']))
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"/>
 </head>
 <body>
-<div<?php echo ($MobileJoomla->_ishomepage) ? ' id="home"' : '';?> class="current">
+<div<?php echo ($MobileJoomla->isHome()) ? ' id="home"' : '';?> class="current">
 	<div class="toolbar">
 		<h1><?php /** @var JSite $app */ $app =& JFactory::getApplication(); echo $app->getCfg('sitename'); ?></h1>
-	<?php if(!$MobileJoomla->_ishomepage): ?>
+	<?php if(!$MobileJoomla->isHome()): ?>
 		<a class="back" href="javascript:history.go(-1)"><?php echo JText::_('TPL_MOBILE_IPHONE__BACK'); ?></a>
 		<a class="home" href="<?php echo $homepage;?>"><?php echo JText::_('TPL_MOBILE_IPHONE__HOME'); ?></a>
 	<?php endif;?>
@@ -59,7 +59,7 @@ if($modulepos && $this->countModules($modulepos) > 0)
 
 $MobileJoomla->showMessage();
 
-if($MobileJoomla->config['tmpl_iphone_pathway'] && (!$MobileJoomla->_ishomepage || $MobileJoomla->config['tmpl_iphone_pathwayhome'])): ?>
+if($MobileJoomla->config['tmpl_iphone_pathway'] && (!$MobileJoomla->isHome() || $MobileJoomla->config['tmpl_iphone_pathwayhome'])): ?>
 	<div class="content">
 		<?php $MobileJoomla->showBreadcrumbs(); ?>
 	</div>
@@ -72,7 +72,7 @@ if($modulepos && $this->countModules($modulepos) > 0)
 	?><div id="<?php echo $modulepos; ?>"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
 }
 
-if(!(!$MobileJoomla->config['tmpl_iphone_componenthome'] && $MobileJoomla->_ishomepage)): ?>
+if(!(!$MobileJoomla->config['tmpl_iphone_componenthome'] && $MobileJoomla->isHome())): ?>
 	<div class="content">
 		<div class="container">
 			<?php $MobileJoomla->showComponent(); ?>

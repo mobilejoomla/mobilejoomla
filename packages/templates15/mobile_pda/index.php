@@ -73,7 +73,7 @@ $base = JURI::base()."templates/".$this->template;
 			<a href="#header"><?php echo JText::_('TPL_MOBILE_PDA__BACK_TO_THE_TOP'); ?></a>
 		</div>
 <?php
-		if(!$MobileJoomla->_ishomepage)
+		if(!$MobileJoomla->isHome())
 		{
 ?>
 			<div class="home">

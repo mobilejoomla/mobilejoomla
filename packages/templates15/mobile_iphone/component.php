@@ -28,7 +28,7 @@ $base = $this->baseurl.'/templates/'.$this->template;
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"/>
 </head>
 <body>
-<div<?php echo ($MobileJoomla->_ishomepage) ? ' id="home"' : '';?> class="current">
+<div<?php echo ($MobileJoomla->isHome()) ? ' id="home"' : '';?> class="current">
 <?php $MobileJoomla->showMessage(); ?>
 <?php $MobileJoomla->showComponent(); ?>
 </div>
