@@ -420,15 +420,25 @@ class plgSystemMobileBot extends JPlugin
 		if($markup === false)
 			$markup = plgSystemMobileBot::CheckMarkup($mainframe->getUserState('mobilejoomla.markup', false));
 
+		if($markup === false && isset($_COOKIE['mjmarkup']))
+			$markup = plgSystemMobileBot::CheckMarkup($_COOKIE['mjmarkup']);
+
 		return $markup;
 	}
 
 	function updateUserMarkup()
 	{
+		$MobileJoomla_Device =& MobileJoomla::getDevice();
+		$markup = $MobileJoomla_Device['markup'];
+
 		/** @var JSite $mainframe */
 		$mainframe =& JFactory::getApplication();
-		$MobileJoomla_Device =& MobileJoomla::getDevice();
-		$mainframe->setUserState('mobilejoomla.markup', $MobileJoomla_Device['markup']);
+		$mainframe->setUserState('mobilejoomla.markup', $markup);
+
+		if($markup != $MobileJoomla_Device['default_markup'])
+			setcookie('mjmarkup', $markup ? $markup : 'desktop', time()+365*24*60*60);
+		else
+			setcookie('mjmarkup', '', time()-365*24*60*60);
 	}
 
 	function onAfterRender()
@@ -448,8 +458,12 @@ class plgSystemMobileBot extends JPlugin
 		$text = $MobileJoomla->processPage($text);
 
 		JResponse::setBody($text);
+
 		if($MobileJoomla_Settings['httpcaching'])
+		{
 			JResponse::allowCache(true);
+			JResponse::setHeader('Vary', 'Cookie');
+		}
 		JResponse::setHeader('Cache-Control', 'no-transform');
 	}
 }
