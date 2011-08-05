@@ -71,7 +71,7 @@ class plgSystemMobileBot extends JPlugin
 		$MobileJoomla_Device['default_markup'] = $markup;
 
 		//get user choice
-		$user_markup = plgSystemMobileBot::getUserMarkup();
+		$user_markup = $this->getUserMarkup();
 		if($user_markup!==false)
 			$markup = $user_markup;
 
@@ -146,7 +146,7 @@ class plgSystemMobileBot extends JPlugin
 
 		$mainframe->triggerEvent('onBeforeMobileMarkupInit', array (&$MobileJoomla_Settings, &$MobileJoomla_Device));
 
-		plgSystemMobileBot::updateUserMarkup();
+		$this->updateUserMarkup();
 
 		switch($MobileJoomla_Device['markup'])
 		{
@@ -415,13 +415,13 @@ class plgSystemMobileBot extends JPlugin
 		$markup = false;
 
 		if(isset($_GET['device']))
-			$markup = plgSystemMobileBot::CheckMarkup($_GET['device']);
+			$markup = $this->CheckMarkup($_GET['device']);
 
 		if($markup === false)
-			$markup = plgSystemMobileBot::CheckMarkup($mainframe->getUserState('mobilejoomla.markup', false));
+			$markup = $this->CheckMarkup($mainframe->getUserState('mobilejoomla.markup', false));
 
 		if($markup === false && isset($_COOKIE['mjmarkup']))
-			$markup = plgSystemMobileBot::CheckMarkup($_COOKIE['mjmarkup']);
+			$markup = $this->CheckMarkup($_COOKIE['mjmarkup']);
 
 		return $markup;
 	}
