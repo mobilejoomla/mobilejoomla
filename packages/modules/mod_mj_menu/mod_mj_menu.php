@@ -53,8 +53,8 @@ else
 }
 
 $exclude_menu_ids = explode(',', $params->get('excludemenu'));
-JMobileMenuHelper::prepareMenu(&$rows, $exclude_menu_ids, $params);
-JMobileMenuHelper::prepareMenu(&$subrows, $exclude_menu_ids, $params);
+JMobileMenuHelper::prepareMenu($rows, $exclude_menu_ids, $params);
+JMobileMenuHelper::prepareMenu($subrows, $exclude_menu_ids, $params);
 
 $params->set('has_submenu', count($subrows)?1:0);
 
