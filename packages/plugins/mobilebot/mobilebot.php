@@ -183,7 +183,7 @@ class plgSystemMobileBot extends JPlugin
 							$MobileJoomla_Device['screenwidth'].'_'.
 							$MobileJoomla_Device['screenheight'].'_'.
 							implode('', $MobileJoomla_Device['imageformats']);
-				JRequest::setVar('mjcachekey', $cachekey);
+				$this->setRequestVar('mjcachekey', $cachekey);
 				$registeredurlparams = $mainframe->get('registeredurlparams');
 				if(empty($registeredurlparams))
 					$registeredurlparams = new stdClass();
@@ -439,6 +439,12 @@ class plgSystemMobileBot extends JPlugin
 			setcookie('mjmarkup', $markup ? $markup : 'desktop', time()+365*24*60*60);
 		else
 			setcookie('mjmarkup', '', time()-365*24*60*60);
+	}
+
+	function setRequestVar($name, $value = null)
+	{
+		$_REQUEST[$name] = $value;
+		$GLOBALS['_JREQUEST'][$name] = array('SET.REQUEST'=>true);
 	}
 
 	function onAfterRender()
