@@ -47,18 +47,4 @@
 			<option value="jqt">TPL_MOBILE_IPHONE__OPTION_JQT</option>
 		</param>
 	</params>
-	<config>
-		<fields name="params">
-			<fieldset name="advanced">
-				<field name="theme" type="list" default="apple"
-					label="TPL_MOBILE_IPHONE__FIELD_THEME_LABEL"
-					description="TPL_MOBILE_IPHONE__FIELD_THEME_DESC"
-					filter="word"
-				>
-					<option value="apple">TPL_MOBILE_IPHONE__OPTION_APPLE</option>
-					<option value="jqt">TPL_MOBILE_IPHONE__OPTION_JQT</option>
-				</field>
-			</fieldset>
-		</fields>
-	</config>
 </install>
