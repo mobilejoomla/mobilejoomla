@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE install PUBLIC "-//Joomla! 1.5//DTD template 1.0//EN" "http://dev.joomla.org/xml/1.5/template-install.dtd">
-<install version="1.5" type="template" client="site" method="upgrade">
+<!DOCTYPE install PUBLIC "-//Joomla! 1.6//DTD template 1.0//EN" "http://www.joomla.org/xml/dtd/1.6/template-install.dtd">
+<extension version="1.6" type="template" client="site" method="upgrade">
 	<name>mobile_wap</name>
 	<version>###VERSION###</version>
 	<author>###AUTHOR###</author>
@@ -27,4 +27,4 @@
 		<position>mj_all_middle</position>
 		<position>mj_all_footer</position>
 	</positions>
-</install>
+</extension>

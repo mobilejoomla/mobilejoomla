@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE install PUBLIC "-//Joomla! 1.5//DTD template 1.0//EN" "http://dev.joomla.org/xml/1.5/template-install.dtd">
-<install version="1.5" type="template" client="site" method="upgrade">
+<!DOCTYPE install PUBLIC "-//Joomla! 1.6//DTD template 1.0//EN" "http://www.joomla.org/xml/dtd/1.6/template-install.dtd">
+<extension version="1.6" type="template" client="site" method="upgrade">
 	<name>mobile_iphone</name>
 	<version>###VERSION###</version>
 	<author>###AUTHOR###</author>
@@ -38,15 +38,6 @@
 		<position>mj_all_middle</position>
 		<position>mj_all_footer</position>
 	</positions>
-	<params>
-		<param name="theme" type="list" default="apple"
-			label="TPL_MOBILE_IPHONE__FIELD_THEME_LABEL"
-			description="TPL_MOBILE_IPHONE__FIELD_THEME_DESC"
-		>
-			<option value="apple">TPL_MOBILE_IPHONE__OPTION_APPLE</option>
-			<option value="jqt">TPL_MOBILE_IPHONE__OPTION_JQT</option>
-		</param>
-	</params>
 	<config>
 		<fields name="params">
 			<fieldset name="advanced">
@@ -61,4 +52,4 @@
 			</fieldset>
 		</fields>
 	</config>
-</install>
+</extension>
