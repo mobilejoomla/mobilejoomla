@@ -325,7 +325,6 @@ class plgSystemMobileBot extends JPlugin
 		unset($current['language']);
 		unset($current['tp']);
 		unset($current['limit']); // fix for sh404sef
-		unset($current['mjcachekey']);
 		if(isset($current[session_name()]))
 			unset($current[session_name()]);
 
