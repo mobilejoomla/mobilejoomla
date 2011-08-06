@@ -73,11 +73,18 @@ if($modulepos && $this->countModules($modulepos) > 0)
 	?><div id="<?php echo $modulepos; ?>"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
 }
 
-if(!(!$MobileJoomla->config['tmpl_iphone_componenthome'] && $MobileJoomla->isHome())): ?>
+$show_content = false;
+$show_content |= $MobileJoomla->config['tmpl_iphone_componenthome'] || !$MobileJoomla->isHome();
+$show_content |= $this->countModules($MobileJoomla->getPosition('middle2'));
+$show_content |= $this->countModules($MobileJoomla->getPosition('middle3'));
+
+if($show_content): ?>
 	<div class="content">
+<?php if($MobileJoomla->config['tmpl_iphone_componenthome'] || !$MobileJoomla->isHome()): ?>
 		<div class="container">
 			<?php $MobileJoomla->showComponent(); ?>
 		</div>
+<?php endif; ?>
 <?php
 	$modulepos = $MobileJoomla->getPosition('middle2');
 	if($modulepos && $this->countModules($modulepos) > 0)
