@@ -197,6 +197,8 @@ class MobileJoomla
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
 
 		$uri = clone(JFactory::getURI());
+		if($uri->getVar('format')=='html')
+			$uri->delVar('format');
 		$uri->delVar('device');
 
 		$desktop_uri = new JURI($MobileJoomla_Settings['desktop_url']);
