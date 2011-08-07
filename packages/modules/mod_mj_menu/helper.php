@@ -89,6 +89,9 @@ class JMobileMenuHelper
 		$router =& JSite::getRouter();
 
 		foreach($menu as $i=>$item)
+			$menu[$i] = clone($item);
+
+		foreach($menu as $i=>$item)
 		{
 			$allow = $is_joomla15 ? $sitemenu->authorize($item->id, $aid) : $sitemenu->authorise($item->id);
 			if(!$allow || in_array($item->id, $exclude_menu_ids))
