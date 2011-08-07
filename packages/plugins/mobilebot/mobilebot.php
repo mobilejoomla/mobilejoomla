@@ -301,9 +301,32 @@ class plgSystemMobileBot extends JPlugin
 		//Set template
 		if($template)
 		{
-			$mainframe->setUserState('setTemplate', $template);
-			$mainframe->setTemplate($template);
+			if(!$is_joomla15)
+			{
+				$db =& JFactory::getDBO();
+				$query = "SELECT params FROM #__template_styles WHERE client_id = 0 AND template = ".$db->Quote($template)." ORDER BY id LIMIT 1";
+				$db->setQuery($query);
+				$params_data = $db->loadResult();
+				if(empty($params_data))
+					$params_data = '{}';
+			}
+			if(version_compare(JVERSION,'1.7','ge'))
+			{
+				$mainframe->setTemplate($template, $params_data);
+			}
+			elseif(version_compare(JVERSION,'1.6','ge'))
+			{
+				$mainframe->setTemplate($template);
+				$template_obj = $mainframe->getTemplate(true);
+				$template_obj->params->loadJSON($params_data);
+			}
+			else
+			{
+				$mainframe->setUserState('setTemplate', $template);
+				$mainframe->setTemplate($template);
+			}
 		}
+
 		//Set gzip
 		/** @var JRegistry $config */
 		$config =& JFactory::getConfig();
