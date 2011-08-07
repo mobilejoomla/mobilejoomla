@@ -172,12 +172,12 @@ class plgSystemMobileBot extends JPlugin
 			/** @var JRegistry $config */
 			$config =& JFactory::getConfig();
 			if($MobileJoomla_Settings['mobile_sitename'])
-				$config->setValue('sitename', $MobileJoomla_Settings['mobile_sitename']);
+				$config->setValue($is_joomla15?'config.sitename':'sitename', $MobileJoomla_Settings['mobile_sitename']);
 
 			if(!$is_joomla15) //Joomla!1.6+
 			{
 				if(!$MobileJoomla_Settings['caching'])
-					$config->setValue('config.caching', false);
+					$config->setValue('caching', false);
 
 				$cachekey = $MobileJoomla_Device['markup'].'_'.
 							$MobileJoomla_Device['screenwidth'].'_'.
@@ -307,7 +307,10 @@ class plgSystemMobileBot extends JPlugin
 		//Set gzip
 		/** @var JRegistry $config */
 		$config =& JFactory::getConfig();
-		$config->setValue('config.gzip', $gzip);
+		if($is_joomla15)
+			$config->setValue('config.gzip', $gzip);
+		else
+			$config->setValue('gzip', $gzip);
 
 		//Set headers
 		JResponse::clearHeaders();
