@@ -228,7 +228,7 @@ class plgSystemMobileBot extends JPlugin
 		if($MobileJoomla_Device['markup'] != $MobileJoomla_Device['default_markup'])
 		{
 			$uri->setVar('device', $MobileJoomla_Device['markup']);
-			if(is_a($router, 'shRouter'))
+			if(is_a($router, 'shRouter') && $uri->getVar('Itemid') && count($uri->getQuery(true))==3)
 			{
 				$itemid = $uri->getVar('Itemid');
 				$menu =& JSite::getMenu();
