@@ -226,7 +226,18 @@ class plgSystemMobileBot extends JPlugin
 	{
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
 		if($MobileJoomla_Device['markup'] != $MobileJoomla_Device['default_markup'])
+		{
 			$uri->setVar('device', $MobileJoomla_Device['markup']);
+			if(is_a($router, 'shRouter'))
+			{
+				$itemid = $uri->getVar('Itemid');
+				$menu =& JSite::getMenu();
+				$item = $menu->getItem($itemid);
+				$uri->setQuery($item->query);
+				$uri->setVar('Itemid', $itemid);
+				$uri->setVar('device', $MobileJoomla_Device['markup']);
+			}
+		}
 	}
 
 	function onAfterRoute()
