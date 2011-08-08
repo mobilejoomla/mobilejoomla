@@ -47,20 +47,32 @@ class plgSystemMobileBot extends JPlugin
 
 		$cached_settings = $mainframe->getUserState('mobilejoomla.settings', false);
 		$cached_device = $mainframe->getUserState('mobilejoomla.device', false);
-		if(!is_array($cached_settings) || !is_array($cached_device))
-		{
-			$mainframe->triggerEvent('onDeviceDetection', array (&$MobileJoomla_Settings, &$MobileJoomla_Device));
-			$mainframe->setUserState('mobilejoomla.settings', serialize($MobileJoomla_Settings));
-			$mainframe->setUserState('mobilejoomla.device', serialize($MobileJoomla_Device));
-		}
-		else
+		if($cached_settings!==false)
+			$cached_settings = gzdecode($cached_settings);
+		if($cached_device!==false)
+			$cached_device = gzdecode($cached_device);
+		if($cached_settings!==false && $cached_device!==false)
 		{
 			if($is_joomla15)
 				Jloader::register('TeraWurfl', JPATH_PLUGINS.DS.'mobile'.DS.'terawurfl'.DS.'TeraWurfl.php');
 			else
 				Jloader::register('TeraWurfl', JPATH_PLUGINS.DS.'mobile'.DS.'terawurfl'.DS.'terawurfl'.DS.'TeraWurfl.php');
-			$MobileJoomla_Settings = unserialize($cached_settings);
-			$MobileJoomla_Device = unserialize($cached_device);
+			$cached_settings = unserialize($cached_settings);
+			$cached_device = unserialize($cached_device);
+		}
+
+		if(is_array($cached_settings) && is_array($cached_device))
+		{
+			$MobileJoomla_Settings = $cached_settings;
+			$MobileJoomla_Device = $cached_device;
+		}
+		else
+		{
+			$mainframe->triggerEvent('onDeviceDetection', array(&$MobileJoomla_Settings, &$MobileJoomla_Device));
+
+			$gzlevel = 5;
+			$mainframe->setUserState('mobilejoomla.settings', gzencode(serialize($MobileJoomla_Settings),$gzlevel));
+			$mainframe->setUserState('mobilejoomla.device', gzencode(serialize($MobileJoomla_Device),$gzlevel));
 		}
 
 		$MobileJoomla_Device['real_markup'] = $MobileJoomla_Device['markup'];
