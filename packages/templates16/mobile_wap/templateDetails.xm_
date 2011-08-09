@@ -14,7 +14,6 @@
 		<filename>index.php</filename>
 		<filename>component.php</filename>
 		<filename>error.php</filename>
-		<filename>params.ini</filename>
 		<filename>template_thumbnail.png</filename>
 		<folder>html</folder>
 	</files>
