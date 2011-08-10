@@ -35,4 +35,4 @@ FileETag None
   Header unset Last-Modified
 </ifModule>
 
-AddType text/cache-manifest .manifest
+#AddType text/cache-manifest .manifest
