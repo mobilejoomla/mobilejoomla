@@ -475,6 +475,9 @@ class plgSystemMobileBot extends JPlugin
 
 	function updateUserMarkup()
 	{
+		if(isset($_GET['template']))
+			return;
+
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
 		$markup = $MobileJoomla_Device['markup'];
 
