@@ -390,6 +390,8 @@ class plgSystemMobileBot extends JPlugin
 		unset($current['no_html']);
 		unset($current['language']);
 		unset($current['tp']);
+		unset($current['template');
+		unset($current['templateStyle']);
 		unset($current['limit']); // fix for sh404sef
 		if(isset($current[session_name()]))
 			unset($current[session_name()]);
