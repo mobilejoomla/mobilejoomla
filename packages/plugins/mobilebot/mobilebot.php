@@ -85,23 +85,41 @@ class plgSystemMobileBot extends JPlugin
 			$markup = $user_markup;
 
 		// template preview
-		if(isset($_GET['template']) && $_GET['template'] != '')
+		$getTemplate = isset($_GET['template']) ? $_GET['template'] : null;
+		if(version_compare(JVERSION,'1.7','ge'))
 		{
-			switch($_GET['template'])
+			if($getTemplate===null && isset($_GET['templateStyle']) && is_int($_GET['templateStyle']))
 			{
-			case $MobileJoomla_Settings['xhtmltemplate']:
-				$markup = 'xhtml';
-				break;
-			case $MobileJoomla_Settings['iphonetemplate']:
-				$markup = 'iphone';
-				break;
-			case $MobileJoomla_Settings['waptemplate']:
-				$markup = 'wml';
-				break;
-			case $MobileJoomla_Settings['imodetemplate']:
-				$markup = 'chtml';
-				break;
+				$db = JFactory::getDBO();
+				$query = 'SELECT template FROM #__template_styles WHERE id = '.intval($_GET['templateStyle']).' AND client_id = 0';
+				$db->setQuery($query);
+				$getTemplate = $db->loadResult();
 			}
+		}
+		elseif(version_compare(JVERSION,'1.6','ge'))
+		{
+			if(is_int($getTemplate))
+			{
+				$db = JFactory::getDBO();
+				$query = 'SELECT template FROM #__template_styles WHERE id = '.intval($getTemplate).' AND client_id = 0';
+				$db->setQuery($query);
+				$getTemplate = $db->loadResult();
+			}
+		}
+		if($getTemplate) switch($getTemplate)
+		{
+		case $MobileJoomla_Settings['xhtmltemplate']:
+			$markup = 'xhtml';
+			break;
+		case $MobileJoomla_Settings['iphonetemplate']:
+			$markup = 'iphone';
+			break;
+		case $MobileJoomla_Settings['waptemplate']:
+			$markup = 'wml';
+			break;
+		case $MobileJoomla_Settings['imodetemplate']:
+			$markup = 'chtml';
+			break;
 		}
 
 		$MobileJoomla_Device['markup'] = $markup;
@@ -475,7 +493,7 @@ class plgSystemMobileBot extends JPlugin
 
 	function updateUserMarkup()
 	{
-		if(isset($_GET['template']))
+		if(isset($_GET['template']) || isset($_GET['templateStyle']))
 			return;
 
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
