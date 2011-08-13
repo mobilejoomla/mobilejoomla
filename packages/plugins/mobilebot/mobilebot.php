@@ -483,9 +483,9 @@ class plgSystemMobileBot extends JPlugin
 		$mainframe->setUserState('mobilejoomla.markup', $markup);
 
 		if($markup != $MobileJoomla_Device['default_markup'])
-			setcookie('mjmarkup', $markup ? $markup : 'desktop', time()+365*24*60*60);
+			setcookie('mjmarkup', $markup ? $markup : 'desktop', time()+365*24*60*60, '/');
 		else
-			setcookie('mjmarkup', '', time()-365*24*60*60);
+			setcookie('mjmarkup', '', time()-365*24*60*60, '/');
 	}
 
 	function setRequestVar($name, $value = null)
