@@ -33,10 +33,7 @@ class plgMobileDomains extends JPlugin
 		else
 			$config_live_site = 'live_site';
 
-		// Check for special domains
-		$parsed = parse_url(JURI::base());
-		$path = isset($parsed['path']) ? $parsed['path'] : '';
-		$http = isset($parsed['scheme']) ? $parsed['scheme'] : 'http';
+		$this->getSchemePath($http, $path);
 
 		$domain_xhtml = $MobileJoomla_Settings['xhtmldomain'];
 		$domain_wap = $MobileJoomla_Settings['wapdomain'];
@@ -46,6 +43,7 @@ class plgMobileDomains extends JPlugin
 		/** @var JRegistry $config */
 		$config =& JFactory::getConfig();
 
+		// Check for special domains
 		if(($MobileJoomla_Device['markup']=='xhtml' && $domain_xhtml && $_SERVER['HTTP_HOST']==$domain_xhtml) ||
 		   ($MobileJoomla_Device['markup']=='wml' && $domain_wap && $_SERVER['HTTP_HOST']==$domain_wap) ||
 		   ($MobileJoomla_Device['markup']=='chtml' && $domain_imode && $_SERVER['HTTP_HOST']==$domain_imode) ||
@@ -92,10 +90,7 @@ class plgMobileDomains extends JPlugin
 		if($MobileJoomla_Device['markup'] == '')
 			return;
 
-		$uri =& JURI::getInstance();
-		$parsed = parse_url($uri->toString());
-		$path = isset($parsed['path']) ? $parsed['path'] : '';
-		$http = isset($parsed['scheme']) ? $parsed['scheme'] : 'http';
+		$this->getSchemePath($http, $path);
 
 		/** @var JSite $mainframe */
 		$mainframe =& JFactory::getApplication();
@@ -122,5 +117,19 @@ class plgMobileDomains extends JPlugin
 				$mainframe->redirect($http.'://'.$domain_iphone.$path);
 			break;
 		}
+	}
+
+	function getSchemePath(&$http, &$path)
+	{
+		if(isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) != 'off'))
+			$http = 'https';
+		else
+			$http = 'http';
+
+		if(strpos(php_sapi_name(), 'cgi') !== false && !empty($_SERVER['REQUEST_URI']) &&
+			    (!ini_get('cgi.fix_pathinfo') || version_compare(PHP_VERSION, '5.2.4', '<')))
+			$path =  rtrim(dirname(str_replace(array('"','<','>',"'"), '', $_SERVER['PHP_SELF'])), '/\\');
+		else
+			$path =  rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
 	}
 }
