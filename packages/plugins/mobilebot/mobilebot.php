@@ -43,6 +43,16 @@ class plgSystemMobileBot extends JPlugin
 		$MobileJoomla_Settings =& MobileJoomla::getConfig();
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
 
+		// check for legacy redirect
+		if((@$_GET['option'] == 'com_mobilejoomla') && (@$_GET['task'] == 'setmarkup') &&
+				isset($_GET['markup']) && isset($_GET['return']))
+		{
+			$desktop_uri = new JURI($MobileJoomla_Settings['desktop_url']);
+			$uri = new JURI(base64_decode($_GET['return']));
+			$uri->setHost($desktop_uri->getHost());
+ 			$mainframe->redirect($uri->toString());
+		}
+
 		JPluginHelper::importPlugin('mobile');
 
 		$cached_data = $mainframe->getUserState('mobilejoomla.cache', false);
