@@ -20,6 +20,7 @@ RC2 release
 - Fix redirect-after-login issue in mobile_iphone template and Joomla!1.5
 - Fix call-time pass-by-reference warning in mod_mj_menu.php
 - Fix loading of template parameters in Joomla!1.6/1.7
+- Fix subdomain detection issue
 
 1.0
 RC release
