@@ -57,7 +57,7 @@ class plgSystemMobileBot extends JPlugin
 
 		$cached_data = $mainframe->getUserState('mobilejoomla.cache', false);
 		if($cached_data!==false)
-			$cached_data = gzinflate($cached_data);
+			$cached_data = @gzinflate(@base64_decode($cached_data));
 		if($cached_data!==false)
 		{
 			if($is_joomla15)
@@ -78,7 +78,7 @@ class plgSystemMobileBot extends JPlugin
 
 			$gzlevel = 5;
 			$cached_data = array('settings'=>$MobileJoomla_Settings, 'device'=>$MobileJoomla_Device);
-			$cached_data = gzdeflate(serialize($cached_data), $gzlevel);
+			$cached_data = base64_encode(gzdeflate(serialize($cached_data), $gzlevel));
 			$mainframe->setUserState('mobilejoomla.cache', $cached_data);
 		}
 
