@@ -14,10 +14,8 @@ function getMenuList($menuoptions, $name, $value)
 {
 	static $is_joomla15;
 	if(!isset($is_joomla15))
-	{
-		$version = new JVersion;
-		$is_joomla15 = (substr($version->getShortVersion(),0,3) == '1.5');
-	}
+		$is_joomla15 = (substr(JVERSION,0,3) == '1.5');
+
 	if(!$is_joomla15)
 		return JHTML::_('select.genericlist',
 						$menuoptions,

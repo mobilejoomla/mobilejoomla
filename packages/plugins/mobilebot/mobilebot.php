@@ -33,8 +33,7 @@ class plgSystemMobileBot extends JPlugin
 		if($mainframe->isAdmin()) // don't use MobileJoomla in backend
 			return;
 
-		$version = new JVersion;
-		$is_joomla15 = (substr($version->getShortVersion(),0,3) == '1.5');
+		$is_joomla15 = (substr(JVERSION,0,3) == '1.5');
 
 		//load MobileJoomla class
 		require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'mobilejoomla.class.php');
@@ -284,8 +283,7 @@ class plgSystemMobileBot extends JPlugin
 		if($mainframe->isAdmin()) // don't use MobileJoomla in backend
 			return;
 
-		$version = new JVersion;
-		$is_joomla15 = (substr($version->getShortVersion(),0,3) == '1.5');
+		$is_joomla15 = (substr(JVERSION,0,3) == '1.5');
 
 		// don't filter RSS and non-html
 		/** @var JDocument $document */

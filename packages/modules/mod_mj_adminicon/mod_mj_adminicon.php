@@ -12,12 +12,11 @@ defined('_JEXEC') or die('Restricted Access');
 
 $document =& JFactory::getDocument();
 $lang =& JFactory::getLanguage();
-$version = new JVersion();
 
 $document->addStyleSheet('modules/mod_mj_adminicon/css/mod_mj_adminicon.css');
 $lang->load('com_mobilejoomla', JPATH_ADMINISTRATOR);
 
-switch(substr($version->getShortVersion(),0,3))
+switch(substr(JVERSION,0,3))
 {
 case '1.5': $iconclass = 'icon15'; break;
 case '1.6': $iconclass = 'icon16'; break;

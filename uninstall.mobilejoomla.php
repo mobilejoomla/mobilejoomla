@@ -22,10 +22,8 @@ function MJ_version()
 function isJoomla15()
 {
 	static $is_joomla15;
-	if(isset($is_joomla15))
-		return $is_joomla15;
-	$version = new JVersion;
- 	$is_joomla15 = (substr($version->getShortVersion(),0,3) == '1.5');
+	if(!isset($is_joomla15))
+		$is_joomla15 = (substr(JVERSION,0,3) == '1.5');
 	return $is_joomla15;
 }
 

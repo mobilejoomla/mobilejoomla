@@ -310,8 +310,7 @@ function showconfig()
 	{
 		/** @var JDatabase $db */
 		$db =& JFactory::getDBO();
-		$version = new JVersion;
-		$isJoomla15 = (substr($version->getShortVersion(),0,3) == '1.5');
+		$isJoomla15 = (substr(JVERSION,0,3) == '1.5');
 		if(!$isJoomla15)
 			$query = 'SELECT id, menutype, title, link, type, parent_id FROM #__menu WHERE published=1 ORDER BY menutype, parent_id, ordering';
 		else

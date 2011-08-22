@@ -26,8 +26,7 @@ class plgMobileDomains extends JPlugin
 		if($MobileJoomla_Settings['domains'] != '1')
 			return;
 
-		$version = new JVersion;
-		$is_joomla15 = (substr($version->getShortVersion(),0,3) == '1.5');
+		$is_joomla15 = (substr(JVERSION,0,3) == '1.5');
 		if($is_joomla15)
 			$config_live_site = 'config.live_site';
 		else
