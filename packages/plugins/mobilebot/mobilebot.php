@@ -403,6 +403,8 @@ class plgSystemMobileBot extends JPlugin
 		unset($current['template']);
 		unset($current['templateStyle']);
 		unset($current['limit']); // fix for sh404sef
+		if(isset($current['limitstart']) && $current['limitstart']==0)
+			unset($current['limitstart']);
 		if(isset($current[session_name()]))
 			unset($current[session_name()]);
 
