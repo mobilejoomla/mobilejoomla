@@ -263,6 +263,19 @@ class plgSystemMobileBot extends JPlugin
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
 		if($MobileJoomla_Device['markup'] != $MobileJoomla_Device['default_markup'])
 		{
+			switch($uri->getVar('format'))
+			{
+				case 'feed':
+				case 'json':
+				case 'xml':
+					return;
+			}
+			switch($uri->getVar('type'))
+			{
+				case 'rss':
+				case 'atom':
+					return;
+			}
 			$uri->setVar('device', $MobileJoomla_Device['markup']);
 			if(is_a($router, 'shRouter') && $uri->getVar('Itemid') && count($uri->getQuery(true))==3)
 			{
