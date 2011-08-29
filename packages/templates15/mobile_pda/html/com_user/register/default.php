@@ -21,11 +21,16 @@ defined('_JEXEC') or die('Restricted access'); ?>
 <?php endif; ?>
 
 <div>
-	<input type="text" name="name" id="name" size="40" value="<?php echo $this->escape($this->user->get( 'name' ));?>" class="inputbox required" maxlength="50" placeholder="<?php echo JText::_('Name'); ?> *" />
-	<input type="text" id="username" name="username" size="40" value="<?php echo $this->escape($this->user->get( 'username' ));?>" class="inputbox required validate-username" maxlength="25" placeholder="<?php echo JText::_('User name'); ?> *" />
-	<input type="text" id="email" name="email" size="40" value="<?php echo $this->escape($this->user->get( 'email' ));?>" class="inputbox required validate-email" maxlength="100" placeholder="<?php echo JText::_( 'Email' ); ?> *" />
-  	<input class="inputbox required validate-password" type="password" id="password" name="password" size="40" value="" placeholder="<?php echo JText::_( 'Password' ); ?> *" />
-	<input class="inputbox required validate-passverify" type="password" id="password2" name="password2" size="40" value="" placeholder="<?php echo JText::_( 'Verify Password' ); ?> *" />
+	<label for="name"><?php echo JText::_('Name'); ?> *</label>
+	<input type="text" name="name" id="name" size="40" value="<?php echo $this->escape($this->user->get( 'name' ));?>" class="inputbox required" maxlength="50" />
+	<label for="username"><?php echo JText::_('User name'); ?> *</label>
+	<input type="text" id="username" name="username" size="40" value="<?php echo $this->escape($this->user->get( 'username' ));?>" class="inputbox required validate-username" maxlength="25" />
+	<label for="email"><?php echo JText::_( 'Email' ); ?> *</label>
+	<input type="text" id="email" name="email" size="40" value="<?php echo $this->escape($this->user->get( 'email' ));?>" class="inputbox required validate-email" maxlength="100" />
+	<label for="password"><?php echo JText::_( 'Password' ); ?> *</label>
+  	<input class="inputbox required validate-password" type="password" id="password" name="password" size="40" value="" />
+	<label for="password2"><?php echo JText::_( 'Verify Password' ); ?> *</label>
+	<input class="inputbox required validate-passverify" type="password" id="password2" name="password2" size="40" value="" />
 </div>
 
 <?php /*
