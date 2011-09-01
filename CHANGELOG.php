@@ -14,6 +14,11 @@ defined('_JEXEC') or die('Restricted access');
 CHANGELOG
 
 1.0
+RC3 release
+- Fix sh404sef issue in Joomla!1.6/1.7
+- Fix registration form layout in mobile_pda template on Joomla!1.5
+
+1.0
 RC2 release
 - Fix session corruption in Joomla!1.6/1.7
 - Fix conflict with sh404sef extension
