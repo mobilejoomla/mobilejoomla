@@ -276,8 +276,8 @@ class plgSystemMobileBot extends JPlugin
 				case 'atom':
 					return;
 			}
-			$uri->setVar('device', $MobileJoomla_Device['markup']);
-			if(is_a($router, 'shRouter') && $uri->getVar('Itemid') && count($uri->getQuery(true))==3)
+			if((is_a($router, 'shRouter') || class_exists('Sh404sefClassRouter')) &&
+					$uri->getVar('Itemid') && count($uri->getQuery(true))==2) // check for sh404sef
 			{
 				$itemid = $uri->getVar('Itemid');
 				$menu =& JSite::getMenu();
@@ -286,6 +286,8 @@ class plgSystemMobileBot extends JPlugin
 				$uri->setVar('Itemid', $itemid);
 				$uri->setVar('device', $MobileJoomla_Device['markup']);
 			}
+			else
+				$uri->setVar('device', $MobileJoomla_Device['markup']);
 		}
 	}
 
