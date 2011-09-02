@@ -30,6 +30,8 @@ class JMobileMenuHelper
 			$attribute = array_shift($attributes);
 			$value = array_shift($values);
 			$items = $menu->getItems($attribute, $value);
+			if(!is_array($items))
+				$items = array();
 			foreach($items as $key=>$item)
 				for($i=0, $count=count($attributes); $i<$count; $i++)
 					if($item->$attributes[$i] != $values[$i])
@@ -37,10 +39,14 @@ class JMobileMenuHelper
 						unset($items[$key]);
 						break;
 					}
-			return $items;
 		}
 		else
-			return $menu->getItems($attributes, $values);
+		{
+			$items = $menu->getItems($attributes, $values);
+			if(!is_array($items))
+				$items = array();
+		}
+		return $items;
 	}
 
 	function getRoot($menutype)
