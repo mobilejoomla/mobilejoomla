@@ -48,7 +48,10 @@ class plgSystemMobileBot extends JPlugin
 		{
 			$desktop_uri = new JURI($MobileJoomla_Settings['desktop_url']);
 			$uri = new JURI(base64_decode($_GET['return']));
+			if(empty($uri->getScheme()))
+				$uri->setScheme('http');
 			$uri->setHost($desktop_uri->getHost());
+			$uri->setPort($desktop_uri->getPort());
  			$mainframe->redirect($uri->toString());
 		}
 
