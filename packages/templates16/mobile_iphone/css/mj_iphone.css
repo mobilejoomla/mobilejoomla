@@ -1,40 +1,40 @@
 /* MJ iPhone styles */
 .content .container {
 	padding: 10px;
-    margin: 10px;
-    background-color: white;
-    line-height: 120%;
-    border: 1px solid #888888;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
+	margin: 10px;
+	background-color: white;
+	line-height: 120%;
+	border: 1px solid #888888;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
 }
 
 .content h5 {
-    font-size: 1.2em;
+	font-size: 1.2em;
 }
 
 .content h1, .contentheading {
-    font-size: 150%;
-    line-height: 130%;
-    margin-bottom: 0.3em;
+	font-size: 150%;
+	line-height: 130%;
+	margin-bottom: 0.3em;
 }
 
 .profile .content * {
-    max-width: 300px;
-    overflow: hidden;
+	max-width: 300px;
+	overflow: hidden;
 }
 
 .landscape .content * {
-    max-width: 450px;
+	max-width: 450px;
 }
 
 .contentheading {
-    font-size: 18px;
-    font-weight: bold;
+	font-size: 18px;
+	font-weight: bold;
 }
 
 a {
-    color: #7a8faa;
+	color: #7a8faa;
 }
 
 /* jqtouch does not define br for mozilla */
@@ -49,82 +49,82 @@ ul ul {
 ul li a.mainlevel:hover, ul li a.mainlevel:active,
 ul.vmenu li a:hover, ul.vmenu li a:active
 {
-    -moz-background-clip: border;
-    -moz-background-inline-policy: continuous;
-    -moz-background-origin: padding;
-    background: #194FDB url('../jqtouch-src/themes/apple/img/selection.png') repeat-x scroll 0 0;
-    color: #FFFFFF;
+	-moz-background-clip: border;
+	-moz-background-inline-policy: continuous;
+	-moz-background-origin: padding;
+	background: #194FDB url('../jqtouch-src/themes/apple/img/selection.png') repeat-x scroll 0 0;
+	color: #FFFFFF;
 }
 
 /* By default all ul li a links get blue bg effect */
 ul li a:hover,
 ul li a:active {
-    -moz-background-clip: border;
-    -moz-background-inline-policy: continuous;
-    -moz-background-origin: padding;
-    background: #194FDB url('../jqtouch-src/themes/apple/img/selection.png') repeat-x scroll 0 0;
-    color: #FFFFFF;
+	-moz-background-clip: border;
+	-moz-background-inline-policy: continuous;
+	-moz-background-origin: padding;
+	background: #194FDB url('../jqtouch-src/themes/apple/img/selection.png') repeat-x scroll 0 0;
+	color: #FFFFFF;
 }
 
 
 
 a img {
-    border: none;
+	border: none;
 }
 
 p {
-    margin-bottom: 1em;
+	margin-bottom: 1em;
 }
 
 .createdate {
-    font-size: 10px;
-    text-align: right;
-    color: #999;
+	font-size: 10px;
+	text-align: right;
+	color: #999;
 }
 
 .buttonheading {
-    float: right;
+	float: right;
 }
 
 .contentpagetitle {
-    text-decoration: none;
-    font-size: 20px;
-    line-height: 100%;
+	text-decoration: none;
+	font-size: 20px;
+	line-height: 100%;
 }
 
 p.jfooter {
-    margin: 10px;
-    font-size: 12px;
-    line-height: 120%;
-    color: #333;
+	margin: 10px;
+	font-size: 12px;
+	line-height: 120%;
+	color: #333;
 }
 
 /* fixed to jQtouch */
 
 body {
-    background: rgb(197, 204, 211) url('../jqtouch-src/themes/apple/img/pinstripes.png') repeat;
+	background: rgb(197, 204, 211) url('../jqtouch-src/themes/apple/img/pinstripes.png') repeat;
 }
 
 .toolbar {
-    padding: 0;
+	padding: 0;
 }
 
 .home.active, .button.active, .back.active, .cancel.active, .add.active {
-    color: #999;
+	color: #999;
 }
 
 .back.active {
-    -webkit-border-image: url('../jqtouch-src/themes/apple/img/backButton.png') 0 8 0 14;
+	-webkit-border-image: url('../jqtouch-src/themes/apple/img/backButton.png') 0 8 0 14;
 }
 
 h3, div.h3 {
-    margin: 15px 10px 5px;
-    padding-right: 10px;
-    padding-left: 10px;
-    color: #4D5466;
-    font-size: 16px;
-    font-weight: bold;
-    text-shadow: white 0px 1px;
+	margin: 15px 10px 5px;
+	padding-right: 10px;
+	padding-left: 10px;
+	color: #4D5466;
+	font-size: 16px;
+	font-weight: bold;
+	text-shadow: white 0px 1px;
 }
 
 /* Override default blue toolbar gradient */
@@ -169,30 +169,30 @@ div.search td.text {
 	margin-right: 10px;
 	border: 1px solid rgba(95, 97, 96, 0.7); /* #5f6160; */
 	-webkit-border-radius: 15px;
-        -webkit-box-shadow: inset 1px 1px 3px rgba(95, 97, 96, 0.7); /* #5f6160 */
+		-webkit-box-shadow: inset 1px 1px 3px rgba(95, 97, 96, 0.7); /* #5f6160 */
 	background:white;
 }
 
 div.search input.button, div.search button.button {
-    /*border-width: 0 5px;*/
-    border: 1px solid #223e6d;
-    -webkit-border-radius: 5px;
-    -webkit-box-shadow: inset 1px 1px 2px rgba(34, 62, 109, 0.5); /* #223e6d */
-    padding: 0 6px;
-    width: 55px;
-    height: 31px;
-    line-height: 31px;
-    font-family: inherit;
-    font-size: 12px;
-    font-weight: bold;
-    color: #fff;
-    text-shadow: rgba(0, 0, 0, 0.5) 0 -1px 0;
-    text-overflow: ellipsis;
-    text-decoration: none;
-    white-space: nowrap;
-    /*background: none;*/
-    background: #194FDB url('../jqtouch-src/themes/apple/img/selection.png') repeat-x scroll 0 0;
-/*    -webkit-border-image: url(../jqtouch-src/themes/apple/img/blueButton.png) 0 5 0 5;*/
+	/*border-width: 0 5px;*/
+	border: 1px solid #223e6d;
+	-webkit-border-radius: 5px;
+	-webkit-box-shadow: inset 1px 1px 2px rgba(34, 62, 109, 0.5); /* #223e6d */
+	padding: 0 6px;
+	width: 55px;
+	height: 31px;
+	line-height: 31px;
+	font-family: inherit;
+	font-size: 12px;
+	font-weight: bold;
+	color: #fff;
+	text-shadow: rgba(0, 0, 0, 0.5) 0 -1px 0;
+	text-overflow: ellipsis;
+	text-decoration: none;
+	white-space: nowrap;
+	/*background: none;*/
+	background: #194FDB url('../jqtouch-src/themes/apple/img/selection.png') repeat-x scroll 0 0;
+/*	-webkit-border-image: url(../jqtouch-src/themes/apple/img/blueButton.png) 0 5 0 5;*/
 }
 
 /* Fix checkbox position in login form
@@ -208,13 +208,13 @@ div.search input.button, div.search button.button {
 
 /* Login link */
 .login-link {
-   margin: 10px;
+	margin: 10px;
 }
 
 
 input[type=submit].whiteButton:hover {
-    color: white;
-    background: black;
+	color: white;
+	background: black;
 }
 
 
@@ -226,28 +226,28 @@ input[type=submit].whiteButton:hover {
 
 form ul li input[type="text"]::-webkit-input-placeholder,
 form ul li input[type="password"]::-webkit-input-placeholder {
-    color: black;
-    font-weight: bold;
+	color: black;
+	font-weight: bold;
 }
 
 div.search ul li input[type="text"]::-webkit-input-placeholder {
-    color: #a3a3a3;
-    font-weight: normal;
+	color: #a3a3a3;
+	font-weight: normal;
 }
 
 form ul li label {
-    color: black;
-    font-weight: bold;
+	color: black;
+	font-weight: bold;
 }
 
 p.textview {
-    padding: 10px;
-    margin: 10px;
-    background-color: white;
-    line-height: 120%;
-    border: 1px solid #888888;
-    -webkit-border-radius: 6px;
-    overflow: hidden; /* fix floats */
+	padding: 10px;
+	margin: 10px;
+	background-color: white;
+	line-height: 120%;
+	border: 1px solid #888888;
+	-webkit-border-radius: 6px;
+	overflow: hidden; /* fix floats */
 }
 
 ul li.searchresult h3 {
@@ -277,11 +277,11 @@ ul li.searchresult a.searchresult:hover h3, ul li.searchresult a.searchresult:ac
 }
 
 ul li.searchresult a.searchresult:hover, ul li.searchresult a.searchresult:active {
-    -moz-background-clip: border;
-    -moz-background-inline-policy: continuous;
-    -moz-background-origin: padding;
-    background: #194FDB url('../jqtouch-src/themes/apple/img/selection.png') repeat-x scroll 0 0;
-    color: #FFFFFF;
+	-moz-background-clip: border;
+	-moz-background-inline-policy: continuous;
+	-moz-background-origin: padding;
+	background: #194FDB url('../jqtouch-src/themes/apple/img/selection.png') repeat-x scroll 0 0;
+	color: #FFFFFF;
 }
 
 div.searchresultsnav {
@@ -300,17 +300,17 @@ dt.error {
 }
 
 dd.error li {
-    background: red;
-    color: white;
+	background: red;
+	color: white;
 }
 
 dd.message li {
-    background: #ffe;
-    color: black;
+	background: #ffe;
+	color: black;
 }
 
 .markup-chooser {
-        padding: 10px;
+		padding: 10px;
 }
 
 div.pagination {
