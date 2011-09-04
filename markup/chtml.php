@@ -136,7 +136,8 @@ class MobileJoomla_CHTML extends MobileJoomla
 			$text = preg_replace('#<applet\s[^>]+ ?/>#is', '', $text);
 			$text = preg_replace('#<applet\s.+</applet>#is', '', $text);
 			$text = preg_replace('#<script\s[^>]+ ?/>#is', '', $text);
-			$text = preg_replace('#<script\s.+</script>#is', '', $text);
+			//$text = preg_replace('#<script\s.+</script>#is', '', $text);
+			$text = preg_replace('#<script([^\'"/>]|"[^"]*?"|\'[^\']*?\')*?>([^\'"/]|"([^"\\\\]|\\\\.)*?"|\'([^\'\\\\]|\\\\.)*?\'|/[^/*]|/\*.*?\*/|//.*?$)*?</script>#ism', '', $text);
 		}
 		if($this->config['tmpl_imode_entitydecode'])
 		{

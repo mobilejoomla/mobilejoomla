@@ -180,7 +180,8 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 		if($this->config['tmpl_xhtml_removescripts'])
 		{
 			$text = preg_replace('#<script\s[^>]+? />#is', '', $text);
-			$text = preg_replace('#<script\s.+?</script>#is', '', $text);
+			//$text = preg_replace('#<script\s.+?</script>#is', '', $text);
+			$text = preg_replace('#<script([^\'"/>]|"[^"]*?"|\'[^\']*?\')*?>([^\'"/]|"([^"\\\\]|\\\\.)*?"|\'([^\'\\\\]|\\\\.)*?\'|/[^/*]|/\*.*?\*/|//.*?$)*?</script>#ism', '', $text);
 		}
 		if($this->config['tmpl_xhtml_entitydecode'])
 		{

@@ -130,7 +130,8 @@ class MobileJoomla_WML extends MobileJoomla
 		$text = preg_replace('#<applet\s[^>]+? />#is', '', $text);
 		$text = preg_replace('#<applet\s.+?</applet>#is', '', $text);
 		$text = preg_replace('#<script\s[^>]+? />#is', '', $text);
-		$text = preg_replace('#<script\s.+?</script>#is', '', $text);
+		//$text = preg_replace('#<script\s.+?</script>#is', '', $text);
+		$text = preg_replace('#<script([^\'"/>]|"[^"]*?"|\'[^\']*?\')*?>([^\'"/]|"([^"\\\\]|\\\\.)*?"|\'([^\'\\\\]|\\\\.)*?\'|/[^/*]|/\*.*?\*/|//.*?$)*?</script>#ism', '', $text);
 		$text = preg_replace('#<h(.*?)>#is', '<big>', $text);
 		$text = preg_replace('#</h(.*?)>#is', '</big><br/>', $text);
 		$text = preg_replace('#<(ol|ul|dl|div|table)(.*?)>#i', '', $text);
