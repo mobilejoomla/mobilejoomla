@@ -561,7 +561,8 @@ class plgSystemMobileBot extends JPlugin
 
 		$text = $MobileJoomla->processPage($text);
 
-		JResponse::setBody($text);
+		if(!empty($text))
+			JResponse::setBody($text);
 
 		if($MobileJoomla_Settings['httpcaching'])
 		{
