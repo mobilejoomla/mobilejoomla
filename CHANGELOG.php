@@ -17,6 +17,7 @@ CHANGELOG
 RC3 release
 - Fix sh404sef issue in Joomla!1.6/1.7
 - Fix registration form layout in mobile_pda template on Joomla!1.5
+- Fix possible warning in mod_mj_menu module
 
 1.0
 RC2 release
