@@ -460,10 +460,11 @@ class plgSystemMobileBot extends JPlugin
 				{
 					$_SERVER['QUERY_STRING'] = substr($homepage, 10);
 					foreach($current as $key => $val) //clear old variables
-					{
-						unset($_REQUEST[$key]);
-						unset($_GET[$key]);
-					}
+						if($key != 'lang')
+						{
+							unset($_REQUEST[$key]);
+							unset($_GET[$key]);
+						}
 					JRequest::set($mj_home, 'get');
 				}
 				else
