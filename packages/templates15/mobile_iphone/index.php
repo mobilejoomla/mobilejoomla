@@ -140,19 +140,19 @@ if(in_array('f3da4a6dd8f15c9170572d18838c841e', array_map('md5', $results)))
 else
 {
 ?>
-<script type="text/javascript">
-//<!--
-/* <![CDATA[ */
-(function(){
-	var loc = "cloud-ad.appspot.com/ad.js"
-	var uri = "?domain=" + encodeURIComponent(window.location.hostname);
-	var src = ('https:' == document.location.protocol ? 'https://' : 'http://') + loc + uri;
-	var strings = ['<script src="',  src, '" type="text/javascript">', '<', '/script>'].join('');
-	document.write(strings);
-})();
-/* ]]> */
-//-->
-</script>
+	<script type="text/javascript">
+	//<!--
+	/* <![CDATA[ */
+	window.googleAfmcRequest = {
+	  client: 'ca-mb-pub-5710199815985059',
+	  format: '320x50_mb',
+	  output: 'html',
+	  slotname: '1896811186',
+	};
+	/* ]]> */
+	//-->
+	</script>
+	<script type="text/javascript"src="http://pagead2.googlesyndication.com/pagead/show_afmc_ads.js"></script>
 <?php
 }
 ?>
