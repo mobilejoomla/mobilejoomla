@@ -141,8 +141,8 @@ class ImageRescaler
 		if($src_width==0 || $src_height==0)
 			return $imageurl;
 
-		$MobileJoomla_Device   =& MobileJoomla::getDevice();
-		$MobileJoomla          =& MobileJoomla::getInstance();
+		$MobileJoomla_Device =& MobileJoomla::getDevice();
+		$MobileJoomla        =& MobileJoomla::getInstance();
 
 		$markupName = $MobileJoomla->getMarkup();
 		$dev_width  = $MobileJoomla_Device['screenwidth'];

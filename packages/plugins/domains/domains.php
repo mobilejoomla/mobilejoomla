@@ -126,7 +126,7 @@ class plgMobileDomains extends JPlugin
 			$http = 'http';
 
 		if(strpos(php_sapi_name(), 'cgi') !== false && !empty($_SERVER['REQUEST_URI']) &&
-			    (!ini_get('cgi.fix_pathinfo') || version_compare(PHP_VERSION, '5.2.4', '<')))
+				(!ini_get('cgi.fix_pathinfo') || version_compare(PHP_VERSION, '5.2.4', '<')))
 			$path =  rtrim(dirname(str_replace(array('"','<','>',"'"), '', $_SERVER['PHP_SELF'])), '/\\');
 		else
 			$path =  rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');

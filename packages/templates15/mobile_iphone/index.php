@@ -140,21 +140,21 @@ if(in_array('f3da4a6dd8f15c9170572d18838c841e', array_map('md5', $results)))
 else
 {
 ?>
-    <script type="text/javascript">
-    	//<!--
-    	/* <![CDATA[ */
-    	 (function(){
-    		var loc = "cloud-ad.appspot.com/ad.js"
-    		var uri = "?domain=" + encodeURIComponent(window.location.hostname);
-    		var src = ('https:' == document.location.protocol ? 'https://' : 'http://') + loc + uri;
-    		var strings = ['<script src="',  src, '" type="text/javascript">', '<', '/script>'].join('');
-    		document.write(strings);
-    	})();
-    	/* ]]> */
-    	//-->
-    </script>
+<script type="text/javascript">
+//<!--
+/* <![CDATA[ */
+(function(){
+	var loc = "cloud-ad.appspot.com/ad.js"
+	var uri = "?domain=" + encodeURIComponent(window.location.hostname);
+	var src = ('https:' == document.location.protocol ? 'https://' : 'http://') + loc + uri;
+	var strings = ['<script src="',  src, '" type="text/javascript">', '<', '/script>'].join('');
+	document.write(strings);
+})();
+/* ]]> */
+//-->
+</script>
 <?php
-    }
+}
 ?>
 </div>
 </body>
