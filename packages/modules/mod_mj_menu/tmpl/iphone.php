@@ -19,10 +19,13 @@ defined('_JEXEC') or die('Restricted access');
 foreach($menu as $item)
 {
 	$is_active = $item->id == $active_id;
+
+	$class = $item->anchor_css ? ' class="'.$item->anchor_css.'"' : ''; 
 	if($item->type == 'separator')
-		$outline = array('<span>', '</span>');
+		$outline = array('<span'.$class.'>', '</span>');
 	else
-		$outline = array('<a href="'.$item->flink.'">', '</a>');
+		$outline = array('<a'.$class.' href="'.$item->flink.'">', '</a>');
+
 	$text = $item->title;
 	$img  = $item->menu_image ? '<img src="'.$item->menu_image.'" />' : '';
 	switch($params->get('format'))

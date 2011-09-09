@@ -106,9 +106,13 @@ class JMobileMenuHelper
 			$item->title = htmlspecialchars($is_joomla15 ? $item->name : $item->title);
 
 			if(!$is_joomla15)
+			{
+				$item->anchor_css = htmlspecialchars($item->params->get('menu-anchor_css', ''));
 				$item->menu_image = htmlspecialchars($item->params->get('menu_image', '')); 
+			}
 			else
 			{
+				$item->anchor_css = '';
 				if(!is_object($item->params))
 					$item->params = new JParameter($item->params);
 				$menu_image = $item->params->get('menu_image');
