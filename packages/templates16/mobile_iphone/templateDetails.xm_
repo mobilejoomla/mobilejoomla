@@ -26,6 +26,11 @@
 	<languages>
 		<language tag="en-GB">en-GB.tpl_mobile_iphone.ini</language>
 	</languages>
+	<administration>
+		<languages>
+			<language tag="en-GB">en-GB.tpl_mobile_iphone.ini</language>
+		</languages>
+	</administration>
 	<positions>
 		<position>mj_iphone_header</position>
 		<position>mj_iphone_header2</position>
