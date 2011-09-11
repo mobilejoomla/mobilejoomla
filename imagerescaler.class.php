@@ -44,12 +44,12 @@ class ImageRescaler
 			ImageRescaler::$forced_height = intval($matches[2]);
 
 		// styles
-		if(preg_match('#\Wwidth\s*:\s*(\d+)\s*(px|!|;)#i', $text, $matches))
+		if(preg_match('#[^\w-]width\s*:\s*(\d+)\s*(px|!|;)#i', $text, $matches))
 			ImageRescaler::$forced_width = intval($matches[1]);
-		if(preg_match('#\Wheight\s*:\s*(\d+)\s*(px|!|;)#i', $text, $matches))
+		if(preg_match('#[^\w-]height\s*:\s*(\d+)\s*(px|!|;)#i', $text, $matches))
 			ImageRescaler::$forced_height = intval($matches[1]);
 		$styles = '';
-		if(preg_match('#\Wfloat\s*:\s*(left|right)\s*(!|;)#i', $text, $matches))
+		if(preg_match('#[^\w-]float\s*:\s*(left|right)\s*(!|;)#i', $text, $matches))
 			$styles .= 'float:'.$matches[1].';';
 
 		$text = preg_replace('#\s(width|height)\s*=\s*([\'"]?)\d*%?\2#i', '', $text);
