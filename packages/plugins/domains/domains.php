@@ -125,6 +125,18 @@ class plgMobileDomains extends JPlugin
 		else
 			$http = 'http';
 
+		$mainframe =& JFactory::getApplication();
+		$live_url = $mainframe->getCfg('live_site');
+		if($live_url)
+		{
+			$parsed = parse_url($live_url);
+			if($parsed !== false)
+			{
+				$path = isset($parsed['path']) ? $parsed['path'] : '/';
+				return;
+			}
+		}
+
 		if(strpos(php_sapi_name(), 'cgi') !== false && !empty($_SERVER['REQUEST_URI']) &&
 				(!ini_get('cgi.fix_pathinfo') || version_compare(PHP_VERSION, '5.2.4', '<')))
 			$path =  rtrim(dirname(str_replace(array('"','<','>',"'"), '', $_SERVER['PHP_SELF'])), '/\\');
