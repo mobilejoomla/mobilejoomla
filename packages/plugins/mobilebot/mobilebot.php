@@ -323,6 +323,9 @@ class plgSystemMobileBot extends JPlugin
 		$MobileJoomla_Settings =& MobileJoomla::getConfig();
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
 
+		$browser =& JBrowser::getInstance();
+		$browser->set('_mobile', $MobileJoomla_Device['markup']!==false);
+
 		if($MobileJoomla_Device['markup']===false) //desktop
 		{
 			$pcpage = $MobileJoomla_Settings['pcpage'];
