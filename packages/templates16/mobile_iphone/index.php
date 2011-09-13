@@ -29,6 +29,9 @@ if($MobileJoomla_Device['markup'] != $MobileJoomla_Device['default_markup'])
 	<style type="text/css" media="screen">@import "<?php echo $base;?>/jqtouch-src/jqtouch/jqtouch.min.css";</style>
 	<style type="text/css" media="screen">@import "<?php echo $base;?>/jqtouch-src/themes/<?php echo $this->params->get('theme', 'apple'); ?>/theme.min.css";</style>
 	<style type="text/css" media="screen">@import "<?php echo $base;?>/css/mj_iphone.css";</style>
+<?php if(is_file(JPATH_SITE.DS.'templates'.DS.$this->template.DS.'css'.DS.'custom.css')): ?>
+	<style type="text/css" media="screen">@import "<?php echo $base;?>/css/custom.css";</style>
+<?php endif; ?>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"/>
 </head>
 <body>
