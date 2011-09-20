@@ -14,6 +14,14 @@ defined('_JEXEC') or die('Restricted access');
 CHANGELOG
 
 1.0
+RC4 release
+- Support for user-defined css/custom.css that is not overwritten on updates
+- Fix issue with incorrect regular expression matching in image rescaling procedure
+- Support for anchor_css menu item parameter (Joomla!1.6/1.7)
+- Fix issue with live_url on redirects
+- Fix issue with incorrect language strings in settings of mobile_iphone template
+
+1.0
 RC3 release
 - Fix sh404sef issue in Joomla!1.6/1.7
 - Fix registration form layout in mobile_pda template on Joomla!1.5
