@@ -6,4 +6,4 @@ function init()
 	myStyleTweaks.add("N900", "resources/styles/tweaks/maemo.css");
 	myStyleTweaks.tweak();
 }
-addEvent("onload", init);
+nokiaAddEvent("onload", init);

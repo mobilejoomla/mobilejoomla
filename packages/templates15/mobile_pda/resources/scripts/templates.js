@@ -311,13 +311,13 @@ function _isArray(x)
 }
 
 /*
- * addEvent()
- * usage: addEvent(event, function);
+ * nokiaAddEvent()
+ * usage: nokiaAddEvent(event, function);
  * note: only targets window events!
  * 
  */
 
-function addEvent(_event, _function)
+function nokiaAddEvent(_event, _function)
 {
     var _current_event = window[_event];
     if(typeof window[_event] != 'function')

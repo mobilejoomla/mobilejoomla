@@ -20,6 +20,7 @@ RC4 release
 - Support for anchor_css menu item parameter (Joomla!1.6/1.7)
 - Fix issue with live_url on redirects
 - Fix issue with incorrect language strings in settings of mobile_iphone template
+- Fix conflict with Mootools in mobile_pda template
 
 1.0
 RC3 release
