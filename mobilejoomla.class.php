@@ -130,9 +130,9 @@ class MobileJoomla
 	{
 		$this->showBreadcrumbs();
 	}
-	function showBreadcrumbs()
+	function showBreadcrumbs($style='-1')
 	{
-		echo '<jdoc:include type="module" name="breadcrumbs" style="-1" />';
+		echo '<jdoc:include type="module" name="breadcrumbs" style="'.$style.'" />';
 	}
 
 	/** deprecated **/
