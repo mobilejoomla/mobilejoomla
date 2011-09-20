@@ -78,20 +78,20 @@ class MobileJoomla_WML extends MobileJoomla
 		return '';
 	}
 
-	function loadModules($position)
+	function loadModules($position, $style='wml')
 	{
-		echo '<jdoc:include type="modules" name="'.$position.'" style="wml" />';
+		echo '<jdoc:include type="modules" name="'.$position.'" style="'.$style.'" />';
 	}
 
-	function loadModulesAsCards($position)
+	function loadModulesAsCards($position, $style='wmlcards')
 	{
-		echo '<jdoc:include type="modules" name="'.$position.'" style="wmlcards" />';
+		echo '<jdoc:include type="modules" name="'.$position.'" style="'.$style.'" />';
 	}
 
-	function showBreadcrumbs()
+	function showBreadcrumbs($style='wml')
 	{
 		if($this->config['tmpl_wap_pathway'] && (!$this->_ishomepage || $this->config['tmpl_wap_pathwayhome']))
-			echo '<jdoc:include type="module" name="breadcrumbs" style="wml" />';
+			echo '<jdoc:include type="module" name="breadcrumbs" style="'.$style.'" />';
 	}
 
 	function showComponent()

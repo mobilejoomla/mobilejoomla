@@ -41,10 +41,10 @@ $document->setHeadData($headerstuff);*/
 			echo '<link rel="apple-touch-icon" href="'.JURI::base(true).'/templates/'.$template.'/apple-touch-icon.png" />';
 	}
 
-	function showBreadcrumbs()
+	function showBreadcrumbs($style='iphone')
 	{
 		if($this->config['tmpl_iphone_pathway'] && (!$this->_ishomepage || $this->config['tmpl_iphone_pathwayhome']))
-			echo '<jdoc:include type="module" name="breadcrumbs" style="iphone" />';
+			echo '<jdoc:include type="module" name="breadcrumbs" style="'.$style.'" />';
 	}
 
 	function showComponent()
@@ -94,9 +94,9 @@ $document->setHeadData($headerstuff);*/
 		return $text;
 	}
 
-	function loadModules($position)
+	function loadModules($position, $style='iphone')
 	{
-		echo '<jdoc:include type="modules" name="'.$position.'" style="iphone" />';
+		echo '<jdoc:include type="modules" name="'.$position.'" style="'.$style.'" />';
 	}
 
 	function getPosition($pos)

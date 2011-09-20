@@ -122,15 +122,15 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 		return '';
 	}
 
-	function loadModules($position)
+	function loadModules($position, $style='xhtml_m')
 	{
-		echo '<jdoc:include type="modules" name="'.$position.'" style="xhtml_m" />';
+		echo '<jdoc:include type="modules" name="'.$position.'" style="'.$style.'" />';
 	}
 
-	function showBreadcrumbs()
+	function showBreadcrumbs($style='xhtml_m')
 	{
 		if($this->config['tmpl_xhtml_pathway'] && (!$this->_ishomepage || $this->config['tmpl_xhtml_pathwayhome']))
-			echo '<jdoc:include type="module" name="breadcrumbs" style="xhtml_m" />';
+			echo '<jdoc:include type="module" name="breadcrumbs" style="'.$style.'" />';
 	}
 
 	function showComponent()

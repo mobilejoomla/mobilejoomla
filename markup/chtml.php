@@ -51,10 +51,10 @@ class MobileJoomla_CHTML extends MobileJoomla
 		echo '<title>'.$this->getPageTitle()."</title>\n";
 	}
 
-	function showBreadcrumbs()
+	function showBreadcrumbs($style='chtml')
 	{
 		if($this->config['tmpl_imode_pathway'] && (!$this->_ishomepage || $this->config['tmpl_imode_pathwayhome']))
-			echo '<jdoc:include type="module" name="breadcrumbs" style="chtml" />';
+			echo '<jdoc:include type="module" name="breadcrumbs" style="'.$style.'" />';
 	}
 
 	function showComponent()
@@ -106,9 +106,9 @@ class MobileJoomla_CHTML extends MobileJoomla
 		return '';
 	}
 
-	function loadModules($position)
+	function loadModules($position, $style='chtml')
 	{
-		echo '<jdoc:include type="modules" name="'.$position.'" style="chtml" />';
+		echo '<jdoc:include type="modules" name="'.$position.'" style="'.$style.'" />';
 	}
 
 	function processPage($text)
