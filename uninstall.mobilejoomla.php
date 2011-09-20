@@ -99,6 +99,16 @@ function InstallTemplate($sourcedir, $name)
 			$db->query();
 		}
 	}
+	$path_css = JPATH_SITE.DS.'templates'.DS.$name.DS.'css';
+	if(is_dir($path_css))
+	{
+		$custom_css = $path_css.DS.'custom.css';
+		if(!is_file($custom_css))
+		{
+			$data = '';
+			JFile::write($custom_css, $data);
+		}
+	}
 	return true;
 }
 

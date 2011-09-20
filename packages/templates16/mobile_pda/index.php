@@ -30,9 +30,23 @@ $MobileJoomla->showDocType();
 	<style type="text/css" media="screen">@import "<?php echo $base;?>/resources/styles/reset.css";</style>
 	<style type="text/css" media="screen">@import "<?php echo $base;?>/resources/styles/baseStyles.css";</style>
 	<style type="text/css" media="screen">@import "<?php echo $base;?>/css/mj_xhtml.css";</style>
-<?php if(is_file(JPATH_SITE.DS.'templates'.DS.$this->template.DS.'css'.DS.'custom.css')): ?>
+<?php
+	if(@filesize(JPATH_SITE.DS.'templates'.DS.$this->template.DS.'css'.DS.'custom.css'))
+	{
+		if($this->config['tmpl_xhtml_embedcss'])
+		{
+			echo "<style>\n";
+			@readfile(JPATH_SITE.DS.'templates'.DS.$this->template.DS.'css'.DS.'custom.css');
+			echo "</style>\n";
+		}
+		else
+		{
+?>
 	<style type="text/css" media="screen">@import "<?php echo $base;?>/css/custom.css";</style>
-<?php endif; ?>
+<?php
+		}
+	}
+?>
 	<script type="text/javascript" src="<?php echo $base;?>/resources/scripts/templates.js"></script>
 	<script src="<?php echo $base;?>/mj_xhtml.js" type="text/javascript" charset="utf-8"></script>
 </head>

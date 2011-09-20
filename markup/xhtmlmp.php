@@ -69,19 +69,6 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 			echo '<title>'.$this->getPageTitle().'</title>'."\n";
 		else
 			echo '<jdoc:include type="head" />';
-		$mainframe =& JFactory::getApplication();
-		$cur_template = $mainframe->getTemplate();
-		if($showstylesheet && is_file(JPATH_SITE.DS.'templates'.DS.$cur_template.DS.'css'.DS.'template_css.css'))
-		{
-			if($this->config['tmpl_xhtml_embedcss'])
-			{
-				echo "<style>\n";
-				@readfile(JPATH_SITE.DS.'templates'.DS.$cur_template.DS.'css'.DS.'template_css.css');
-				echo "</style>\n";
-			}
-			else
-				echo '<link href="'.JURI::base().'templates/'.$cur_template.'/css/template_css.css" rel="stylesheet" type="text/css" />'."\n";
-		}
 		if($this->config['tmpl_xhtml_allowextedit'])
 		{
 			/** @var JUser $user */
