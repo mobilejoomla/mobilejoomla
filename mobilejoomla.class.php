@@ -120,7 +120,7 @@ class MobileJoomla
 		return $document->getTitle();
 	}
 
-	function showHead($showstylesheet = true)
+	function showHead()
 	{
 		echo '<jdoc:include type="head" />';
 	}

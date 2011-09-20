@@ -21,13 +21,7 @@ class MobileJoomla_IPHONE extends MobileJoomla
 	{
 	}
 
-	//	function showXMLheader()
-	//	{
-	//	}
-	//	function showDocType()
-	//	{
-	//	}
-	function showHead($showstylesheet = true)
+	function showHead()
 	{
 		/*$document =& JFactory::getDocument ();
 $headerstuff = $document->getHeadData();

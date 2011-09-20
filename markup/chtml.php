@@ -46,7 +46,7 @@ class MobileJoomla_CHTML extends MobileJoomla
 		return '';
 	}
 
-	function showHead($showstylesheet = true)
+	function showHead()
 	{
 		echo '<title>'.$this->getPageTitle()."</title>\n";
 	}

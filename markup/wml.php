@@ -45,7 +45,7 @@ class MobileJoomla_WML extends MobileJoomla
 		return '';
 	}
 
-	function showHead($showstylesheet = true)
+	function showHead()
 	{
 	}
 

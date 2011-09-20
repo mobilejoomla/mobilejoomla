@@ -63,7 +63,7 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 		return '';
 	}
 
-	function showHead($showstylesheet = true)
+	function showHead()
 	{
 		if($this->config['tmpl_xhtml_simplehead'])
 			echo '<title>'.$this->getPageTitle().'</title>'."\n";
