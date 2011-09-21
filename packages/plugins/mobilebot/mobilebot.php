@@ -323,6 +323,7 @@ class plgSystemMobileBot extends JPlugin
 		$MobileJoomla_Settings =& MobileJoomla::getConfig();
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
 
+		jimport('joomla.environment.browser');
 		$browser =& JBrowser::getInstance();
 		$browser->set('_mobile', $MobileJoomla_Device['markup']!==false);
 
