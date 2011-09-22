@@ -540,7 +540,7 @@ class plgSystemMobileBot extends JPlugin
 
 		if($markup != $MobileJoomla_Device['default_markup'])
 			setcookie('mjmarkup', $markup ? $markup : 'desktop', time()+365*24*60*60, '/');
-		else
+		elseif(isset($_COOKIE['mjmarkup']))
 			setcookie('mjmarkup', '', time()-365*24*60*60, '/');
 	}
 
