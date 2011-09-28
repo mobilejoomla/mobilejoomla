@@ -430,7 +430,13 @@ class plgSystemMobileBot extends JPlugin
 
 		/** @var JMenuSite $menu */
 		$menu =& JSite::getMenu();
-		$default = $menu->getDefault();
+		if($is_joomla15)
+			$default = $menu->getDefault();
+		else
+		{
+			$lang = JFactory::getLanguage();
+			$default = $menu->getDefault($lang->getTag());
+		}
 		$home = $default->query;
 		$home['Itemid'] = $default->id;
 
