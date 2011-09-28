@@ -917,7 +917,9 @@ fieldset.adminform label {
 		<input type="hidden" name="option" value="<?php echo JRequest::getString('option'); ?>"/>
 		<input type="hidden" name="task" value=""/>
 		</form>
+<?php if(substr(JVERSION,0,3) == '1.5') : ?>
 		<script type="text/javascript" src="<?php echo JURI::root(true);?>/includes/js/overlib_mini.js"></script>
+<?php endif; ?>
 		<?php
 
 	}
