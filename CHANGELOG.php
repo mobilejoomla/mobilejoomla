@@ -21,6 +21,7 @@ RC4 release
 - Fix issue with live_url on redirects
 - Fix issue with incorrect language strings in settings of mobile_iphone template
 - Fix conflict with Mootools in mobile_pda template
+- Fix incorrect homepage detecting with language switcher
 
 1.0
 RC3 release
