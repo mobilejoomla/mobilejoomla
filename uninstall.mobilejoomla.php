@@ -783,7 +783,7 @@ function com_install()
 					$data = new stdClass;
 				$data->cache = isset($data->cache) ? $data->cache : 0;
 				$data->mysql4 = 1;
-				$data = $parser->objectToString($data);
+				$data = $parser->objectToString($data, array());
 				$data = $db->Quote($data);
 
 				$query = "UPDATE $table SET params = $data WHERE element = 'terawurfl' AND folder = 'mobile'";
