@@ -21,6 +21,7 @@ $base = $this->baseurl.'/templates/'.$this->template;
 <html <?php echo $MobileJoomla->getXmlnsString(); ?>>
 <head>
 	<meta http-equiv="Content-Type" content="<?php echo $MobileJoomla->getContentString(); ?>"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 <?php $MobileJoomla->showHead(); ?>
 	<style type="text/css" media="screen">@import "<?php echo $base;?>/jqtouch-src/jqtouch/jqtouch.min.css";</style>
 	<style type="text/css" media="screen">@import "<?php echo $base;?>/jqtouch-src/themes/<?php echo $this->params->get('theme', 'apple'); ?>/theme.min.css";</style>
@@ -28,7 +29,6 @@ $base = $this->baseurl.'/templates/'.$this->template;
 <?php if(@filesize(JPATH_SITE.DS.'templates'.DS.$this->template.DS.'css'.DS.'custom.css')): ?>
 	<style type="text/css" media="screen">@import "<?php echo $base;?>/css/custom.css";</style>
 <?php endif; ?>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"/>
 </head>
 <body>
 <div<?php echo ($MobileJoomla->isHome()) ? ' id="home"' : '';?> class="current">

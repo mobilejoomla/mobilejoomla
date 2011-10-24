@@ -18,6 +18,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	<?php if($this->direction == 'rtl') : ?>
 	<link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/system/css/error_rtl.css" type="text/css" />
 	<?php endif; ?>
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 </head>
 <body>
 	<div align="center">
