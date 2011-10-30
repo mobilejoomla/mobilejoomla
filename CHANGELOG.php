@@ -14,6 +14,10 @@ defined('_JEXEC') or die('Restricted access');
 CHANGELOG
 
 1.0
+RC5 release
+- Add device-specific meta-tags to improve page look
+
+1.0
 RC4 release
 - Support for user-defined css/custom.css that is not overwritten on updates
 - Fix issue with incorrect regular expression matching in image rescaling procedure
