@@ -13,6 +13,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <!DOCTYPE html>
 <html lang="<?php echo $this->language; ?>" dir="<?php echo $this->direction; ?>">
 <head>
+	<meta http-equiv="Content-Type" content="<?php echo $MobileJoomla->getContentString(); ?>">
 	<title><?php echo $this->error->get('code'); ?> - <?php echo $this->title; ?></title>
 	<link rel="stylesheet" href="<?php echo $this->baseurl; ?>/templates/system/css/error.css" type="text/css" />
 	<?php if($this->direction == 'rtl') : ?>

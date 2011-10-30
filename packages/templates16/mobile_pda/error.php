@@ -19,8 +19,12 @@ $MobileJoomla->showDocType();
 ?>
 <html<?php echo $MobileJoomla->getXmlnsString(); ?>>
 <head>
+<meta http-equiv="Content-Type" content="<?php echo $MobileJoomla->getContentString(); ?>" />
 <title><?php echo $this->title; ?></title>
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="<?php echo $MobileJoomla_Device['screenwidth']; ?>" />
+<meta http-equiv="cleartype" content="on" />
 </head>
 <body>
 	<p><b><?php echo $this->error->get('code'); ?> - <?php echo $this->error->get('message'); ?></b></p>

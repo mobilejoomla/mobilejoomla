@@ -18,6 +18,7 @@ $MobileJoomla->showDocType();
 ?>
 <html>
 <head>
+	<meta name="CHTML">
 	<meta http-equiv="Content-Type" content="<?php echo $MobileJoomla->getContentString(); ?>">
 <?php $MobileJoomla->showHead(); ?>
 </head>
