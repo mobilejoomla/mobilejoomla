@@ -20,9 +20,9 @@
  * @package TeraWurflUserAgentMatchers
  */
 class NokiaUserAgentMatcher extends UserAgentMatcher {
-	
+
 	public static $constantIDs = array("nokia_generic_series60","nokia_generic_series80");
-	
+
 	public function __construct(TeraWurfl $wurfl){
 		parent::__construct($wurfl);
 	}

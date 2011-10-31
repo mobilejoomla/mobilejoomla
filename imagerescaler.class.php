@@ -83,7 +83,7 @@ class ImageRescaler
 		$systemDST = (date('I') == 1);
 		if($fileDST==false && $systemDST==true)
 			return $time+3600;
-		elseif($fileDST==true && $systemDST==false) 
+		elseif($fileDST==true && $systemDST==false)
 			return $time-3600;
 		return $time;
 	}
@@ -214,7 +214,7 @@ class ImageRescaler
 		$dest_imagedir = dirname($src_imagepath).DS.ImageRescaler::$thumbdir;
 		$dest_imagepath = $dest_imagedir.DS.$src_imagename.'_'.$dest_width.'x'.$dest_height.'.'.$dest_ext;
 		$dest_imageuri = $base_rel.implode('/', explode(DS, substr($dest_imagepath, strlen(JPATH_SITE.DS))));
-		
+
 		$src_mtime = ImageRescaler::getmtime($src_imagepath);
 		if(file_exists($dest_imagepath))
 		{

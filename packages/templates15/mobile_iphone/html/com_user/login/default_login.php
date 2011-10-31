@@ -26,7 +26,7 @@ endif; ?>
 	</p>
 
 	<ul>
-	
+
 	<li id="form-login-username">
 		<!--<label for="modlgn_username"><?php echo JText::_('Username') ?></label>-->
 		<input id="modlgn_username" type="text" name="username" class="inputbox" alt="username" size="18"
@@ -50,7 +50,7 @@ endif; ?>
 	<div class="loginButtonWrapper">
 		<input type="submit" name="Submit" class="button whiteButton loginButton" value="<?php echo JText::_('LOGIN') ?>" />
 	</div>
-	
+
 	<ul>
 		<li>
 			<a href="<?php echo JRoute::_( 'index.php?option=com_user&view=reset' ); ?>" class="mainlevel">

@@ -616,7 +616,7 @@ function mjAjaxDownload()
 				mjOnError();
 			} else {
 				jQuery("#mjdownload").addClass("pass");
-				mjAjaxUnpack(); 
+				mjAjaxUnpack();
 			}
 		},
 		error: function(){
@@ -642,7 +642,7 @@ function mjAjaxUnpack()
 				mjOnError();
 			} else {
 				jQuery("#mjunpack").addClass("pass");
-				mjAjaxInstall(); 
+				mjAjaxInstall();
 			}
 		},
 		error: function(){

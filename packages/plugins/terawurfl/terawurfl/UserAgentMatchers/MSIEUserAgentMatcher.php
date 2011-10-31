@@ -20,9 +20,9 @@
  * @package TeraWurflUserAgentMatchers
  */
 class MSIEUserAgentMatcher extends UserAgentMatcher {
-	
+
 	public static $constantIDs = array("msie","msie_4","msie_5","msie_5_5","msie_6","msie_7","msie_8");
-	
+
 	public function __construct(TeraWurfl $wurfl){
 		parent::__construct($wurfl);
 	}

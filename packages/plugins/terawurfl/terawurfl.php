@@ -40,7 +40,7 @@ class plgMobileTerawurfl extends JPlugin
 			$MobileJoomla_Device['markup'] = '';
 			return;
 		}
-		
+
 		require_once(dirname(__FILE__).DS.'terawurfl'.DS.'TeraWurflConfig.php');
 
 		/** @var JRegistry $config */

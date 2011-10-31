@@ -20,9 +20,9 @@
  * @package TeraWurflUserAgentMatchers
  */
 class FirefoxUserAgentMatcher extends UserAgentMatcher {
-	
+
 	public static $constantIDs = array("firefox_1","firefox_1_5","firefox_2","firefox_3","firefox_3_5");
-	
+
 	public function __construct(TeraWurfl $wurfl){
 		parent::__construct($wurfl);
 	}

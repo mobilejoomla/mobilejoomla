@@ -17,7 +17,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 <form action="<?php echo JFilterOutput::ampReplace(JFactory::getURI()->toString()); ?>" method="post" name="adminForm" id="adminForm">
 <?php if ($this->params->get('show_headings') || $this->params->get('filter_field') != 'hide' || $this->params->get('show_pagination_limit')) :?>
 <div>
-<?php if ($this->params->get('filter_field') != 'hide') :?>	
+<?php if ($this->params->get('filter_field') != 'hide') :?>
 <div class="hidelabeltxt"><?php echo JText::_('JGLOBAL_FILTER_LABEL'); ?></div>
 <div class="filter-search">
 <span class="filter-search-lbl"><?php echo JText::_('COM_CONTENT_'.$this->params->get('filter_field').'_FILTER_LABEL').'&#160;'; ?></span>

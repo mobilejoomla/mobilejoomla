@@ -20,9 +20,9 @@
  * @package TeraWurflUserAgentMatchers
  */
 class DoCoMoUserAgentMatcher extends UserAgentMatcher {
-	
+
 	public static $constantIDs = array('docomo_generic_jap_ver2','docomo_generic_jap_ver1');
-	
+
 	public function __construct(TeraWurfl $wurfl){
 		parent::__construct($wurfl);
 	}

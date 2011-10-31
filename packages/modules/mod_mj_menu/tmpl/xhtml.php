@@ -20,7 +20,7 @@ foreach($menu as $item)
 {
 	$is_active = $item->id == $active_id;
 
-	$class = $item->anchor_css ? ' class="'.$item->anchor_css.'"' : ''; 
+	$class = $item->anchor_css ? ' class="'.$item->anchor_css.'"' : '';
 	if($item->type == 'separator')
 		$outline = array('<span'.$class.'>', '</span>');
 	else

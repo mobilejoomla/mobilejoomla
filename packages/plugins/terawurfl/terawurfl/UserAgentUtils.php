@@ -21,14 +21,14 @@
  *
  */
 class UserAgentUtils{
-	
+
 	public static $WORST_MATCH = 7;
-	
+
 	public function __construct(){
-		
+
 	}
 	/**
-	 * Find the matching Device ID for a given User Agent using RIS (Reduction in String) 
+	 * Find the matching Device ID for a given User Agent using RIS (Reduction in String)
 	 * @param string User Agent
 	 * @param int How short the strings are allowed to get before a match is abandoned
 	 * @param UserAgentMatcher The UserAgentMatcher instance that is matching the User Agent
@@ -130,7 +130,7 @@ class UserAgentUtils{
 	 * @param String User Agent
 	 * @return int Character position
 	 */
-	
+
 	public static function firstOpenParen($userAgent){
 		$position = strpos($userAgent,'(');
 		return ($position!==false)? $position: strlen($userAgent);
@@ -201,7 +201,7 @@ class UserAgentUtils{
 	 * @return Bool
 	 */
 	public static function checkIfContains($ua,$find){
-		
+
     	if(is_array($find)){
     		foreach($find as $part){
     			if(strpos($ua,$part)!==false){
@@ -258,7 +258,7 @@ class UserAgentUtils{
 			$found++;
 		}while($found < $ordinal);
 		return $index;
-	
+
 	}
     /**
      * Checks for traces of mobile device signatures and returns an appropriate generic WURFL Device ID
@@ -286,7 +286,7 @@ class UserAgentUtils{
 			return 'generic_web_browser';
 		if(self::checkIfContains($ua,'Mozilla/6.0'))
 			return 'generic_web_browser';
-		
+
 		return WurflConstants::$GENERIC;
 	}
 	/**

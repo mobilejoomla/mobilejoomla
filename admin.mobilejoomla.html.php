@@ -63,7 +63,7 @@ class HTML_mobilejoomla
 <?php
 		}
 	}
-	
+
 	function showUpdateNotification()
 	{
 		HTML_mobilejoomla::CheckForUpdate();

@@ -40,7 +40,7 @@ class VodafoneUserAgentMatcher extends UserAgentMatcher {
 				$clean_ua = $new_ua;
 			}
 		}
-		
+
 		$tolerance = UserAgentUtils::firstSlash($clean_ua);
 		$this->wurfl->toLog("Applying ".get_class($this)." Conclusive Match: RIS with threshold $tolerance",LOG_INFO);
 		$match = $this->risMatch($clean_ua, $tolerance);

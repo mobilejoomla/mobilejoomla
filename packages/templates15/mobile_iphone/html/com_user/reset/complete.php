@@ -8,7 +8,7 @@
 	<p class="textview"><?php echo JText::_('RESET_PASSWORD_COMPLETE_DESCRIPTION'); ?></p>
 
 	<ul>
-		<li>	
+		<li>
 			<input id="password1" name="password1" type="password" class="required validate-password" title="<?php echo JText::_('RESET_PASSWORD_PASSWORD1_TIP_TITLE'); ?>::<?php echo JText::_('RESET_PASSWORD_PASSWORD1_TIP_TEXT'); ?>" placeholder="<?php echo JText::_('Password'); ?>" />
 		</li>
 		<li>
@@ -19,6 +19,6 @@
 	<div class="buttonWrapper">
 		<button type="submit" class="button loginButton whiteButton validate"><?php echo JText::_('Submit'); ?></button>
 	</div>
-	
+
 	<?php echo JHTML::_( 'form.token' ); ?>
 </form>

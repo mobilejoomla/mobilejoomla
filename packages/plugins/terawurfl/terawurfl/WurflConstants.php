@@ -21,12 +21,12 @@
  *
  */
 class WurflConstants{
-	
+
 	public static $GENERIC = "generic";
 	public static $GENERIC_XHTML = "generic_xhtml";
 	public static $GENERIC_WEB_BROWSER = "generic_web_browser";
 	public static $SIMPLE_DESKTOP_UA = "TeraWurflSimpleDesktopMatcher/";
-	
+
 	/**
 	 * These mobile browser strings will be compared case-insensitively, so keep them all lowercase for faster searching
 	 * @var Array MOBILE_BROWSERS

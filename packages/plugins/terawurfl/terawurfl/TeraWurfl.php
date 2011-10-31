@@ -31,11 +31,11 @@ require_once realpath(dirname(__FILE__).'/UserAgentMatchers/UserAgentMatcher.php
 /**
  * The main Tera-WURFL Class, provides all end-user methods and properties for interacting
  * with Tera-WURFL
- * 
+ *
  * @package TeraWurfl
  */
 class TeraWurfl{
-	
+
 	public static $SETTING_WURFL_VERSION = 'wurfl_version';
 	public static $SETTING_WURFL_DATE = 'wurfl_date';
 	public static $SETTING_LOADED_DATE = 'loaded_date';
@@ -67,7 +67,7 @@ class TeraWurfl{
 	 * The user agent that is being evaluated
 	 * @var String
 	 */
-	public $userAgent; 
+	public $userAgent;
 	/**
 	 * The HTTP Accept header that is being evaluated
 	 * @var String
@@ -83,7 +83,7 @@ class TeraWurfl{
 	 * @var Bool
 	 */
 	public $foundInCache;
-	
+
 	/**
 	 * The installed branch of Tera-WURFL
 	 * @var String
@@ -99,7 +99,7 @@ class TeraWurfl{
 	 * @var String
 	 */
 	public static $required_php_version = "5.0.0";
-	
+
 	/**
 	 * Lookup start time
 	 * @var int
@@ -131,7 +131,7 @@ class TeraWurfl{
 	 * The deepest device I've seen is sonyericsson_z520a_subr3c at 15
 	 */
 	protected $maxDeviceDepth = 40;
-	
+
 	// Constructor
 	public function __construct(){
 		$this->errors = array();
@@ -145,7 +145,7 @@ class TeraWurfl{
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Returns the matching WURFL ID for a given User Agent
 	 * @return String WURFL ID
@@ -154,13 +154,13 @@ class TeraWurfl{
 		$this->matcherHistory = array();
 		// Return generic UA if userAgent is empty
 		if(strlen($this->userAgent)==0){
-			$this->matchData['matcher'] = "none"; 
+			$this->matchData['matcher'] = "none";
 			$this->matchData['match_type'] = "none";
 			$this->matchData['match'] = false;
 			$this->setMatcherHistory();
 			return WurflConstants::$GENERIC;
 		}
-		
+
 		// Check for exact match
 		if(TeraWurflConfig::$SIMPLE_DESKTOP_ENGINE_ENABLE && $this->userAgent == WurflConstants::$SIMPLE_DESKTOP_UA){
 			// SimpleDesktop UA Matching avoids querying the database here
@@ -224,7 +224,7 @@ class TeraWurfl{
 				return $deviceID;
 			}
 		}
-		
+
 		// A matching device still hasn't been found - check HTTP ACCEPT headers
 		if(strlen($this->httpAccept) > 0){
 			$this->matcherHistory[] = "http_accept";
@@ -245,7 +245,7 @@ class TeraWurfl{
 		$this->matchData['match_type'] = "none";
 		$this->matchData['match'] = false;
 		$this->setMatcherHistory();
-		
+
 		if(UserAgentUtils::isMobileBrowser($this->userAgent)) return WurflConstants::$GENERIC_XHTML;
 		return WurflConstants::$GENERIC_WEB_BROWSER;
 	}
@@ -352,14 +352,14 @@ class TeraWurfl{
 			/**
 			 * This loop starts with the best-matched device, and follows its fall_back until it reaches the GENERIC device
 			 * Lets use "tmobile_shadow_ver1" for an example:
-			 * 
+			 *
 			 * 'id' => 'tmobile_shadow_ver1', 'fall_back' => 'ms_mobile_browser_ver1'
 			 * 'id' => 'ms_mobile_browser_ver1', 'fall_back' => 'generic_xhtml'
 			 * 'id' => 'generic_xhtml', 'fall_back' => 'generic'
 			 * 'id' => 'generic', 'fall_back' => 'root'
-			 * 
+			 *
 			 * This fallback_tree in this example contains 4 elements in the order shown above.
-			 * 
+			 *
 			 */
 			while($currentDevice['fall_back'] != "root"){
 				$currentDevice = $this->db->getDeviceFromID($currentDevice['fall_back']);
@@ -392,7 +392,7 @@ class TeraWurfl{
 			/**
 			 * Merge the device capabilities from the parent (GENERIC) to the child (DeviceID)
 			 * We merge in this order because the GENERIC device contains all the properties that can be set
-			 * Then the next child modifies them, then the next child, and the next child, etc... 
+			 * Then the next child modifies them, then the next child, and the next child, etc...
 			 */
 			while(count($fallbackTree)>0){
 				$dev = array_pop($fallbackTree);
