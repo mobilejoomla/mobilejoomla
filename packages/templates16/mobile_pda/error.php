@@ -25,6 +25,8 @@ $MobileJoomla->showDocType();
 <meta name="HandheldFriendly" content="True" />
 <meta name="MobileOptimized" content="<?php echo $MobileJoomla_Device['screenwidth']; ?>" />
 <meta http-equiv="cleartype" content="on" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="format-detection" content="address=no" />
 </head>
 <body>
 	<p><b><?php echo $this->error->get('code'); ?> - <?php echo $this->error->get('message'); ?></b></p>

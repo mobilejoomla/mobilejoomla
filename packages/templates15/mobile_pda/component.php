@@ -25,6 +25,8 @@ $base = $this->baseurl."/templates/".$this->template;
 	<meta name="HandheldFriendly" content="True" />
 	<meta name="MobileOptimized" content="<?php echo $MobileJoomla_Device['screenwidth']; ?>" />
 	<meta http-equiv="cleartype" content="on" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="format-detection" content="address=no" />
 	<style type="text/css" media="screen">@import "<?php echo $base;?>/resources/styles/reset.css";</style>
 	<style type="text/css" media="screen">@import "<?php echo $base;?>/resources/styles/baseStyles.css";</style>
 	<style type="text/css" media="screen">@import "<?php echo $base;?>/css/mj_xhtml.css";</style>
