@@ -257,6 +257,23 @@ class MobileJoomla
 		return $uri->toString();
 	}
 
+	function getCanonicalURI()
+	{
+		$MobileJoomla_Device =& MobileJoomla::getDevice();
+		if($MobileJoomla_Device['markup'] == $MobileJoomla_Device['default_markup'])
+			return false;
+
+		$MobeJoomla_Settings =& MobileJoomla::getConfig();
+		$desktop_uri = new JURI($MobileJoomla_Settings['desktop_url']);
+
+		$uri = clone(JFactory::getURI());
+		$uri->delVar('device');
+		$uri->delVar('format');
+		$uri->setHost($desktop_uri->getHost());
+
+		return $uri->toString();
+	}
+
 	function getAccessKey()
 	{
 		static $last_keynum = 0;

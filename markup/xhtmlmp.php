@@ -80,6 +80,9 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 				echo $editor->initialise();
 			}
 		}
+		$canonical = MobileJoomla::getCanonicalURI();
+		if($canonical)
+			echo '<link rel="canonical" href="'.$canonical.'">';
 	}
 
 	function getPosition($pos)

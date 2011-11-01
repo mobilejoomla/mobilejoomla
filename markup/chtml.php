@@ -49,6 +49,9 @@ class MobileJoomla_CHTML extends MobileJoomla
 	function showHead()
 	{
 		echo '<title>'.$this->getPageTitle()."</title>\n";
+		$canonical = MobileJoomla::getCanonicalURI();
+		if($canonical)
+			echo '<link rel="canonical" href="'.$canonical.'">';
 	}
 
 	function showBreadcrumbs($style='chtml')

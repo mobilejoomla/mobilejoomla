@@ -33,6 +33,9 @@ $document->setHeadData($headerstuff);*/
 		$template = $mainframe->getTemplate();
 		if(file_exists(JPATH_THEMES.DS.$template.DS.'apple-touch-icon.png'))
 			echo '<link rel="apple-touch-icon" href="'.JURI::base(true).'/templates/'.$template.'/apple-touch-icon.png" />';
+		$canonical = MobileJoomla::getCanonicalURI();
+		if($canonical)
+			echo '<link rel="canonical" href="'.$canonical.'">';
 	}
 
 	function showBreadcrumbs($style='iphone')
