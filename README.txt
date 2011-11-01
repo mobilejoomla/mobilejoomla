@@ -16,7 +16,3 @@ http://www.mobilejoomla.com/blog.html
 
 Forum
 http://www.mobilejoomla.com/forum.html
-
-
-For information how to develop Mobile Joomla! see
-http://github.com/miohtama/mobilejoomla.buildout
