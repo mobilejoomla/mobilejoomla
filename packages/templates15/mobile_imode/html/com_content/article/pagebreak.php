@@ -33,7 +33,7 @@
 <div align="center">
 <div class="key" align="right"><label for="title"><?php echo JText::_( 'PGB PAGE TITLE' ); ?></label></div>
 <div><input type="text" id="title" name="title" /></div>
-<div class="key" align="right"><label for="alias"><?php echo JText::_( 'PGB TOC ALIAS PROMPT' ); ?></label></div>
+<div class="key" align="right"><label for="alt"><?php echo JText::_( 'PGB TOC ALIAS PROMPT' ); ?></label></div>
 <div><input type="text" id="alt" name="alt" /></div>
 </div>
 </form>
