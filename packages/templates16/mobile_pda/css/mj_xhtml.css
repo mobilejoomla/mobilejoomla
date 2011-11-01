@@ -137,7 +137,6 @@ h1, div.h1 {
 	margin: 0;
 	padding: 0;
 	font-size: 23px;
-	border: none;
 	background: none;
 }
 
@@ -232,7 +231,7 @@ div.search td.text input[type="text"] {
 	display: inline;
 	border: 0;
 	margin: 0;
-	padding: 0.2em 0px;
+	padding: 0.2em 0;
 	width: 100%;
 	-webkit-appearance: none;
 	-moz-appearance: none;
@@ -242,7 +241,7 @@ div.search td.button input[type="submit"] {
 	display: inline;
 	border: 0;
 	margin: 0;
-	padding: 0.2em 0px;
+	padding: 0.2em 0;
 	width: 100%;
 	color: #666666;
 	-webkit-appearance: none;

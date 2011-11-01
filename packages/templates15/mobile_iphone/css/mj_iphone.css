@@ -114,7 +114,7 @@ body {
 }
 
 .back.active {
-	-webkit-border-image: url('../jqtouch-src/themes/apple/img/backButton.png') 0 8 0 14;
+	-webkit-border-image: url('../jqtouch-src/themes/apple/img/backButton.png') 0 8px 0 14px;
 }
 
 h3, div.h3 {
@@ -124,7 +124,7 @@ h3, div.h3 {
 	color: #4D5466;
 	font-size: 16px;
 	font-weight: bold;
-	text-shadow: white 0px 1px;
+	text-shadow: white 0 1px;
 }
 
 /* Override default blue toolbar gradient */
@@ -165,7 +165,7 @@ div.search td.button {
 }
 
 div.search td.text {
-	padding: 0px 10px;
+	padding: 0 10px;
 	margin-right: 10px;
 	border: 1px solid rgba(95, 97, 96, 0.7); /* #5f6160; */
 	-webkit-border-radius: 15px;
@@ -251,14 +251,14 @@ p.textview {
 }
 
 ul li.searchresult h3 {
-	padding: 0px;
-	margin: 0px;
+	padding: 0;
+	margin: 0;
 	display: inline;
 }
 
 ul li.searchresult p {
-	padding: 0px;
-	margin: 0px;
+	padding: 0;
+	margin: 0;
 	text-overflow: hidden;
 }
 
