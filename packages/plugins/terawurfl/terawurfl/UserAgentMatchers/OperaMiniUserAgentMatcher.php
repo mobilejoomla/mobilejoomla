@@ -20,7 +20,7 @@
  * @package TeraWurflUserAgentMatchers
  */
 class OperaMiniUserAgentMatcher extends UserAgentMatcher {
-	
+
 	public static $constantIDs = array(
 		'browser_opera_mini_release1',
 		'browser_opera_mini_release2',
@@ -28,7 +28,7 @@ class OperaMiniUserAgentMatcher extends UserAgentMatcher {
 		'browser_opera_mini_release4',
 		'browser_opera_mini_release5',
 	);
-	
+
 	public function __construct(TeraWurfl $wurfl){
 		parent::__construct($wurfl);
 	}

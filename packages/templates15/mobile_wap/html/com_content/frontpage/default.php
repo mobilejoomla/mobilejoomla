@@ -30,8 +30,8 @@ if (($numIntroArticles != $startIntroArticles) && ($i < $this->total)) : ?>
 					endif;
 				endfor;
 ?><br />
-<?php 
-						$i = $i + $this->params->get('num_intro_articles') ; 
+<?php
+						$i = $i + $this->params->get('num_intro_articles') ;
 			else : // otherwise, order down columns, like old category blog
 				for ($y = 0; $y < $this->params->get('num_intro_articles'); $y ++) :
 					if ($i < $this->total && $i < ($numIntroArticles)) :

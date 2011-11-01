@@ -20,7 +20,7 @@
  * @package TeraWurflUserAgentMatchers
  */
 class AndroidUserAgentMatcher extends UserAgentMatcher {
-	
+
 	public static $constantIDs = array(
 		'generic_android',
 		'generic_android_ver1_5',
@@ -31,7 +31,7 @@ class AndroidUserAgentMatcher extends UserAgentMatcher {
 		'generic_android_ver2_3',
 		'generic_android_ver3_0',
 	);
-	
+
 	public function __construct(TeraWurfl $wurfl){
 		parent::__construct($wurfl);
 	}

@@ -21,7 +21,7 @@
  *
  */
 class WurflSupport{
-	
+
 	public $errors;
 	/**
 	 * The HTTP Headers that Tera-WURFL will look through to find the best User Agent, if one is not specified
@@ -35,12 +35,12 @@ class WurflSupport{
 		'HTTP_X_BOLT_PHONE_UA',
 		'HTTP_USER_AGENT'
 	);
-	
+
 	// Constructor
 	public function __construct(){
 		$this->errors = array();
 	}
-	
+
 	// Public Methods
 	public static function getUserAgent($source=null){
 		if(is_null($source) || !is_array($source))$source = $_SERVER;
@@ -57,7 +57,7 @@ class WurflSupport{
 		}
 		return $userAgent;
 	}
-	
+
 	public static function getAcceptHeader($source=null){
 		if(is_null($source) || !is_array($source))$source = $_SERVER;
 		if(isset($_GET['ACCEPT'])){
@@ -66,11 +66,11 @@ class WurflSupport{
 			return $source['HTTP_ACCEPT'];
 		}
 	}
-	
+
 	public static function getUAProfile(){
 		return isset($_SERVER['X-WAP-PROFILE'])?$_SERVER['X-WAP-PROFILE']:'';
 	}
-	
+
 	public static function formatBytes($bytes){
 	    $unim = array("B","KB","MB","GB","TB","PB");
 	    $c = 0;

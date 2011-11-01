@@ -241,7 +241,7 @@ function UpdateConfig()
 		$MobileJoomla_Settings['tmpl_xhtml_img_addstyles'] = 0;
 	if(!isset($MobileJoomla_Settings['tmpl_iphone_img_addstyles']))
 		$MobileJoomla_Settings['tmpl_iphone_img_addstyles'] = 0;
-	
+
 	if(!isset($MobileJoomla_Settings['tmpl_xhtml_header3']))
 		$MobileJoomla_Settings['tmpl_xhtml_header3'] = 'mj_all_header';
 	if(!isset($MobileJoomla_Settings['tmpl_xhtml_middle3']))
@@ -400,7 +400,7 @@ function terawurfl_test()
 
 	if(!$test)
 		return false;
-	
+
 	/** @var JRegistry $config */
 	$config =& JFactory::getConfig();
 	$host = $config->getValue('host');

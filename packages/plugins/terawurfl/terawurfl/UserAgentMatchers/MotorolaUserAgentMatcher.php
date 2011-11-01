@@ -20,9 +20,9 @@
  * @package TeraWurflUserAgentMatchers
  */
 class MotorolaUserAgentMatcher extends UserAgentMatcher {
-	
+
 	public static $constantIDs = array("mot_mib22_generic");
-	
+
 	public function __construct(TeraWurfl $wurfl){
 		parent::__construct($wurfl);
 	}

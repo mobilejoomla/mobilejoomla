@@ -42,7 +42,7 @@ if (($numIntroArticles != $startIntroArticles) && ($i < $this->total)) : ?>
 						endfor;
 ?><br />
 <?php
-						$i = $i + $this->params->get('num_intro_articles') ; 
+						$i = $i + $this->params->get('num_intro_articles') ;
 			else : // otherwise, order down, same as before (default behaviour)
 				for ($y = 0; $y < $this->params->get('num_intro_articles'); $y ++) :
 					if ($i < $this->total && $i < ($numIntroArticles)) :
@@ -52,7 +52,7 @@ if (($numIntroArticles != $startIntroArticles) && ($i < $this->total)) : ?>
 					endif;
 				endfor; ?>
 <br />
-<?php		endif; ?> 
+<?php		endif; ?>
 <br />
 <?php endif; ?>
 <?php if ($this->params->get('num_links') && ($i < $this->total)) : ?>

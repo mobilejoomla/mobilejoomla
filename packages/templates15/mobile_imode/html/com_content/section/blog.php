@@ -52,7 +52,7 @@ if (($numIntroArticles != $startIntroArticles) && ($i < $this->total)) : ?>
 						endfor;
 ?></div>
 <?php
-						$i = $i + $this->params->get('num_intro_articles', 4) ; 
+						$i = $i + $this->params->get('num_intro_articles', 4) ;
 			else : // otherwise, order down, same as before (default behaviour)
 ?>
 <div class="article_column">
@@ -65,7 +65,7 @@ if (($numIntroArticles != $startIntroArticles) && ($i < $this->total)) : ?>
 				endfor; ?>
 </div>
 <?php
-		endif; ?> 
+		endif; ?>
 </div>
 <?php endif; ?>
 <?php if ($this->params->def('num_links', 4) && ($i < $this->total)) : ?>

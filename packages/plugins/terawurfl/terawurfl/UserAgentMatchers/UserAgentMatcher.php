@@ -20,7 +20,7 @@
  * @package TeraWurflUserAgentMatchers
  */
 abstract class UserAgentMatcher {
-	
+
 	/**
 	 * @var TeraWurfl Running instance of Tera-WURFL
 	 */
@@ -34,18 +34,18 @@ abstract class UserAgentMatcher {
 	 * @var Array List of WURFL IDs => User Agents.  Typically used for matching user agents.
 	 */
 	public $deviceList;
-	
+
 	public function __construct(TeraWurfl $wurfl) {
 		$this->wurfl = $wurfl;
 	}
-	
+
     /**
      * Attempts to find a conclusively matching WURFL ID from a given user agent
      * @param String User agent
      * @return String Matching WURFL ID
      */
     abstract public function applyConclusiveMatch($ua);
-    
+
     /**
      * Attempts to find a loosely matching WURFL ID from a given user agent
      * @param String User agent

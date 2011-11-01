@@ -62,18 +62,18 @@ endif; ?>
 <div class="published"><?php echo JText::sprintf('COM_CONTENT_PUBLISHED_DATE', JHtml::_('date',$this->item->publish_up, JText::_('DATE_FORMAT_LC2'))); ?></div>
 <?php endif; ?>
 <?php if ($params->get('show_author') && !empty($this->item->author )) : ?>
-<div class="createdby"> 
+<div class="createdby">
 <?php $author =  $this->item->author; ?>
 <?php $author = ($this->item->created_by_alias ? $this->item->created_by_alias : $author);?>
 <?php if (!empty($this->item->contactid ) &&  $params->get('link_author') == true):?>
-<?php 	echo JText::sprintf('COM_CONTENT_WRITTEN_BY' , 
+<?php 	echo JText::sprintf('COM_CONTENT_WRITTEN_BY' ,
 							JHtml::_('link',JRoute::_('index.php?option=com_contact&view=contact&id='.$this->item->contactid),$author)); ?>
 
 <?php else :?>
 <?php 	echo JText::sprintf('COM_CONTENT_WRITTEN_BY', $author); ?>
 <?php endif; ?>
 </div>
-<?php endif; ?>	
+<?php endif; ?>
 <?php if ($params->get('show_hits')) : ?>
 <div class="hits"><?php echo JText::sprintf('COM_CONTENT_ARTICLE_HITS', $this->item->hits); ?></div>
 <?php endif; ?>
@@ -94,8 +94,8 @@ endif; ?>
 			$link = new JURI($link1);?>
 <p class="readmore">
 <a href="<?php echo $link; ?>">
-<?php 		$attribs = json_decode($this->item->attribs);  ?> 
-<?php 
+<?php 		$attribs = json_decode($this->item->attribs);  ?>
+<?php
 			if ($attribs->alternative_readmore == null) :
 				echo JText::_('COM_CONTENT_REGISTER_TO_READ_MORE');
 			elseif ($readmore = $this->item->alternative_readmore) :
@@ -104,7 +104,7 @@ endif; ?>
 			    echo JHtml::_('string.truncate', ($this->item->title), $params->get('readmore_limit'));
 			endif;
 		elseif ($params->get('show_readmore_title', 0) == 0) :
-			echo JText::sprintf('COM_CONTENT_READ_MORE_TITLE');	
+			echo JText::sprintf('COM_CONTENT_READ_MORE_TITLE');
 		else :
 			echo JText::_('COM_CONTENT_READ_MORE');
 			echo JHtml::_('string.truncate', ($this->item->title), $params->get('readmore_limit'));

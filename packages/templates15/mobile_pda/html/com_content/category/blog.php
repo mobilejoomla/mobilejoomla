@@ -47,7 +47,7 @@ if (($numIntroArticles != $startIntroArticles) && ($i < $this->total)) : ?>
 						endfor;
 ?></div>
 <?php
-						$i = $i + $this->params->get('num_intro_articles') ; 
+						$i = $i + $this->params->get('num_intro_articles') ;
 			else : // otherwise, order down, same as before (default behaviour)
 ?>
 <div class="article_column">

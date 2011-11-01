@@ -50,17 +50,17 @@ $params = &$this->params;
 <div class="published"><?php echo JText::sprintf('COM_CONTENT_PUBLISHED_DATE', JHtml::_('date',$item->publish_up, JText::_('DATE_FORMAT_LC2'))); ?></div>
 <?php endif; ?>
 <?php if ($params->get('show_author') && !empty($item->author )) : ?>
-<div class="createdby"> 
+<div class="createdby">
 <?php $author =  $item->author; ?>
 <?php $author = ($item->created_by_alias ? $item->created_by_alias : $author);?>
 <?php if (!empty($item->contactid ) &&  $params->get('link_author') == true):?>
-<?php 	echo JText::sprintf('COM_CONTENT_WRITTEN_BY' , 
+<?php 	echo JText::sprintf('COM_CONTENT_WRITTEN_BY' ,
 							JHtml::_('link',JRoute::_('index.php?option=com_contact&view=contact&id='.$item->contactid),$author)); ?>
 <?php else :?>
 <?php 	echo JText::sprintf('COM_CONTENT_WRITTEN_BY', $author); ?>
 <?php endif; ?>
 </div>
-<?php endif; ?>	
+<?php endif; ?>
 <?php if ($params->get('show_hits')) : ?>
 <div class="hits"><?php echo JText::sprintf('COM_CONTENT_ARTICLE_HITS', $item->hits); ?></div>
 <?php endif; ?>
@@ -68,7 +68,7 @@ $params = &$this->params;
 </div>
 <?php endif; ?>
 <?php if ($params->get('show_intro')) :?>
-<div class="intro"><?php echo JHtml::_('string.truncate', $item->introtext, $params->get('introtext_limit')); ?></div>		
+<div class="intro"><?php echo JHtml::_('string.truncate', $item->introtext, $params->get('introtext_limit')); ?></div>
 <?php endif; ?>
 </li>
 <?php endforeach; ?>

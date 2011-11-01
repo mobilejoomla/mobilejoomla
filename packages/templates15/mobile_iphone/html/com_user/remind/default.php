@@ -8,7 +8,7 @@
 
 <form action="<?php echo JRoute::_( 'index.php?option=com_user&task=remindusername' ); ?>" method="post" class="josForm form-validate">
 	<p class="textview"><?php echo JText::_('REMIND_USERNAME_DESCRIPTION'); ?></p>
-	
+
 	<ul>
 		<li><input id="email" name="email" type="text" class="required validate-email" title="<?php echo JText::_('REMIND_USERNAME_EMAIL_TIP_TITLE'); ?>::<?php echo JText::_('REMIND_USERNAME_EMAIL_TIP_TEXT'); ?>" placeholder="<?php echo JText::_('Email Address'); ?>" /></li>
 	</ul>

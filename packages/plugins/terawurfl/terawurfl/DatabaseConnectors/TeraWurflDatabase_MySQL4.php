@@ -21,23 +21,23 @@
  */
 
 class TeraWurflDatabase_MySQL4 extends TeraWurflDatabase{
-	
+
 	// Properties
 	public $errors;
 	public $db_implements_ris = false;
 	public $db_implements_ld = false;
 	public $numQueries = 0;
 	public $connected = false;
-	
+
 	protected $dbcon;
-	
+
 	public $maxquerysize = 0;
 	/**
 	 * The maximum number of new rows that the database can handle in one INSERT statement
 	 * @var unknown_type
 	 */
 	protected static $DB_MAX_INSERTS = 500;
-	
+
 	public function __construct(){
 		parent::__construct();
 	}
@@ -251,7 +251,7 @@ class TeraWurflDatabase_MySQL4 extends TeraWurflDatabase{
 		return true;
 	}
 	// Cache Table Functions
-	
+
 	// should return (bool)false or the device array
 	public function getDeviceFromCache($userAgent){
 		$tablename = TeraWurflConfig::$TABLE_PREFIX.'Cache';
@@ -266,7 +266,7 @@ class TeraWurflDatabase_MySQL4 extends TeraWurflDatabase{
 		$data = $res->fetch_assoc();
 		$res->close();
 		return unserialize($data['cache_data']);
-		
+
 	}
 	public function saveDeviceInCache($userAgent,&$device){
 		$tablename = TeraWurflConfig::$TABLE_PREFIX.'Cache';
@@ -353,7 +353,7 @@ class TeraWurflDatabase_MySQL4 extends TeraWurflDatabase{
 		return true;
 	}
 	// Supporting DB Functions
-	
+
 	// truncate or drop+create given table
 	public function clearTable($tablename){
 		if($tablename == TeraWurflConfig::$TABLE_PREFIX.'Cache'){

@@ -144,7 +144,7 @@ class MobileJoomla
 	{
 		echo '<jdoc:include type="component" />';
 	}
-	
+
 	function showMessage()
 	{
 		echo '<jdoc:include type="message" />';

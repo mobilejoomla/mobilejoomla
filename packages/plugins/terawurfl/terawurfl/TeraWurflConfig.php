@@ -24,7 +24,7 @@
 class TeraWurflConfig{
 	/**
 	 * Database Hostname
-	 * To specify the MySQL 5 TCP port or use a named pipe / socket, put it at the end of your hostname, 
+	 * To specify the MySQL 5 TCP port or use a named pipe / socket, put it at the end of your hostname,
 	 * seperated by a colon (ex: "localhost:3310" or "localhost:/var/run/mysqld/mysqld.sock").
 	 * For MS SQL Server, use the format HOSTNAME\Instance, like "MYHOSTNAME\SQLEXPRESS".
 	 * For MongoDB, enter a hostname or a MongoDB Connection String, like "mongodb:///tmp/mongodb-27017.sock,localhost:27017"
@@ -126,17 +126,17 @@ class TeraWurflConfig{
 	public static $SIMPLE_DESKTOP_ENGINE_ENABLE = true;
 	/**
 	 * Allows you to store only the specified capabilities from the WURFL file.  By default, every capability in the WURFL is stored in the
-	 * database and made available to your scripts.  If you only want to know if the device is wireless or not, you can store only the 
+	 * database and made available to your scripts.  If you only want to know if the device is wireless or not, you can store only the
 	 * is_wireless_device capability.  To disable the filter, set it to false, to enable it, you must set it to an array.  This array can
 	 * contain the group names (if you want to include the entire group, i.e. "product_info") and/or capability names (if you want just a
 	 * specific capability, i.e. "is_wireless_device").
-	 * 
+	 *
 	 * Usage Example:
 	 * <code>
 	 *	public static $CAPABILITY_FILTER = array(
 	 *		// Complete Capability Groups
 	 *		"product_info",
-	 *	
+	 *
 	 *		// Individual Capabilities
 	 *		"max_image_width",
 	 *		"max_image_height",

@@ -181,7 +181,7 @@ function AccordionList(_id, _callback)
  * toggleSwitch()
  * usage: mySwitch = new toggleSwitch(id, function);
  * id can also be an array such as ids['foo','bar'…]
- * 
+ *
  */
 
 function ToggleSwitch(_id, _callback)
@@ -253,7 +253,7 @@ function ToggleSwitch(_id, _callback)
  * styleTweaker()
  * usage: myStyleTweaker = new styleTweaker();
  * id can also be an array such as ids['foo','bar'…]
- * 
+ *
  */
 
 function StyleTweaker()
@@ -303,7 +303,7 @@ StyleTweaker.prototype.untweak = function()
 /*
  * _isArray()
  * usage: _isArray(object);
- * 
+ *
  */
 function _isArray(x)
 {
@@ -314,7 +314,7 @@ function _isArray(x)
  * nokiaAddEvent()
  * usage: nokiaAddEvent(event, function);
  * note: only targets window events!
- * 
+ *
  */
 
 function nokiaAddEvent(_event, _function)
@@ -337,7 +337,7 @@ function nokiaAddEvent(_event, _function)
 /*
  * include(file)
  * usage: include(filename.js);
- * 
+ *
  */
 
 function include(filename)
@@ -352,7 +352,7 @@ function include(filename)
 /*
  * loadStylesheet(file)
  * usage: loadStylesheet(filename.css);
- * 
+ *
  */
 
 function loadStylesheet(filename)
@@ -368,7 +368,7 @@ function loadStylesheet(filename)
 /*
  * removeStylesheet(file)
  * usage: removeStylesheet(filename.css);
- * 
+ *
  */
 
 function removeStylesheet(filename)

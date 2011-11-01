@@ -108,7 +108,7 @@ class JMobileMenuHelper
 			if(!$is_joomla15)
 			{
 				$item->anchor_css = htmlspecialchars($item->params->get('menu-anchor_css', ''));
-				$item->menu_image = htmlspecialchars($item->params->get('menu_image', '')); 
+				$item->menu_image = htmlspecialchars($item->params->get('menu_image', ''));
 			}
 			else
 			{
@@ -151,7 +151,7 @@ class JMobileMenuHelper
 			}
 		}
 	}
-	
+
 	function _renderMenu($menu, &$params, $submenu = array())
 	{
 		/** @var MobileJoomla $MobileJoomla */

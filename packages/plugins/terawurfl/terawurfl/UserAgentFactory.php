@@ -31,7 +31,7 @@ class UserAgentFactory{
 
 	// Properties
 	public $errors;
-	
+
 	public static $matchers = array(
 		"Alcatel",
 		"Android",
@@ -75,12 +75,12 @@ class UserAgentFactory{
 		"Vodafone",
 		"WindowsCE"
 	);
-	
+
 	// Constructor
 	public function __construct(){
 		$this->errors = array();
 	}
-	
+
 	// Public Methods
 	/**
 	 * Determines which UserAgentMatcher is the best fit for the incoming user agent and returns it
@@ -94,13 +94,13 @@ class UserAgentFactory{
 		$isMobile = UserAgentUtils::isMobileBrowser($userAgent);
 		$isDesktop = UserAgentUtils::isDesktopBrowser($userAgent);
 		$userAgent_lcase = strtolower($userAgent);
-		
+
 		// Process exceptions
 		if(TeraWurflConfig::$SIMPLE_DESKTOP_ENGINE_ENABLE && $userAgent == WurflConstants::$SIMPLE_DESKTOP_UA){
 			// SimpleDesktopUserAgentMatcher is included via require_once realpath(dirname(__FILE__).'/in TeraWurfl.php
 			return new SimpleDesktopUserAgentMatcher($wurfl);
 		}
-		
+
 		// Process MOBILE user agents
 		if(!$isDesktop){
 			// High workload UAMs go first
@@ -133,7 +133,7 @@ class UserAgentFactory{
 				require_once realpath(dirname(__FILE__).'/UserAgentMatchers/MotorolaUserAgentMatcher.php');
 				return new MotorolaUserAgentMatcher($wurfl);
 			}
-			
+
 			// Continue processing UAMs in alphabetical order
 			// Alcatel
 			if(UserAgentMatcher::startsWith($userAgent_lcase,"alcatel")){
@@ -191,7 +191,7 @@ class UserAgentFactory{
 			    return new NecUserAgentMatcher($wurfl);
 			}
 			// Nintendo
-			if(UserAgentMatcher::contains($userAgent,"Nintendo") || 
+			if(UserAgentMatcher::contains($userAgent,"Nintendo") ||
 				// Nintendo DS: Mozilla/4.0 (compatible; MSIE 6.0; Nitro) Opera 8.50 [en]
 				(UserAgentMatcher::startsWith($userAgent,'Mozilla/') && UserAgentMatcher::contains($userAgent,"Nitro") && UserAgentMatcher::contains($userAgent,"Opera"))
 				){
@@ -258,7 +258,7 @@ class UserAgentFactory{
 				require_once realpath(dirname(__FILE__).'/UserAgentMatchers/VodafoneUserAgentMatcher.php');
 				return new VodafoneUserAgentMatcher($wurfl);
 			}
-			
+
 			// Process mobile browsers after mobile devices
 			// Android
 			if(UserAgentMatcher::contains($userAgent, "Android")){
@@ -282,8 +282,8 @@ class UserAgentFactory{
 			require_once realpath(dirname(__FILE__).'/UserAgentMatchers/BotUserAgentMatcher.php');
             return new BotUserAgentMatcher($wurfl);
 		}
-		
-		// Process NON-MOBILE user agents		
+
+		// Process NON-MOBILE user agents
 		if(!$isMobile){
 			// MSIE
 			if(UserAgentMatcher::startsWith($userAgent,"Mozilla") && UserAgentMatcher::contains($userAgent, "MSIE")
@@ -323,7 +323,7 @@ class UserAgentFactory{
 	            return new AOLUserAgentMatcher($wurfl);
 			}
 		}
-		
+
 		// Nothing has matched so we will have to use the CatchAllUserAgentMatcher
 		return new CatchAllUserAgentMatcher($wurfl);
 	}
