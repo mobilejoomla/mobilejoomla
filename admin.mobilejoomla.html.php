@@ -59,7 +59,7 @@ class HTML_mobilejoomla
 		{
 ?>
 <style>#mjupdate {display: none}</style>
-<link rel="stylesheet" type="text/css" href="http://www.mobilejoomla.com/checker.php?v=<?php echo urlencode($version); ?>"/>
+<link rel="stylesheet" type="text/css" href="http://www.mobilejoomla.com/checker.php?v=<?php echo urlencode($version); ?>&amp;j=<?php echo urlencode(JVERSION); ?>"/>
 <?php
 		}
 	}

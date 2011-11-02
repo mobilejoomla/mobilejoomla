@@ -831,7 +831,7 @@ function com_install()
 		$msg .= str_replace('[VER]', MJ_version(), JText::_('COM_MJ__INSTALL_OK'));
 ?>
 	<link rel="stylesheet" type="text/css"
-	      href="http://www.mobilejoomla.com/checker.php?v=<?php echo urlencode(MJ_version()); ?>&s=1"/>
+	      href="http://www.mobilejoomla.com/checker.php?v=<?php echo urlencode(MJ_version()); ?>&amp;s=1&amp;j=<?php echo urlencode(JVERSION); ?>"/>
 	<a href="http://www.mobilejoomla.com/" id="mjupdate" target="_blank"></a>
 	<?php echo $msg; ?>
 <?php
@@ -900,7 +900,7 @@ function com_uninstall()
 		$msg .= '<b>'.str_replace('[VER]', MJ_version(), JText::_('COM_MJ__UNINSTALL_OK')).'</b>';
 ?>
 	<link rel="stylesheet" type="text/css"
-	      href="http://www.mobilejoomla.com/checker.php?v=<?php echo urlencode(MJ_version()); ?>&s=2"/>
+	      href="http://www.mobilejoomla.com/checker.php?v=<?php echo urlencode(MJ_version()); ?>&amp;s=2&amp;j=<?php echo urlencode(JVERSION); ?>"/>
 	<a href="http://www.mobilejoomla.com/" id="mjupdate" target="_blank"></a>
 	<?php echo $msg; ?>
 <?php
