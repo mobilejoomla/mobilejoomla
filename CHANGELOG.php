@@ -16,6 +16,7 @@ CHANGELOG
 1.0
 RC5 release
 - Add device-specific meta-tags to improve page look
+- Reduce distributive size
 
 1.0
 RC4 release
