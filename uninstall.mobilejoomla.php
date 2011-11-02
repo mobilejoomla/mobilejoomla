@@ -699,7 +699,10 @@ function com_install()
 	else
 	{
 		$TemplateSource = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'templates15';
-		JFolder::delete(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'templates16');
+		$TemplateSource16 = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'templates16';
+		JFolder::move($TemplateSource16.DS.'mobile_iphone'.DS.'jqtouch-src', $TemplateSource.DS.'mobile_iphone'.DS.'jqtouch-src');
+		JFolder::move($TemplateSource16.DS.'mobile_pda'.DS.'resources',      $TemplateSource.DS.'mobile_pda'.DS.'resources');
+		JFolder::delete($TemplateSource16);
 	}
 	$templates = array ('mobile_pda','mobile_wap','mobile_imode','mobile_iphone');
 	$status = true;
