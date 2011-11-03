@@ -102,6 +102,15 @@ p.jfooter {
 /* fixed to jQtouch */
 
 body {
+	-webkit-perspective: none;
+	-webkit-transform-style: flat;
+}
+body > * {
+	position: static;
+	-webkit-transform:none;
+}
+
+body {
 	background: rgb(197, 204, 211) url('../jqtouch-src/themes/apple/img/pinstripes.png') repeat;
 }
 
