@@ -32,7 +32,7 @@ class plgMobileDomains extends JPlugin
 		else
 			$config_live_site = 'live_site';
 
-		$this->getSchemePath($http, $path);
+		$this->getSchemePath($http, $base);
 
 		$domain_xhtml = $MobileJoomla_Settings['xhtmldomain'];
 		$domain_wap = $MobileJoomla_Settings['wapdomain'];
@@ -48,7 +48,7 @@ class plgMobileDomains extends JPlugin
 		   ($MobileJoomla_Device['markup']=='chtml' && $domain_imode && $_SERVER['HTTP_HOST']==$domain_imode) ||
 		   ($MobileJoomla_Device['markup']=='iphone' && $domain_iphone && $_SERVER['HTTP_HOST']==$domain_iphone) )
 		{
-			$config->setValue($config_live_site, $http.'://'.$_SERVER['HTTP_HOST'].$path);
+			$config->setValue($config_live_site, $http.'://'.$_SERVER['HTTP_HOST'].$base);
 			$this->_domain_markup = $MobileJoomla_Device['markup'];
 			return;
 		}
@@ -56,25 +56,25 @@ class plgMobileDomains extends JPlugin
 		if($domain_xhtml && $_SERVER['HTTP_HOST'] == $domain_xhtml)
 		{ // Smartphone (xhtml-mp/wap2) domain
 			$MobileJoomla_Device['markup'] = 'xhtml';
-			$config->setValue($config_live_site, $http.'://'.$_SERVER['HTTP_HOST'].$path);
+			$config->setValue($config_live_site, $http.'://'.$_SERVER['HTTP_HOST'].$base);
 			$this->_domain_markup = $MobileJoomla_Device['markup'];
 		}
 		elseif($domain_iphone && $_SERVER['HTTP_HOST'] == $domain_iphone)
 		{ // iPhone/iPod domain
 			$MobileJoomla_Device['markup'] = 'iphone';
-			$config->setValue($config_live_site, $http.'://'.$_SERVER['HTTP_HOST'].$path);
+			$config->setValue($config_live_site, $http.'://'.$_SERVER['HTTP_HOST'].$base);
 			$this->_domain_markup = $MobileJoomla_Device['markup'];
 		}
 		elseif($domain_imode && $_SERVER['HTTP_HOST'] == $domain_imode)
 		{ // iMode (chtml) domain
 			$MobileJoomla_Device['markup'] = 'chtml';
-			$config->setValue($config_live_site, $http.'://'.$_SERVER['HTTP_HOST'].$path);
+			$config->setValue($config_live_site, $http.'://'.$_SERVER['HTTP_HOST'].$base);
 			$this->_domain_markup = $MobileJoomla_Device['markup'];
 		}
 		elseif($domain_wap && $_SERVER['HTTP_HOST'] == $domain_wap)
 		{ // WAP (wml) domain
 			$MobileJoomla_Device['markup'] = 'wml';
-			$config->setValue($config_live_site, $http.'://'.$_SERVER['HTTP_HOST'].$path);
+			$config->setValue($config_live_site, $http.'://'.$_SERVER['HTTP_HOST'].$base);
 			$this->_domain_markup = $MobileJoomla_Device['markup'];
 		}
 	}
@@ -89,7 +89,13 @@ class plgMobileDomains extends JPlugin
 		if($MobileJoomla_Device['markup'] == '')
 			return;
 
-		$this->getSchemePath($http, $path);
+		$http = 'http';
+		if(isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) != 'off'))
+			$http .= 's';
+
+		$uri =& JURI::getInstance();
+		$parsed = parse_url($uri->toString());
+		$path = isset($parsed['path']) ? $parsed['path'] : '/';
 
 		/** @var JSite $mainframe */
 		$mainframe =& JFactory::getApplication();
@@ -118,7 +124,7 @@ class plgMobileDomains extends JPlugin
 		}
 	}
 
-	function getSchemePath(&$http, &$path)
+	function getSchemePath(&$http, &$base)
 	{
 		if(isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) != 'off'))
 			$http = 'https';
@@ -132,15 +138,15 @@ class plgMobileDomains extends JPlugin
 			$parsed = parse_url($live_url);
 			if($parsed !== false)
 			{
-				$path = isset($parsed['path']) ? $parsed['path'] : '/';
+				$base = isset($parsed['path']) ? $parsed['path'] : '/';
 				return;
 			}
 		}
 
 		if(strpos(php_sapi_name(), 'cgi') !== false && !empty($_SERVER['REQUEST_URI']) &&
 				(!ini_get('cgi.fix_pathinfo') || version_compare(PHP_VERSION, '5.2.4', '<')))
-			$path =  rtrim(dirname(str_replace(array('"','<','>',"'"), '', $_SERVER['PHP_SELF'])), '/\\');
+			$base =  rtrim(dirname(str_replace(array('"','<','>',"'"), '', $_SERVER['PHP_SELF'])), '/\\');
 		else
-			$path =  rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
+			$base =  rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
 	}
 }
