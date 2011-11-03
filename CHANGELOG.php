@@ -17,6 +17,8 @@ CHANGELOG
 RC5 release
 - Add device-specific meta-tags to improve page look
 - Reduce distributive size
+- Fix redirect to subdomain issue
+- Fix iOS5 display
 
 1.0
 RC4 release
