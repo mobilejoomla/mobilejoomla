@@ -19,6 +19,7 @@ RC5 release
 - Reduce distributive size
 - Fix redirect to subdomain issue
 - Fix iOS5 display
+- Fix incorrect images in menu module (Joomla!1.5)
 
 1.0
 RC4 release
