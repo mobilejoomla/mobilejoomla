@@ -16,7 +16,7 @@ jimport('joomla.filesystem.folder');
 class ImageRescaler
 {
 	static $thumbdir = 'Resized';
-	static $addstyles = true;
+	static $addstyles = false;
 	static $forced_width = null;
 	static $forced_height = null;
 	static $scaledimage_width = null;
@@ -27,49 +27,73 @@ class ImageRescaler
 	{
 		ImageRescaler::$scaletype = $scaletype;
 		ImageRescaler::$addstyles = $addstyles;
-		return preg_replace('#<img(\s[^>]*?)\s?/?>#ie', "'<img'.ImageRescaler::imageParsing('\\1').' />'", $text);
+		return preg_replace_callback('#<img(\s[^>]*?)\s?/?>#i', array('ImageRescaler','imageParsing'), $text);
 	}
 
-	function imageParsing($text)
+	function imageParsing($matches)
 	{
-		$text = stripslashes($text);
+		$text = $matches[1];
 
-		ImageRescaler::$forced_width = 0;
+		ImageRescaler::$forced_width  = 0;
 		ImageRescaler::$forced_height = 0;
 
-		// img attribules
-		if(preg_match('#\swidth\s*=\s*([\'"]?)(\d+)\1#i', $text, $matches))
-			ImageRescaler::$forced_width = intval($matches[2]);
-		if(preg_match('#\sheight\s*=\s*([\'"]?)(\d+)\1#i', $text, $matches))
-			ImageRescaler::$forced_height = intval($matches[2]);
+		// size
+		if(preg_match('#[^\w-]width\s*:\s*(\d+)\s*(px|!|;)#i',  $text, $matches))
+			ImageRescaler::$forced_width  = intval($matches[1]);
+		elseif(preg_match('#\swidth\s*=\s*([\'"]?)(\d+)\1#i',  $text, $matches))
+			ImageRescaler::$forced_width  = intval($matches[2]);
 
-		// styles
-		if(preg_match('#[^\w-]width\s*:\s*(\d+)\s*(px|!|;)#i', $text, $matches))
-			ImageRescaler::$forced_width = intval($matches[1]);
 		if(preg_match('#[^\w-]height\s*:\s*(\d+)\s*(px|!|;)#i', $text, $matches))
 			ImageRescaler::$forced_height = intval($matches[1]);
-		$styles = '';
-		if(preg_match('#[^\w-]float\s*:\s*(left|right)\s*(!|;)#i', $text, $matches))
-			$styles .= 'float:'.$matches[1].';';
+		elseif(preg_match('#\sheight\s*=\s*([\'"]?)(\d+)\1#i', $text, $matches))
+			ImageRescaler::$forced_height = intval($matches[2]);
 
+		// align
+		if(preg_match('#[^\w-]float\s*:\s*(left|right)\s*(!|;)#i', $text, $matches))
+			$align = $matches[1];
+		elseif(preg_match('#\salign\s*=\s*([\'"]?)(left|right)\1#i', $text, $matches))
+			$align = $matches[2];
+
+		// remove parsed data
 		$text = preg_replace('#\s(width|height)\s*=\s*([\'"]?)\d*%?\2#i', '', $text);
+		$text = preg_replace('#\salign\s*=\s*([\'"]?)(left|right)\1#i', '', $text);
 		$text = preg_replace('#\sstyle\s*=\s*([\'"]).*?\1#i', '', $text);
 
-		ImageRescaler::$scaledimage_width = ImageRescaler::$forced_width;
+		// rescale
+		ImageRescaler::$scaledimage_width  = ImageRescaler::$forced_width;
 		ImageRescaler::$scaledimage_height = ImageRescaler::$forced_height;
 		$text = preg_replace('#\ssrc\s*=\s*(["\']?)(.*?)\1(?=\s|$)#ie',
 							 "' src=\"'.ImageRescaler::rescaleImage('\\2').'\"'", $text);
+
 		if(ImageRescaler::$scaledimage_width && ImageRescaler::$scaledimage_height)
 		{
-			$text = ' width="'.ImageRescaler::$scaledimage_width.'"'.
+			$text = ' width="' .ImageRescaler::$scaledimage_width .'"'.
 					' height="'.ImageRescaler::$scaledimage_height.'"'.
 					$text;
 			if(ImageRescaler::$addstyles)
-				$styles .= 'width:'.ImageRescaler::$scaledimage_width.'px !important;'.
-						   'height:'.ImageRescaler::$scaledimage_height.'px !important;';
+				$text .= ' style="width:' .ImageRescaler::$scaledimage_width .'px !important;'.
+								 'height:'.ImageRescaler::$scaledimage_height.'px !important;"';
 		}
-		if($styles)
-			$text .= ' style="'.$styles.'"';
+
+		// check resulting size
+		$MobileJoomla_Device =& MobileJoomla::getDevice();
+		if(ImageRescaler::$scaledimage_width>$MobileJoomla_Device['screenwidth']/2)
+		{
+			static $included = false;
+			if(!$included)
+			{
+				$included = true;
+				$doc =& JFactory::getDocument();
+				$doc->addStyleDeclaration('.mjwideimg{display:block;width:100%;text-align:center}');
+			}
+			$text = '<span class="mjwideimg"><img'.$text.' /></span>';
+		}
+		else
+		{
+			if($align)
+				$text .= ' align="'.$align.'"';
+			$text = '<img'.$text.' />';
+		}
 
 		return $text;
 	}
