@@ -17,6 +17,8 @@ class plgMobileTerawurfl extends JPlugin
 	function plgMobileTerawurfl(& $subject, $config)
 	{
 		parent::__construct($subject, $config);
+		if(!isset($this->params))
+			$this->params = new JParameter(null);
 	}
 
 	function onDeviceDetection(&$MobileJoomla_Settings, &$MobileJoomla_Device)
