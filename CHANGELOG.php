@@ -20,6 +20,8 @@ RC5 release
 - Fix redirect to subdomain issue
 - Fix iOS5 display
 - Fix incorrect images in menu module (Joomla!1.5)
+- Disable wrap text around wide images (50% to 100% of screen width)
+- Fix issue with undefined params object
 
 1.0
 RC4 release
