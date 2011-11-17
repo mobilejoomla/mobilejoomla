@@ -114,6 +114,8 @@ class ImageRescaler
 
 	function rescaleImage($imageurl)
 	{
+		$imageurl = str_replace(array('\\"','\\\''), array('"','\''), $imageurl);
+
 		if(defined('PATHINFO_FILENAME'))
 			$src_imagename = pathinfo($imageurl, PATHINFO_FILENAME);
 		else
