@@ -17,12 +17,16 @@ class TOOLBAR_mobilejoomla
 		JToolBarHelper::title(JText::_('COM_MJ__MOBILE_JOOMLA_SETTINGS'), 'config.php');
 		JToolBarHelper::apply();
 		JToolBarHelper::cancel('cancel');
+		JToolBarHelper::divider();
+		JToolBarHelper::preferences('com_mobilejoomla');
 	}
 
 	function _ABOUT()
 	{
 		JToolBarHelper::title(JText::_('COM_MJ__ABOUT_MOBILE_JOOMLA'));
 		JToolBarHelper::cancel('cancel');
+		JToolBarHelper::divider();
+		JToolBarHelper::preferences('com_mobilejoomla');
 	}
 
 	function _EXT()
