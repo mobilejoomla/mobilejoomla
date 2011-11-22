@@ -112,6 +112,13 @@ class JMobileMenuHelper
 			}
 			else
 			{
+				if($item->type=='menuitem' && ($refItem = $sitemenu->getItem($item->query['Itemid'])))
+				{
+					$item->id     = $refItem->id;
+					$item->link   = $refItem->link;
+					$item->type   = $refItem->type;
+					$item->params = $refItem->params;
+				}
 				$item->anchor_css = '';
 				if(!is_object($item->params))
 					$item->params = new JParameter($item->params);
