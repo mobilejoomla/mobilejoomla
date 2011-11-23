@@ -17,8 +17,11 @@ class TOOLBAR_mobilejoomla
 		JToolBarHelper::title(JText::_('COM_MJ__MOBILE_JOOMLA_SETTINGS'), 'config.php');
 		JToolBarHelper::apply();
 		JToolBarHelper::cancel('cancel');
-		JToolBarHelper::divider();
-		JToolBarHelper::preferences('com_mobilejoomla');
+		if(substr(JVERSION,0,3) != '1.5')
+		{
+			JToolBarHelper::divider();
+			JToolBarHelper::preferences('com_mobilejoomla');
+		}
 	}
 
 	function _ABOUT()
