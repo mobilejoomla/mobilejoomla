@@ -835,7 +835,7 @@ function com_install()
 	<a href="http://www.mobilejoomla.com/" id="mjupdate" target="_blank"></a>
 	<?php echo $msg; ?>
 <?php
-	return true;
+	return ($count == 0);
 }
 
 function com_uninstall()
@@ -904,5 +904,5 @@ function com_uninstall()
 	<a href="http://www.mobilejoomla.com/" id="mjupdate" target="_blank"></a>
 	<?php echo $msg; ?>
 <?php
-	return true;
+	return ($count == 0);
 }
