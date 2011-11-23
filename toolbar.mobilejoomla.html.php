@@ -17,7 +17,9 @@ class TOOLBAR_mobilejoomla
 		JToolBarHelper::title(JText::_('COM_MJ__MOBILE_JOOMLA_SETTINGS'), 'config.php');
 		JToolBarHelper::apply();
 		JToolBarHelper::cancel('cancel');
-		if(substr(JVERSION,0,3) != '1.5')
+		$version = substr(JVERSION,0,3);
+		$user =& JFactory::getUser();
+		if($version != '1.5' && $user->authorise('core.admin', 'com_mobilejoomla'))
 		{
 			JToolBarHelper::divider();
 			JToolBarHelper::preferences('com_mobilejoomla');
