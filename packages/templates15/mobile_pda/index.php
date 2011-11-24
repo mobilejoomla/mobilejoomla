@@ -149,7 +149,7 @@ $MobileJoomla->showDocType();
 	  client: 'ca-mb-pub-5710199815985059',
 	  format: '320x50_mb',
 	  output: 'html',
-	  slotname: '1896811186',
+	  slotname: '1896811186'
 	};
 	/* ]]> */
 	//-->
