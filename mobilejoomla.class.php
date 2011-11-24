@@ -263,7 +263,7 @@ class MobileJoomla
 		if($MobileJoomla_Device['markup'] == $MobileJoomla_Device['default_markup'])
 			return false;
 
-		$MobeJoomla_Settings =& MobileJoomla::getConfig();
+		$MobileJoomla_Settings =& MobileJoomla::getConfig();
 		$desktop_uri = new JURI($MobileJoomla_Settings['desktop_url']);
 
 		$uri = clone(JFactory::getURI());
