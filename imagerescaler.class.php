@@ -90,7 +90,7 @@ class ImageRescaler
 		}
 		else
 		{
-			if($align)
+			if(isset($align))
 				$text .= ' align="'.$align.'"';
 			$text = '<img'.$text.' />';
 		}
