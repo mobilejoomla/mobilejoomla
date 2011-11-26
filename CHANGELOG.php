@@ -15,6 +15,7 @@ CHANGELOG
 
 1.0
 RC5 release
+- Update WURFL database to v2.3 (17.11.2011)
 - Add device-specific meta-tags to improve page look
 - Reduce distributive size
 - Fix redirect to subdomain issue
@@ -22,6 +23,10 @@ RC5 release
 - Fix incorrect images in menu module (Joomla!1.5)
 - Disable wrap text around wide images (50% to 100% of screen width)
 - Fix issue with undefined params object
+- Fix issue with image rescaler
+- Add "Option" button to change ACL (Joomla!1.6+)
+- Fix issue with menu items of "menuitem" type (Joomla!1.5)
+- Add "rel=canonical" tag for SEO
 
 1.0
 RC4 release
