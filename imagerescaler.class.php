@@ -323,12 +323,12 @@ class ImageRescaler
 				// Floyd-Steinberg dithering
 				$black = ImageColorAllocate($dest_image, 0,0,0);
 				$white = ImageColorAllocate($dest_image, 255,255,255);
-				$next_err = array_fill(0, $width, 0);
-				for($y=0; $y<$height; $y++)
+				$next_err = array_fill(0, $dest_width, 0);
+				for($y=0; $y<$dest_height; $y++)
 				{
 					$cur_err = $next_err;
 					$next_err = array(-1=>0, 0=>0);
-					for($x=0, $err=0; $x<$width; $x++)
+					for($x=0, $err=0; $x<$dest_width; $x++)
 					{
 						$rgb = ImageColorAt($dest_image, $x, $y);
 						$r = ($rgb >> 16) & 0xFF;
