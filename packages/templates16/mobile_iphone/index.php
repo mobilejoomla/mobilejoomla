@@ -12,6 +12,10 @@ defined('_JEXEC') or die('Restricted access');
 
 defined('_MJ') or die('Incorrect usage of Mobile Joomla.');
 
+//load language file (to allow users to rename template)
+$lang =& JFactory::getLanguage();
+$lang->load('tpl_mobile_iphone');
+
 $MobileJoomla =& MobileJoomla::getInstance();
 
 $base = $this->baseurl.'/templates/'.$this->template;
