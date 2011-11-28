@@ -825,7 +825,7 @@ function com_install()
 		$msg .= '<font color=green><b>'.JText::_('COM_MJ__UPDATED_EXTENSIONS')."</b></font><br />$prev_version<br /><br />";
 	$count = 0;
 	foreach(JError::getErrors() as $error)
-		if($error->get('level'))
+		if($error->get('level') & E_ERROR)
 			$count++;
 	if($count == 0)
 		$msg .= str_replace('[VER]', MJ_version(), JText::_('COM_MJ__INSTALL_OK'));
@@ -894,7 +894,7 @@ function com_uninstall()
 	$msg = '';
 	$count = 0;
 	foreach(JError::getErrors() as $error)
-		if($error->get('level'))
+		if($error->get('level') & E_ERROR)
 			$count++;
 	if($count == 0)
 		$msg .= '<b>'.str_replace('[VER]', MJ_version(), JText::_('COM_MJ__UNINSTALL_OK')).'</b>';
