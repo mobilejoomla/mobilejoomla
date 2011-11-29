@@ -13,6 +13,7 @@ defined('_JEXEC') or die('Restricted access');
 defined('_MJ') or die('Incorrect usage of Mobile Joomla.');
 
 $MobileJoomla =& MobileJoomla::getInstance();
+$MobileJoomla_Device =& MobileJoomla::getDevice();
 
 $MobileJoomla->showXMLheader();
 $MobileJoomla->showDocType();
