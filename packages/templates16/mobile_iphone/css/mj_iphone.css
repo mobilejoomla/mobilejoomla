@@ -351,3 +351,8 @@ p {
 .image-right {
 	float:right;
 }
+
+body > div.current {
+	padding: 0 !important;
+	border: none !important;
+}
