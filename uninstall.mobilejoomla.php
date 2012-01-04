@@ -673,18 +673,8 @@ function com_install()
 			JFolder::delete($admin.'wurfl');
 		if(JFile::exists(JPATH_PLUGINS.DS.'mobile'.DS.'webbots.php'))
 			UninstallPlugin('mobile', 'webbots');
-	}
-
-	$extFile = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'extensions'.DS.'extensions.json';
-	$extDistFile = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'extensions'.DS.'extensions.json.dist';
-
-	if(!JFile::exists($extFile))
-	{
-		JFile::move($extDistFile, $extFile);
-	}
-	else
-	{
-		JFile::delete($extDistFile);
+		if(JFolder::exists($admin.'extensions'))
+			JFolder::delete($admin.'extensions');
 	}
 
 	//update config

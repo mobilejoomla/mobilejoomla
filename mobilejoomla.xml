@@ -39,7 +39,6 @@
 			<filename>access.xml</filename>
 			<filename>config.xml</filename>
 			<folder>cachestorage</folder>
-			<folder>extensions</folder>
 			<folder>images</folder>
 			<folder>markup</folder>
 			<folder>packages</folder>

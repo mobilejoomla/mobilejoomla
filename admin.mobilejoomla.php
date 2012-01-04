@@ -32,9 +32,6 @@ switch($task)
 	case 'about':
 		showabout();
 		break;
-	case 'extensions':
-		showextensions();
-		break;
 	case 'update':
 		update();
 		break;
@@ -370,41 +367,6 @@ function showconfig()
 	HTML_mobilejoomla::showconfig($lists, $MobileJoomla_Settings);
 }
 
-function saveExtensionsConfig()
-{
-	$mainframe =& JFactory::getApplication();
-
-	$content = file_get_contents(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'extensions'.DS.'extensions.json');
-
-	$json = json_decode($content);
-
-	foreach($json->extensions as $extension)
-	{
-		$content = file_get_contents(JPATH_SITE.DS.$extension->configPath);
-		$config = json_decode($content);
-
-		$newconfig = array ();
-
-		foreach($config as $key => $val)
-		{
-			$req = JRequest::getVar($extension->name.'_'.$key, NULL);
-
-			if(is_array($req))
-				$req = implode(',', $req);
-
-			if(empty ($req))
-				$req = '';
-
-			$newconfig[$key] = $req;
-		}
-
-		file_put_contents(JPATH_SITE.DS.$extension->configPath, json_encode($newconfig));
-	}
-
-	$mainframe->redirect('index.php?option=com_mobilejoomla&task=extensions',
-	                     JText::_('COM_MJ__CONFIG_UPDATED'));
-}
-
 function saveconfig()
 {
 	if(JRequest::getVar('ext', false))
@@ -494,20 +456,6 @@ function saveconfig()
 function showabout()
 {
 	HTML_mobilejoomla::showabout();
-}
-
-function showextensions()
-{
-	if(!function_exists('json_decode'))
-	{
-		echo JText::_('COM_MJ__ERROR_JSON_LIBRARY_ISNOT_INSTALLED');
-		return;
-	}
-	$content = file_get_contents(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'extensions'.DS.'extensions.json');
-
-	$json = json_decode($content);
-
-	HTML_mobilejoomla::showextensions($json->extensions);
 }
 
 function _initStatus()
