@@ -259,7 +259,7 @@ ul.form li:hover {
 
 ul li input[type="text"], ul li input[type="password"], ul li textarea, ul li select {
     color: #777;
-    background: #fff url(../.png);
+    background: #fff;
     border: 0;
     font: normal 17px Helvetica;
     padding: 0;
