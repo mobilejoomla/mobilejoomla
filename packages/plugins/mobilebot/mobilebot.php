@@ -256,6 +256,9 @@ class plgSystemMobileBot extends JPlugin
 			}
 			$router =& $mainframe->getRouter();
 			$router->attachBuildRule(array($this, 'buildRule'));
+
+			if(!defined('SHMOBILE_MOBILE_TEMPLATE_SWITCHED'))
+				define('SHMOBILE_MOBILE_TEMPLATE_SWITCHED', 1);
 		}
 		else
 			$MobileJoomla_Device['markup'] = false;
