@@ -216,7 +216,7 @@ class plgSystemMobileBot extends JPlugin
 			if(!$is_joomla15) //Joomla!1.6+
 			{
 				if(!$MobileJoomla_Settings['caching'])
-					$config->setValue('caching', false);
+					$config->setValue('caching', 0);
 
 				$cachekey = $MobileJoomla_Device['markup'].'_'.
 							$MobileJoomla_Device['screenwidth'].'_'.
@@ -241,7 +241,7 @@ class plgSystemMobileBot extends JPlugin
 				}
 				else //disable System-Cache plugin
 				{
-					$config->setValue('config.caching', false);
+					$config->setValue('config.caching', 0);
 					$dispatcher =& JDispatcher::getInstance();
 					foreach($dispatcher->_observers as $index => $object)
 					{
