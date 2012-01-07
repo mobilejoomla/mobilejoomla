@@ -264,7 +264,9 @@ class JCacheStorageFile extends JCacheStorage
 		$folder = $group;
 		$Device =& MobileJoomla::getDevice();
 		$name = md5($this->_application.'-'.$id.'-'.$this->_hash.'-'.$this->_language.'-'.
-					$Device['markup'].'-'.$Device['screenwidth'].'-'.$Device['screenheight'].'-'.implode('', $Device['imageformats'])).'.php';
+					$Device['markup'].'-'.$Device['screenwidth'].'-'.$Device['screenheight'].'-'.
+					(is_array($Device['imageformats']) ? implode('', $Device['imageformats']) : ''))
+					.'.php';
 		$dir = $this->_root.DS.$folder;
 
 		// If the folder doesn't exist try to create it

@@ -155,7 +155,8 @@ class JCacheStorageApc extends JCacheStorage
 	{
 		$Device =& MobileJoomla::getDevice();
 		$name = md5($this->_application.'-'.$id.'-'.$this->_hash.'-'.$this->_language.'-'.
-					$Device['markup'].'-'.$Device['screenwidth'].'-'.$Device['screenheight'].'-'.implode('', $Device['imageformats']));
+					$Device['markup'].'-'.$Device['screenwidth'].'-'.$Device['screenheight'].'-'.
+					(is_array($Device['imageformats']) ? implode('', $Device['imageformats']) : ''));
 		return 'cache_'.$group.'-'.$name;
 	}
 }
