@@ -20,7 +20,7 @@ switch(substr(JVERSION,0,3))
 {
 case '1.5': $iconclass = 'icon15'; break;
 case '1.6': $iconclass = 'icon16'; break;
-case '1.7': $iconclass = 'icon17'; break;
+default:    $iconclass = 'icon17'; break; // 1.7 & 2.6
 }
 
 include_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'admin.mobilejoomla.html.php';
