@@ -69,7 +69,7 @@ class HTML_mobilejoomla
 		HTML_mobilejoomla::CheckForUpdate();
 		JHTML::_('behavior.modal', 'a.modal');
 ?>
-<style>
+<style type="text/css">
 #mjupdate {
 	background: url("components/com_mobilejoomla/images/warning.png") no-repeat scroll 10px 50% #FDFBB9;
 	font-weight: bold;
