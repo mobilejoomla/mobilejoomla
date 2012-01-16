@@ -32,7 +32,7 @@ function Slideshow(_id, _index, _wrap)
 
     function init()
     {
-        // find all <img>'s along with the <a class="preview>
+        // find all <img>'s along with the <a class="preview">
         // and <img /> elements within the slideshow
         var _images = slideshow.getElementsByTagName("img");
         for(var i = 0; i < _images.length; i++)
@@ -180,7 +180,7 @@ function AccordionList(_id, _callback)
 /*
  * toggleSwitch()
  * usage: mySwitch = new toggleSwitch(id, function);
- * id can also be an array such as ids['foo','bar'…]
+ * id can also be an array such as ids['foo','bar']
  * 
  */
 
@@ -252,7 +252,7 @@ function ToggleSwitch(_id, _callback)
 /*
  * styleTweaker()
  * usage: myStyleTweaker = new styleTweaker();
- * id can also be an array such as ids['foo','bar'…]
+ * id can also be an array such as ids['foo','bar']
  * 
  */
 
