@@ -369,13 +369,6 @@ function showconfig()
 
 function saveconfig()
 {
-	if(JRequest::getVar('ext', false))
-	{
-		saveExtensionsConfig();
-
-		return;
-	}
-
 	$configfname = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php';
 	include($configfname);
 
