@@ -14,6 +14,14 @@ defined('_JEXEC') or die('Restricted access');
 CHANGELOG
 
 1.0
+RC6 release
+- support Joomla!2.5Beta
+- fix in work of Mobile-Domains plugin (use full version on main domain)
+- fix issue with sh404sef extension
+- fix issue with phocagallery extension
+- minor fixes
+
+1.0
 RC5 release
 - Update WURFL database to v2.3 (17.11.2011)
 - Add device-specific meta-tags to improve page look
