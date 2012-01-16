@@ -42,7 +42,7 @@ class plgMobileDomains extends JPlugin
 		/** @var JRegistry $config */
 		$config =& JFactory::getConfig();
 
-		// Check for special domains
+		// Check for current domain
 		if(($MobileJoomla_Device['markup']=='xhtml' && $domain_xhtml && $_SERVER['HTTP_HOST']==$domain_xhtml) ||
 		   ($MobileJoomla_Device['markup']=='wml' && $domain_wap && $_SERVER['HTTP_HOST']==$domain_wap) ||
 		   ($MobileJoomla_Device['markup']=='chtml' && $domain_imode && $_SERVER['HTTP_HOST']==$domain_imode) ||
@@ -77,15 +77,20 @@ class plgMobileDomains extends JPlugin
 			$config->setValue($config_live_site, $http.'://'.$_SERVER['HTTP_HOST'].$base);
 			$this->_domain_markup = $MobileJoomla_Device['markup'];
 		}
+		else
+		{ // Desktop domain
+			$MobileJoomla_Device['markup'] = '';
+		}
 	}
 
 	function onBeforeMobileMarkupInit(&$MobileJoomla_Settings, &$MobileJoomla_Device)
 	{
+		if($MobileJoomla_Settings['domains'] != '1')
+			return;
+
 		if($this->_domain_markup !== null)
 			$MobileJoomla_Device['markup'] = $this->_domain_markup;
 
-		if($MobileJoomla_Settings['domains'] != '1')
-			return;
 		if($MobileJoomla_Device['markup'] == '')
 			return;
 
