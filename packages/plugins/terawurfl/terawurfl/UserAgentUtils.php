@@ -302,7 +302,7 @@ class UserAgentUtils{
 		if(UserAgentMatcher::contains($lowerua,WurflConstants::$MOBILE_BROWSERS)) return true;
 		if(UserAgentMatcher::regexContains($ua,array(
 				// Screen resolution in UA
-				'/[^\d]\d{3}x\d{3}/',
+				'/[^\d]\d{3}x\d{3}/'
 			)
 		)){
 			return true;
@@ -321,6 +321,7 @@ class UserAgentUtils{
 				return true;
 			}
 		}
+        return false;
 	}
 	/**
 	 * The given user agent is definitely from a bot/crawler
