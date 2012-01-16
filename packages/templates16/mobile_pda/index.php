@@ -145,21 +145,15 @@ $MobileJoomla->showDocType();
 	else
 	{
 ?>
-	<div class="mj-sponsor-placement">
-	<script type="text/javascript">
-	//<!--
-	/* <![CDATA[ */
-	window.googleAfmcRequest = {
-	  client: 'ca-mb-pub-5710199815985059',
-	  format: '320x50_mb',
-	  output: 'html',
-	  slotname: '1896811186'
-	};
-	/* ]]> */
-	//-->
-	</script>
-	<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_afmc_ads.js"></script>
-	</div>
+<div class="mj-sponsor-placement">
+<script type="text/javascript">
+//<!--
+/* <![CDATA[ */
+document.write('<script src'+'="http'+('https:'==document.location.protocol?'s':'')+'://ads.mobilejoomla.com/ad.js?domain='+encodeURIComponent(window.location.hostname)+'" type="text/javascript"><'+'/script>');
+/* ]]> */
+//-->
+</script>
+</div>
 <?php
 	}
 ?>
