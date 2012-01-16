@@ -139,7 +139,7 @@ class JCacheStorageXCache extends JCacheStorage
 	function _getCacheId($id, $group)
 	{
 		$Device =& MobileJoomla::getDevice();
-		$name = md5($this->_application.'-'.$id.'-'.$this->_hash.'-'.$this->_language
+		$name = md5($this->_application.'-'.$id.'-'.$this->_hash.'-'.$this->_language.
 					$Device['markup'].'-'.$Device['screenwidth'].'-'.$Device['screenheight'].'-'.
 					(is_array($Device['imageformats']) ? implode('', $Device['imageformats']) : ''));
 		return 'cache_'.$group.'-'.$name;
