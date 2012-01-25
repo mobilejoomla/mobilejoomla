@@ -201,67 +201,67 @@ class plgSystemMobileBot extends JPlugin
 			case 'iphone':
 				$MobileJoomla =& MobileJoomla::getInstance('iphone');
 				break;
+			default:
+				$MobileJoomla_Device['markup'] = false;
+				return;
 		}
 
-		if(isset($MobileJoomla))
+		// set headers here to be compatible with System-Cache
+		$MobileJoomla->setHeader();
+
+		/** @var JRegistry $config */
+		$config =& JFactory::getConfig();
+		if($MobileJoomla_Settings['mobile_sitename'])
+			$config->setValue($is_joomla15?'config.sitename':'sitename', $MobileJoomla_Settings['mobile_sitename']);
+
+		if(!$is_joomla15) //Joomla!1.6+
 		{
-			// set headers here to be compatible with System-Cache
-			$MobileJoomla->setHeader();
+			if(!$MobileJoomla_Settings['caching'])
+				$config->setValue('caching', 0);
 
-			/** @var JRegistry $config */
-			$config =& JFactory::getConfig();
-			if($MobileJoomla_Settings['mobile_sitename'])
-				$config->setValue($is_joomla15?'config.sitename':'sitename', $MobileJoomla_Settings['mobile_sitename']);
-
-			if(!$is_joomla15) //Joomla!1.6+
+			$cachekey = $MobileJoomla_Device['markup'].'_'.
+						$MobileJoomla_Device['screenwidth'].'_'.
+						$MobileJoomla_Device['screenheight'].'_'.
+						(is_array($MobileJoomla_Device['imageformats'])
+							? implode('', $MobileJoomla_Device['imageformats'])
+							: '');
+			$this->setRequestVar('mjcachekey', $cachekey);
+			$registeredurlparams = $mainframe->get('registeredurlparams');
+			if(empty($registeredurlparams))
+				$registeredurlparams = new stdClass();
+			$registeredurlparams->mjcachekey = 'CMD';
+			$mainframe->set('registeredurlparams', $registeredurlparams);
+		}
+		else //Joomla!1.5
+		{
+			if($MobileJoomla_Settings['caching'])
 			{
-				if(!$MobileJoomla_Settings['caching'])
-					$config->setValue('caching', 0);
-
-				$cachekey = $MobileJoomla_Device['markup'].'_'.
-							$MobileJoomla_Device['screenwidth'].'_'.
-							$MobileJoomla_Device['screenheight'].'_'.
-							implode('', $MobileJoomla_Device['imageformats']);
-				$this->setRequestVar('mjcachekey', $cachekey);
-				$registeredurlparams = $mainframe->get('registeredurlparams');
-				if(empty($registeredurlparams))
-					$registeredurlparams = new stdClass();
-				$registeredurlparams->mjcachekey = 'CMD';
-				$mainframe->set('registeredurlparams', $registeredurlparams);
+				$handler = $config->getValue('config.cache_handler', 'file');
+				$class = 'JCacheStorage'.ucfirst($handler);
+				$path = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'cachestorage'.DS.$handler.'.php';
+				jimport('joomla.cache.storage');
+				JLoader::register($class, $path);
 			}
-			else //Joomla!1.5
+			else //disable System-Cache plugin
 			{
-				if($MobileJoomla_Settings['caching'])
+				$config->setValue('config.caching', 0);
+				$dispatcher =& JDispatcher::getInstance();
+				foreach($dispatcher->_observers as $index => $object)
 				{
-					$handler = $config->getValue('config.cache_handler', 'file');
-					$class = 'JCacheStorage'.ucfirst($handler);
-					$path = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'cachestorage'.DS.$handler.'.php';
-					jimport('joomla.cache.storage');
-					JLoader::register($class, $path);
-				}
-				else //disable System-Cache plugin
-				{
-					$config->setValue('config.caching', 0);
-					$dispatcher =& JDispatcher::getInstance();
-					foreach($dispatcher->_observers as $index => $object)
+					if(is_a($object, 'plgSystemCache'))
 					{
-						if(is_a($object, 'plgSystemCache'))
-						{
-							$object->_cache = new _CacheStub();
-							unset($dispatcher->_observers[$index]);
-							break;
-						}
+						$object->_cache = new _CacheStub();
+						unset($dispatcher->_observers[$index]);
+						break;
 					}
 				}
 			}
-			$router =& $mainframe->getRouter();
-			$router->attachBuildRule(array($this, 'buildRule'));
-
-			if(!defined('SHMOBILE_MOBILE_TEMPLATE_SWITCHED'))
-				define('SHMOBILE_MOBILE_TEMPLATE_SWITCHED', 1);
 		}
-		else
-			$MobileJoomla_Device['markup'] = false;
+		$router =& $mainframe->getRouter();
+		$router->attachBuildRule(array($this, 'buildRule'));
+
+		if(!defined('SHMOBILE_MOBILE_TEMPLATE_SWITCHED'))
+			define('SHMOBILE_MOBILE_TEMPLATE_SWITCHED', 1);
 	}
 
 	function buildRule(&$router, &$uri)
