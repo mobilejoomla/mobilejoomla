@@ -71,7 +71,7 @@ class plgMobileTerawurfl extends JPlugin
 		try
 		{
 			$wurflObj = new TeraWurfl();
-			if(!is_object($wurflObj) || !$wurflObj->db->connected)
+			if(!is_object($wurflObj) || $wurflObj->db->connected !== true)
 				return;
 			$wurflObj->getDeviceCapabilitiesFromAgent();
 		}
