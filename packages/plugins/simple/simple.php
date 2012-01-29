@@ -154,7 +154,7 @@ class plgMobileSimple extends JPlugin
 
 		$mobile_os_list = array('Google Wireless Transcoder', 'Windows CE', 'WindowsCE', 'Symbian',
 								'Android', 'armv6l', 'armv5', 'Mobile', 'CentOS', 'mowser', 'AvantGo',
-								'Opera Mobi', 'J2ME/MIDP', 'Smartphone', 'Go.Web', 'Palm', 'iPAQ');
+								'Opera Mobi', 'J2ME/MIDP', 'Smartphone', 'Go.Web', 'Palm', 'iPAQ', 'webOS/');
 		$mobile_token_list = array('Profile/MIDP', 'Configuration/CLDC-', '160x160', '176x220',
 								   '240x240', '240x320', '320x240', 'UP.Browser', 'UP.Link', 'SymbianOS',
 								   'PalmOS', 'PocketPC', 'SonyEricsson', 'Nokia', 'BlackBerry',
