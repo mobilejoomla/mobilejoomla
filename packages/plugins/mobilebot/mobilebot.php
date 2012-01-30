@@ -524,7 +524,12 @@ class plgSystemMobileBot extends JPlugin
 		$markup = false;
 
 		if(isset($_GET['device']))
+		{
 			$markup = $this->CheckMarkup($_GET['device']);
+			jimport('joomla.environment.uri');
+			$uri =& JURI::getInstance();
+			$uri->delVar('device');
+		}
 
 		if($markup === false)
 			$markup = $this->CheckMarkup($mainframe->getUserState('mobilejoomla.markup', false));
