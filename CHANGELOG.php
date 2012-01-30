@@ -16,9 +16,12 @@ CHANGELOG
 1.0
 RC6 release
 - support Joomla!2.5Beta
-- fix in work of Mobile-Domains plugin (use full version on main domain)
+- new template for login & search modules in mobile_iphone template (Joomla!1.6)
+- fix work of Mobile-Domains plugin (use full version on main domain)
 - fix issue with sh404sef extension
 - fix issue with phocagallery extension
+- fix issue with "404 Not Found" in device=... mode
+- fix possible warning in Mobile-TeraWurfl plugin
 - minor fixes
 
 1.0
