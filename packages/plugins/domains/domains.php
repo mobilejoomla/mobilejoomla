@@ -79,7 +79,10 @@ class plgMobileDomains extends JPlugin
 		}
 		else
 		{ // Desktop domain
-			$MobileJoomla_Device['markup'] = '';
+			$mainframe =& JFactory::getApplication();
+			// is it non-first visit? Then don't redirect
+			if($mainframe->getUserState('mobilejoomla.markup') !== null)
+				$MobileJoomla_Device['markup'] = '';
 		}
 	}
 
