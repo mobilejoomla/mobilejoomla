@@ -57,16 +57,18 @@ class plgSystemMobileBot extends JPlugin
 
 		JPluginHelper::importPlugin('mobile');
 
-		$cached_data = $mainframe->getUserState('mobilejoomla.cache', false);
-		if($cached_data!==false)
-			$cached_data = @gzinflate(@base64_decode($cached_data));
-		if($cached_data!==false)
+		$cached_data = $mainframe->getUserState('mobilejoomla.cache');
+		if($cached_data!==null)
 		{
-			if($is_joomla15)
-				Jloader::register('TeraWurfl', JPATH_PLUGINS.DS.'mobile'.DS.'terawurfl'.DS.'TeraWurfl.php');
-			else
-				Jloader::register('TeraWurfl', JPATH_PLUGINS.DS.'mobile'.DS.'terawurfl'.DS.'terawurfl'.DS.'TeraWurfl.php');
-			$cached_data = unserialize($cached_data);
+			$cached_data = @gzinflate(@base64_decode($cached_data));
+			if($cached_data!==false)
+			{
+				if($is_joomla15)
+					Jloader::register('TeraWurfl', JPATH_PLUGINS.DS.'mobile'.DS.'terawurfl'.DS.'TeraWurfl.php');
+				else
+					Jloader::register('TeraWurfl', JPATH_PLUGINS.DS.'mobile'.DS.'terawurfl'.DS.'terawurfl'.DS.'TeraWurfl.php');
+				$cached_data = unserialize($cached_data);
+			}
 		}
 
 		if(is_array($cached_data))
@@ -532,7 +534,7 @@ class plgSystemMobileBot extends JPlugin
 		}
 
 		if($markup === false)
-			$markup = $this->CheckMarkup($mainframe->getUserState('mobilejoomla.markup', false));
+			$markup = $this->CheckMarkup($mainframe->getUserState('mobilejoomla.markup'));
 
 		if($markup === false && isset($_COOKIE['mjmarkup']))
 			$markup = $this->CheckMarkup($_COOKIE['mjmarkup']);
