@@ -487,12 +487,6 @@ fieldset.adminform label {
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
-					                      title="<?php echo JText::_('COM_MJ__IPAD_SUPPORT'); ?>::<?php echo JText::_('COM_MJ__IPAD_SUPPORT_DESC'); ?>"><?php echo JText::_('COM_MJ__IPAD_SUPPORT'); ?></span>
-					</td>
-					<td><?php echo $lists['iphoneipad']; ?></td>
-				</tr>
-				<tr>
-					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__HOMEPAGE'); ?>::<?php echo JText::_('COM_MJ__HOMEPAGE_DESC'); ?>"><?php echo JText::_('COM_MJ__HOMEPAGE'); ?></span>
 					</td>
 					<td><input class="text_area" type="text" size="80" name="mjconfig_iphonehomepage" id="mjconfig_iphonehomepage"

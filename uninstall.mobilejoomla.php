@@ -291,9 +291,6 @@ function UpdateConfig()
 	if(!isset($MobileJoomla_Settings['tmpl_imode_footer3']))
 		$MobileJoomla_Settings['tmpl_imode_footer3'] = 'mj_all_footer';
 
-	if(!isset($MobileJoomla_Settings['iphoneipad']))
-		$MobileJoomla_Settings['iphoneipad'] = 1;
-
 	if(!function_exists('imagecopyresized'))
 	{
 		JError::raiseWarning(0, JText::_('COM_MJ__GD2_LIBRARY_IS_NOT_LOADED'));
@@ -308,6 +305,13 @@ function UpdateConfig()
 	}
 
 	$MobileJoomla_Settings['httpcaching'] = 0;
+
+	if(isset($MobileJoomla_Settings['iphoneipad']))
+	{
+		if($MobileJoomla_Settings['iphoneipad'])
+			JError::raiseWarning(0, JText::_('COM_MJ__IPAD_OPTION_UNSUPPORTED'));
+		unset($MobileJoomla_Settings['iphoneipad']);
+	}
 
 	$params = array ();
 	foreach($MobileJoomla_Settings as $param => $value)

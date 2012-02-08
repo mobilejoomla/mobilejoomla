@@ -139,8 +139,6 @@ function showconfig()
 	//iPhone/iPod devices
 	$lists['iphonetemplate'] = selectArray($templates, 'mjconfig_iphonetemplate', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['iphonetemplate']);
 
-	$lists['iphoneipad'] = JHTML::_('select.booleanlist', 'mjconfig_iphoneipad', 'class="inputbox"', $MobileJoomla_Settings['iphoneipad']);
-
 	$lists['iphonegzip'] = JHTML::_('select.radiolist', $gzip, 'mjconfig_iphonegzip', 'class="inputbox"', 'value', 'text', $MobileJoomla_Settings['iphonegzip']);
 
 	$lists['iphoneredirect'] = JHTML::_('select.booleanlist', 'mjconfig_iphoneredirect', 'class="inputbox"', $MobileJoomla_Settings['iphoneredirect']);
@@ -377,7 +375,7 @@ function saveconfig()
 					   'xhtmltemplate', 'xhtmlhomepage', 'xhtmlgzip', 'xhtmldomain', 'xhtmlredirect', 'xhtml_buffer_width',
 					   'waptemplate', 'waphomepage', 'wapgzip', 'wapdomain', 'wapredirect', 'wml_buffer_width',
 					   'imodetemplate', 'imodehomepage', 'imodegzip', 'imodedomain', 'imoderedirect', 'chtml_buffer_width',
-					   'iphonetemplate', 'iphoneipad', 'iphonehomepage', 'iphonegzip', 'iphonedomain',
+					   'iphonetemplate', 'iphonehomepage', 'iphonegzip', 'iphonedomain',
 					   'iphoneredirect', 'iphone_buffer_width',
 					   'tmpl_xhtml_header1', 'tmpl_xhtml_header2', 'tmpl_xhtml_header3',
 					   'tmpl_xhtml_pathway', 'tmpl_xhtml_pathwayhome',
