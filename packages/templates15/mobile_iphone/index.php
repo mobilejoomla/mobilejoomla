@@ -43,7 +43,10 @@ if($MobileJoomla_Device['markup'] != $MobileJoomla_Device['default_markup'])
 <body>
 <div<?php echo ($MobileJoomla->isHome()) ? ' id="home"' : '';?> class="current">
 	<div class="toolbar">
-		<h1><?php /** @var JSite $app */ $app =& JFactory::getApplication(); echo $app->getCfg('sitename'); ?></h1>
+		<h1><?php
+			$app =& JFactory::getApplication();
+			echo htmlspecialchars_decode($app->getCfg('sitename'));
+		?></h1>
 	<?php if(!$MobileJoomla->isHome()): ?>
 		<a class="back" href="javascript:history.go(-1)"><?php echo JText::_('TPL_MOBILE_IPHONE__BACK'); ?></a>
 		<a class="home" href="<?php echo $home; ?>"><?php echo JText::_('TPL_MOBILE_IPHONE__HOME'); ?></a>

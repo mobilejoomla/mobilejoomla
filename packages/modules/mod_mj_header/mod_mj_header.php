@@ -28,10 +28,14 @@ $app =& JFactory::getApplication();
 /** @var JDocument $doc */
 $doc =& JFactory::getDocument();
 
-$siteTitle = JString::str_ireplace('{{sitename}}', $app->getCfg('sitename'), $siteTitle);
+$sitename = $app->getCfg('sitename');
+if(substr(JVERSION,0,3) == '1.5')
+	$sitename = htmlspecialchars_decode($sitename);
+
+$siteTitle = JString::str_ireplace('{{sitename}}', $sitename, $siteTitle);
 $siteTitle = JString::str_ireplace('{{pagetitle}}', $doc->getTitle(), $siteTitle);
 
-$pageTitle = JString::str_ireplace('{{sitename}}', $app->getCfg('sitename'), $pageTitle);
+$pageTitle = JString::str_ireplace('{{sitename}}', $sitename, $pageTitle);
 $pageTitle = JString::str_ireplace('{{pagetitle}}', $doc->getTitle(), $pageTitle);
 
 if($cutTitle)
