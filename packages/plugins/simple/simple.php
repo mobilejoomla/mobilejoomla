@@ -151,13 +151,13 @@ class plgMobileSimple extends JPlugin
 		}
 
 		$mobile_os_list = array('Google Wireless Transcoder', 'Windows CE', 'WindowsCE', 'Symbian',
-								'Android', 'armv6l', 'armv5', 'Mobile', 'CentOS', 'mowser', 'AvantGo',
+								'armv6l', 'armv5', 'Mobile', 'CentOS', 'mowser', 'AvantGo',
 								'Opera Mobi', 'J2ME/MIDP', 'Smartphone', 'Go.Web', 'Palm', 'iPAQ', 'webOS/');
 		$mobile_token_list = array('Profile/MIDP', 'Configuration/CLDC-', '160x160', '176x220',
 								   '240x240', '240x320', '320x240', 'UP.Browser', 'UP.Link', 'SymbianOS',
 								   'PalmOS', 'PocketPC', 'SonyEricsson', 'Nokia', 'BlackBerry',
 								   'Vodafone', 'BenQ', 'Novarra-Vision', 'Iris', 'NetFront', 'HTC_',
-								   'Xda_', 'SAMSUNG-SGH', 'Wapaka', 'DoCoMo');
+								   'Xda_', 'SAMSUNG-SGH', 'Wapaka', 'DoCoMo', 'Mobile Safari');
 		$found_mobile = $this->CheckSubstrs($mobile_os_list, $useragent_commentsblock) ||
 						$this->CheckSubstrs($mobile_token_list, $useragent);
 		if($found_mobile)
