@@ -14,6 +14,13 @@ defined('_JEXEC') or die('Restricted access');
 CHANGELOG
 
 1.0
+RC7 release
+- fix redirect to subdomain issue
+- remove ipad option
+- fix rescaling of images with urlencoded urls
+- minor fixes
+
+1.0
 RC6 release
 - support Joomla!2.5Beta
 - new template for login & search modules in mobile_iphone template (Joomla!1.6)
