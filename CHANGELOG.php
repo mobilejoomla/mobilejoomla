@@ -14,7 +14,8 @@ defined('_JEXEC') or die('Restricted access');
 CHANGELOG
 
 1.0
-RC7 release
+Stable release
+- new UI
 - fix redirect to subdomain issue
 - remove ipad option
 - fix rescaling of images with urlencoded urls
