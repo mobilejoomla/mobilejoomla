@@ -25,19 +25,4 @@ class TOOLBAR_mobilejoomla
 			JToolBarHelper::preferences('com_mobilejoomla');
 		}
 	}
-
-	function _ABOUT()
-	{
-		JToolBarHelper::title(JText::_('COM_MJ__ABOUT_MOBILE_JOOMLA'));
-		JToolBarHelper::cancel('cancel');
-		JToolBarHelper::divider();
-		JToolBarHelper::preferences('com_mobilejoomla');
-	}
-
-	function _EXT()
-	{
-		JToolBarHelper::title(JText::_('COM_MJ__EXTENSIONS'));
-		JToolBarHelper::save();
-		JToolBarHelper::cancel('cancel');
-	}
 }
