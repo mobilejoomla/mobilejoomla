@@ -465,16 +465,14 @@ class HTML_mobilejoomla
 		{
 			foreach($tplmod_sections as $section=>$sectionconfig)
 			{
-				for($i=1; $i<4; ++$i)
+				for($i=1; $i<=3; ++$i)
 				{
 					$config_blobs[$device][1]['COM_MJ__TEMPLATE_MODULES'][] = array(
 						'label_blob' => JHTML::_('mjconfig.label', "{$section}_{$i}"),
-						'input_blob' => $lists["{$deviceconfig}_{$sectionconfig}{$i}"]
+						'input_blob' => $lists["{$deviceconfig}.{$sectionconfig}{$i}"]
 					);
 				}
-				$config_blobs[$device][1]['COM_MJ__TEMPLATE_MODULES'][] = array();
 			}
-			array_pop($config_blobs[$device][1]['COM_MJ__TEMPLATE_MODULES']);
 		}
 		
 		$dispatcher =& JDispatcher::getInstance();
