@@ -36,7 +36,7 @@ class plgSystemMobileBot extends JPlugin
 		$is_joomla15 = (substr(JVERSION,0,3) == '1.5');
 
 		//load MobileJoomla class
-		require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'mobilejoomla.class.php');
+		require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'classes'.DS.'mobilejoomla.php');
 
 		//load config
 		$MobileJoomla_Settings =& MobileJoomla::getConfig();

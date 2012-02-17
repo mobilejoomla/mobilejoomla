@@ -69,7 +69,7 @@ class MobileJoomla
 		static $instance = null;
 		if($instance == null)
 		{
-			include_once dirname(__FILE__).DS.'mjtoolbar.php';
+			include_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'classes'.DS.'mjtoolbar.php';
 			$instance = new MJToolbar;
 		}
 		return $instance;
@@ -186,7 +186,7 @@ class MobileJoomla
 
 	function RescaleImages($text, $scaletype, $addstyles = false)
 	{
-		require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'imagerescaler.class.php');
+		require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'classes'.DS.'imagerescaler.php');
 		return ImageRescaler::RescaleImages($text, $scaletype, $addstyles);
 	}
 

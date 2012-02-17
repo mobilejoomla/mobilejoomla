@@ -29,17 +29,15 @@
 			<filename>admin.mobilejoomla.php</filename>
 			<filename>CHANGELOG.php</filename>
 			<filename>defconfig.php</filename>
-			<filename>imagerescaler.class.php</filename>
 			<filename>index.html</filename>
 			<filename>LICENSE.PHP</filename>
-			<filename>mjtoolbar.php</filename>
-			<filename>mobilejoomla.class.php</filename>
 			<filename>toolbar.mobilejoomla.html.php</filename>
 			<filename>toolbar.mobilejoomla.php</filename>
 			<filename>uninstall.mobilejoomla.php</filename>
 			<filename>access.xml</filename>
 			<filename>config.xml</filename>
 			<folder>cachestorage</folder>
+			<folder>classes</folder>
 			<folder>images</folder>
 			<folder>markup</folder>
 			<folder>packages</folder>
