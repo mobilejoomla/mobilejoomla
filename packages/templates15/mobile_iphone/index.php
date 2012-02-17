@@ -17,6 +17,7 @@ $lang =& JFactory::getLanguage();
 $lang->load('tpl_mobile_iphone');
 
 $MobileJoomla =& MobileJoomla::getInstance();
+$MobileJoomla_Settings =& MobileJoomla::getConfig();
 
 $base = $this->baseurl.'/templates/'.$this->template;
 $home = $this->baseurl.'/';
@@ -72,7 +73,7 @@ if($modulepos && $this->countModules($modulepos) > 0)
 
 $MobileJoomla->showMessage();
 
-if($MobileJoomla->config['tmpl_iphone_pathway'] && (!$MobileJoomla->isHome() || $MobileJoomla->config['tmpl_iphone_pathwayhome'])): ?>
+if($MobileJoomla_Settings['iphone.pathway'] && (!$MobileJoomla->isHome() || $MobileJoomla_Settings['iphone.pathwayhome'])): ?>
 	<div class="content">
 		<?php $MobileJoomla->showBreadcrumbs(); ?>
 	</div>

@@ -55,25 +55,25 @@ class MobileJoomla_WML extends MobileJoomla
 		switch($pos)
 		{
 			case 'header':
-				return $this->config['tmpl_wml_header1'];
+				return $this->config['wml.header1'];
 			case 'header2':
-				return $this->config['tmpl_wml_header2'];
+				return $this->config['wml.header2'];
 			case 'header3':
-				return $this->config['tmpl_wml_header3'];
+				return $this->config['wml.header3'];
 			case 'middle':
-				return $this->config['tmpl_wml_middle1'];
+				return $this->config['wml.middle1'];
 			case 'middle2':
-				return $this->config['tmpl_wml_middle2'];
+				return $this->config['wml.middle2'];
 			case 'middle3':
-				return $this->config['tmpl_wml_middle3'];
+				return $this->config['wml.middle3'];
 			case 'footer':
-				return $this->config['tmpl_wml_footer1'];
+				return $this->config['wml.footer1'];
 			case 'footer2':
-				return $this->config['tmpl_wml_footer2'];
+				return $this->config['wml.footer2'];
 			case 'footer3':
-				return $this->config['tmpl_wml_footer3'];
+				return $this->config['wml.footer3'];
 			case 'cards':
-				return $this->config['tmpl_wml_cards'];
+				return $this->config['wml.cards'];
 		}
 		return '';
 	}
@@ -90,20 +90,20 @@ class MobileJoomla_WML extends MobileJoomla
 
 	function showBreadcrumbs($style='wml')
 	{
-		if($this->config['tmpl_wml_pathway'] && (!$this->_ishomepage || $this->config['tmpl_wml_pathwayhome']))
+		if($this->config['wml.pathway'] && (!$this->_ishomepage || $this->config['wml.pathwayhome']))
 			echo '<jdoc:include type="module" name="breadcrumbs" style="'.$style.'" />';
 	}
 
 	function showComponent()
 	{
-		if(!$this->_ishomepage || $this->config['tmpl_wml_componenthome'])
+		if(!$this->_ishomepage || $this->config['wml.componenthome'])
 			echo '<jdoc:include type="component" />';
 	}
 
 	function showFooter()
 	{
 		$mainframe =& JFactory::getApplication();
-		if($this->config['tmpl_wml_jfooter'])
+		if($this->config['wml.jfooter'])
 		{
 			/** @var JLanguage $lang */
 			$lang =& JFactory::getLanguage();
@@ -118,8 +118,9 @@ class MobileJoomla_WML extends MobileJoomla
 
 	function processPage($text)
 	{
-		$doctypes = array (1 => '<!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.1//EN" "http://www.wapforum.org/DTD/wml_1.1.xml">', '<!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.2//EN" "http://www.wapforum.org/DTD/wml_1.2.xml">');
-		$pretext = '<?xml version="1.0" encoding="utf-8" ?>'."\n".$doctypes[$this->config['tmpl_wml_doctype']]."\n";
+		$doctypes = array (1 => '<!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.1//EN" "http://www.wapforum.org/DTD/wml_1.1.xml">',
+								'<!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.2//EN" "http://www.wapforum.org/DTD/wml_1.2.xml">');
+		$pretext = '<?xml version="1.0" encoding="utf-8" ?>'."\n".$doctypes[$this->config['wml.doctype']]."\n";
 
 		$text = preg_replace('#<img src="[^"]*arrow(_rtl)?\.png" alt=""\s*/>#', '&gt;', $text); //pathway fix
 		$text = preg_replace('#<iframe\s[^>]+? />#is', '', $text);
@@ -166,11 +167,11 @@ class MobileJoomla_WML extends MobileJoomla
 
 		$text = "<wml>\n"."<head>\n"."<meta http-equiv=\"Cache-Control\" content=\"max-age=0\" forua=\"true\" />\n"."</head>\n".$text."\n"."</wml>";
 
-		if($this->config['tmpl_wml_img'] == 1)
+		if($this->config['wml.img'] == 1)
 			$text = preg_replace('#<img [^>]+>#is', '', $text);
-		elseif($this->config['tmpl_wml_img'] >= 2)
+		elseif($this->config['wml.img'] >= 2)
 		{
-			$scaletype = $this->config['tmpl_wml_img']-2;
+			$scaletype = $this->config['wml.img']-2;
 			$text = MobileJoomla::RescaleImages($text, $scaletype);
 		}
 
@@ -181,7 +182,7 @@ class MobileJoomla_WML extends MobileJoomla
 		$text = preg_replace('#\s\s+#', ' ', $text);
 		$text = preg_replace("#(\n|\r)+#", "\n", $text);
 
-		if($this->config['tmpl_wml_entitydecode'] == 1)
+		if($this->config['wml.entitydecode'] == 1)
 		{
 			$text = strtr($text, array ('&lt;' => '&amp;lt;', '&gt;' => '&amp;gt;', '&amp;' => '&amp;amp;'));
 			$text = html_entity_decode($text, ENT_NOQUOTES, 'UTF-8');

@@ -209,23 +209,6 @@ function UpdateConfig($prev_version)
 		return false;
 	}
 
-	$MobileJoomla_Settings['desktop_url'] = JURI::root();
-
-	$parsed = parse_url(JURI::root());
-	$basehost = $parsed['host'];
-	if(substr($basehost, 0, 4) == 'www.')
-		$basehost = substr($basehost, 4);
-
-	if(substr($MobileJoomla_Settings['xhtmldomain'], -1) == '.')
-		$MobileJoomla_Settings['xhtmldomain'] .= $basehost;
-	if(substr($MobileJoomla_Settings['wapdomain'], -1) == '.')
-		$MobileJoomla_Settings['wapdomain'] .= $basehost;
-	if(substr($MobileJoomla_Settings['imodedomain'], -1) == '.')
-		$MobileJoomla_Settings['imodedomain'] .= $basehost;
-	if(substr($MobileJoomla_Settings['iphonedomain'], -1) == '.')
-		$MobileJoomla_Settings['iphonedomain'] .= $basehost;
-
-
 	if(!$upgrade)
 	{ // first install
 		$conf =& JFactory::getConfig();
@@ -335,36 +318,86 @@ function UpdateConfig($prev_version)
 			if($MobileJoomla_Settings['iphoneipad'])
 				JError::raiseWarning(0, JText::_('COM_MJ__IPAD_OPTION_UNSUPPORTED'));
 			unset($MobileJoomla_Settings['iphoneipad']);
+
 			foreach($MobileJoomla_Settings as $param => $value)
 			{
-				if(strpos($param, 'tmpl_wap_')===0)
+				if(strpos($param, 'tmpl_xhtml_')===0)
 				{
-					$renamed = 'tmpl_wml_'.substr($param, 9);
+					$renamed = 'xhtml.'.substr($param, 9);
+					$MobileJoomla_Settings[$renamed] = $MobileJoomla_Settings[$param];
+					unset($MobileJoomla_Settings[$param]);
+				}
+				elseif(strpos($param, 'tmpl_iphone_')===0)
+				{
+					$renamed = 'iphone.'.substr($param, 9);
+					$MobileJoomla_Settings[$renamed] = $MobileJoomla_Settings[$param];
+					unset($MobileJoomla_Settings[$param]);
+				}
+				elseif(strpos($param, 'tmpl_wap_')===0)
+				{
+					$renamed = 'wml.'.substr($param, 9);
 					$MobileJoomla_Settings[$renamed] = $MobileJoomla_Settings[$param];
 					unset($MobileJoomla_Settings[$param]);
 				}
 				elseif(strpos($param, 'tmpl_imode_')===0)
 				{
-					$renamed = 'tmpl_chtml_'.substr($param, 9);
+					$renamed = 'chtml.'.substr($param, 9);
 					$MobileJoomla_Settings[$renamed] = $MobileJoomla_Settings[$param];
 					unset($MobileJoomla_Settings[$param]);
 				}
 			}
+			$renameList = array(
+					'xhtmltemplate' => 'xhtml.template', 'xhtmlhomepage' => 'xhtml.homepage', 'xhtmlgzip' => 'xhtml.gzip',
+					'xhtmldomain' => 'xhtml.domain', 'xhtmlredirect' => 'xhtml.redirect', 'xhtml_buffer_width' => 'xhtml.buffer_width',
+					'waptemplate' => 'wml.template', 'waphomepage' => 'wml.homepage', 'wapgzip' => 'wml.gzip',
+					'wapdomain' => 'wml.domain', 'wapredirect' => 'wml.redirect', 'wml_buffer_width' => 'wml.buffer_width',
+					'imodetemplate' => 'chtml.template', 'imodehomepage' => 'chtml.homepage', 'imodegzip' => 'chtml.gzip',
+					'imodedomain' => 'chtml.domain', 'imoderedirect' => 'chtml.redirect', 'chtml_buffer_width' => 'chtml.buffer_width',
+					'iphonetemplate' => 'iphone.template', 'iphonehomepage' => 'iphone.homepage', 'iphonegzip' => 'iphone.gzip',
+					'iphonedomain' => 'iphone.domain', 'iphoneredirect' => 'iphone.redirect', 'iphone_buffer_width' => 'iphone.buffer_width'
+				);
+			foreach($renameList as $old=>$new)
+			{
+				$MobileJoomla_Settings[$new] = $MobileJoomla_Settings[$old];
+				unset($MobileJoomla_Settings[$old]);
+			}
+			$MobileJoomla_Settings['global.removetags'] = 0;
+			$MobileJoomla_Settings['global.img'] = 2;
+			$MobileJoomla_Settings['global.img_addstyles'] = 0;
+			$MobileJoomla_Settings['global.homepage'] = '';
+			$MobileJoomla_Settings['global.componenthome'] = 1;
+			$MobileJoomla_Settings['global.gzip'] = 1;
 		}
 	}
+
+	$MobileJoomla_Settings['desktop_url'] = JURI::root();
+
+	$parsed = parse_url(JURI::root());
+	$basehost = $parsed['host'];
+	if(substr($basehost, 0, 4) == 'www.')
+		$basehost = substr($basehost, 4);
+
+	if(substr($MobileJoomla_Settings['xhtml.domain'], -1) == '.')
+		$MobileJoomla_Settings['xhtml.domain'] .= $basehost;
+	if(substr($MobileJoomla_Settings['wml.domain'], -1) == '.')
+		$MobileJoomla_Settings['wml.domain'] .= $basehost;
+	if(substr($MobileJoomla_Settings['chtml.domain'], -1) == '.')
+		$MobileJoomla_Settings['chtml.domain'] .= $basehost;
+	if(substr($MobileJoomla_Settings['iphone.domain'], -1) == '.')
+		$MobileJoomla_Settings['iphone.domain'] .= $basehost;
 
 	// check for GD2 library
 	if(!function_exists('imagecopyresized'))
 	{
 		JError::raiseWarning(0, JText::_('COM_MJ__GD2_LIBRARY_IS_NOT_LOADED'));
-		if($MobileJoomla_Settings['tmpl_xhtml_img'] > 1)
-			$MobileJoomla_Settings['tmpl_xhtml_img'] = 1;
-		if($MobileJoomla_Settings['tmpl_wml_img'] > 1)
-			$MobileJoomla_Settings['tmpl_wml_img'] = 1;
-		if($MobileJoomla_Settings['tmpl_chtml_img'] > 1)
-			$MobileJoomla_Settings['tmpl_chtml_img'] = 1;
-		if($MobileJoomla_Settings['tmpl_iphone_img'] > 1)
-			$MobileJoomla_Settings['tmpl_iphone_img'] = 1;
+		if($MobileJoomla_Settings['xhtml.img'] > 1)
+			$MobileJoomla_Settings['xhtml.img'] = 1;
+		if($MobileJoomla_Settings['wml.img'] > 1)
+			$MobileJoomla_Settings['wml.img'] = 1;
+		if($MobileJoomla_Settings['chtml.img'] > 1)
+			$MobileJoomla_Settings['chtml.img'] = 1;
+		if($MobileJoomla_Settings['iphone.img'] > 1)
+			$MobileJoomla_Settings['iphone.img'] = 1;
 	}
 
 	//save config

@@ -170,6 +170,18 @@ class MobileJoomla
 		return $text;
 	}
 
+	function getParam($name, $default = null)
+	{
+		$MobileJoomla_Settings =& MobileJoomla::getConfig();
+		$full_name = $this->getMarkup().'.'.$name;
+		$global_name = 'global.'.$name;
+		if(!isset($MobileJoomla_Settings[$full_name]))
+			return isset($MobileJoomla_Settings[$name]) ? $MobileJoomla_Settings[$name] : $default;
+		if($MobileJoomla_Settings[$full_name]=='' && isset($MobileJoomla_Settings[$global_name]))
+			return $MobileJoomla_Settings[$global_name];
+		return $MobileJoomla_Settings[$full_name];
+	}
+
 	function getPosition($pos)
 	{
 		return '';
@@ -226,20 +238,20 @@ class MobileJoomla
 			switch($device)
 			{
 			case 'xhtml':
-				if($MobileJoomla_Settings['xhtmldomain'] && $MobileJoomla_Settings['xhtmlredirect'])
-					$uri->setHost($MobileJoomla_Settings['xhtmldomain']);
+				if($MobileJoomla_Settings['xhtml.domain'] && $MobileJoomla_Settings['xhtml.redirect'])
+					$uri->setHost($MobileJoomla_Settings['xhtml.domain']);
 				break;
 			case 'wml':
-				if($MobileJoomla_Settings['wapdomain'] && $MobileJoomla_Settings['wapredirect'])
-					$uri->setHost($MobileJoomla_Settings['wapdomain']);
+				if($MobileJoomla_Settings['wml.domain'] && $MobileJoomla_Settings['wml.redirect'])
+					$uri->setHost($MobileJoomla_Settings['wml.domain']);
 				break;
 			case 'chtml':
-				if($MobileJoomla_Settings['imodedomain'] && $MobileJoomla_Settings['imoderedirect'])
-					$uri->setHost($MobileJoomla_Settings['imodedomain']);
+				if($MobileJoomla_Settings['chtml.domain'] && $MobileJoomla_Settings['chtml.redirect'])
+					$uri->setHost($MobileJoomla_Settings['chtml.domain']);
 				break;
 			case 'iphone':
-				if($MobileJoomla_Settings['iphonedomain'] && $MobileJoomla_Settings['iphoneredirect'])
-					$uri->setHost($MobileJoomla_Settings['iphonedomain']);
+				if($MobileJoomla_Settings['iphone.domain'] && $MobileJoomla_Settings['iphone.redirect'])
+					$uri->setHost($MobileJoomla_Settings['iphone.domain']);
 				break;
 			case 'desktop':
 				break;

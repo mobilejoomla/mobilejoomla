@@ -122,16 +122,16 @@ class plgSystemMobileBot extends JPlugin
 		}
 		if($getTemplate) switch($getTemplate)
 		{
-		case $MobileJoomla_Settings['xhtmltemplate']:
+		case $MobileJoomla_Settings['xhtml.template']:
 			$markup = 'xhtml';
 			break;
-		case $MobileJoomla_Settings['iphonetemplate']:
+		case $MobileJoomla_Settings['iphone.template']:
 			$markup = 'iphone';
 			break;
-		case $MobileJoomla_Settings['waptemplate']:
+		case $MobileJoomla_Settings['wml.template']:
 			$markup = 'wml';
 			break;
-		case $MobileJoomla_Settings['imodetemplate']:
+		case $MobileJoomla_Settings['chtml.template']:
 			$markup = 'chtml';
 			break;
 		}
@@ -179,10 +179,10 @@ class plgSystemMobileBot extends JPlugin
 		}
 		if(count($MobileJoomla_Device['imageformats']) == 0)
 		{
-			$MobileJoomla_Settings['tmpl_wml_img'] = 1;
-			$MobileJoomla_Settings['tmpl_chtml_img'] = 1;
-			$MobileJoomla_Settings['tmpl_xhtml_img'] = 1;
-			$MobileJoomla_Settings['tmpl_iphone_img'] = 1;
+			$MobileJoomla_Settings['wml.img'] = 1;
+			$MobileJoomla_Settings['chtml.img'] = 1;
+			$MobileJoomla_Settings['xhtml.img'] = 1;
+			$MobileJoomla_Settings['iphone.img'] = 1;
 		}
 
 		$mainframe->triggerEvent('onBeforeMobileMarkupInit', array (&$MobileJoomla_Settings, &$MobileJoomla_Device));
@@ -350,24 +350,24 @@ class plgSystemMobileBot extends JPlugin
 		switch($MobileJoomla_Device['markup'])
 		{
 			case 'xhtml':
-				$template = $MobileJoomla_Settings['xhtmltemplate'];
-				$homepage = $MobileJoomla_Settings['xhtmlhomepage'];
-				$gzip = $MobileJoomla_Settings['xhtmlgzip'];
+				$template = $MobileJoomla_Settings['xhtml.template'];
+				$homepage = $MobileJoomla_Settings['xhtml.homepage'];
+				$gzip = $MobileJoomla_Settings['xhtml.gzip'];
 				break;
 			case 'wml':
-				$template = $MobileJoomla_Settings['waptemplate'];
-				$homepage = $MobileJoomla_Settings['waphomepage'];
-				$gzip = $MobileJoomla_Settings['wapgzip'];
+				$template = $MobileJoomla_Settings['wml.template'];
+				$homepage = $MobileJoomla_Settings['wml.homepage'];
+				$gzip = $MobileJoomla_Settings['wml.gzip'];
 				break;
 			case 'chtml':
-				$template = $MobileJoomla_Settings['imodetemplate'];
-				$homepage = $MobileJoomla_Settings['imodehomepage'];
-				$gzip = $MobileJoomla_Settings['imodegzip'];
+				$template = $MobileJoomla_Settings['chtml.template'];
+				$homepage = $MobileJoomla_Settings['chtml.homepage'];
+				$gzip = $MobileJoomla_Settings['chtml.gzip'];
 				break;
 			case 'iphone':
-				$template = $MobileJoomla_Settings['iphonetemplate'];
-				$homepage = $MobileJoomla_Settings['iphonehomepage'];
-				$gzip = $MobileJoomla_Settings['iphonegzip'];
+				$template = $MobileJoomla_Settings['iphone.template'];
+				$homepage = $MobileJoomla_Settings['iphone.homepage'];
+				$gzip = $MobileJoomla_Settings['iphone.gzip'];
 				break;
 		}
 

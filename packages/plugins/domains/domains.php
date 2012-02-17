@@ -34,10 +34,10 @@ class plgMobileDomains extends JPlugin
 
 		$this->getSchemePath($http, $base);
 
-		$domain_xhtml = $MobileJoomla_Settings['xhtmldomain'];
-		$domain_wap = $MobileJoomla_Settings['wapdomain'];
-		$domain_imode = $MobileJoomla_Settings['imodedomain'];
-		$domain_iphone = $MobileJoomla_Settings['iphonedomain'];
+		$domain_xhtml = $MobileJoomla_Settings['xhtml.domain'];
+		$domain_wap = $MobileJoomla_Settings['wml.domain'];
+		$domain_imode = $MobileJoomla_Settings['chtml.domain'];
+		$domain_iphone = $MobileJoomla_Settings['iphone.domain'];
 
 		/** @var JRegistry $config */
 		$config =& JFactory::getConfig();
@@ -110,23 +110,23 @@ class plgMobileDomains extends JPlugin
 		switch($MobileJoomla_Device['markup'])
 		{
 		case 'xhtml':
-			$domain_xhtml = $MobileJoomla_Settings['xhtmldomain'];
-			if($MobileJoomla_Settings['xhtmlredirect'] && $domain_xhtml && $_SERVER['HTTP_HOST'] != $domain_xhtml)
+			$domain_xhtml = $MobileJoomla_Settings['xhtml.domain'];
+			if($MobileJoomla_Settings['xhtml.redirect'] && $domain_xhtml && $_SERVER['HTTP_HOST'] != $domain_xhtml)
 				$mainframe->redirect($http.'://'.$domain_xhtml.$path);
 			break;
 		case 'wml':
-			$domain_wap = $MobileJoomla_Settings['wapdomain'];
-			if($MobileJoomla_Settings['wapredirect'] && $domain_wap && $_SERVER['HTTP_HOST'] != $domain_wap)
+			$domain_wap = $MobileJoomla_Settings['wml.domain'];
+			if($MobileJoomla_Settings['wml.redirect'] && $domain_wap && $_SERVER['HTTP_HOST'] != $domain_wap)
 				$mainframe->redirect($http.'://'.$domain_wap.$path);
 			break;
 		case 'chtml':
-			$domain_imode = $MobileJoomla_Settings['imodedomain'];
-			if($MobileJoomla_Settings['imoderedirect'] && $domain_imode && $_SERVER['HTTP_HOST'] != $domain_imode)
+			$domain_imode = $MobileJoomla_Settings['chtml.domain'];
+			if($MobileJoomla_Settings['chtml.redirect'] && $domain_imode && $_SERVER['HTTP_HOST'] != $domain_imode)
 				$mainframe->redirect($http.'://'.$domain_imode.$path);
 			break;
 		case 'iphone':
-			$domain_iphone = $MobileJoomla_Settings['iphonedomain'];
-			if($MobileJoomla_Settings['iphoneredirect'] && $domain_iphone && $_SERVER['HTTP_HOST'] != $domain_iphone)
+			$domain_iphone = $MobileJoomla_Settings['iphone.domain'];
+			if($MobileJoomla_Settings['iphone.redirect'] && $domain_iphone && $_SERVER['HTTP_HOST'] != $domain_iphone)
 				$mainframe->redirect($http.'://'.$domain_iphone.$path);
 			break;
 		}

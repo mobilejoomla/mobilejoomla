@@ -40,20 +40,20 @@ $document->setHeadData($headerstuff);*/
 
 	function showBreadcrumbs($style='iphone')
 	{
-		if($this->config['tmpl_iphone_pathway'] && (!$this->_ishomepage || $this->config['tmpl_iphone_pathwayhome']))
+		if($this->config['iphone.pathway'] && (!$this->_ishomepage || $this->config['iphone.pathwayhome']))
 			echo '<jdoc:include type="module" name="breadcrumbs" style="'.$style.'" />';
 	}
 
 	function showComponent()
 	{
-		if(!$this->_ishomepage || $this->config['tmpl_iphone_componenthome'])
+		if(!$this->_ishomepage || $this->config['iphone.componenthome'])
 			echo '<jdoc:include type="component" />';
 	}
 
 	function showFooter()
 	{
 		$mainframe =& JFactory::getApplication();
-		if($this->config['tmpl_iphone_jfooter'])
+		if($this->config['iphone.jfooter'])
 		{
 			/** @var JLanguage $lang */
 			$lang =& JFactory::getLanguage();
@@ -68,16 +68,16 @@ $document->setHeadData($headerstuff);*/
 
 	function processPage($text)
 	{
-		if($this->config['tmpl_iphone_img'] == 1)
+		if($this->config['iphone.img'] == 1)
 			$text = preg_replace('#<img [^>]+>#is', '', $text);
-		elseif($this->config['tmpl_iphone_img'] >= 2)
+		elseif($this->config['iphone.img'] >= 2)
 		{
-			$scaletype = $this->config['tmpl_iphone_img']-2;
-			$addstyles = $this->config['tmpl_iphone_img_addstyles'];
+			$scaletype = $this->config['iphone.img']-2;
+			$addstyles = $this->config['iphone.img_addstyles'];
 			$text = MobileJoomla::RescaleImages($text, $scaletype, $addstyles);
 		}
 
-		if($this->config['tmpl_iphone_removetags'])
+		if($this->config['iphone.removetags'])
 		{
 			$text = preg_replace('#<object\s[^>]+?/>#is', '', $text);
 			$text = preg_replace('#<object\s.+?</object>#is', '', $text);
@@ -102,23 +102,23 @@ $document->setHeadData($headerstuff);*/
 		switch($pos)
 		{
 			case 'header':
-				return $this->config['tmpl_iphone_header1'];
+				return $this->config['iphone.header1'];
 			case 'header2':
-				return $this->config['tmpl_iphone_header2'];
+				return $this->config['iphone.header2'];
 			case 'header3':
-				return $this->config['tmpl_iphone_header3'];
+				return $this->config['iphone.header3'];
 			case 'middle':
-				return $this->config['tmpl_iphone_middle1'];
+				return $this->config['iphone.middle1'];
 			case 'middle2':
-				return $this->config['tmpl_iphone_middle2'];
+				return $this->config['iphone.middle2'];
 			case 'middle3':
-				return $this->config['tmpl_iphone_middle3'];
+				return $this->config['iphone.middle3'];
 			case 'footer':
-				return $this->config['tmpl_iphone_footer1'];
+				return $this->config['iphone.footer1'];
 			case 'footer2':
-				return $this->config['tmpl_iphone_footer2'];
+				return $this->config['iphone.footer2'];
 			case 'footer3':
-				return $this->config['tmpl_iphone_footer3'];
+				return $this->config['iphone.footer3'];
 		}
 		return '';
 	}

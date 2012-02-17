@@ -14,6 +14,7 @@ defined('_MJ') or die('Incorrect usage of Mobile Joomla.');
 
 $MobileJoomla =& MobileJoomla::getInstance();
 $MobileJoomla_Device =& MobileJoomla::getDevice();
+$MobileJoomla_Settings =& MobileJoomla::getConfig();
 
 $MobileJoomla->showXMLheader();
 $MobileJoomla->showDocType();
@@ -34,7 +35,7 @@ $base = $this->baseurl."/templates/".$this->template;
 <?php
 	if(@filesize(JPATH_SITE.DS.'templates'.DS.$this->template.DS.'css'.DS.'custom.css'))
 	{
-		if($this->config['tmpl_xhtml_embedcss'])
+		if($MobileJoomla_Settings['xhtml.embedcss'])
 		{
 			echo "<style>\n";
 			@readfile(JPATH_SITE.DS.'templates'.DS.$this->template.DS.'css'.DS.'custom.css');

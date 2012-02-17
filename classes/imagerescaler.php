@@ -178,8 +178,8 @@ class ImageRescaler
 		if(!is_array($formats)) //desktop mode
 			return $imageurl;
 
-		if(isset($MobileJoomla_Settings[$markupName.'_buffer_width']))
-			$templateBuffer = (int) $MobileJoomla_Settings[$markupName.'_buffer_width'];
+		if(isset($MobileJoomla_Settings[$markupName.'.buffer_width']))
+			$templateBuffer = (int) $MobileJoomla_Settings[$markupName.'.buffer_width'];
 		else
 			$templateBuffer = 0;
 

@@ -10,67 +10,7 @@
  */
 defined('_JEXEC') or die('Restricted access');
 
-class JHTMLMjconfig
-{
-	function label($label, $tooltip = '', $for_input = '')
-	{
-		$label = htmlspecialchars(JText::_($label), ENT_QUOTES, 'UTF-8');
-		if($tooltip)
-		{
-			$tooltip = 'class="hasTip" title="'.addslashes($label).'::'.addslashes(htmlspecialchars(JText::_($tooltip), ENT_QUOTES, 'UTF-8')).'"';
-		}
-		if($for_input)
-		{
-			$for_input = 'for="'.$for_input.'"';
-		}
-		return "<label $for_input $tooltip>$label</label>";
-	}
-
-	function textinput($name, $value, $size=16, $attrs = NULL)
-	{
-		$value = addslashes(htmlspecialchars(JText::_($value), ENT_QUOTES, 'UTF-8'));
-		if(!$attrs)
-		{
-			$attrs = array();
-		}
-		if(!$attrs['id'])
-		{
-			$attrs['id'] = $name;
-		}
-		$attrs['name'] = $name;
-		$attrs['value'] = $value;
-		$attrs['size'] = $size;
-		foreach($attrs as $attr=>$val)
-		{
-			$attr_list[] = "$attr=\"$val\"";
-		}
-		$attr_str = join(' ',$attr_list);
-		return "<input $attr_str>";
-	}
-
-	function menulist($menuoptions, $name, $value)
-	{
-		static $is_joomla15;
-		if(!isset($is_joomla15))
-			$is_joomla15 = (substr(JVERSION,0,3) == '1.5');
-
-		if(!$is_joomla15)
-			return JHTML::_('select.genericlist',
-							$menuoptions,
-							$name.'_tmp',
-							array('list.attr' => 'size="7" onchange="document.getElementById(\''.$name.'\').value=this.value" ',
-								  'list.select' => $value,
-								  'option.text.toHtml' => false));
-		else
-			return JHTML::_('select.genericlist',
-							$menuoptions,
-							$name.'_tmp',
-							'size="7" onchange="document.getElementById(\''.$name.'\').value=this.value" ',
-							'value',
-							'text',
-							$value);
-	}
-}
+include_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'classes'.DS.'jhtmlmjconfig.php';
 
 class HTML_mobilejoomla
 {
@@ -131,40 +71,40 @@ class HTML_mobilejoomla
 				array(
 					'COM_MJ__MOBILE_SITE' => array(
 						array(
-							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__MOBILE_SITENAME', 'COM_MJ__MOBILE_SITENAME_DESC', 'mjconfig_mobile_sitename'),
-							'input_blob' => JHTML::_('mjconfig.textinput', 'mjconfig_mobile_sitename', $MobileJoomla_Settings['mobile_sitename'], 30)
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__MOBILE_SITENAME', 'COM_MJ__MOBILE_SITENAME_DESC', 'mobile_sitename'),
+							'input_blob' => JHTML::_('mjconfig.textinput', 'mobile_sitename', $MobileJoomla_Settings['mobile_sitename'], 30)
 						),
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__REMOVE_UNSUPPORTED_TAGS'),
-							'input_blob' => $lists['tmpl_alldevices_removetags']
+							'input_blob' => $lists['global.removetags']
 						),
 					),
 					'COM_MJ__IMAGE' => array(
 						array(
-							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__IMAGE_QUALITY', 'COM_MJ__IMAGE_QUALITY_DESC', 'mjconfig_jpegquality'),
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__IMAGE_QUALITY', 'COM_MJ__IMAGE_QUALITY_DESC', 'jpegquality'),
 							'input_blob' => '<span id="mjconfig_jpegquality_slider"><span id="mjconfig_jpegquality_knob"></span></span>'
-											.JHTML::_('mjconfig.textinput', 'mjconfig_jpegquality', $MobileJoomla_Settings['jpegquality'], 2, array('style'=>'text-align:right'))
+											.JHTML::_('mjconfig.textinput', 'jpegquality', $MobileJoomla_Settings['jpegquality'], 2, array('style'=>'text-align:right'))
 						),
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__IMAGE_ADAPTATION_METHOD', 'COM_MJ__IMAGE_ADAPTATION_METHOD_DESC'),
-							'input_blob' => $lists['tmpl_alldevices_img']
+							'input_blob' => $lists['global.img']
 						),
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__STYLE_IMAGE_SIZE', 'COM_MJ__STYLE_IMAGE_SIZE_DESC'),
-							'input_blob' => $lists['tmpl_alldevices_img_addstyles']
+							'input_blob' => $lists['global.img_addstyles']
 						),
 					),
 					'COM_MJ__HOMEPAGE' => array(
 						array(
-							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__FORCED_HOMEPAGE', 'COM_MJ__FORCED_HOMEPAGE_DESC', 'mjconfig_alldevices_homepage'),
-							'input_blob' => JHTML::_('mjconfig.textinput', 'mjconfig_alldevices_homepage', $MobileJoomla_Settings['alldeviceshomepage'], 50)
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__FORCED_HOMEPAGE', 'COM_MJ__FORCED_HOMEPAGE_DESC', 'global.homepage'),
+							'input_blob' => JHTML::_('mjconfig.textinput', 'global.homepage', $MobileJoomla_Settings['global.homepage'], 50)
 						),
 						array(
-							'input_blob' => JHTML::_('mjconfig.menulist', $lists['menuoptions'], 'mjconfig_alldevices_homepage', $MobileJoomla_Settings['alldeviceshomepage'])
+							'input_blob' => JHTML::_('mjconfig.menulist', $lists['menuoptions'], 'global.homepage', $MobileJoomla_Settings['global.homepage'])
 						),
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__COMPONENT_ON_HOMEPAGE', 'COM_MJ__COMPONENT_ON_HOMEPAGE_DESC'),
-							'input_blob' => $lists['tmpl_alldevices_componenthome']
+							'input_blob' => $lists['global.componenthome']
 						)
 					)
 				),
@@ -203,182 +143,182 @@ class HTML_mobilejoomla
 					'COM_MJ__SETTINGS' => array(
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__TEMPLATE_NAME', 'COM_MJ__TEMPLATE_NAME_XHTMLMP_DESC'),
-							'input_blob' => $lists['xhtmltemplate']
+							'input_blob' => $lists['xhtml.template']
 						)
 					),
 					'COM_MJ__HOMEPAGE' => array(
 						array(
-							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__FORCED_HOMEPAGE', 'COM_MJ__FORCED_HOMEPAGE_DESC', 'mjconfig_xhtmlhomepage'),
-							'input_blob' => JHTML::_('mjconfig.textinput', 'mjconfig_xhtmlhomepage', $MobileJoomla_Settings['xhtmlhomepage'], 50)
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__FORCED_HOMEPAGE', 'COM_MJ__FORCED_HOMEPAGE_DESC', 'xhtml.homepage'),
+							'input_blob' => JHTML::_('mjconfig.textinput', 'xhtml.homepage', $MobileJoomla_Settings['xhtml.homepage'], 50)
 						),
 						array(
-							'input_blob' => JHTML::_('mjconfig.menulist', $lists['menuoptions'], 'mjconfig_xhtmlhomepage', $MobileJoomla_Settings['xhtmlhomepage'])
+							'input_blob' => JHTML::_('mjconfig.menulist', $lists['menuoptions'], 'xhtml.homepage', $MobileJoomla_Settings['xhtml.homepage'])
 						),
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__COMPONENT_ON_HOMEPAGE', 'COM_MJ__COMPONENT_ON_HOMEPAGE_DESC'),
-							'input_blob' => $lists['tmpl_xhtml_componenthome']
+							'input_blob' => $lists['xhtml.componenthome']
 						)
 					),
 					'COM_MJ__IMAGE' => array(
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__IMAGE_ADAPTATION_METHOD', 'COM_MJ__IMAGE_ADAPTATION_METHOD_DESC'),
-							'input_blob' => $lists['tmpl_xhtml_img']
+							'input_blob' => $lists['xhtml.img']
 						),
 						array(
-							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__DECREASE_IMAGE_WIDTH', 'COM_MJ__DECREASE_IMAGE_WIDTH_DESC', 'mjconfig_xhtml_buffer_width'),
-							'input_blob' => JHTML::_('mjconfig.textinput', 'mjconfig_xhtml_buffer_width', $MobileJoomla_Settings['xhtml_buffer_width'], 5, array('style'=>'text-align:right'))
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__DECREASE_IMAGE_WIDTH', 'COM_MJ__DECREASE_IMAGE_WIDTH_DESC', 'xhtml.buffer_width'),
+							'input_blob' => JHTML::_('mjconfig.textinput', 'xhtml.buffer_width', $MobileJoomla_Settings['xhtml.buffer_width'], 5, array('style'=>'text-align:right'))
 						),
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__STYLE_IMAGE_SIZE', 'COM_MJ__STYLE_IMAGE_SIZE_DESC'),
-							'input_blob' => $lists['tmpl_xhtml_img_addstyles']
+							'input_blob' => $lists['xhtml.img_addstyles']
 						)
 					),
 					'COM_MJ__ADVANCED' => array(
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__GZIP_COMPRESSION'),
-							'input_blob' => $lists['xhtmlgzip']
+							'input_blob' => $lists['xhtml.gzip']
 						),
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__REMOVE_UNSUPPORTED_TAGS'),
-							'input_blob' => $lists['tmpl_xhtml_removetags']
+							'input_blob' => $lists['xhtml.removetags']
 						),
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__REMOVE_SCRIPT_TAGS'),
-							'input_blob' => $lists['tmpl_xhtml_removescripts']
+							'input_blob' => $lists['xhtml.removescripts']
 						),
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__CONVERT_HTMLENTITIES', 'COM_MJ__CONVERT_HTMLENTITIES_DESC'),
-							'input_blob' => $lists['tmpl_xhtml_entitydecode']
+							'input_blob' => $lists['xhtml.entitydecode']
 						),
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__CONTENT_TYPE', 'COM_MJ__CONTENT_TYPE_DESC'),
-							'input_blob' => $lists['tmpl_xhtml_contenttype']
+							'input_blob' => $lists['xhtml.contenttype']
 						)
 					)
 				),
 				//right
 				array(
-					'COM_MJ__TEMPLATE_MODULES'=>array(),
-					'COM_MJ__TEMPLATE_OPTIONS'=>array(
+					'COM_MJ__TEMPLATE_MODULES' => array(),
+					'COM_MJ__TEMPLATE_OPTIONS' => array(
 						array(
-							'label_blob'=>JHTML::_('mjconfig.label','COM_MJ__USE_HEAD','COM_MJ__USE_HEAD_DESC'),
-							'input_blob'=>$lists['tmpl_xhtml_simplehead']
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__USE_HEAD', 'COM_MJ__USE_HEAD_DESC'),
+							'input_blob' => $lists['xhtml.simplehead']
 						),
 						array(
-							'label_blob'=>JHTML::_('mjconfig.label','COM_MJ__EXTENDED_EDITORS','COM_MJ__EXTENDED_EDITORS_DESC'),
-							'input_blob'=>$lists['tmpl_xhtml_allowextedit']
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__EXTENDED_EDITORS', 'COM_MJ__EXTENDED_EDITORS_DESC'),
+							'input_blob' => $lists['xhtml.allowextedit']
 						),
 						array(
-							'label_blob'=>JHTML::_('mjconfig.label','COM_MJ__EMBED_CSS','COM_MJ__EMBED_CSS_DESC'),
-							'input_blob'=>$lists['tmpl_xhtml_embedcss']
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__EMBED_CSS', 'COM_MJ__EMBED_CSS_DESC'),
+							'input_blob' => $lists['xhtml.embedcss']
 						),
 						array(
-							'label_blob'=>JHTML::_('mjconfig.label','COM_MJ__USE_XMLHEAD','COM_MJ__USE_XMLHEAD_DESC'),
-							'input_blob'=>$lists['tmpl_xhtml_xmlhead']
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__USE_XMLHEAD', 'COM_MJ__USE_XMLHEAD_DESC'),
+							'input_blob' => $lists['xhtml.xmlhead']
 						),
 						array(
-							'label_blob'=>JHTML::_('mjconfig.label','COM_MJ__DOCTYPE_HEAD'),
-							'input_blob'=>$lists['tmpl_xhtml_doctype']
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__DOCTYPE_HEAD'),
+							'input_blob' => $lists['xhtml.doctype']
 						),
 						array(
-							'label_blob'=>JHTML::_('mjconfig.label','COM_MJ__XMLNS_IN_HEAD','COM_MJ__XMLNS_IN_HEAD_DESC'),
-							'input_blob'=>$lists['tmpl_xhtml_xmlns']
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__XMLNS_IN_HEAD', 'COM_MJ__XMLNS_IN_HEAD_DESC'),
+							'input_blob' => $lists['xhtml.xmlns']
 						)
 					)
 				)
 			),
-			'COM_MJ__IPHONE_SETTINGS'=>array(
+			'COM_MJ__IPHONE_SETTINGS' => array(
 				//left
 				array(
 					'COM_MJ__SETTINGS' => array(
 						array(
-							'label_blob'=>JHTML::_('mjconfig.label','COM_MJ__TEMPLATE_NAME','COM_MJ__TEMPLATE_NAME_IPHONE_DESC'),
-							'input_blob'=>$lists['iphonetemplate']
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__TEMPLATE_NAME', 'COM_MJ__TEMPLATE_NAME_IPHONE_DESC'),
+							'input_blob' => $lists['iphone.template']
 						)
 					),
-					'COM_MJ__HOMEPAGE'=>array(
+					'COM_MJ__HOMEPAGE' => array(
 						array(
-							'label_blob' =>JHTML::_('mjconfig.label','COM_MJ__FORCED_HOMEPAGE','COM_MJ__FORCED_HOMEPAGE_DESC','mjconfig_iphonehomepage'),
-							'input_blob' =>JHTML::_('mjconfig.textinput','mjconfig_iphonehomepage',$MobileJoomla_Settings['iphonehomepage'],50),
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__FORCED_HOMEPAGE', 'COM_MJ__FORCED_HOMEPAGE_DESC', 'iphone.homepage'),
+							'input_blob' => JHTML::_('mjconfig.textinput', 'iphone.homepage', $MobileJoomla_Settings['iphone.homepage'], 50),
 						),
 						array(
-							'input_blob'=>JHTML::_('mjconfig.menulist',$lists['menuoptions'],'mjconfig_iphonehomepage',$MobileJoomla_Settings['iphonehomepage'])
+							'input_blob' => JHTML::_('mjconfig.menulist', $lists['menuoptions'], 'iphone.homepage', $MobileJoomla_Settings['iphone.homepage'])
 						),
 						array(
-							'label_blob'=>JHTML::_('mjconfig.label','COM_MJ__COMPONENT_ON_HOMEPAGE','COM_MJ__COMPONENT_ON_HOMEPAGE_DESC'),
-							'input_blob'=>$lists['tmpl_iphone_componenthome']
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__COMPONENT_ON_HOMEPAGE', 'COM_MJ__COMPONENT_ON_HOMEPAGE_DESC'),
+							'input_blob' => $lists['iphone.componenthome']
 						)
 					),
-					'COM_MJ__IMAGE'=>array(
+					'COM_MJ__IMAGE' => array(
 						array(
-							'label_blob'=>JHTML::_('mjconfig.label','COM_MJ__IMAGE_ADAPTATION_METHOD','COM_MJ__IMAGE_ADAPTATION_METHOD_DESC'),
-							'input_blob'=>$lists['tmpl_iphone_img']
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__IMAGE_ADAPTATION_METHOD', 'COM_MJ__IMAGE_ADAPTATION_METHOD_DESC'),
+							'input_blob' => $lists['iphone.img']
 						),
 						array(
-							'label_blob'=>JHTML::_('mjconfig.label','COM_MJ__DECREASE_IMAGE_WIDTH','COM_MJ__DECREASE_IMAGE_WIDTH_DESC','mjconfig_iphone_buffer_width'),
-							'input_blob'=>JHTML::_('mjconfig.textinput','mjconfig_iphone_buffer_width',$MobileJoomla_Settings['iphone_buffer_width'],5,array('style'=>'text-align:right'))
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__DECREASE_IMAGE_WIDTH', 'COM_MJ__DECREASE_IMAGE_WIDTH_DESC', 'iphone.buffer_width'),
+							'input_blob' => JHTML::_('mjconfig.textinput', 'iphone.buffer_width', $MobileJoomla_Settings['iphone.buffer_width'], 5, array('style'=>'text-align:right'))
 						),
 						array(
-							'label_blob'=>JHTML::_('mjconfig.label','COM_MJ__STYLE_IMAGE_SIZE','COM_MJ__STYLE_IMAGE_SIZE_DESC'),
-							'input_blob'=>$lists['tmpl_iphone_img_addstyles']
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__STYLE_IMAGE_SIZE', 'COM_MJ__STYLE_IMAGE_SIZE_DESC'),
+							'input_blob' => $lists['iphone.img_addstyles']
 						)
 					),
-					'COM_MJ__ADVANCED'=>array(
+					'COM_MJ__ADVANCED' => array(
 						array(
-							'label_blob'=>JHTML::_('mjconfig.label','COM_MJ__GZIP_COMPRESSION'),
-							'input_blob'=>$lists['iphonegzip']
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__GZIP_COMPRESSION'),
+							'input_blob' => $lists['iphone.gzip']
 						),
 						array(
-							'label_blob'=>JHTML::_('mjconfig.label','COM_MJ__REMOVE_UNSUPPORTED_TAGS'),
-							'input_blob'=>$lists['tmpl_iphone_removetags']
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__REMOVE_UNSUPPORTED_TAGS'),
+							'input_blob' => $lists['iphone.removetags']
 						),
 					)
 				),
 				//right
 				array(
-					'COM_MJ__TEMPLATE_MODULES'=>array()
+					'COM_MJ__TEMPLATE_MODULES' => array()
 				)
 			),
-			'COM_MJ__WML_SETTINGS'=>array(
+			'COM_MJ__WML_SETTINGS' => array(
 				//left
 				array(
 					'COM_MJ__SETTINGS' => array(
 						array(
-							'label_blob'=>JHTML::_('mjconfig.label','COM_MJ__TEMPLATE_NAME','COM_MJ__TEMPLATE_NAME_WML_DESC'),
-							'input_blob'=>$lists['waptemplate']
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__TEMPLATE_NAME', 'COM_MJ__TEMPLATE_NAME_WML_DESC'),
+							'input_blob' => $lists['wml.template']
 						)
 					),
-					'COM_MJ__HOMEPAGE'=>array(
+					'COM_MJ__HOMEPAGE' => array(
 						array(
-							'label_blob' =>JHTML::_('mjconfig.label','COM_MJ__FORCED_HOMEPAGE','COM_MJ__FORCED_HOMEPAGE_DESC','mjconfig_waphomepage'),
-							'input_blob' =>JHTML::_('mjconfig.textinput','mjconfig_waphomepage',$MobileJoomla_Settings['waphomepage'],50),
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__FORCED_HOMEPAGE', 'COM_MJ__FORCED_HOMEPAGE_DESC', 'wml.homepage'),
+							'input_blob' => JHTML::_('mjconfig.textinput', 'wml.homepage', $MobileJoomla_Settings['wml.homepage'], 50),
 						),
 						array(
-							'input_blob'=>JHTML::_('mjconfig.menulist',$lists['menuoptions'],'mjconfig_waphomepage',$MobileJoomla_Settings['waphomepage'])
+							'input_blob' => JHTML::_('mjconfig.menulist', $lists['menuoptions'], 'wml.homepage', $MobileJoomla_Settings['wml.homepage'])
 						),
 						array(
-							'label_blob'=>JHTML::_('mjconfig.label','COM_MJ__COMPONENT_ON_HOMEPAGE','COM_MJ__COMPONENT_ON_HOMEPAGE_DESC'),
-							'input_blob'=>$lists['tmpl_wap_componenthome']
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__COMPONENT_ON_HOMEPAGE', 'COM_MJ__COMPONENT_ON_HOMEPAGE_DESC'),
+							'input_blob' => $lists['wml.componenthome']
 						)
 					),
-					'COM_MJ__IMAGE'=>array(
+					'COM_MJ__IMAGE' => array(
 						array(
-							'label_blob'=>JHTML::_('mjconfig.label','COM_MJ__IMAGE_ADAPTATION_METHOD','COM_MJ__IMAGE_ADAPTATION_METHOD_DESC'),
-							'input_blob'=>$lists['tmpl_wap_img']
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__IMAGE_ADAPTATION_METHOD', 'COM_MJ__IMAGE_ADAPTATION_METHOD_DESC'),
+							'input_blob' => $lists['wml.img']
 						),
 						array(
-							'label_blob'=>JHTML::_('mjconfig.label','COM_MJ__DECREASE_IMAGE_WIDTH','COM_MJ__DECREASE_IMAGE_WIDTH_DESC','mjconfig_wml_buffer_width'),
-							'input_blob'=>JHTML::_('mjconfig.textinput','mjconfig_wml_buffer_width',$MobileJoomla_Settings['wml_buffer_width'],5,array('style'=>'text-align:right'))
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__DECREASE_IMAGE_WIDTH', 'COM_MJ__DECREASE_IMAGE_WIDTH_DESC', 'wml.buffer_width'),
+							'input_blob' => JHTML::_('mjconfig.textinput', 'wml.buffer_width', $MobileJoomla_Settings['wml.buffer_width'], 5, array('style'=>'text-align:right'))
 						)
 					),
-					'COM_MJ__ADVANCED'=>array(
+					'COM_MJ__ADVANCED' => array(
 						array(
-							'label_blob'=>JHTML::_('mjconfig.label','COM_MJ__GZIP_COMPRESSION'),
-							'input_blob'=>$lists['wapgzip']
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__GZIP_COMPRESSION'),
+							'input_blob' => $lists['wml.gzip']
 						),
 						array(
-							'label_blob'=>JHTML::_('mjconfig.label','COM_MJ__REMOVE_UNSUPPORTED_TAGS'),
-							'input_blob'=>$lists['tmpl_wap_removetags']
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__REMOVE_UNSUPPORTED_TAGS'),
+							'input_blob' => $lists['wml.removetags']
 						),
 					)
 				),
@@ -388,7 +328,7 @@ class HTML_mobilejoomla
 					'COM_MJ__TEMPLATE_OPTIONS' => array(
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__MODULE_WMLCARDS', 'COM_MJ__MODULE_WMLCARDS_DESC'),
-							'input_blob' => $lists['tmpl_wap_cards']
+							'input_blob' => $lists['wml.cards']
 						)
 					)
 				)
@@ -399,44 +339,44 @@ class HTML_mobilejoomla
 					'COM_MJ__SETTINGS' => array(
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__TEMPLATE_NAME', 'COM_MJ__TEMPLATE_NAME_CHTML_DESC'),
-							'input_blob' => $lists['imodetemplate']
+							'input_blob' => $lists['chtml.template']
 						)
 					),
 					'COM_MJ__HOMEPAGE' => array(
 						array(
-							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__FORCED_HOMEPAGE', 'COM_MJ__FORCED_HOMEPAGE_DESC', 'mjconfig_imodehomepage'),
-							'input_blob' => JHTML::_('mjconfig.textinput', 'mjconfig_imodehomepage', $MobileJoomla_Settings['imodehomepage'], 50)
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__FORCED_HOMEPAGE', 'COM_MJ__FORCED_HOMEPAGE_DESC', 'chtml.homepage'),
+							'input_blob' => JHTML::_('mjconfig.textinput', 'chtml.homepage', $MobileJoomla_Settings['chtml.homepage'], 50)
 						),
 						array(
-							'input_blob' => JHTML::_('mjconfig.menulist', $lists['menuoptions'], 'mjconfig_imodehomepage', $MobileJoomla_Settings['imodehomepage'])
+							'input_blob' => JHTML::_('mjconfig.menulist', $lists['menuoptions'], 'chtml.homepage', $MobileJoomla_Settings['chtml.homepage'])
 						),
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__COMPONENT_ON_HOMEPAGE', 'COM_MJ__COMPONENT_ON_HOMEPAGE_DESC'),
-							'input_blob' => $lists['tmpl_imode_componenthome']
+							'input_blob' => $lists['chtml.componenthome']
 						)
 					),
 					'COM_MJ__IMAGE' => array(
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__IMAGE_ADAPTATION_METHOD', 'COM_MJ__IMAGE_ADAPTATION_METHOD_DESC'),
-							'input_blob' => $lists['tmpl_imode_img']
+							'input_blob' => $lists['chtml.img']
 						),
 						array(
-							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__DECREASE_IMAGE_WIDTH', 'COM_MJ__DECREASE_IMAGE_WIDTH_DESC', 'mjconfig_chtml_buffer_width'),
-							'input_blob' => JHTML::_('mjconfig.textinput', 'mjconfig_chtml_buffer_width', $MobileJoomla_Settings['chtml_buffer_width'], 5, array('style'=>'text-align:right'))
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__DECREASE_IMAGE_WIDTH', 'COM_MJ__DECREASE_IMAGE_WIDTH_DESC', 'chtml.buffer_width'),
+							'input_blob' => JHTML::_('mjconfig.textinput', 'chtml.buffer_width', $MobileJoomla_Settings['chtml.buffer_width'], 5, array('style'=>'text-align:right'))
 						)
 					),
 					'COM_MJ__ADVANCED' => array(
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__GZIP_COMPRESSION'),
-							'input_blob' => $lists['imodegzip']
+							'input_blob' => $lists['chtml.gzip']
 						),
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__REMOVE_UNSUPPORTED_TAGS'),
-							'input_blob' => $lists['tmpl_imode_removetags']
+							'input_blob' => $lists['chtml.removetags']
 						),
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__CONVERT_HTMLENTITIES', 'COM_MJ__CONVERT_HTMLENTITIES_DESC'),
-							'input_blob' => $lists['tmpl_imode_entitydecode']
+							'input_blob' => $lists['chtml.entitydecode']
 						)
 					)
 				),
@@ -446,7 +386,7 @@ class HTML_mobilejoomla
 					'COM_MJ__TEMPLATE_OPTIONS' => array(
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__DOCTYPE_HEAD'),
-							'input_blob' => $lists['tmpl_imode_doctype']
+							'input_blob' => $lists['chtml.doctype']
 						)
 					)
 				)
@@ -465,48 +405,44 @@ class HTML_mobilejoomla
 						),
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__GZIP_COMPRESSION'),
-							'input_blob' => $lists['alldevicesgzip']
-						),
-						array(
-							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__EMBED_CSS', 'COM_MJ__EMBED_CSS_DESC'),
-							'input_blob' => $lists['tmpl_alldevices_embedcss']
+							'input_blob' => $lists['global.gzip']
 						)
 					),
 					'COM_MJ__DOMAIN_NAME' => array(
 						array(
-							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__DESKTOP_URL', 'COM_MJ__DESKTOP_URL_DESC', 'mjconfig_desktop_url'),
-							'input_blob' => JHTML::_('mjconfig.textinput', 'mjconfig_desktop_url', $MobileJoomla_Settings['desktop_url'], 40)
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__DESKTOP_URL', 'COM_MJ__DESKTOP_URL_DESC', 'desktop_url'),
+							'input_blob' => JHTML::_('mjconfig.textinput', 'desktop_url', $MobileJoomla_Settings['desktop_url'], 40)
 						),
 						array(
-							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__PAGE_FOR_PC', 'COM_MJ__PAGE_FOR_PC_DESC', 'mjconfig_pcpage'),
-							'input_blob' => JHTML::_('mjconfig.textinput', 'mjconfig_pcpage', $MobileJoomla_Settings['pcpage'], 40)
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__PAGE_FOR_PC', 'COM_MJ__PAGE_FOR_PC_DESC', 'pcpage'),
+							'input_blob' => JHTML::_('mjconfig.textinput', 'pcpage', $MobileJoomla_Settings['pcpage'], 40)
 						)
 					),
 					'COM_MJ__IMAGE' => array(
 						array(
-							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__PC_TEMPLATE_WIDTH', 'COM_MJ__PC_TEMPLATE_WIDTH_DESC', 'mjconfig_templatewidth'),
-							'input_blob' => JHTML::_('mjconfig.textinput', 'mjconfig_templatewidth', $MobileJoomla_Settings['templatewidth'], 5, array('style'=>'text-align:right'))
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__PC_TEMPLATE_WIDTH', 'COM_MJ__PC_TEMPLATE_WIDTH_DESC', 'templatewidth'),
+							'input_blob' => JHTML::_('mjconfig.textinput', 'templatewidth', $MobileJoomla_Settings['templatewidth'], 5, array('style'=>'text-align:right'))
 						)
 					)
 				),
 				//right
 				array(
-					'COM_MJ__REDIRECT_TO_DOMAIN'=>array(
+					'COM_MJ__REDIRECT_TO_DOMAIN' => array(
 						array(
-							'label_blob'=>JHTML::_('mjconfig.label','COM_MJ__XHTMLMP_DOMAIN','COM_MJ__DOMAIN_NAME_XHTMLMP_DESC','mjconfig_xhtmldomain'),
-							'input_blob'=>JHTML::_('mjconfig.textinput','mjconfig_xhtmldomain',$MobileJoomla_Settings['xhtmldomain'],40)
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__XHTMLMP_DOMAIN', 'COM_MJ__DOMAIN_NAME_XHTMLMP_DESC', 'xhtml.domain'),
+							'input_blob' => JHTML::_('mjconfig.textinput', 'xhtml.domain', $MobileJoomla_Settings['xhtml.domain'], 40)
 						),
 						array(
-							'label_blob'=>JHTML::_('mjconfig.label','COM_MJ__IPHONE_DOMAIN','COM_MJ__DOMAIN_NAME_IPHONE_DESC','mjconfig_iphonedomain'),
-							'input_blob'=> JHTML::_('mjconfig.textinput','mjconfig_iphonedomain',$MobileJoomla_Settings['iphonedomain'],40)
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__IPHONE_DOMAIN', 'COM_MJ__DOMAIN_NAME_IPHONE_DESC', 'iphone.domain'),
+							'input_blob' => JHTML::_('mjconfig.textinput', 'iphone.domain', $MobileJoomla_Settings['iphone.domain'], 40)
 						),
 						array(
-							'label_blob'=>JHTML::_('mjconfig.label','COM_MJ__WML_DOMAIN','COM_MJ__DOMAIN_NAME_WML_DESC','mjconfig_wapdomain'),
-							'input_blob'=> JHTML::_('mjconfig.textinput','mjconfig_wapdomain',$MobileJoomla_Settings['wapdomain'],40)
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__WML_DOMAIN', 'COM_MJ__DOMAIN_NAME_WML_DESC', 'wml.domain'),
+							'input_blob' => JHTML::_('mjconfig.textinput', 'wml.domain', $MobileJoomla_Settings['wml.domain'], 40)
 						),
 						array(
-							'label_blob'=>JHTML::_('mjconfig.label','COM_MJ__CHTML_DOMAIN','COM_MJ__DOMAIN_NAME_CHTML_DESC','mjconfig_imodedomain'),
-							'input_blob'=> JHTML::_('mjconfig.textinput','mjconfig_imodedomain',$MobileJoomla_Settings['imodedomain'],40)
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__CHTML_DOMAIN', 'COM_MJ__DOMAIN_NAME_CHTML_DESC', 'chtml.domain'),
+							'input_blob' => JHTML::_('mjconfig.textinput', 'chtml.domain', $MobileJoomla_Settings['chtml.domain'], 40)
 						)
 					)
 				)
@@ -533,7 +469,7 @@ class HTML_mobilejoomla
 				{
 					$config_blobs[$device][1]['COM_MJ__TEMPLATE_MODULES'][] = array(
 						'label_blob' => JHTML::_('mjconfig.label', "{$section}_{$i}"),
-						'input_blob' => $lists["tmpl_{$deviceconfig}_{$sectionconfig}{$i}"]
+						'input_blob' => $lists["{$deviceconfig}_{$sectionconfig}{$i}"]
 					);
 				}
 				$config_blobs[$device][1]['COM_MJ__TEMPLATE_MODULES'][] = array();
@@ -543,6 +479,7 @@ class HTML_mobilejoomla
 		
 		$dispatcher =& JDispatcher::getInstance();
 		$dispatcher->trigger('onMJDisplayConfig', array(&$config_blobs));
+
 		include(JPATH_COMPONENT.DS.'admin_tpl'.DS.'config_tabs.php');
 	}
 }

@@ -26,12 +26,15 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 
 	function getContentType()
 	{
-		if($this->config['tmpl_xhtml_contenttype'] == 0)
+		if($this->config['xhtml.contenttype'] == 0)
 			$contenttype = $this->ContentType_Auto();
 		else
 		{
-			$contenttypes = array (1 => 'application/vnd.wap.xhtml+xml', 'application/xhtml+xml', 'text/html', 'text/xhtml');
-			$contenttype = $contenttypes[$this->config['tmpl_xhtml_contenttype']];
+			$contenttypes = array (1 => 'application/vnd.wap.xhtml+xml',
+										'application/xhtml+xml',
+										'text/html',
+										'text/xhtml');
+			$contenttype = $contenttypes[$this->config['xhtml.contenttype']];
 		}
 		$this->contenttype = $contenttype;
 		return $contenttype;
@@ -45,31 +48,39 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 
 	function showXMLheader()
 	{
-		if($this->config['tmpl_xhtml_xmlhead'])
+		if($this->config['xhtml.xmlhead'])
 			echo '<?xml version="1.0" encoding="utf-8" ?>'."\n";
 	}
 
 	function showDocType()
 	{
-		$doctypes = array (1 => '<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD WML 2.0//EN" "http://www.wapforum.org/dtd/wml20.dtd">', '<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">', '<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.1//EN" "http://www.openmobilealliance.org/tech/DTD/xhtml-mobile11.dtd">', '<!DOCTYPE html PUBLIC "-//OMA//DTD XHTML Mobile 1.2//EN" "http://www.openmobilealliance.org/tech/DTD/xhtml-mobile12.dtd">', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.0//EN" "http://www.w3.org/TR/xhtml-basic/xhtml-basic10.dtd">', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.1//EN" "http://www.w3.org/TR/xhtml-basic/xhtml-basic11.dtd">', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">', '<!DOCTYPE HTML SYSTEM "-//W3C//DTD HTML 4.0//EN" "html40-mobile.dtd">');
-		if($this->config['tmpl_xhtml_doctype'])
-			echo $doctypes[$this->config['tmpl_xhtml_doctype']]."\n";
+		$doctypes = array (1 => '<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD WML 2.0//EN" "http://www.wapforum.org/dtd/wml20.dtd">',
+								'<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">',
+								'<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.1//EN" "http://www.openmobilealliance.org/tech/DTD/xhtml-mobile11.dtd">',
+								'<!DOCTYPE html PUBLIC "-//OMA//DTD XHTML Mobile 1.2//EN" "http://www.openmobilealliance.org/tech/DTD/xhtml-mobile12.dtd">',
+								'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.0//EN" "http://www.w3.org/TR/xhtml-basic/xhtml-basic10.dtd">',
+								'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.1//EN" "http://www.w3.org/TR/xhtml-basic/xhtml-basic11.dtd">',
+								'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">',
+								'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">',
+								'<!DOCTYPE HTML SYSTEM "-//W3C//DTD HTML 4.0//EN" "html40-mobile.dtd">');
+		if($this->config['xhtml.doctype'])
+			echo $doctypes[$this->config['xhtml.doctype']]."\n";
 	}
 
 	function getXmlnsString()
 	{
-		if($this->config['tmpl_xhtml_xmlns'])
+		if($this->config['xhtml.xmlns'])
 			return ' xmlns="http://www.w3.org/1999/xhtml"';
 		return '';
 	}
 
 	function showHead()
 	{
-		if($this->config['tmpl_xhtml_simplehead'])
+		if($this->config['xhtml.simplehead'])
 			echo '<title>'.$this->getPageTitle().'</title>'."\n";
 		else
 			echo '<jdoc:include type="head" />';
-		if($this->config['tmpl_xhtml_allowextedit'])
+		if($this->config['xhtml.allowextedit'])
 		{
 			/** @var JUser $user */
 			$user =& JFactory::getUser();
@@ -91,23 +102,23 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 		switch($pos)
 		{
 			case 'header':
-				return $this->config['tmpl_xhtml_header1'];
+				return $this->config['xhtml.header1'];
 			case 'header2':
-				return $this->config['tmpl_xhtml_header2'];
+				return $this->config['xhtml.header2'];
 			case 'header3':
-				return $this->config['tmpl_xhtml_header3'];
+				return $this->config['xhtml.header3'];
 			case 'middle':
-				return $this->config['tmpl_xhtml_middle1'];
+				return $this->config['xhtml.middle1'];
 			case 'middle2':
-				return $this->config['tmpl_xhtml_middle2'];
+				return $this->config['xhtml.middle2'];
 			case 'middle3':
-				return $this->config['tmpl_xhtml_middle3'];
+				return $this->config['xhtml.middle3'];
 			case 'footer':
-				return $this->config['tmpl_xhtml_footer1'];
+				return $this->config['xhtml.footer1'];
 			case 'footer2':
-				return $this->config['tmpl_xhtml_footer2'];
+				return $this->config['xhtml.footer2'];
 			case 'footer3':
-				return $this->config['tmpl_xhtml_footer3'];
+				return $this->config['xhtml.footer3'];
 		}
 		return '';
 	}
@@ -119,20 +130,20 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 
 	function showBreadcrumbs($style='xhtml_m')
 	{
-		if($this->config['tmpl_xhtml_pathway'] && (!$this->_ishomepage || $this->config['tmpl_xhtml_pathwayhome']))
+		if($this->config['xhtml.pathway'] && (!$this->_ishomepage || $this->config['xhtml.pathwayhome']))
 			echo '<jdoc:include type="module" name="breadcrumbs" style="'.$style.'" />';
 	}
 
 	function showComponent()
 	{
-		if(!$this->_ishomepage || $this->config['tmpl_xhtml_componenthome'])
+		if(!$this->_ishomepage || $this->config['xhtml.componenthome'])
 			echo '<jdoc:include type="component" />';
 	}
 
 	function showFooter()
 	{
 		$mainframe =& JFactory::getApplication();
-		if($this->config['tmpl_xhtml_jfooter'])
+		if($this->config['xhtml.jfooter'])
 		{
 			/** @var JLanguage $lang */
 			$lang =& JFactory::getLanguage();
@@ -147,15 +158,15 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 
 	function processPage($text)
 	{
-		if($this->config['tmpl_xhtml_img'] == 1)
+		if($this->config['xhtml.img'] == 1)
 			$text = preg_replace('#<img [^>]+>#is', '', $text);
-		elseif($this->config['tmpl_xhtml_img'] >= 2)
+		elseif($this->config['xhtml.img'] >= 2)
 		{
-			$scaletype = $this->config['tmpl_xhtml_img']-2;
-			$addstyles = $this->config['tmpl_xhtml_img_addstyles'];
+			$scaletype = $this->config['xhtml.img']-2;
+			$addstyles = $this->config['xhtml.img_addstyles'];
 			$text = MobileJoomla::RescaleImages($text, $scaletype, $addstyles);
 		}
-		if($this->config['tmpl_xhtml_removetags'])
+		if($this->config['xhtml.removetags'])
 		{
 			$text = preg_replace('#<iframe\s[^>]+? />#is', '', $text);
 			$text = preg_replace('#<iframe.+?</iframe>#is', '', $text);
@@ -168,13 +179,13 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 /*			$text = preg_replace('#(<.+?)align="center"(.+?>)#is', '\1class="center"\2', $text); // mosimage fix */
 			$text = str_replace('<br>', '<br />', $text); // xml-compatibility
 		}
-		if($this->config['tmpl_xhtml_removescripts'])
+		if($this->config['xhtml.removescripts'])
 		{
 			$text = preg_replace('#<script\s[^>]+? />#is', '', $text);
 			//$text = preg_replace('#<script\s.+?</script>#is', '', $text);
 			$text = preg_replace('#<script([^\'"/>]|"[^"]*?"|\'[^\']*?\')*?>([^\'"/]|"([^"\\\\]|\\\\.)*?"|\'([^\'\\\\]|\\\\.)*?\'|/[^/*]|/\*.*?\*/|//.*?$)*?</script>#ism', '', $text);
 		}
-		if($this->config['tmpl_xhtml_entitydecode'])
+		if($this->config['xhtml.entitydecode'])
 		{
 			$text = strtr($text, array ('&lt;' => '&amp;lt;', '&gt;' => '&amp;gt;', '&amp;' => '&amp;amp;'));
 			$text = html_entity_decode($text, ENT_NOQUOTES, 'UTF-8');
