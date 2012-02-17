@@ -23,8 +23,8 @@ class JMobileMenuHelper
 	function getItems($attributes, $values)
 	{
 		$is_joomla15 = JMobileMenuHelper::_isJoomla15();
-		/** @var JMenuSite $menu */
-		$menu =& JSite::getMenu();
+        $app =& JFactory::getApplication();
+		$menu =& $app->getMenu();
 		if($is_joomla15)
 		{
 			$attribute = array_shift($attributes);
@@ -87,8 +87,8 @@ class JMobileMenuHelper
 		$user = & JFactory::getUser();
 		$aid = $user->get('aid', 0);
 
-		/** @var JMenuSite $sitemenu */
-		$sitemenu =& JSite::getMenu();
+        $app =& JFactory::getApplication();
+        $sitemenu =& $app->getMenu();
 		$router =& JSite::getRouter();
 
 		foreach($menu as $i=>$item)
@@ -175,8 +175,8 @@ class JMobileMenuHelper
 			$markup = 'xhtml';
 		}
 
-		/** @var JMenuSite $sitemenu */
-		$sitemenu =& JSite::getMenu();
+        $app =& JFactory::getApplication();
+        $sitemenu =& $app->getMenu();
 		$active	= $sitemenu->getActive();
 		$active_id = isset($active) ? $active->id : 0;
 

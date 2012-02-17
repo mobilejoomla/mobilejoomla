@@ -34,8 +34,8 @@ if($params->get('layout')=='')
 		$params->set('layout', 'h');
 }
 
-/** @var JMenuSite $sitemenu */
-$sitemenu =& JSite::getMenu();
+$app =& JFactory::getApplication();
+$sitemenu =& $app->getMenu();
 $active	= $sitemenu->getActive();
 
 if(isset($active) && $active->menutype==$params->get('menutype'))

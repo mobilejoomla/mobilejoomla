@@ -288,7 +288,8 @@ class plgSystemMobileBot extends JPlugin
 					$uri->getVar('Itemid') && count($uri->getQuery(true))==2) // check for sh404sef
 			{
 				$itemid = $uri->getVar('Itemid');
-				$menu =& JSite::getMenu();
+                $app =& JFactory::getApplication();
+                $menu =& $app->getMenu();
 				$item = $menu->getItem($itemid);
 				$uri->setQuery($item->query);
 				$uri->setVar('Itemid', $itemid);
@@ -433,6 +434,7 @@ class plgSystemMobileBot extends JPlugin
 		if(isset($current[session_name()]))
 			unset($current[session_name()]);
 
+        $menu =& $mainframe->getMenu();
 		/** @var JMenuSite $menu */
 		$menu =& JSite::getMenu();
 		if($is_joomla15)
