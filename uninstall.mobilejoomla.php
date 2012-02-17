@@ -188,8 +188,10 @@ function UninstallModule($name)
 	return true;
 }
 
-function UpdateConfig()
+function UpdateConfig($prev_version)
 {
+	$upgrade = (boolean)$prev_version;
+
 	$configfile = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php';
 	$defconfigfile = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'defconfig.php';
 
@@ -207,14 +209,6 @@ function UpdateConfig()
 		return false;
 	}
 
-	unset($MobileJoomla_Settings['version']);
-	if(isset($MobileJoomla_Settings['useragent']))
-		unset($MobileJoomla_Settings['useragent']);
-	if(!isset($MobileJoomla_Settings['caching']))
-		$MobileJoomla_Settings['caching'] = 0;
-	if(!isset($MobileJoomla_Settings['httpcaching']))
-		$MobileJoomla_Settings['httpcaching'] = 1;
-
 	$MobileJoomla_Settings['desktop_url'] = JURI::root();
 
 	$parsed = parse_url(JURI::root());
@@ -231,89 +225,151 @@ function UpdateConfig()
 	if(substr($MobileJoomla_Settings['iphonedomain'], -1) == '.')
 		$MobileJoomla_Settings['iphonedomain'] .= $basehost;
 
-	if(!isset($MobileJoomla_Settings['mobile_sitename']) || $MobileJoomla_Settings['mobile_sitename']=='')
-	{
+
+	if(!$upgrade)
+	{ // first install
 		$conf =& JFactory::getConfig();
 		$MobileJoomla_Settings['mobile_sitename'] = $conf->getValue('sitename');
 	}
+	else
+	{ // update from previous version
+		$admin = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS;
 
-	if(!isset($MobileJoomla_Settings['tmpl_xhtml_img_addstyles']))
-		$MobileJoomla_Settings['tmpl_xhtml_img_addstyles'] = 0;
-	if(!isset($MobileJoomla_Settings['tmpl_iphone_img_addstyles']))
-		$MobileJoomla_Settings['tmpl_iphone_img_addstyles'] = 0;
-	
-	if(!isset($MobileJoomla_Settings['tmpl_xhtml_header3']))
-		$MobileJoomla_Settings['tmpl_xhtml_header3'] = 'mj_all_header';
-	if(!isset($MobileJoomla_Settings['tmpl_xhtml_middle3']))
-		$MobileJoomla_Settings['tmpl_xhtml_middle3'] = 'mj_all_middle';
-	if(!isset($MobileJoomla_Settings['tmpl_xhtml_footer3']))
-		$MobileJoomla_Settings['tmpl_xhtml_footer3'] = 'mj_all_footer';
+		if(version_compare('0.9.4', $prev_version, '>'))
+		{
+			$db =& JFactory::getDBO();
+			$query = "DROP TABLE IF EXISTS `#__capability`";
+			$db->setQuery($query);
+			$db->query();
+		}
 
-	if(!isset($MobileJoomla_Settings['tmpl_iphone_header3']))
-		$MobileJoomla_Settings['tmpl_iphone_header3'] = 'mj_all_header';
-	if(!isset($MobileJoomla_Settings['tmpl_iphone_middle3']))
-		$MobileJoomla_Settings['tmpl_iphone_middle3'] = 'mj_all_middle';
-	if(!isset($MobileJoomla_Settings['tmpl_iphone_footer3']))
-		$MobileJoomla_Settings['tmpl_iphone_footer3'] = 'mj_all_footer';
+		if(version_compare('0.9.5', $prev_version, '>'))
+		{
+			unset($MobileJoomla_Settings['useragent']);
+			$MobileJoomla_Settings['caching'] = 0;
 
-	if(isset($MobileJoomla_Settings['tmpl_wap_header']))
-	{
-		$MobileJoomla_Settings['tmpl_wap_header1'] = $MobileJoomla_Settings['tmpl_wap_header'];
-		unset($MobileJoomla_Settings['tmpl_wap_header']);
+			if(JFile::exists($admin.'images'.DS.'update16x16.gif'))
+				JFile::delete($admin.'images'.DS.'update16x16.gif');
+			if(JFile::exists($admin.'images'.DS.'wurfl16x16.gif'))
+				JFile::delete($admin.'images'.DS.'wurfl16x16.gif');
+			if(JFile::exists($admin.'joomla.application.component.view.php'))
+				JFile::delete($admin.'joomla.application.component.view.php');
+			if(JFile::exists($admin.'joomla.application.module.helper.php'))
+				JFile::delete($admin.'joomla.application.module.helper.php');
+			if(JFolder::exists($admin.'languages'))
+				JFolder::delete($admin.'languages');
+			JFile::delete(JFolder::files($admin.'markup','checkmobile_'));
+			if(JFolder::exists($admin.'terawurfl'))
+				JFolder::delete($admin.'terawurfl');
+			if(JFolder::exists($admin.'views'))
+				JFolder::delete($admin.'views');
+			if(JFolder::exists($admin.'wurfl'))
+				JFolder::delete($admin.'wurfl');
+		}
+
+		if(version_compare('0.9.6', $prev_version, '>'))
+		{
+			if(JFolder::exists($admin.'methods'))
+				JFolder::delete($admin.'methods');
+		}
+
+		if(version_compare('0.9.8', $prev_version, '>'))
+		{
+			if(JFile::exists(JPATH_PLUGINS.DS.'mobile'.DS.'webbots.php'))
+				UninstallPlugin('mobile', 'webbots');
+		}
+
+		if(version_compare('0.9.9', $prev_version, '>'))
+		{
+			$conf =& JFactory::getConfig();
+			$MobileJoomla_Settings['mobile_sitename'] = $conf->getValue('sitename');
+			$MobileJoomla_Settings['tmpl_xhtml_img_addstyles'] = 0;
+			$MobileJoomla_Settings['tmpl_iphone_img_addstyles'] = 0;
+		}
+
+		if(version_compare('0.9.10', $prev_version, '>'))
+		{
+			$MobileJoomla_Settings['httpcaching'] = 1;
+
+			$MobileJoomla_Settings['tmpl_xhtml_header3'] = 'mj_all_header';
+			$MobileJoomla_Settings['tmpl_xhtml_middle3'] = 'mj_all_middle';
+			$MobileJoomla_Settings['tmpl_xhtml_footer3'] = 'mj_all_footer';
+
+			$MobileJoomla_Settings['tmpl_iphone_header3'] = 'mj_all_header';
+			$MobileJoomla_Settings['tmpl_iphone_middle3'] = 'mj_all_middle';
+			$MobileJoomla_Settings['tmpl_iphone_footer3'] = 'mj_all_footer';
+
+			$MobileJoomla_Settings['tmpl_imode_header3'] = 'mj_all_header';
+			$MobileJoomla_Settings['tmpl_imode_middle3'] = 'mj_all_middle';
+			$MobileJoomla_Settings['tmpl_imode_footer3'] = 'mj_all_footer';
+
+			$MobileJoomla_Settings['tmpl_wap_header1'] = $MobileJoomla_Settings['tmpl_wap_header'];
+			$MobileJoomla_Settings['tmpl_wap_middle1'] = $MobileJoomla_Settings['tmpl_wap_middle'];
+			$MobileJoomla_Settings['tmpl_wap_footer1'] = $MobileJoomla_Settings['tmpl_wap_footer'];
+			unset($MobileJoomla_Settings['tmpl_wap_header']);
+			unset($MobileJoomla_Settings['tmpl_wap_middle']);
+			unset($MobileJoomla_Settings['tmpl_wap_footer']);
+			$MobileJoomla_Settings['tmpl_wap_header2'] = '';
+			$MobileJoomla_Settings['tmpl_wap_middle2'] = '';
+			$MobileJoomla_Settings['tmpl_wap_footer2'] = '';
+			$MobileJoomla_Settings['tmpl_wap_header3'] = 'mj_all_header';
+			$MobileJoomla_Settings['tmpl_wap_middle3'] = 'mj_all_middle';
+			$MobileJoomla_Settings['tmpl_wap_footer3'] = 'mj_all_footer';
+
+			$MobileJoomla_Settings['iphoneipad'] = 0;
+		}
+
+		if(version_compare('0.9.12', $prev_version, '>'))
+		{
+			$MobileJoomla_Settings['httpcaching'] = 0;
+		}
+
+		if(version_compare('1.0RC6', $prev_version, '>'))
+		{
+			if(JFolder::exists($admin.'extensions'))
+				JFolder::delete($admin.'extensions');
+		}
+
+		if(version_compare('1.0', $prev_version, '>'))
+		{
+			if($MobileJoomla_Settings['iphoneipad'])
+				JError::raiseWarning(0, JText::_('COM_MJ__IPAD_OPTION_UNSUPPORTED'));
+			unset($MobileJoomla_Settings['iphoneipad']);
+			foreach($MobileJoomla_Settings as $param => $value)
+			{
+				if(strpos($param, 'tmpl_wap_')===0)
+				{
+					$renamed = 'tmpl_wml_'.substr($param, 9);
+					$MobileJoomla_Settings[$renamed] = $MobileJoomla_Settings[$param];
+					unset($MobileJoomla_Settings[$param]);
+				}
+				elseif(strpos($param, 'tmpl_imode_')===0)
+				{
+					$renamed = 'tmpl_chtml_'.substr($param, 9);
+					$MobileJoomla_Settings[$renamed] = $MobileJoomla_Settings[$param];
+					unset($MobileJoomla_Settings[$param]);
+				}
+			}
+		}
 	}
-	if(isset($MobileJoomla_Settings['tmpl_wap_middle']))
-	{
-		$MobileJoomla_Settings['tmpl_wap_middle1'] = $MobileJoomla_Settings['tmpl_wap_middle'];
-		unset($MobileJoomla_Settings['tmpl_wap_middle']);
-	}
-	if(isset($MobileJoomla_Settings['tmpl_wap_footer']))
-	{
-		$MobileJoomla_Settings['tmpl_wap_footer1'] = $MobileJoomla_Settings['tmpl_wap_footer'];
-		unset($MobileJoomla_Settings['tmpl_wap_footer']);
-	}
-	if(!isset($MobileJoomla_Settings['tmpl_wap_header2']))
-		$MobileJoomla_Settings['tmpl_wap_header2'] = '';
-	if(!isset($MobileJoomla_Settings['tmpl_wap_middle2']))
-		$MobileJoomla_Settings['tmpl_wap_middle2'] = '';
-	if(!isset($MobileJoomla_Settings['tmpl_wap_footer2']))
-		$MobileJoomla_Settings['tmpl_wap_footer2'] = '';
-	if(!isset($MobileJoomla_Settings['tmpl_wap_header3']))
-		$MobileJoomla_Settings['tmpl_wap_header3'] = 'mj_all_header';
-	if(!isset($MobileJoomla_Settings['tmpl_wap_middle3']))
-		$MobileJoomla_Settings['tmpl_wap_middle3'] = 'mj_all_middle';
-	if(!isset($MobileJoomla_Settings['tmpl_wap_footer3']))
-		$MobileJoomla_Settings['tmpl_wap_footer3'] = 'mj_all_footer';
 
-	if(!isset($MobileJoomla_Settings['tmpl_imode_header3']))
-		$MobileJoomla_Settings['tmpl_imode_header3'] = 'mj_all_header';
-	if(!isset($MobileJoomla_Settings['tmpl_imode_middle3']))
-		$MobileJoomla_Settings['tmpl_imode_middle3'] = 'mj_all_middle';
-	if(!isset($MobileJoomla_Settings['tmpl_imode_footer3']))
-		$MobileJoomla_Settings['tmpl_imode_footer3'] = 'mj_all_footer';
-
+	// check for GD2 library
 	if(!function_exists('imagecopyresized'))
 	{
 		JError::raiseWarning(0, JText::_('COM_MJ__GD2_LIBRARY_IS_NOT_LOADED'));
 		if($MobileJoomla_Settings['tmpl_xhtml_img'] > 1)
 			$MobileJoomla_Settings['tmpl_xhtml_img'] = 1;
-		if($MobileJoomla_Settings['tmpl_wap_img'] > 1)
-			$MobileJoomla_Settings['tmpl_wap_img'] = 1;
-		if($MobileJoomla_Settings['tmpl_imode_img'] > 1)
-			$MobileJoomla_Settings['tmpl_imode_img'] = 1;
+		if($MobileJoomla_Settings['tmpl_wml_img'] > 1)
+			$MobileJoomla_Settings['tmpl_wml_img'] = 1;
+		if($MobileJoomla_Settings['tmpl_chtml_img'] > 1)
+			$MobileJoomla_Settings['tmpl_chtml_img'] = 1;
 		if($MobileJoomla_Settings['tmpl_iphone_img'] > 1)
 			$MobileJoomla_Settings['tmpl_iphone_img'] = 1;
 	}
 
-	$MobileJoomla_Settings['httpcaching'] = 0;
-
-	if(isset($MobileJoomla_Settings['iphoneipad']))
-	{
-		if($MobileJoomla_Settings['iphoneipad'])
-			JError::raiseWarning(0, JText::_('COM_MJ__IPAD_OPTION_UNSUPPORTED'));
-		unset($MobileJoomla_Settings['iphoneipad']);
-	}
-
+	//save config
 	$params = array ();
+	unset($MobileJoomla_Settings['version']);
 	foreach($MobileJoomla_Settings as $param => $value)
 	{
 		if(is_numeric($value))
@@ -651,39 +707,8 @@ function com_install()
 		JFile::move($file, $newfile);
 	}
 
-	if($upgrade && isJoomla15())
-	{
-		$query = "DROP TABLE IF EXISTS `#__capability`";
-		$db->setQuery($query);
-		$db->query();
-		$admin = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS;
-		if(JFile::exists($admin.'images'.DS.'update16x16.gif'))
-			JFile::delete($admin.'images'.DS.'update16x16.gif');
-		if(JFile::exists($admin.'images'.DS.'wurfl16x16.gif'))
-			JFile::delete($admin.'images'.DS.'wurfl16x16.gif');
-		if(JFile::exists($admin.'joomla.application.component.view.php'))
-			JFile::delete($admin.'joomla.application.component.view.php');
-		if(JFile::exists($admin.'joomla.application.module.helper.php'))
-			JFile::delete($admin.'joomla.application.module.helper.php');
-		if(JFolder::exists($admin.'languages'))
-			JFolder::delete($admin.'languages');
-		JFile::delete(JFolder::files($admin.'markup','checkmobile_'));
-		if(JFolder::exists($admin.'methods'))
-			JFolder::delete($admin.'methods');
-		if(JFolder::exists($admin.'terawurfl'))
-			JFolder::delete($admin.'terawurfl');
-		if(JFolder::exists($admin.'views'))
-			JFolder::delete($admin.'views');
-		if(JFolder::exists($admin.'wurfl'))
-			JFolder::delete($admin.'wurfl');
-		if(JFile::exists(JPATH_PLUGINS.DS.'mobile'.DS.'webbots.php'))
-			UninstallPlugin('mobile', 'webbots');
-		if(JFolder::exists($admin.'extensions'))
-			JFolder::delete($admin.'extensions');
-	}
-
-	//update config
-	UpdateConfig();
+	//update config & files
+	UpdateConfig($prev_version);
 
 	// install templates
 	if(!isJoomla15())
