@@ -64,6 +64,17 @@ class MobileJoomla
 		return $instance;
 	}
 
+	function &getToolbar()
+	{
+		static $instance = null;
+		if($instance == null)
+		{
+			include_once dirname(__FILE__).DS.'mjtoolbar.php';
+			$instance = new MJToolbar;
+		}
+		return $instance;
+	}
+
 	function getMarkup()
 	{
 		return '';
