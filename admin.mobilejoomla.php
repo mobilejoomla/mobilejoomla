@@ -121,8 +121,8 @@ function showconfig()
 	$lists['global.removetags'] = JHTML::_('mjconfig.booleanparam', 'global.removetags', $MobileJoomla_Settings);
 	$lists['global.img'] = JHTML::_('mjconfig.listparam', 'global.img', $img, $MobileJoomla_Settings);
 	$lists['global.img_addstyles'] = JHTML::_('mjconfig.booleanparam', 'global.img_addstyles', $MobileJoomla_Settings);
-	//global.homepage
 	$lists['global.componenthome'] = JHTML::_('mjconfig.booleanparam', 'global.componenthome', $MobileJoomla_Settings);
+	$lists['global.gzip'] = JHTML::_('mjconfig.radioparam', 'global.gzip', $gzip, $MobileJoomla_Settings);
 	
 	//Plugin settings
 	$lists['caching'] = JHTML::_('mjconfig.radioparam', 'caching', $caching, $MobileJoomla_Settings);
