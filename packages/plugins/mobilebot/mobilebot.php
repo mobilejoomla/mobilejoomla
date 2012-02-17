@@ -179,8 +179,8 @@ class plgSystemMobileBot extends JPlugin
 		}
 		if(count($MobileJoomla_Device['imageformats']) == 0)
 		{
-			$MobileJoomla_Settings['tmpl_wap_img'] = 1;
-			$MobileJoomla_Settings['tmpl_imode_img'] = 1;
+			$MobileJoomla_Settings['tmpl_wml_img'] = 1;
+			$MobileJoomla_Settings['tmpl_chtml_img'] = 1;
 			$MobileJoomla_Settings['tmpl_xhtml_img'] = 1;
 			$MobileJoomla_Settings['tmpl_iphone_img'] = 1;
 		}

@@ -636,7 +636,7 @@ fieldset.adminform label {
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__IMAGE_ADAPTATION_METHOD'); ?>::<?php echo JText::_('COM_MJ__IMAGE_ADAPTATION_METHOD_DESC'); ?>"><?php echo JText::_('COM_MJ__IMAGE_ADAPTATION_METHOD'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_wap_img']; ?></td>
+					<td><?php echo $lists['tmpl_wml_img']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><?php echo JText::_('COM_MJ__GZIP_COMPRESSION'); ?></td>
@@ -644,17 +644,17 @@ fieldset.adminform label {
 				</tr>
 				<tr>
 					<td class="key"><?php echo JText::_('COM_MJ__REMOVE_UNSUPPORTED_TAGS'); ?></td>
-					<td><?php echo $lists['tmpl_wap_removetags']; ?></td>
+					<td><?php echo $lists['tmpl_wml_removetags']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__CONVERT_HTMLENTITIES'); ?>::<?php echo JText::_('COM_MJ__CONVERT_HTMLENTITIES_DESC'); ?>"><?php echo JText::_('COM_MJ__CONVERT_HTMLENTITIES'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_wap_entitydecode']; ?></td>
+					<td><?php echo $lists['tmpl_wml_entitydecode']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><?php echo JText::_('COM_MJ__DOCTYPE_HEAD'); ?></td>
-					<td><?php echo $lists['tmpl_wap_doctype']; ?></td>
+					<td><?php echo $lists['tmpl_wml_doctype']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
@@ -675,85 +675,85 @@ fieldset.adminform label {
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__MODULE_ABOVE_PATHWAY_1'); ?>::<?php echo JText::_('COM_MJ__MODULE_ABOVE_PATHWAY_1_DESC'); ?>"><?php echo JText::_('COM_MJ__MODULE_ABOVE_PATHWAY_1'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_wap_header1']; ?></td>
+					<td><?php echo $lists['tmpl_wml_header1']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__MODULE_ABOVE_PATHWAY_2'); ?>::<?php echo JText::_('COM_MJ__MODULE_ABOVE_PATHWAY_2_DESC'); ?>"><?php echo JText::_('COM_MJ__MODULE_ABOVE_PATHWAY_2'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_wap_header2']; ?></td>
+					<td><?php echo $lists['tmpl_wml_header2']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__MODULE_ABOVE_PATHWAY_3'); ?>::<?php echo JText::_('COM_MJ__MODULE_ABOVE_PATHWAY_3_DESC'); ?>"><?php echo JText::_('COM_MJ__MODULE_ABOVE_PATHWAY_3'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_wap_header3']; ?></td>
+					<td><?php echo $lists['tmpl_wml_header3']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__SHOW_PATHWAY'); ?>::<?php echo JText::_('COM_MJ__SHOW_PATHWAY_DESC'); ?>"><?php echo JText::_('COM_MJ__SHOW_PATHWAY'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_wap_pathway']; ?></td>
+					<td><?php echo $lists['tmpl_wml_pathway']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__PATHWAY_ON_HOMEPAGE'); ?>::<?php echo JText::_('COM_MJ__PATHWAY_ON_HOMEPAGE_DESC'); ?>"><?php echo JText::_('COM_MJ__PATHWAY_ON_HOMEPAGE'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_wap_pathwayhome']; ?></td>
+					<td><?php echo $lists['tmpl_wml_pathwayhome']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__MODULE_BETWEEN_PATHWAY_COMPONENT_1'); ?>::<?php echo JText::_('COM_MJ__MODULE_BETWEEN_PATHWAY_COMPONENT_1_DESC'); ?>"><?php echo JText::_('COM_MJ__MODULE_BETWEEN_PATHWAY_COMPONENT_1'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_wap_middle1']; ?></td>
+					<td><?php echo $lists['tmpl_wml_middle1']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__MODULE_BETWEEN_PATHWAY_COMPONENT_2'); ?>::<?php echo JText::_('COM_MJ__MODULE_BETWEEN_PATHWAY_COMPONENT_2_DESC'); ?>"><?php echo JText::_('COM_MJ__MODULE_BETWEEN_PATHWAY_COMPONENT_2'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_wap_middle2']; ?></td>
+					<td><?php echo $lists['tmpl_wml_middle2']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__MODULE_BETWEEN_PATHWAY_COMPONENT_3'); ?>::<?php echo JText::_('COM_MJ__MODULE_BETWEEN_PATHWAY_COMPONENT_3_DESC'); ?>"><?php echo JText::_('COM_MJ__MODULE_BETWEEN_PATHWAY_COMPONENT_3'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_wap_middle3']; ?></td>
+					<td><?php echo $lists['tmpl_wml_middle3']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__COMPONENT_ON_HOMEPAGE'); ?>::<?php echo JText::_('COM_MJ__COMPONENT_ON_HOMEPAGE_DESC'); ?>"><?php echo JText::_('COM_MJ__COMPONENT_ON_HOMEPAGE'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_wap_componenthome']; ?></td>
+					<td><?php echo $lists['tmpl_wml_componenthome']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__MODULE_BELOW_COMPONENT_1'); ?>::<?php echo JText::_('COM_MJ__MODULE_BELOW_COMPONENT_1_DESC'); ?>"><?php echo JText::_('COM_MJ__MODULE_BELOW_COMPONENT_1'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_wap_footer1']; ?></td>
+					<td><?php echo $lists['tmpl_wml_footer1']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__MODULE_BELOW_COMPONENT_2'); ?>::<?php echo JText::_('COM_MJ__MODULE_BELOW_COMPONENT_2_DESC'); ?>"><?php echo JText::_('COM_MJ__MODULE_BELOW_COMPONENT_2'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_wap_footer2']; ?></td>
+					<td><?php echo $lists['tmpl_wml_footer2']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__MODULE_BELOW_COMPONENT_3'); ?>::<?php echo JText::_('COM_MJ__MODULE_BELOW_COMPONENT_3_DESC'); ?>"><?php echo JText::_('COM_MJ__MODULE_BELOW_COMPONENT_3'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_wap_footer3']; ?></td>
+					<td><?php echo $lists['tmpl_wml_footer3']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__SHOW_JOOMLA_FOOTER'); ?>::<?php echo JText::_('COM_MJ__SHOW_JOOMLA_FOOTER_DESC'); ?>"><?php echo JText::_('COM_MJ__SHOW_JOOMLA_FOOTER'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_wap_jfooter']; ?></td>
+					<td><?php echo $lists['tmpl_wml_jfooter']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__MODULE_WMLCARDS'); ?>::<?php echo JText::_('COM_MJ__MODULE_WMLCARDS_DESC'); ?>"><?php echo JText::_('COM_MJ__MODULE_WMLCARDS'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_wap_cards']; ?></td>
+					<td><?php echo $lists['tmpl_wml_cards']; ?></td>
 				</tr>
 				</tbody>
 			</table>
@@ -786,7 +786,7 @@ fieldset.adminform label {
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__IMAGE_ADAPTATION_METHOD'); ?>::<?php echo JText::_('COM_MJ__IMAGE_ADAPTATION_METHOD_DESC'); ?>"><?php echo JText::_('COM_MJ__IMAGE_ADAPTATION_METHOD'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_imode_img']; ?></td>
+					<td><?php echo $lists['tmpl_chtml_img']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><?php echo JText::_('COM_MJ__GZIP_COMPRESSION'); ?></td>
@@ -794,13 +794,13 @@ fieldset.adminform label {
 				</tr>
 				<tr>
 					<td class="key"><?php echo JText::_('COM_MJ__REMOVE_UNSUPPORTED_TAGS'); ?></td>
-					<td><?php echo $lists['tmpl_imode_removetags']; ?></td>
+					<td><?php echo $lists['tmpl_chtml_removetags']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__CONVERT_HTMLENTITIES'); ?>::<?php echo JText::_('COM_MJ__CONVERT_HTMLENTITIES_DESC'); ?>"><?php echo JText::_('COM_MJ__CONVERT_HTMLENTITIES'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_imode_entitydecode']; ?></td>
+					<td><?php echo $lists['tmpl_chtml_entitydecode']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
@@ -821,83 +821,83 @@ fieldset.adminform label {
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__MODULE_ABOVE_PATHWAY_1'); ?>::<?php echo JText::_('COM_MJ__MODULE_ABOVE_PATHWAY_1_DESC'); ?>"><?php echo JText::_('COM_MJ__MODULE_ABOVE_PATHWAY_1'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_imode_header1']; ?></td>
+					<td><?php echo $lists['tmpl_chtml_header1']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__MODULE_ABOVE_PATHWAY_2'); ?>::<?php echo JText::_('COM_MJ__MODULE_ABOVE_PATHWAY_2_DESC'); ?>"><?php echo JText::_('COM_MJ__MODULE_ABOVE_PATHWAY_2'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_imode_header2']; ?></td>
+					<td><?php echo $lists['tmpl_chtml_header2']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__MODULE_ABOVE_PATHWAY_3'); ?>::<?php echo JText::_('COM_MJ__MODULE_ABOVE_PATHWAY_3_DESC'); ?>"><?php echo JText::_('COM_MJ__MODULE_ABOVE_PATHWAY_3'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_imode_header3']; ?></td>
+					<td><?php echo $lists['tmpl_chtml_header3']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__SHOW_PATHWAY'); ?>::<?php echo JText::_('COM_MJ__SHOW_PATHWAY_DESC'); ?>"><?php echo JText::_('COM_MJ__SHOW_PATHWAY'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_imode_pathway']; ?></td>
+					<td><?php echo $lists['tmpl_chtml_pathway']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__PATHWAY_ON_HOMEPAGE'); ?>::<?php echo JText::_('COM_MJ__PATHWAY_ON_HOMEPAGE_DESC'); ?>"><?php echo JText::_('COM_MJ__PATHWAY_ON_HOMEPAGE'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_imode_pathwayhome']; ?></td>
+					<td><?php echo $lists['tmpl_chtml_pathwayhome']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__MODULE_BETWEEN_PATHWAY_COMPONENT_1'); ?>::<?php echo JText::_('COM_MJ__MODULE_BETWEEN_PATHWAY_COMPONENT_1_DESC'); ?>"><?php echo JText::_('COM_MJ__MODULE_BETWEEN_PATHWAY_COMPONENT_1'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_imode_middle1']; ?></td>
+					<td><?php echo $lists['tmpl_chtml_middle1']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__MODULE_BETWEEN_PATHWAY_COMPONENT_2'); ?>::<?php echo JText::_('COM_MJ__MODULE_BETWEEN_PATHWAY_COMPONENT_2_DESC'); ?>"><?php echo JText::_('COM_MJ__MODULE_BETWEEN_PATHWAY_COMPONENT_2'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_imode_middle2']; ?></td>
+					<td><?php echo $lists['tmpl_chtml_middle2']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__MODULE_BETWEEN_PATHWAY_COMPONENT_3'); ?>::<?php echo JText::_('COM_MJ__MODULE_BETWEEN_PATHWAY_COMPONENT_3_DESC'); ?>"><?php echo JText::_('COM_MJ__MODULE_BETWEEN_PATHWAY_COMPONENT_3'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_imode_middle3']; ?></td>
+					<td><?php echo $lists['tmpl_chtml_middle3']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__COMPONENT_ON_HOMEPAGE'); ?>::<?php echo JText::_('COM_MJ__COMPONENT_ON_HOMEPAGE_DESC'); ?>"><?php echo JText::_('COM_MJ__COMPONENT_ON_HOMEPAGE'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_imode_componenthome']; ?></td>
+					<td><?php echo $lists['tmpl_chtml_componenthome']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__MODULE_BELOW_COMPONENT_1'); ?>::<?php echo JText::_('COM_MJ__MODULE_BELOW_COMPONENT_1_DESC'); ?>"><?php echo JText::_('COM_MJ__MODULE_BELOW_COMPONENT_1'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_imode_footer1']; ?></td>
+					<td><?php echo $lists['tmpl_chtml_footer1']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__MODULE_BELOW_COMPONENT_2'); ?>::<?php echo JText::_('COM_MJ__MODULE_BELOW_COMPONENT_2_DESC'); ?>"><?php echo JText::_('COM_MJ__MODULE_BELOW_COMPONENT_2'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_imode_footer2']; ?></td>
+					<td><?php echo $lists['tmpl_chtml_footer2']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__MODULE_BELOW_COMPONENT_3'); ?>::<?php echo JText::_('COM_MJ__MODULE_BELOW_COMPONENT_3_DESC'); ?>"><?php echo JText::_('COM_MJ__MODULE_BELOW_COMPONENT_3'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_imode_footer3']; ?></td>
+					<td><?php echo $lists['tmpl_chtml_footer3']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><span class="editlinktip hasTip"
 					                      title="<?php echo JText::_('COM_MJ__SHOW_JOOMLA_FOOTER'); ?>::<?php echo JText::_('COM_MJ__SHOW_JOOMLA_FOOTER_DESC'); ?>"><?php echo JText::_('COM_MJ__SHOW_JOOMLA_FOOTER'); ?></span>
 					</td>
-					<td><?php echo $lists['tmpl_imode_jfooter']; ?></td>
+					<td><?php echo $lists['tmpl_chtml_jfooter']; ?></td>
 				</tr>
 				<tr>
 					<td class="key"><?php echo JText::_('COM_MJ__DOCTYPE_HEAD'); ?></td>
-					<td><?php echo $lists['tmpl_imode_doctype']; ?></td>
+					<td><?php echo $lists['tmpl_chtml_doctype']; ?></td>
 				</tr>
 				</tbody>
 			</table>
