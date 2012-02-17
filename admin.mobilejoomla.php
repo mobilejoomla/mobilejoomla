@@ -130,22 +130,22 @@ function showconfig()
 	$lists['domains'] = JHTML::_('mjconfig.booleanparam', 'domains', $MobileJoomla_Settings);
 
 	//XHTML/WAP2.0 devices
-	$lists['xhtml.template'] = JHTML::_('mjconfig.selectarray', 'xhtml.template', $templates, $MobileJoomla_Settings);
+	$lists['xhtml.template'] = JHTML::_('mjconfig.templateparam', 'xhtml.template', $templates, $MobileJoomla_Settings);
 	$lists['xhtml.gzip'] = JHTML::_('mjconfig.radioparam', 'xhtml.gzip', $gzip, $MobileJoomla_Settings);
 	$lists['xhtml.redirect'] = JHTML::_('mjconfig.booleanparam', 'xhtml.redirect', $MobileJoomla_Settings);
 
 	//WAP devices
-	$lists['wml.template'] = JHTML::_('mjconfig.selectarray', 'wml.template', $templates, $MobileJoomla_Settings);
+	$lists['wml.template'] = JHTML::_('mjconfig.templateparam', 'wml.template', $templates, $MobileJoomla_Settings);
 	$lists['wml.gzip'] = JHTML::_('mjconfig.radioparam', 'wml.gzip', $gzip, $MobileJoomla_Settings);
 	$lists['wml.redirect'] = JHTML::_('mjconfig.booleanparam', 'wml.redirect', $MobileJoomla_Settings);
 
 	//IMODE devices
-	$lists['chtml.template'] = JHTML::_('mjconfig.selectarray', 'chtml.template', $templates, $MobileJoomla_Settings);
+	$lists['chtml.template'] = JHTML::_('mjconfig.templateparam', 'chtml.template', $templates, $MobileJoomla_Settings);
 	$lists['chtml.gzip'] = JHTML::_('mjconfig.radioparam', 'chtml.gzip', $gzip, $MobileJoomla_Settings);
 	$lists['chtml.redirect'] = JHTML::_('mjconfig.booleanparam', 'chtml.redirect', $MobileJoomla_Settings);
 
 	//iPhone/iPod devices
-	$lists['iphone.template'] = JHTML::_('mjconfig.selectarray', 'iphone.template', $templates, $MobileJoomla_Settings);
+	$lists['iphone.template'] = JHTML::_('mjconfig.templateparam', 'iphone.template', $templates, $MobileJoomla_Settings);
 	$lists['iphone.gzip'] = JHTML::_('mjconfig.radioparam', 'iphone.gzip', $gzip, $MobileJoomla_Settings);
 	$lists['iphone.redirect'] = JHTML::_('mjconfig.booleanparam', 'iphone.redirect', $MobileJoomla_Settings);
 
