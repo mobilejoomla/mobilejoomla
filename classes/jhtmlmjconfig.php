@@ -103,8 +103,10 @@ class JHTMLMjconfig
 		return $html;
 	}
 
-	function menuList($menuoptions, $name, $value)
+	function menuList($menuoptions, $param_name, $value)
 	{
+		$name = JHTMLMjconfig::formName($param_name);
+
 		static $is_joomla15;
 		if(!isset($is_joomla15))
 			$is_joomla15 = (substr(JVERSION,0,3) == '1.5');
