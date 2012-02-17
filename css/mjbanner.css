@@ -1,0 +1,38 @@
+#mjupdate
+{
+    display: none;
+}
+
+#mjupdate h2
+{
+    margin:0 0 0.5em;
+}
+
+
+dd.banner #mjupdate{
+    background: url("../images/warning.png") no-repeat scroll 10px 50% #FDFBB9;
+    font-weight: bold;
+    border-top: 3px solid  #FBA;
+    border-bottom: 3px solid  #FBA;
+    line-height: 100%;
+    padding: 10px 10px 10px 48px;
+    text-align: left;
+}
+
+#system-message dt.banner
+{
+    display:none;
+}
+
+#system-message dd.banner
+{
+    text-indent: inherit;
+}
+
+#system-message dd.banner ul
+{
+    color:inherit;
+    padding:0;
+    border:none;
+    background:none;
+}

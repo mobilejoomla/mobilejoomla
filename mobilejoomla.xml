@@ -15,10 +15,6 @@
 	</files>
 	<administration>
 		<menu img="components/com_mobilejoomla/images/mj16x16.gif">MobileJoomla</menu>
-		<submenu>
-			<menu task="settings" img="class:config">Settings</menu>
-			<menu task="about" img="class:info">About</menu>
-		</submenu>
 		<languages>
 			<language tag="en-GB">en-GB.com_mobilejoomla.ini</language>
 			<language tag="en-GB">en-GB.com_mobilejoomla.sys.ini</language>
@@ -36,13 +32,20 @@
 			<filename>uninstall.mobilejoomla.php</filename>
 			<filename>access.xml</filename>
 			<filename>config.xml</filename>
+			<folder>admin_tpl</folder>
 			<folder>cachestorage</folder>
 			<folder>classes</folder>
+			<folder>css</folder>
 			<folder>images</folder>
+			<folder>js</folder>
 			<folder>markup</folder>
 			<folder>packages</folder>
 		</files>
 	</administration>
 	<installfile>uninstall.mobilejoomla.php</installfile>
 	<uninstallfile>uninstall.mobilejoomla.php</uninstallfile>
+	<updateservers>
+		<server type="collection">http://www.mobilejoomla.com/updates/list.xml</server>
+		<server type="extension" priority="2" name="Mobile Joomla Updates">http://www.mobilejoomla.com/updates/com_mobilejoomla.xml</server>
+	</updateservers>
 </install>

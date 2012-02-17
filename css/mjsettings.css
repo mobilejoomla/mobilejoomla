@@ -1,0 +1,81 @@
+#adminForm table
+{
+	width:100%;
+}
+
+#adminForm p{
+	margin:0;
+	padding:0;
+}
+
+#adminForm td,
+#adminForm th
+{
+	padding:0.5em 0;
+}
+
+#adminForm td label
+{
+	min-width: 5em;
+	float:none;
+	margin-right:2em;
+	display:inline-block;
+}
+
+#adminForm th
+{
+	width:18em;
+	text-align:left;
+	font-weight:normal;
+}
+
+.fltrt {
+	float:right;
+}
+.fltlft {
+	float:left;
+}
+
+#adminForm fieldset
+{
+	padding-left:1.5em;
+}
+
+#adminForm fieldset input,
+#adminForm fieldset textarea,
+#adminForm fieldset select,
+#adminForm fieldset img,
+#adminForm fieldset button
+{
+	float:none;
+	vertical-align:text-bottom;
+	margin:0;
+}
+
+#adminForm .inputradio
+{
+	border:none;
+}
+
+#mjconfig_jpegquality_slider
+{
+	display:inline-block;
+	height:0.6em;
+	width:15em;
+	background:#666;
+	border-radius:0.3em;
+	overflow:visible;
+	margin:0 2em 0 0;
+	vertical-align:text-top;
+}
+
+#mjconfig_jpegquality_knob
+{
+	display:block;
+	width:1.2em;
+	height:1.2em;
+	background:#fff;
+	border:0.1em solid #666;
+	border-radius:0.7em;
+	margin-top:-0.4em;
+}

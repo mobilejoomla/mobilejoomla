@@ -29,9 +29,6 @@ switch($task)
 	case 'cancel':
 		$mainframe->redirect('index.php');
 		break;
-	case 'about':
-		showabout();
-		break;
 	case 'update':
 		update();
 		break;
@@ -105,74 +102,74 @@ function showconfig()
 	//Plugin settings
 	$caching = array (JHTML::_('select.option', 0, JText::_('COM_MJ__DISABLE')),
 					  JHTML::_('select.option', 1, JText::_('COM_MJ__GLOBAL')));
-	$lists['caching'] = JHTML::_('select.radiolist', $caching, 'mjconfig_caching', 'class="inputbox"', 'value', 'text', $MobileJoomla_Settings['caching']);
+	$lists['caching'] = JHTML::_('select.radiolist', $caching, 'mjconfig_caching', 'class="inputradio"', 'value', 'text', $MobileJoomla_Settings['caching']);
 
 	$httpcaching = array (JHTML::_('select.option', 0, JText::_('COM_MJ__DISABLE')),
 						  JHTML::_('select.option', 1, JText::_('COM_MJ__ENABLE')));
-	$lists['httpcaching'] = JHTML::_('select.radiolist', $httpcaching, 'mjconfig_httpcaching', 'class="inputbox"', 'value', 'text', $MobileJoomla_Settings['httpcaching']);
+	$lists['httpcaching'] = JHTML::_('select.radiolist', $httpcaching, 'mjconfig_httpcaching', 'class="inputradio"', 'value', 'text', $MobileJoomla_Settings['httpcaching']);
 
-	$lists['domains'] = JHTML::_('select.booleanlist', 'mjconfig_domains', 'class="inputbox"', $MobileJoomla_Settings['domains']);
+	$lists['domains'] = JHTML::_('select.booleanlist', 'mjconfig_domains', 'class="inputradio"', $MobileJoomla_Settings['domains']);
 
 	//XHTML/WAP2.0 devices
 	$lists['xhtmltemplate'] = selectArray($templates, 'mjconfig_xhtmltemplate', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['xhtmltemplate']);
 
 	$gzip = array (JHTML::_('select.option', 0, JText::_('COM_MJ__NO')),
 	               JHTML::_('select.option', 1, JText::_('COM_MJ__AUTO')));
-	$lists['xhtmlgzip'] = JHTML::_('select.radiolist', $gzip, 'mjconfig_xhtmlgzip', 'class="inputbox"', 'value', 'text', $MobileJoomla_Settings['xhtmlgzip']);
+	$lists['xhtmlgzip'] = JHTML::_('select.radiolist', $gzip, 'mjconfig_xhtmlgzip', 'class="inputradio"', 'value', 'text', $MobileJoomla_Settings['xhtmlgzip']);
 
-	$lists['xhtmlredirect'] = JHTML::_('select.booleanlist', 'mjconfig_xhtmlredirect', 'class="inputbox"', $MobileJoomla_Settings['xhtmlredirect']);
+	$lists['xhtmlredirect'] = JHTML::_('select.booleanlist', 'mjconfig_xhtmlredirect', 'class="inputradio"', $MobileJoomla_Settings['xhtmlredirect']);
 
 	//WAP devices
 	$lists['waptemplate'] = selectArray($templates, 'mjconfig_waptemplate', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['waptemplate']);
 
-	$lists['wapgzip'] = JHTML::_('select.radiolist', $gzip, 'mjconfig_wapgzip', 'class="inputbox"', 'value', 'text', $MobileJoomla_Settings['wapgzip']);
+	$lists['wapgzip'] = JHTML::_('select.radiolist', $gzip, 'mjconfig_wapgzip', 'class="inputradio"', 'value', 'text', $MobileJoomla_Settings['wapgzip']);
 
-	$lists['wapredirect'] = JHTML::_('select.booleanlist', 'mjconfig_wapredirect', 'class="inputbox"', $MobileJoomla_Settings['wapredirect']);
+	$lists['wapredirect'] = JHTML::_('select.booleanlist', 'mjconfig_wapredirect', 'class="inputradio"', $MobileJoomla_Settings['wapredirect']);
 
 	//IMODE devices
 	$lists['imodetemplate'] = selectArray($templates, 'mjconfig_imodetemplate', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['imodetemplate']);
 
-	$lists['imodegzip'] = JHTML::_('select.radiolist', $gzip, 'mjconfig_imodegzip', 'class="inputbox"', 'value', 'text', $MobileJoomla_Settings['imodegzip']);
+	$lists['imodegzip'] = JHTML::_('select.radiolist', $gzip, 'mjconfig_imodegzip', 'class="inputradio"', 'value', 'text', $MobileJoomla_Settings['imodegzip']);
 
-	$lists['imoderedirect'] = JHTML::_('select.booleanlist', 'mjconfig_imoderedirect', 'class="inputbox"', $MobileJoomla_Settings['imoderedirect']);
+	$lists['imoderedirect'] = JHTML::_('select.booleanlist', 'mjconfig_imoderedirect', 'class="inputradio"', $MobileJoomla_Settings['imoderedirect']);
 
 	//iPhone/iPod devices
 	$lists['iphonetemplate'] = selectArray($templates, 'mjconfig_iphonetemplate', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['iphonetemplate']);
 
-	$lists['iphonegzip'] = JHTML::_('select.radiolist', $gzip, 'mjconfig_iphonegzip', 'class="inputbox"', 'value', 'text', $MobileJoomla_Settings['iphonegzip']);
+	$lists['iphonegzip'] = JHTML::_('select.radiolist', $gzip, 'mjconfig_iphonegzip', 'class="inputradio"', 'value', 'text', $MobileJoomla_Settings['iphonegzip']);
 
-	$lists['iphoneredirect'] = JHTML::_('select.booleanlist', 'mjconfig_iphoneredirect', 'class="inputbox"', $MobileJoomla_Settings['iphoneredirect']);
+	$lists['iphoneredirect'] = JHTML::_('select.booleanlist', 'mjconfig_iphoneredirect', 'class="inputradio"', $MobileJoomla_Settings['iphoneredirect']);
 
 	//mobile_pda template setting
 	$lists['tmpl_xhtml_header1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_xhtml_header1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_xhtml_header1']);
 	$lists['tmpl_xhtml_header2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_xhtml_header2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_xhtml_header2']);
 	$lists['tmpl_xhtml_header3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_xhtml_header3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_xhtml_header3']);
 
-	$lists['tmpl_xhtml_pathway'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_pathway', 'class="inputbox"', $MobileJoomla_Settings['tmpl_xhtml_pathway']);
+	$lists['tmpl_xhtml_pathway'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_pathway', 'class="inputradio"', $MobileJoomla_Settings['tmpl_xhtml_pathway']);
 
-	$lists['tmpl_xhtml_pathwayhome'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_pathwayhome', 'class="inputbox"', $MobileJoomla_Settings['tmpl_xhtml_pathwayhome']);
+	$lists['tmpl_xhtml_pathwayhome'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_pathwayhome', 'class="inputradio"', $MobileJoomla_Settings['tmpl_xhtml_pathwayhome']);
 
 	$lists['tmpl_xhtml_middle1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_xhtml_middle1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_xhtml_middle1']);
 	$lists['tmpl_xhtml_middle2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_xhtml_middle2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_xhtml_middle2']);
 	$lists['tmpl_xhtml_middle3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_xhtml_middle3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_xhtml_middle3']);
 
-	$lists['tmpl_xhtml_componenthome'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_componenthome', 'class="inputbox"', $MobileJoomla_Settings['tmpl_xhtml_componenthome']);
+	$lists['tmpl_xhtml_componenthome'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_componenthome', 'class="inputradio"', $MobileJoomla_Settings['tmpl_xhtml_componenthome']);
 
 	$lists['tmpl_xhtml_footer1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_xhtml_footer1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_xhtml_footer1']);
 	$lists['tmpl_xhtml_footer2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_xhtml_footer2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_xhtml_footer2']);
 	$lists['tmpl_xhtml_footer3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_xhtml_footer3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_xhtml_footer3']);
 
-	$lists['tmpl_xhtml_jfooter'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_jfooter', 'class="inputbox"', $MobileJoomla_Settings['tmpl_xhtml_jfooter']);
+	$lists['tmpl_xhtml_jfooter'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_jfooter', 'class="inputradio"', $MobileJoomla_Settings['tmpl_xhtml_jfooter']);
 
 	$simplehead = array (JHTML::_('select.option', 0, JText::_('COM_MJ__HEAD_STANDARD')),
 	                     JHTML::_('select.option', 1, JText::_('COM_MJ__HEAD_SIMPLIFIED')));
 	$lists['tmpl_xhtml_simplehead'] = JHTML::_('select.genericlist', $simplehead, 'mjconfig_tmpl_xhtml_simplehead', 'class="inputbox" size="1"', 'value', 'text', $MobileJoomla_Settings['tmpl_xhtml_simplehead']);
 
-	$lists['tmpl_xhtml_allowextedit'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_allowextedit', 'class="inputbox"', $MobileJoomla_Settings['tmpl_xhtml_allowextedit']);
+	$lists['tmpl_xhtml_allowextedit'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_allowextedit', 'class="inputradio"', $MobileJoomla_Settings['tmpl_xhtml_allowextedit']);
 
-	$lists['tmpl_xhtml_removetags'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_removetags', 'class="inputbox"', $MobileJoomla_Settings['tmpl_xhtml_removetags']);
+	$lists['tmpl_xhtml_removetags'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_removetags', 'class="inputradio"', $MobileJoomla_Settings['tmpl_xhtml_removetags']);
 
-	$lists['tmpl_xhtml_removescripts'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_removescripts', 'class="inputbox"', $MobileJoomla_Settings['tmpl_xhtml_removescripts']);
+	$lists['tmpl_xhtml_removescripts'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_removescripts', 'class="inputradio"', $MobileJoomla_Settings['tmpl_xhtml_removescripts']);
 
 	$img = array (JHTML::_('select.option', 0, JText::_('COM_MJ__IMG_DONT_RESCALE')),
 	              JHTML::_('select.option', 1, JText::_('COM_MJ__IMG_REMOVE_ALL')),
@@ -180,11 +177,11 @@ function showconfig()
 	              JHTML::_('select.option', 3, JText::_('COM_MJ__IMG_FIXED_RESCALE_RATIO')));
 	$lists['tmpl_xhtml_img'] = JHTML::_('select.genericlist', $img, 'mjconfig_tmpl_xhtml_img', 'class="inputbox" size="1"', 'value', 'text', $MobileJoomla_Settings['tmpl_xhtml_img']);
 
-	$lists['tmpl_xhtml_img_addstyles'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_img_addstyles', 'class="inputbox"', $MobileJoomla_Settings['tmpl_xhtml_img_addstyles']);
+	$lists['tmpl_xhtml_img_addstyles'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_img_addstyles', 'class="inputradio"', $MobileJoomla_Settings['tmpl_xhtml_img_addstyles']);
 
-	$lists['tmpl_xhtml_entitydecode'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_entitydecode', 'class="inputbox"', $MobileJoomla_Settings['tmpl_xhtml_entitydecode']);
+	$lists['tmpl_xhtml_entitydecode'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_entitydecode', 'class="inputradio"', $MobileJoomla_Settings['tmpl_xhtml_entitydecode']);
 
-	$lists['tmpl_xhtml_embedcss'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_embedcss', 'class="inputbox"', $MobileJoomla_Settings['tmpl_xhtml_embedcss']);
+	$lists['tmpl_xhtml_embedcss'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_embedcss', 'class="inputradio"', $MobileJoomla_Settings['tmpl_xhtml_embedcss']);
 
 	$contenttype = array (JHTML::_('select.option', 0, JText::_('COM_MJ__AUTO')),
 	                      JHTML::_('select.option', 1, 'application/vnd.wap.xhtml+xml'),
@@ -193,7 +190,7 @@ function showconfig()
 	                      JHTML::_('select.option', 4, 'text/xhtml'));
 	$lists['tmpl_xhtml_contenttype'] = JHTML::_('select.genericlist', $contenttype, 'mjconfig_tmpl_xhtml_contenttype', 'class="inputbox" size="1"', 'value', 'text', $MobileJoomla_Settings['tmpl_xhtml_contenttype']);
 
-	$lists['tmpl_xhtml_xmlhead'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_xmlhead', 'class="inputbox"', $MobileJoomla_Settings['tmpl_xhtml_xmlhead']);
+	$lists['tmpl_xhtml_xmlhead'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_xmlhead', 'class="inputradio"', $MobileJoomla_Settings['tmpl_xhtml_xmlhead']);
 
 	$xhtmldoctype = array (JHTML::_('select.option', 0, JText::_('COM_MJ__NONE')),
 	                       JHTML::_('select.option', 1, 'WAPFORUM/WML2.0'),
@@ -207,99 +204,99 @@ function showconfig()
 	                       JHTML::_('select.option', 9, 'W3C/HTML 4.0 Mobile'));
 	$lists['tmpl_xhtml_doctype'] = JHTML::_('select.genericlist', $xhtmldoctype, 'mjconfig_tmpl_xhtml_doctype', 'class="inputbox" size="1"', 'value', 'text', $MobileJoomla_Settings['tmpl_xhtml_doctype']);
 
-	$lists['tmpl_xhtml_xmlns'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_xmlns', 'class="inputbox"', $MobileJoomla_Settings['tmpl_xhtml_xmlns']);
+	$lists['tmpl_xhtml_xmlns'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_xhtml_xmlns', 'class="inputradio"', $MobileJoomla_Settings['tmpl_xhtml_xmlns']);
 
 	//mobile_wap template setting
-	$lists['tmpl_wap_header1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wap_header1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wap_header1']);
-	$lists['tmpl_wap_header2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wap_header2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wap_header2']);
-	$lists['tmpl_wap_header3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wap_header3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wap_header3']);
+	$lists['tmpl_wml_header1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wml_header1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wml_header1']);
+	$lists['tmpl_wml_header2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wml_header2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wml_header2']);
+	$lists['tmpl_wml_header3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wml_header3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wml_header3']);
 
-	$lists['tmpl_wap_pathway'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_wap_pathway', 'class="inputbox"', $MobileJoomla_Settings['tmpl_wap_pathway']);
+	$lists['tmpl_wml_pathway'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_wml_pathway', 'class="inputradio"', $MobileJoomla_Settings['tmpl_wml_pathway']);
 
-	$lists['tmpl_wap_pathwayhome'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_wap_pathwayhome', 'class="inputbox"', $MobileJoomla_Settings['tmpl_wap_pathwayhome']);
+	$lists['tmpl_wml_pathwayhome'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_wml_pathwayhome', 'class="inputradio"', $MobileJoomla_Settings['tmpl_wml_pathwayhome']);
 
-	$lists['tmpl_wap_middle1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wap_middle1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wap_middle1']);
-	$lists['tmpl_wap_middle2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wap_middle2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wap_middle2']);
-	$lists['tmpl_wap_middle3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wap_middle3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wap_middle3']);
+	$lists['tmpl_wml_middle1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wml_middle1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wml_middle1']);
+	$lists['tmpl_wml_middle2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wml_middle2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wml_middle2']);
+	$lists['tmpl_wml_middle3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wml_middle3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wml_middle3']);
 
-	$lists['tmpl_wap_componenthome'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_wap_componenthome', 'class="inputbox"', $MobileJoomla_Settings['tmpl_wap_componenthome']);
+	$lists['tmpl_wml_componenthome'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_wml_componenthome', 'class="inputradio"', $MobileJoomla_Settings['tmpl_wml_componenthome']);
 
-	$lists['tmpl_wap_footer1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wap_footer1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wap_footer1']);
-	$lists['tmpl_wap_footer2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wap_footer2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wap_footer2']);
-	$lists['tmpl_wap_footer3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wap_footer3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wap_footer3']);
+	$lists['tmpl_wml_footer1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wml_footer1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wml_footer1']);
+	$lists['tmpl_wml_footer2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wml_footer2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wml_footer2']);
+	$lists['tmpl_wml_footer3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wml_footer3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wml_footer3']);
 
-	$lists['tmpl_wap_jfooter'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_wap_jfooter', 'class="inputbox"', $MobileJoomla_Settings['tmpl_wap_jfooter']);
+	$lists['tmpl_wml_jfooter'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_wml_jfooter', 'class="inputradio"', $MobileJoomla_Settings['tmpl_wml_jfooter']);
 
-	$lists['tmpl_wap_cards'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wap_cards', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wap_cards']);
+	$lists['tmpl_wml_cards'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_wml_cards', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_wml_cards']);
 
-	$lists['tmpl_wap_removetags'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_wap_removetags', 'class="inputbox"', $MobileJoomla_Settings['tmpl_wap_removetags']);
+	$lists['tmpl_wml_removetags'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_wml_removetags', 'class="inputradio"', $MobileJoomla_Settings['tmpl_wml_removetags']);
 
-	$lists['tmpl_wap_img'] = JHTML::_('select.genericlist', $img, 'mjconfig_tmpl_wap_img', 'class="inputbox" size="1"', 'value', 'text', $MobileJoomla_Settings['tmpl_wap_img']);
+	$lists['tmpl_wml_img'] = JHTML::_('select.genericlist', $img, 'mjconfig_tmpl_wml_img', 'class="inputbox" size="1"', 'value', 'text', $MobileJoomla_Settings['tmpl_wml_img']);
 
-	$lists['tmpl_wap_entitydecode'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_wap_entitydecode', 'class="inputbox"', $MobileJoomla_Settings['tmpl_wap_entitydecode']);
+	$lists['tmpl_wml_entitydecode'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_wml_entitydecode', 'class="inputradio"', $MobileJoomla_Settings['tmpl_wml_entitydecode']);
 
 	$wapdoctype = array (JHTML::_('select.option', 0, JText::_('COM_MJ__NONE')),
 	                     JHTML::_('select.option', 1, 'WAPFORUM/WML1.1'),
 	                     JHTML::_('select.option', 2, 'WAPFORUM/WML1.2'));
-	$lists['tmpl_wap_doctype'] = JHTML::_('select.genericlist', $wapdoctype, 'mjconfig_tmpl_wap_doctype', 'class="inputbox" size="1"', 'value', 'text', $MobileJoomla_Settings['tmpl_wap_doctype']);
+	$lists['tmpl_wml_doctype'] = JHTML::_('select.genericlist', $wapdoctype, 'mjconfig_tmpl_wml_doctype', 'class="inputbox" size="1"', 'value', 'text', $MobileJoomla_Settings['tmpl_wml_doctype']);
 
 	//mobile_imode template setting
-	$lists['tmpl_imode_header1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_imode_header1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_imode_header1']);
-	$lists['tmpl_imode_header2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_imode_header2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_imode_header2']);
-	$lists['tmpl_imode_header3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_imode_header3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_imode_header3']);
+	$lists['tmpl_chtml_header1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_chtml_header1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_chtml_header1']);
+	$lists['tmpl_chtml_header2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_chtml_header2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_chtml_header2']);
+	$lists['tmpl_chtml_header3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_chtml_header3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_chtml_header3']);
 
-	$lists['tmpl_imode_pathway'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_imode_pathway', 'class="inputbox"', $MobileJoomla_Settings['tmpl_imode_pathway']);
+	$lists['tmpl_chtml_pathway'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_chtml_pathway', 'class="inputradio"', $MobileJoomla_Settings['tmpl_chtml_pathway']);
 
-	$lists['tmpl_imode_pathwayhome'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_imode_pathwayhome', 'class="inputbox"', $MobileJoomla_Settings['tmpl_imode_pathwayhome']);
+	$lists['tmpl_chtml_pathwayhome'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_chtml_pathwayhome', 'class="inputradio"', $MobileJoomla_Settings['tmpl_chtml_pathwayhome']);
 
-	$lists['tmpl_imode_middle1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_imode_middle1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_imode_middle1']);
-	$lists['tmpl_imode_middle2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_imode_middle2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_imode_middle2']);
-	$lists['tmpl_imode_middle3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_imode_middle3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_imode_middle3']);
+	$lists['tmpl_chtml_middle1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_chtml_middle1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_chtml_middle1']);
+	$lists['tmpl_chtml_middle2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_chtml_middle2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_chtml_middle2']);
+	$lists['tmpl_chtml_middle3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_chtml_middle3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_chtml_middle3']);
 
-	$lists['tmpl_imode_componenthome'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_imode_componenthome', 'class="inputbox"', $MobileJoomla_Settings['tmpl_imode_componenthome']);
+	$lists['tmpl_chtml_componenthome'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_chtml_componenthome', 'class="inputradio"', $MobileJoomla_Settings['tmpl_chtml_componenthome']);
 
-	$lists['tmpl_imode_footer1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_imode_footer1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_imode_footer1']);
-	$lists['tmpl_imode_footer2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_imode_footer2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_imode_footer2']);
-	$lists['tmpl_imode_footer3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_imode_footer3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_imode_footer3']);
+	$lists['tmpl_chtml_footer1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_chtml_footer1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_chtml_footer1']);
+	$lists['tmpl_chtml_footer2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_chtml_footer2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_chtml_footer2']);
+	$lists['tmpl_chtml_footer3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_chtml_footer3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_chtml_footer3']);
 
-	$lists['tmpl_imode_jfooter'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_imode_jfooter', 'class="inputbox"', $MobileJoomla_Settings['tmpl_imode_jfooter']);
+	$lists['tmpl_chtml_jfooter'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_chtml_jfooter', 'class="inputradio"', $MobileJoomla_Settings['tmpl_chtml_jfooter']);
 
-	$lists['tmpl_imode_removetags'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_imode_removetags', 'class="inputbox"', $MobileJoomla_Settings['tmpl_imode_removetags']);
+	$lists['tmpl_chtml_removetags'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_chtml_removetags', 'class="inputradio"', $MobileJoomla_Settings['tmpl_chtml_removetags']);
 
-	$lists['tmpl_imode_img'] = JHTML::_('select.genericlist', $img, 'mjconfig_tmpl_imode_img', 'class="inputbox" size="1"', 'value', 'text', $MobileJoomla_Settings['tmpl_imode_img']);
+	$lists['tmpl_chtml_img'] = JHTML::_('select.genericlist', $img, 'mjconfig_tmpl_chtml_img', 'class="inputbox" size="1"', 'value', 'text', $MobileJoomla_Settings['tmpl_chtml_img']);
 
-	$lists['tmpl_imode_entitydecode'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_imode_entitydecode', 'class="inputbox"', $MobileJoomla_Settings['tmpl_imode_entitydecode']);
+	$lists['tmpl_chtml_entitydecode'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_chtml_entitydecode', 'class="inputradio"', $MobileJoomla_Settings['tmpl_chtml_entitydecode']);
 
-	$lists['tmpl_imode_doctype'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_imode_doctype', 'class="inputbox"', $MobileJoomla_Settings['tmpl_imode_doctype']);
+	$lists['tmpl_chtml_doctype'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_chtml_doctype', 'class="inputradio"', $MobileJoomla_Settings['tmpl_chtml_doctype']);
 
 	//mobile_iphone template setting
 	$lists['tmpl_iphone_header1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_iphone_header1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_iphone_header1']);
 	$lists['tmpl_iphone_header2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_iphone_header2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_iphone_header2']);
 	$lists['tmpl_iphone_header3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_iphone_header3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_iphone_header3']);
 
-	$lists['tmpl_iphone_pathway'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_iphone_pathway', 'class="inputbox"', $MobileJoomla_Settings['tmpl_iphone_pathway']);
+	$lists['tmpl_iphone_pathway'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_iphone_pathway', 'class="inputradio"', $MobileJoomla_Settings['tmpl_iphone_pathway']);
 
-	$lists['tmpl_iphone_pathwayhome'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_iphone_pathwayhome', 'class="inputbox"', $MobileJoomla_Settings['tmpl_iphone_pathwayhome']);
+	$lists['tmpl_iphone_pathwayhome'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_iphone_pathwayhome', 'class="inputradio"', $MobileJoomla_Settings['tmpl_iphone_pathwayhome']);
 
 	$lists['tmpl_iphone_middle1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_iphone_middle1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_iphone_middle1']);
 	$lists['tmpl_iphone_middle2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_iphone_middle2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_iphone_middle2']);
 	$lists['tmpl_iphone_middle3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_iphone_middle3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_iphone_middle3']);
 
-	$lists['tmpl_iphone_componenthome'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_iphone_componenthome', 'class="inputbox"', $MobileJoomla_Settings['tmpl_iphone_componenthome']);
+	$lists['tmpl_iphone_componenthome'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_iphone_componenthome', 'class="inputradio"', $MobileJoomla_Settings['tmpl_iphone_componenthome']);
 
 	$lists['tmpl_iphone_footer1'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_iphone_footer1', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_iphone_footer1']);
 	$lists['tmpl_iphone_footer2'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_iphone_footer2', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_iphone_footer2']);
 	$lists['tmpl_iphone_footer3'] = JHTML::_('select.genericlist', $modulepositions, 'mjconfig_tmpl_iphone_footer3', 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings['tmpl_iphone_footer3']);
 
-	$lists['tmpl_iphone_jfooter'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_iphone_jfooter', 'class="inputbox"', $MobileJoomla_Settings['tmpl_iphone_jfooter']);
+	$lists['tmpl_iphone_jfooter'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_iphone_jfooter', 'class="inputradio"', $MobileJoomla_Settings['tmpl_iphone_jfooter']);
 
 	$lists['tmpl_iphone_img'] = JHTML::_('select.genericlist', $img, 'mjconfig_tmpl_iphone_img', 'class="inputbox" size="1"', 'value', 'text', $MobileJoomla_Settings['tmpl_iphone_img']);
 
-	$lists['tmpl_iphone_img_addstyles'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_iphone_img_addstyles', 'class="inputbox"', $MobileJoomla_Settings['tmpl_iphone_img_addstyles']);
+	$lists['tmpl_iphone_img_addstyles'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_iphone_img_addstyles', 'class="inputradio"', $MobileJoomla_Settings['tmpl_iphone_img_addstyles']);
 
-	$lists['tmpl_iphone_removetags'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_iphone_removetags', 'class="inputbox"', $MobileJoomla_Settings['tmpl_iphone_removetags']);
+	$lists['tmpl_iphone_removetags'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_iphone_removetags', 'class="inputradio"', $MobileJoomla_Settings['tmpl_iphone_removetags']);
 
-	$lists['tmpl_iphone_removetags'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_iphone_removetags', 'class="inputbox"', $MobileJoomla_Settings['tmpl_iphone_removetags']);
+	$lists['tmpl_iphone_removetags'] = JHTML::_('select.booleanlist', 'mjconfig_tmpl_iphone_removetags', 'class="inputradio"', $MobileJoomla_Settings['tmpl_iphone_removetags']);
 
 	function menuoptions()
 	{
@@ -386,20 +383,20 @@ function saveconfig()
 					   'tmpl_xhtml_removetags', 'tmpl_xhtml_removescripts', 'tmpl_xhtml_img', 'tmpl_xhtml_img_addstyles',
 					   'tmpl_xhtml_entitydecode', 'tmpl_xhtml_embedcss', 'tmpl_xhtml_contenttype', 'tmpl_xhtml_xmlhead',
 					   'tmpl_xhtml_doctype', 'tmpl_xhtml_xmlns',
-					   'tmpl_wap_header1', 'tmpl_wap_header2', 'tmpl_wap_header3',
-					   'tmpl_wap_pathway', 'tmpl_wap_pathwayhome',
-					   'tmpl_wap_middle1', 'tmpl_wap_middle2', 'tmpl_wap_middle3',
-					   'tmpl_wap_componenthome',
-					   'tmpl_wap_footer1', 'tmpl_wap_footer2', 'tmpl_wap_footer3',
-					   'tmpl_wap_cards', 'tmpl_wap_jfooter',
-					   'tmpl_wap_removetags', 'tmpl_wap_img', 'tmpl_wap_entitydecode', 'tmpl_wap_doctype',
-					   'tmpl_imode_header1', 'tmpl_imode_header2', 'tmpl_imode_header3',
-					   'tmpl_imode_pathway', 'tmpl_imode_pathwayhome',
-					   'tmpl_imode_middle1', 'tmpl_imode_middle2', 'tmpl_imode_middle3',
-					   'tmpl_imode_componenthome',
-					   'tmpl_imode_footer1', 'tmpl_imode_footer2', 'tmpl_imode_footer3',
-					   'tmpl_imode_jfooter', 'tmpl_imode_removetags', 'tmpl_imode_img',
-					   'tmpl_imode_entitydecode', 'tmpl_imode_doctype',
+					   'tmpl_wml_header1', 'tmpl_wml_header2', 'tmpl_wml_header3',
+					   'tmpl_wml_pathway', 'tmpl_wml_pathwayhome',
+					   'tmpl_wml_middle1', 'tmpl_wml_middle2', 'tmpl_wml_middle3',
+					   'tmpl_wml_componenthome',
+					   'tmpl_wml_footer1', 'tmpl_wml_footer2', 'tmpl_wml_footer3',
+					   'tmpl_wml_cards', 'tmpl_wml_jfooter',
+					   'tmpl_wml_removetags', 'tmpl_wml_img', 'tmpl_wml_entitydecode', 'tmpl_wml_doctype',
+					   'tmpl_chtml_header1', 'tmpl_chtml_header2', 'tmpl_chtml_header3',
+					   'tmpl_chtml_pathway', 'tmpl_chtml_pathwayhome',
+					   'tmpl_chtml_middle1', 'tmpl_chtml_middle2', 'tmpl_chtml_middle3',
+					   'tmpl_chtml_componenthome',
+					   'tmpl_chtml_footer1', 'tmpl_chtml_footer2', 'tmpl_chtml_footer3',
+					   'tmpl_chtml_jfooter', 'tmpl_chtml_removetags', 'tmpl_chtml_img',
+					   'tmpl_chtml_entitydecode', 'tmpl_chtml_doctype',
 					   'tmpl_iphone_header1', 'tmpl_iphone_header2', 'tmpl_iphone_header3',
 					   'tmpl_iphone_pathway', 'tmpl_iphone_pathwayhome',
 					   'tmpl_iphone_middle1', 'tmpl_iphone_middle2', 'tmpl_iphone_middle3',
@@ -442,11 +439,6 @@ function saveconfig()
 		$mainframe->redirect('index.php?option=com_mobilejoomla',
 		                     JText::_('COM_MJ__UNABLE_OPEN_CONFIG'));
 	}
-}
-
-function showabout()
-{
-	HTML_mobilejoomla::showabout();
 }
 
 function _initStatus()
