@@ -323,25 +323,25 @@ function UpdateConfig($prev_version)
 			{
 				if(strpos($param, 'tmpl_xhtml_')===0)
 				{
-					$renamed = 'xhtml.'.substr($param, 9);
+					$renamed = 'xhtml.'.substr($param, strlen('tmpl_xhtml_'));
 					$MobileJoomla_Settings[$renamed] = $MobileJoomla_Settings[$param];
 					unset($MobileJoomla_Settings[$param]);
 				}
 				elseif(strpos($param, 'tmpl_iphone_')===0)
 				{
-					$renamed = 'iphone.'.substr($param, 9);
+					$renamed = 'iphone.'.substr($param, strlen('tmpl_iphone_'));
 					$MobileJoomla_Settings[$renamed] = $MobileJoomla_Settings[$param];
 					unset($MobileJoomla_Settings[$param]);
 				}
 				elseif(strpos($param, 'tmpl_wap_')===0)
 				{
-					$renamed = 'wml.'.substr($param, 9);
+					$renamed = 'wml.'.substr($param, strlen('tmpl_wap_'));
 					$MobileJoomla_Settings[$renamed] = $MobileJoomla_Settings[$param];
 					unset($MobileJoomla_Settings[$param]);
 				}
 				elseif(strpos($param, 'tmpl_imode_')===0)
 				{
-					$renamed = 'chtml.'.substr($param, 9);
+					$renamed = 'chtml.'.substr($param, strlen('tmpl_imode_'));
 					$MobileJoomla_Settings[$renamed] = $MobileJoomla_Settings[$param];
 					unset($MobileJoomla_Settings[$param]);
 				}
