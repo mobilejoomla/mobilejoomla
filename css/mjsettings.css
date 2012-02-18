@@ -12,6 +12,7 @@
 #adminForm th
 {
 	padding:0.5em 0;
+	white-space:nowrap;
 }
 
 #adminForm td label
@@ -55,6 +56,11 @@
 #adminForm .inputradio
 {
 	border:none;
+}
+
+#adminForm .fullwidth
+{
+	width:100%;
 }
 
 #mjconfig_jpegquality_slider

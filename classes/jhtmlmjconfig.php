@@ -64,7 +64,7 @@ class JHTMLMjconfig
 		return "<label $for_input $tooltip>$label</label>";
 	}
 
-	function textinput($param_name, $value, $size=16, $attrs = NULL)
+	function textinput($param_name, $value, $size=0, $attrs = NULL)
 	{
 		$name = JHTMLMjconfig::formName($param_name);
 		$value = addslashes(htmlspecialchars(JText::_($value), ENT_QUOTES, 'UTF-8'));
@@ -78,8 +78,15 @@ class JHTMLMjconfig
 		}
 		$attrs['name'] = $name;
 		$attrs['value'] = $value;
-		$attrs['size'] = $size;
-        $attr_list = array();
+		if($size)
+		{
+			$attrs['size'] = $size;
+		}
+		else
+		{
+			$attrs['class'].=' fullwidth';
+		}
+		$attr_list = array();
 		foreach($attrs as $attr=>$val)
 		{
 			$attr_list[] = "$attr=\"$val\"";

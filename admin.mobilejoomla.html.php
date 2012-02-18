@@ -97,7 +97,7 @@ class HTML_mobilejoomla
 					'COM_MJ__HOMEPAGE' => array(
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__FORCED_HOMEPAGE', 'COM_MJ__FORCED_HOMEPAGE_DESC', 'global.homepage'),
-							'input_blob' => JHTML::_('mjconfig.textinput', 'global.homepage', $MobileJoomla_Settings['global.homepage'], 50)
+							'input_blob' => JHTML::_('mjconfig.textinput', 'global.homepage', $MobileJoomla_Settings['global.homepage'])
 						),
 						array(
 							'input_blob' => JHTML::_('mjconfig.menulist', $lists['menuoptions'], 'global.homepage', $MobileJoomla_Settings['global.homepage'])
@@ -149,7 +149,7 @@ class HTML_mobilejoomla
 					'COM_MJ__HOMEPAGE' => array(
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__FORCED_HOMEPAGE', 'COM_MJ__FORCED_HOMEPAGE_DESC', 'xhtml.homepage'),
-							'input_blob' => JHTML::_('mjconfig.textinput', 'xhtml.homepage', $MobileJoomla_Settings['xhtml.homepage'], 50)
+							'input_blob' => JHTML::_('mjconfig.textinput', 'xhtml.homepage', $MobileJoomla_Settings['xhtml.homepage'])
 						),
 						array(
 							'input_blob' => JHTML::_('mjconfig.menulist', $lists['menuoptions'], 'xhtml.homepage', $MobileJoomla_Settings['xhtml.homepage'])
@@ -239,7 +239,7 @@ class HTML_mobilejoomla
 					'COM_MJ__HOMEPAGE' => array(
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__FORCED_HOMEPAGE', 'COM_MJ__FORCED_HOMEPAGE_DESC', 'iphone.homepage'),
-							'input_blob' => JHTML::_('mjconfig.textinput', 'iphone.homepage', $MobileJoomla_Settings['iphone.homepage'], 50),
+							'input_blob' => JHTML::_('mjconfig.textinput', 'iphone.homepage', $MobileJoomla_Settings['iphone.homepage']),
 						),
 						array(
 							'input_blob' => JHTML::_('mjconfig.menulist', $lists['menuoptions'], 'iphone.homepage', $MobileJoomla_Settings['iphone.homepage'])
@@ -291,7 +291,7 @@ class HTML_mobilejoomla
 					'COM_MJ__HOMEPAGE' => array(
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__FORCED_HOMEPAGE', 'COM_MJ__FORCED_HOMEPAGE_DESC', 'wml.homepage'),
-							'input_blob' => JHTML::_('mjconfig.textinput', 'wml.homepage', $MobileJoomla_Settings['wml.homepage'], 50),
+							'input_blob' => JHTML::_('mjconfig.textinput', 'wml.homepage', $MobileJoomla_Settings['wml.homepage']),
 						),
 						array(
 							'input_blob' => JHTML::_('mjconfig.menulist', $lists['menuoptions'], 'wml.homepage', $MobileJoomla_Settings['wml.homepage'])
@@ -345,7 +345,7 @@ class HTML_mobilejoomla
 					'COM_MJ__HOMEPAGE' => array(
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__FORCED_HOMEPAGE', 'COM_MJ__FORCED_HOMEPAGE_DESC', 'chtml.homepage'),
-							'input_blob' => JHTML::_('mjconfig.textinput', 'chtml.homepage', $MobileJoomla_Settings['chtml.homepage'], 50)
+							'input_blob' => JHTML::_('mjconfig.textinput', 'chtml.homepage', $MobileJoomla_Settings['chtml.homepage'])
 						),
 						array(
 							'input_blob' => JHTML::_('mjconfig.menulist', $lists['menuoptions'], 'chtml.homepage', $MobileJoomla_Settings['chtml.homepage'])
@@ -411,11 +411,11 @@ class HTML_mobilejoomla
 					'COM_MJ__DOMAIN_NAME' => array(
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__DESKTOP_URL', 'COM_MJ__DESKTOP_URL_DESC', 'desktop_url'),
-							'input_blob' => JHTML::_('mjconfig.textinput', 'desktop_url', $MobileJoomla_Settings['desktop_url'], 40)
+							'input_blob' => JHTML::_('mjconfig.textinput', 'desktop_url', $MobileJoomla_Settings['desktop_url'])
 						),
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__PAGE_FOR_PC', 'COM_MJ__PAGE_FOR_PC_DESC', 'pcpage'),
-							'input_blob' => JHTML::_('mjconfig.textinput', 'pcpage', $MobileJoomla_Settings['pcpage'], 40)
+							'input_blob' => JHTML::_('mjconfig.textinput', 'pcpage', $MobileJoomla_Settings['pcpage'])
 						)
 					),
 					'COM_MJ__IMAGE' => array(
@@ -430,19 +430,19 @@ class HTML_mobilejoomla
 					'COM_MJ__REDIRECT_TO_DOMAIN' => array(
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__XHTMLMP_DOMAIN', 'COM_MJ__DOMAIN_NAME_XHTMLMP_DESC', 'xhtml.domain'),
-							'input_blob' => JHTML::_('mjconfig.textinput', 'xhtml.domain', $MobileJoomla_Settings['xhtml.domain'], 40)
+							'input_blob' => JHTML::_('mjconfig.textinput', 'xhtml.domain', $MobileJoomla_Settings['xhtml.domain'])
 						),
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__IPHONE_DOMAIN', 'COM_MJ__DOMAIN_NAME_IPHONE_DESC', 'iphone.domain'),
-							'input_blob' => JHTML::_('mjconfig.textinput', 'iphone.domain', $MobileJoomla_Settings['iphone.domain'], 40)
+							'input_blob' => JHTML::_('mjconfig.textinput', 'iphone.domain', $MobileJoomla_Settings['iphone.domain'])
 						),
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__WML_DOMAIN', 'COM_MJ__DOMAIN_NAME_WML_DESC', 'wml.domain'),
-							'input_blob' => JHTML::_('mjconfig.textinput', 'wml.domain', $MobileJoomla_Settings['wml.domain'], 40)
+							'input_blob' => JHTML::_('mjconfig.textinput', 'wml.domain', $MobileJoomla_Settings['wml.domain'])
 						),
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__CHTML_DOMAIN', 'COM_MJ__DOMAIN_NAME_CHTML_DESC', 'chtml.domain'),
-							'input_blob' => JHTML::_('mjconfig.textinput', 'chtml.domain', $MobileJoomla_Settings['chtml.domain'], 40)
+							'input_blob' => JHTML::_('mjconfig.textinput', 'chtml.domain', $MobileJoomla_Settings['chtml.domain'])
 						)
 					)
 				)
