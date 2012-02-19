@@ -87,9 +87,9 @@ function showconfig()
 	$lists = array ();
 
 	$img = array (JHTML::_('select.option', 0, JText::_('COM_MJ__IMG_DONT_RESCALE')),
-	              JHTML::_('select.option', 1, JText::_('COM_MJ__IMG_REMOVE_ALL')),
 	              JHTML::_('select.option', 2, JText::_('COM_MJ__IMG_RESCALE')),
-	              JHTML::_('select.option', 3, JText::_('COM_MJ__IMG_FIXED_RESCALE_RATIO')));
+	              JHTML::_('select.option', 3, JText::_('COM_MJ__IMG_FIXED_RESCALE_RATIO')),
+	              JHTML::_('select.option', 1, JText::_('COM_MJ__IMG_REMOVE_ALL')));
 	$caching = array (JHTML::_('select.option', 0, JText::_('COM_MJ__DISABLE')),
 					  JHTML::_('select.option', 1, JText::_('COM_MJ__GLOBAL')));
 	$httpcaching = array (JHTML::_('select.option', 0, JText::_('COM_MJ__DISABLE')),
@@ -131,22 +131,22 @@ function showconfig()
 
 	//XHTML/WAP2.0 devices
 	$lists['xhtml.template'] = JHTML::_('mjconfig.templateparam', 'xhtml.template', $templates, $MobileJoomla_Settings);
-	$lists['xhtml.gzip'] = JHTML::_('mjconfig.radioparam', 'xhtml.gzip', $gzip, $MobileJoomla_Settings);
+	$lists['xhtml.gzip'] = JHTML::_('mjconfig.g_radioparam', 'xhtml.gzip', $gzip, $MobileJoomla_Settings);
 	$lists['xhtml.redirect'] = JHTML::_('mjconfig.booleanparam', 'xhtml.redirect', $MobileJoomla_Settings);
 
 	//WAP devices
 	$lists['wml.template'] = JHTML::_('mjconfig.templateparam', 'wml.template', $templates, $MobileJoomla_Settings);
-	$lists['wml.gzip'] = JHTML::_('mjconfig.radioparam', 'wml.gzip', $gzip, $MobileJoomla_Settings);
+	$lists['wml.gzip'] = JHTML::_('mjconfig.g_radioparam', 'wml.gzip', $gzip, $MobileJoomla_Settings);
 	$lists['wml.redirect'] = JHTML::_('mjconfig.booleanparam', 'wml.redirect', $MobileJoomla_Settings);
 
 	//IMODE devices
 	$lists['chtml.template'] = JHTML::_('mjconfig.templateparam', 'chtml.template', $templates, $MobileJoomla_Settings);
-	$lists['chtml.gzip'] = JHTML::_('mjconfig.radioparam', 'chtml.gzip', $gzip, $MobileJoomla_Settings);
+	$lists['chtml.gzip'] = JHTML::_('mjconfig.g_radioparam', 'chtml.gzip', $gzip, $MobileJoomla_Settings);
 	$lists['chtml.redirect'] = JHTML::_('mjconfig.booleanparam', 'chtml.redirect', $MobileJoomla_Settings);
 
 	//iPhone/iPod devices
 	$lists['iphone.template'] = JHTML::_('mjconfig.templateparam', 'iphone.template', $templates, $MobileJoomla_Settings);
-	$lists['iphone.gzip'] = JHTML::_('mjconfig.radioparam', 'iphone.gzip', $gzip, $MobileJoomla_Settings);
+	$lists['iphone.gzip'] = JHTML::_('mjconfig.g_radioparam', 'iphone.gzip', $gzip, $MobileJoomla_Settings);
 	$lists['iphone.redirect'] = JHTML::_('mjconfig.booleanparam', 'iphone.redirect', $MobileJoomla_Settings);
 
 	//mobile_pda template setting
@@ -156,7 +156,7 @@ function showconfig()
 	$lists['xhtml.middle1'] = JHTML::_('mjconfig.positionparam', 'xhtml.middle1', $modulepositions, $MobileJoomla_Settings);
 	$lists['xhtml.middle2'] = JHTML::_('mjconfig.positionparam', 'xhtml.middle2', $modulepositions, $MobileJoomla_Settings);
 	$lists['xhtml.middle3'] = JHTML::_('mjconfig.positionparam', 'xhtml.middle3', $modulepositions, $MobileJoomla_Settings);
-	$lists['xhtml.componenthome'] = JHTML::_('mjconfig.booleanparam', 'xhtml.componenthome', $MobileJoomla_Settings);
+	$lists['xhtml.componenthome'] = JHTML::_('mjconfig.g_booleanparam', 'xhtml.componenthome', $MobileJoomla_Settings);
 	$lists['xhtml.footer1'] = JHTML::_('mjconfig.positionparam', 'xhtml.footer1', $modulepositions, $MobileJoomla_Settings);
 	$lists['xhtml.footer2'] = JHTML::_('mjconfig.positionparam', 'xhtml.footer2', $modulepositions, $MobileJoomla_Settings);
 	$lists['xhtml.footer3'] = JHTML::_('mjconfig.positionparam', 'xhtml.footer3', $modulepositions, $MobileJoomla_Settings);
@@ -165,8 +165,8 @@ function showconfig()
 	$lists['xhtml.allowextedit'] = JHTML::_('mjconfig.booleanparam', 'xhtml.allowextedit', $MobileJoomla_Settings);
 	$lists['xhtml.removetags'] = JHTML::_('mjconfig.booleanparam', 'xhtml.removetags', $MobileJoomla_Settings);
 	$lists['xhtml.removescripts'] = JHTML::_('mjconfig.booleanparam', 'xhtml.removescripts', $MobileJoomla_Settings);
-	$lists['xhtml.img'] = JHTML::_('mjconfig.listparam', 'xhtml.img', $img, $MobileJoomla_Settings);
-	$lists['xhtml.img_addstyles'] = JHTML::_('mjconfig.booleanparam', 'xhtml.img_addstyles', $MobileJoomla_Settings);
+	$lists['xhtml.img'] = JHTML::_('mjconfig.g_listparam', 'xhtml.img', $img, $MobileJoomla_Settings);
+	$lists['xhtml.img_addstyles'] = JHTML::_('mjconfig.g_booleanparam', 'xhtml.img_addstyles', $MobileJoomla_Settings);
 	$lists['xhtml.entitydecode'] = JHTML::_('mjconfig.booleanparam', 'xhtml.entitydecode', $MobileJoomla_Settings);
 	$lists['xhtml.embedcss'] = JHTML::_('mjconfig.booleanparam', 'xhtml.embedcss', $MobileJoomla_Settings);
 	$lists['xhtml.contenttype'] = JHTML::_('mjconfig.listparam', 'xhtml.contenttype', $contenttype, $MobileJoomla_Settings);
@@ -181,14 +181,14 @@ function showconfig()
 	$lists['wml.middle1'] = JHTML::_('mjconfig.positionparam', 'wml.middle1', $modulepositions, $MobileJoomla_Settings);
 	$lists['wml.middle2'] = JHTML::_('mjconfig.positionparam', 'wml.middle2', $modulepositions, $MobileJoomla_Settings);
 	$lists['wml.middle3'] = JHTML::_('mjconfig.positionparam', 'wml.middle3', $modulepositions, $MobileJoomla_Settings);
-	$lists['wml.componenthome'] = JHTML::_('mjconfig.booleanparam', 'wml.componenthome', $MobileJoomla_Settings);
+	$lists['wml.componenthome'] = JHTML::_('mjconfig.g_booleanparam', 'wml.componenthome', $MobileJoomla_Settings);
 	$lists['wml.footer1'] = JHTML::_('mjconfig.positionparam', 'wml.footer1', $modulepositions, $MobileJoomla_Settings);
 	$lists['wml.footer2'] = JHTML::_('mjconfig.positionparam', 'wml.footer2', $modulepositions, $MobileJoomla_Settings);
 	$lists['wml.footer3'] = JHTML::_('mjconfig.positionparam', 'wml.footer3', $modulepositions, $MobileJoomla_Settings);
 	$lists['wml.jfooter'] = JHTML::_('mjconfig.booleanparam', 'wml.jfooter', $MobileJoomla_Settings);
 	$lists['wml.cards'] = JHTML::_('mjconfig.positionparam', 'wml.cards', $modulepositions, $MobileJoomla_Settings);
 	$lists['wml.removetags'] = JHTML::_('mjconfig.booleanparam', 'wml.removetags', $MobileJoomla_Settings);
-	$lists['wml.img'] = JHTML::_('mjconfig.listparam', 'wml.img', $img, $MobileJoomla_Settings);
+	$lists['wml.img'] = JHTML::_('mjconfig.g_listparam', 'wml.img', $img, $MobileJoomla_Settings);
 	$lists['wml.entitydecode'] = JHTML::_('mjconfig.booleanparam', 'wml.entitydecode', $MobileJoomla_Settings);
 	$lists['wml.doctype'] = JHTML::_('mjconfig.listparam', 'wml.doctype', $wmldoctype, $MobileJoomla_Settings);
 
@@ -199,13 +199,13 @@ function showconfig()
 	$lists['chtml.middle1'] = JHTML::_('mjconfig.positionparam', 'chtml.middle1', $modulepositions, $MobileJoomla_Settings);
 	$lists['chtml.middle2'] = JHTML::_('mjconfig.positionparam', 'chtml.middle2', $modulepositions, $MobileJoomla_Settings);
 	$lists['chtml.middle3'] = JHTML::_('mjconfig.positionparam', 'chtml.middle3', $modulepositions, $MobileJoomla_Settings);
-	$lists['chtml.componenthome'] = JHTML::_('mjconfig.booleanparam', 'chtml.componenthome', $MobileJoomla_Settings);
+	$lists['chtml.componenthome'] = JHTML::_('mjconfig.g_booleanparam', 'chtml.componenthome', $MobileJoomla_Settings);
 	$lists['chtml.footer1'] = JHTML::_('mjconfig.positionparam', 'chtml.footer1', $modulepositions, $MobileJoomla_Settings);
 	$lists['chtml.footer2'] = JHTML::_('mjconfig.positionparam', 'chtml.footer2', $modulepositions, $MobileJoomla_Settings);
 	$lists['chtml.footer3'] = JHTML::_('mjconfig.positionparam', 'chtml.footer3', $modulepositions, $MobileJoomla_Settings);
 	$lists['chtml.jfooter'] = JHTML::_('mjconfig.booleanparam', 'chtml.jfooter', $MobileJoomla_Settings);
 	$lists['chtml.removetags'] = JHTML::_('mjconfig.booleanparam', 'chtml.removetags', $MobileJoomla_Settings);
-	$lists['chtml.img'] = JHTML::_('mjconfig.listparam', 'chtml.img', $img, $MobileJoomla_Settings);
+	$lists['chtml.img'] = JHTML::_('mjconfig.g_listparam', 'chtml.img', $img, $MobileJoomla_Settings);
 	$lists['chtml.entitydecode'] = JHTML::_('mjconfig.booleanparam', 'chtml.entitydecode', $MobileJoomla_Settings);
 	$lists['chtml.doctype'] = JHTML::_('mjconfig.booleanparam', 'chtml.doctype', $MobileJoomla_Settings);
 
@@ -216,13 +216,13 @@ function showconfig()
 	$lists['iphone.middle1'] = JHTML::_('mjconfig.positionparam', 'iphone.middle1', $modulepositions, $MobileJoomla_Settings);
 	$lists['iphone.middle2'] = JHTML::_('mjconfig.positionparam', 'iphone.middle2', $modulepositions, $MobileJoomla_Settings);
 	$lists['iphone.middle3'] = JHTML::_('mjconfig.positionparam', 'iphone.middle3', $modulepositions, $MobileJoomla_Settings);
-	$lists['iphone.componenthome'] = JHTML::_('mjconfig.booleanparam', 'iphone.componenthome', $MobileJoomla_Settings);
+	$lists['iphone.componenthome'] = JHTML::_('mjconfig.g_booleanparam', 'iphone.componenthome', $MobileJoomla_Settings);
 	$lists['iphone.footer1'] = JHTML::_('mjconfig.positionparam', 'iphone.footer1', $modulepositions, $MobileJoomla_Settings);
 	$lists['iphone.footer2'] = JHTML::_('mjconfig.positionparam', 'iphone.footer2', $modulepositions, $MobileJoomla_Settings);
 	$lists['iphone.footer3'] = JHTML::_('mjconfig.positionparam', 'iphone.footer3', $modulepositions, $MobileJoomla_Settings);
 	$lists['iphone.jfooter'] = JHTML::_('mjconfig.booleanparam', 'iphone.jfooter', $MobileJoomla_Settings);
-	$lists['iphone.img'] = JHTML::_('mjconfig.listparam', 'iphone.img', $img, $MobileJoomla_Settings);
-	$lists['iphone.img_addstyles'] = JHTML::_('mjconfig.booleanparam', 'iphone.img_addstyles', $MobileJoomla_Settings);
+	$lists['iphone.img'] = JHTML::_('mjconfig.g_listparam', 'iphone.img', $img, $MobileJoomla_Settings);
+	$lists['iphone.img_addstyles'] = JHTML::_('mjconfig.g_booleanparam', 'iphone.img_addstyles', $MobileJoomla_Settings);
 	$lists['iphone.removetags'] = JHTML::_('mjconfig.booleanparam', 'iphone.removetags', $MobileJoomla_Settings);
 	$lists['iphone.removetags'] = JHTML::_('mjconfig.booleanparam', 'iphone.removetags', $MobileJoomla_Settings);
 

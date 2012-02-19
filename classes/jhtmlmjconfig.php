@@ -22,7 +22,17 @@ class JHTMLMjconfig
 	function booleanParam($param_name, $MobileJoomla_Settings)
 	{
 		$name = JHTMLMjconfig::formName($param_name);
-		return JHTML::_('select.booleanlist', $name, 'class="inputradio"', $MobileJoomla_Settings[$param_name]);
+		return JHTML::_('select.booleanlist', $name, 'class="inputradio"', $MobileJoomla_Settings[$param_name], 'COM_MJ__ON', 'COM_MJ__OFF');
+	}
+
+	function g_booleanParam($param_name, $MobileJoomla_Settings)
+	{
+		$values = array(
+			JHTML::_('select.option', '0', JText::_('COM_MJ__OFF')),
+			JHTML::_('select.option', '1', JText::_('COM_MJ__ON')),
+			JHTML::_('select.option', '', JText::_('COM_MJ__GLOBAL'))
+		);
+		return JHTMLMjconfig::radioParam($param_name, $values, $MobileJoomla_Settings);
 	}
 
 	function listParam($param_name, $values, $MobileJoomla_Settings)
@@ -31,10 +41,22 @@ class JHTMLMjconfig
 		return JHTML::_('select.genericlist', $values, $name, 'class="inputbox" size="1"', 'value', 'text', $MobileJoomla_Settings[$param_name]);
 	}
 
+	function g_listParam($param_name, $values, $MobileJoomla_Settings)
+	{
+		array_push($values, JHTML::_('select.option', '', JText::_('COM_MJ__GLOBAL')));
+		return JHTMLMjconfig::listParam($param_name, $values, $MobileJoomla_Settings);
+	}
+
 	function radioParam($param_name, $values, $MobileJoomla_Settings)
 	{
 		$name = JHTMLMjconfig::formName($param_name);
 		return JHTML::_('select.radiolist', $values, $name, 'class="inputradio"', 'value', 'text', $MobileJoomla_Settings[$param_name]);
+	}
+
+	function g_radioParam($param_name, $values, $MobileJoomla_Settings)
+	{
+		array_push($values, JHTML::_('select.option', '', JText::_('COM_MJ__GLOBAL')));
+		return JHTMLMjconfig::radioParam($param_name, $values, $MobileJoomla_Settings);
 	}
 
 	function templateParam($param_name, $templates, $MobileJoomla_Settings)
@@ -64,10 +86,10 @@ class JHTMLMjconfig
 		return "<label $for_input $tooltip>$label</label>";
 	}
 
-	function textinput($param_name, $value, $size=0, $attrs = NULL)
+	function textinput($param_name, $value, $size = 0, $attrs = NULL)
 	{
 		$name = JHTMLMjconfig::formName($param_name);
-		$value = addslashes(htmlspecialchars(JText::_($value), ENT_QUOTES, 'UTF-8'));
+		$value = addslashes(htmlspecialchars($value, ENT_QUOTES, 'UTF-8'));
 		if(!$attrs)
 		{
 			$attrs = array();
@@ -84,7 +106,7 @@ class JHTMLMjconfig
 		}
 		else
 		{
-			$attrs['class'].=' fullwidth';
+			$attrs['class'] .= ' fullwidth';
 		}
 		$attr_list = array();
 		foreach($attrs as $attr=>$val)
