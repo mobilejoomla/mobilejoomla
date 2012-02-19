@@ -91,9 +91,7 @@ function showconfig()
 	              JHTML::_('select.option', 3, JText::_('COM_MJ__IMG_FIXED_RESCALE_RATIO')),
 	              JHTML::_('select.option', 1, JText::_('COM_MJ__IMG_REMOVE_ALL')));
 	$caching = array (JHTML::_('select.option', 0, JText::_('COM_MJ__DISABLE')),
-					  JHTML::_('select.option', 1, JText::_('COM_MJ__GLOBAL')));
-	$httpcaching = array (JHTML::_('select.option', 0, JText::_('COM_MJ__DISABLE')),
-						  JHTML::_('select.option', 1, JText::_('COM_MJ__ENABLE')));
+					  JHTML::_('select.option', 1, JText::_('COM_MJ__JOOMLA')));
 	$gzip = array (JHTML::_('select.option', 0, JText::_('COM_MJ__NO')),
 	               JHTML::_('select.option', 1, JText::_('COM_MJ__AUTO')));
 	$simplehead = array (JHTML::_('select.option', 0, JText::_('COM_MJ__HEAD_STANDARD')),
@@ -126,7 +124,7 @@ function showconfig()
 	
 	//Plugin settings
 	$lists['caching'] = JHTML::_('mjconfig.radioparam', 'caching', $caching, $MobileJoomla_Settings);
-	$lists['httpcaching'] = JHTML::_('mjconfig.radioparam', 'httpcaching', $httpcaching, $MobileJoomla_Settings);
+	$lists['httpcaching'] = JHTML::_('mjconfig.booleanparam', 'httpcaching', $MobileJoomla_Settings);
 	$lists['domains'] = JHTML::_('mjconfig.booleanparam', 'domains', $MobileJoomla_Settings);
 
 	//XHTML/WAP2.0 devices
