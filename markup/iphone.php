@@ -38,12 +38,6 @@ $document->setHeadData($headerstuff);*/
 			echo '<link rel="canonical" href="'.$canonical.'">';
 	}
 
-	function showBreadcrumbs($style='iphone')
-	{
-		if($this->config['iphone.pathway'] && (!$this->_ishomepage || $this->config['iphone.pathwayhome']))
-			echo '<jdoc:include type="module" name="breadcrumbs" style="'.$style.'" />';
-	}
-
 	function showComponent()
 	{
 		if(!$this->_ishomepage || $this->config['iphone.componenthome'])

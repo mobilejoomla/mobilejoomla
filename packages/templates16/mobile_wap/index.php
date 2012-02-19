@@ -26,8 +26,6 @@ if($modulepos)
 
 $MobileJoomla->showMessage();
 
-$MobileJoomla->showBreadcrumbs();
-
 $modulepos = $MobileJoomla->getPosition('middle');
 if($modulepos)
 	$MobileJoomla->loadModules($modulepos);

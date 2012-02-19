@@ -54,12 +54,6 @@ class MobileJoomla_CHTML extends MobileJoomla
 			echo '<link rel="canonical" href="'.$canonical.'">';
 	}
 
-	function showBreadcrumbs($style='chtml')
-	{
-		if($this->config['chtml.pathway'] && (!$this->_ishomepage || $this->config['chtml.pathwayhome']))
-			echo '<jdoc:include type="module" name="breadcrumbs" style="'.$style.'" />';
-	}
-
 	function showComponent()
 	{
 		if(!$this->_ishomepage || $this->config['chtml.componenthome'])

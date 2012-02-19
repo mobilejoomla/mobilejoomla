@@ -319,6 +319,8 @@ function UpdateConfig($prev_version)
 				JError::raiseWarning(0, JText::_('COM_MJ__IPAD_OPTION_UNSUPPORTED'));
 			unset($MobileJoomla_Settings['iphoneipad']);
 
+			unset($MobileJoomla_Settings['xhtml.pathway']);
+
 			foreach($MobileJoomla_Settings as $param => $value)
 			{
 				if(strpos($param, 'tmpl_xhtml_')===0)
@@ -346,6 +348,9 @@ function UpdateConfig($prev_version)
 					unset($MobileJoomla_Settings[$param]);
 				}
 			}
+			$removeList = array('xhtml.pathway', 'xhtml.pathwayhome', 'wml.pathway', 'wml.pathwayhome',
+								'chtml.pathway', 'chtml.pathwayhome', 'iphone.pathway', 'iphone.pathwayhome',
+								'domains', 'xhtml.redirect', 'wml.redirect', 'chtml.redirect', 'iphone.redirect');
 			$renameList = array(
 					'xhtmltemplate' => 'xhtml.template', 'xhtmlhomepage' => 'xhtml.homepage', 'xhtmlgzip' => 'xhtml.gzip',
 					'xhtmldomain' => 'xhtml.domain', 'xhtmlredirect' => 'xhtml.redirect', 'xhtml_buffer_width' => 'xhtml.buffer_width',
@@ -356,6 +361,10 @@ function UpdateConfig($prev_version)
 					'iphonetemplate' => 'iphone.template', 'iphonehomepage' => 'iphone.homepage', 'iphonegzip' => 'iphone.gzip',
 					'iphonedomain' => 'iphone.domain', 'iphoneredirect' => 'iphone.redirect', 'iphone_buffer_width' => 'iphone.buffer_width'
 				);
+			foreach($removeList as $old)
+			{
+				unset($MobileJoomla_Settings[$old]);
+			}
 			foreach($renameList as $old=>$new)
 			{
 				$MobileJoomla_Settings[$new] = $MobileJoomla_Settings[$old];
@@ -371,20 +380,6 @@ function UpdateConfig($prev_version)
 	}
 
 	$MobileJoomla_Settings['desktop_url'] = JURI::root();
-
-	$parsed = parse_url(JURI::root());
-	$basehost = $parsed['host'];
-	if(substr($basehost, 0, 4) == 'www.')
-		$basehost = substr($basehost, 4);
-
-	if(substr($MobileJoomla_Settings['xhtml.domain'], -1) == '.')
-		$MobileJoomla_Settings['xhtml.domain'] .= $basehost;
-	if(substr($MobileJoomla_Settings['wml.domain'], -1) == '.')
-		$MobileJoomla_Settings['wml.domain'] .= $basehost;
-	if(substr($MobileJoomla_Settings['chtml.domain'], -1) == '.')
-		$MobileJoomla_Settings['chtml.domain'] .= $basehost;
-	if(substr($MobileJoomla_Settings['iphone.domain'], -1) == '.')
-		$MobileJoomla_Settings['iphone.domain'] .= $basehost;
 
 	// check for GD2 library
 	if(!function_exists('imagecopyresized'))

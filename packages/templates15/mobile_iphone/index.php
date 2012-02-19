@@ -73,13 +73,6 @@ if($modulepos && $this->countModules($modulepos) > 0)
 
 $MobileJoomla->showMessage();
 
-if($MobileJoomla_Settings['iphone.pathway'] && (!$MobileJoomla->isHome() || $MobileJoomla_Settings['iphone.pathwayhome'])): ?>
-	<div class="content">
-		<?php $MobileJoomla->showBreadcrumbs(); ?>
-	</div>
-<?php
-endif;
-
 $modulepos = $MobileJoomla->getPosition('middle');
 if($modulepos && $this->countModules($modulepos) > 0)
 {

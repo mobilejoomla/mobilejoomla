@@ -128,12 +128,6 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 		echo '<jdoc:include type="modules" name="'.$position.'" style="'.$style.'" />';
 	}
 
-	function showBreadcrumbs($style='xhtml_m')
-	{
-		if($this->config['xhtml.pathway'] && (!$this->_ishomepage || $this->config['xhtml.pathwayhome']))
-			echo '<jdoc:include type="module" name="breadcrumbs" style="'.$style.'" />';
-	}
-
 	function showComponent()
 	{
 		if(!$this->_ishomepage || $this->config['xhtml.componenthome'])

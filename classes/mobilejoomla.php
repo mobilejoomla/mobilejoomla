@@ -136,21 +136,6 @@ class MobileJoomla
 		echo '<jdoc:include type="head" />';
 	}
 
-	/** deprecated **/
-	function showPathway()
-	{
-		$this->showBreadcrumbs();
-	}
-	function showBreadcrumbs($style='-1')
-	{
-		echo '<jdoc:include type="module" name="breadcrumbs" style="'.$style.'" />';
-	}
-
-	/** deprecated **/
-	function showMainBody()
-	{
-		$this->showComponent();
-	}
 	function showComponent()
 	{
 		echo '<jdoc:include type="component" />';

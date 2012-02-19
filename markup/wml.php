@@ -88,12 +88,6 @@ class MobileJoomla_WML extends MobileJoomla
 		echo '<jdoc:include type="modules" name="'.$position.'" style="'.$style.'" />';
 	}
 
-	function showBreadcrumbs($style='wml')
-	{
-		if($this->config['wml.pathway'] && (!$this->_ishomepage || $this->config['wml.pathwayhome']))
-			echo '<jdoc:include type="module" name="breadcrumbs" style="'.$style.'" />';
-	}
-
 	function showComponent()
 	{
 		if(!$this->_ishomepage || $this->config['wml.componenthome'])

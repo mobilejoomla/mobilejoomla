@@ -23,9 +23,6 @@ class plgMobileDomains extends JPlugin
 
 	function onAfterDeviceDetection(&$MobileJoomla_Settings, &$MobileJoomla_Device)
 	{
-		if($MobileJoomla_Settings['domains'] != '1')
-			return;
-
 		$is_joomla15 = (substr(JVERSION,0,3) == '1.5');
 		if($is_joomla15)
 			$config_live_site = 'config.live_site';
@@ -88,9 +85,6 @@ class plgMobileDomains extends JPlugin
 
 	function onBeforeMobileMarkupInit(&$MobileJoomla_Settings, &$MobileJoomla_Device)
 	{
-		if($MobileJoomla_Settings['domains'] != '1')
-			return;
-
 		if($this->_domain_markup !== null)
 			$MobileJoomla_Device['markup'] = $this->_domain_markup;
 
@@ -111,22 +105,22 @@ class plgMobileDomains extends JPlugin
 		{
 		case 'xhtml':
 			$domain_xhtml = $MobileJoomla_Settings['xhtml.domain'];
-			if($MobileJoomla_Settings['xhtml.redirect'] && $domain_xhtml && $_SERVER['HTTP_HOST'] != $domain_xhtml)
+			if($domain_xhtml && $_SERVER['HTTP_HOST'] != $domain_xhtml)
 				$mainframe->redirect($http.'://'.$domain_xhtml.$path);
 			break;
 		case 'wml':
 			$domain_wap = $MobileJoomla_Settings['wml.domain'];
-			if($MobileJoomla_Settings['wml.redirect'] && $domain_wap && $_SERVER['HTTP_HOST'] != $domain_wap)
+			if($domain_wap && $_SERVER['HTTP_HOST'] != $domain_wap)
 				$mainframe->redirect($http.'://'.$domain_wap.$path);
 			break;
 		case 'chtml':
 			$domain_imode = $MobileJoomla_Settings['chtml.domain'];
-			if($MobileJoomla_Settings['chtml.redirect'] && $domain_imode && $_SERVER['HTTP_HOST'] != $domain_imode)
+			if($domain_imode && $_SERVER['HTTP_HOST'] != $domain_imode)
 				$mainframe->redirect($http.'://'.$domain_imode.$path);
 			break;
 		case 'iphone':
 			$domain_iphone = $MobileJoomla_Settings['iphone.domain'];
-			if($MobileJoomla_Settings['iphone.redirect'] && $domain_iphone && $_SERVER['HTTP_HOST'] != $domain_iphone)
+			if($domain_iphone && $_SERVER['HTTP_HOST'] != $domain_iphone)
 				$mainframe->redirect($http.'://'.$domain_iphone.$path);
 			break;
 		}

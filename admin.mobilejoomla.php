@@ -153,8 +153,6 @@ function showconfig()
 	$lists['xhtml.header1'] = JHTML::_('mjconfig.positionparam', 'xhtml.header1', $modulepositions, $MobileJoomla_Settings);
 	$lists['xhtml.header2'] = JHTML::_('mjconfig.positionparam', 'xhtml.header2', $modulepositions, $MobileJoomla_Settings);
 	$lists['xhtml.header3'] = JHTML::_('mjconfig.positionparam', 'xhtml.header3', $modulepositions, $MobileJoomla_Settings);
-	$lists['xhtml.pathway'] = JHTML::_('mjconfig.booleanparam', 'xhtml.pathway', $MobileJoomla_Settings);
-	$lists['xhtml.pathwayhome'] = JHTML::_('mjconfig.booleanparam', 'xhtml.pathwayhome', $MobileJoomla_Settings);
 	$lists['xhtml.middle1'] = JHTML::_('mjconfig.positionparam', 'xhtml.middle1', $modulepositions, $MobileJoomla_Settings);
 	$lists['xhtml.middle2'] = JHTML::_('mjconfig.positionparam', 'xhtml.middle2', $modulepositions, $MobileJoomla_Settings);
 	$lists['xhtml.middle3'] = JHTML::_('mjconfig.positionparam', 'xhtml.middle3', $modulepositions, $MobileJoomla_Settings);
@@ -180,8 +178,6 @@ function showconfig()
 	$lists['wml.header1'] = JHTML::_('mjconfig.positionparam', 'wml.header1', $modulepositions, $MobileJoomla_Settings);
 	$lists['wml.header2'] = JHTML::_('mjconfig.positionparam', 'wml.header2', $modulepositions, $MobileJoomla_Settings);
 	$lists['wml.header3'] = JHTML::_('mjconfig.positionparam', 'wml.header3', $modulepositions, $MobileJoomla_Settings);
-	$lists['wml.pathway'] = JHTML::_('mjconfig.booleanparam', 'wml.pathway', $MobileJoomla_Settings);
-	$lists['wml.pathwayhome'] = JHTML::_('mjconfig.booleanparam', 'wml.pathwayhome', $MobileJoomla_Settings);
 	$lists['wml.middle1'] = JHTML::_('mjconfig.positionparam', 'wml.middle1', $modulepositions, $MobileJoomla_Settings);
 	$lists['wml.middle2'] = JHTML::_('mjconfig.positionparam', 'wml.middle2', $modulepositions, $MobileJoomla_Settings);
 	$lists['wml.middle3'] = JHTML::_('mjconfig.positionparam', 'wml.middle3', $modulepositions, $MobileJoomla_Settings);
@@ -200,8 +196,6 @@ function showconfig()
 	$lists['chtml.header1'] = JHTML::_('mjconfig.positionparam', 'chtml.header1', $modulepositions, $MobileJoomla_Settings);
 	$lists['chtml.header2'] = JHTML::_('mjconfig.positionparam', 'chtml.header2', $modulepositions, $MobileJoomla_Settings);
 	$lists['chtml.header3'] = JHTML::_('mjconfig.positionparam', 'chtml.header3', $modulepositions, $MobileJoomla_Settings);
-	$lists['chtml.pathway'] = JHTML::_('mjconfig.booleanparam', 'chtml.pathway', $MobileJoomla_Settings);
-	$lists['chtml.pathwayhome'] = JHTML::_('mjconfig.booleanparam', 'chtml.pathwayhome', $MobileJoomla_Settings);
 	$lists['chtml.middle1'] = JHTML::_('mjconfig.positionparam', 'chtml.middle1', $modulepositions, $MobileJoomla_Settings);
 	$lists['chtml.middle2'] = JHTML::_('mjconfig.positionparam', 'chtml.middle2', $modulepositions, $MobileJoomla_Settings);
 	$lists['chtml.middle3'] = JHTML::_('mjconfig.positionparam', 'chtml.middle3', $modulepositions, $MobileJoomla_Settings);
@@ -219,8 +213,6 @@ function showconfig()
 	$lists['iphone.header1'] = JHTML::_('mjconfig.positionparam', 'iphone.header1', $modulepositions, $MobileJoomla_Settings);
 	$lists['iphone.header2'] = JHTML::_('mjconfig.positionparam', 'iphone.header2', $modulepositions, $MobileJoomla_Settings);
 	$lists['iphone.header3'] = JHTML::_('mjconfig.positionparam', 'iphone.header3', $modulepositions, $MobileJoomla_Settings);
-	$lists['iphone.pathway'] = JHTML::_('mjconfig.booleanparam', 'iphone.pathway', $MobileJoomla_Settings);
-	$lists['iphone.pathwayhome'] = JHTML::_('mjconfig.booleanparam', 'iphone.pathwayhome', $MobileJoomla_Settings);
 	$lists['iphone.middle1'] = JHTML::_('mjconfig.positionparam', 'iphone.middle1', $modulepositions, $MobileJoomla_Settings);
 	$lists['iphone.middle2'] = JHTML::_('mjconfig.positionparam', 'iphone.middle2', $modulepositions, $MobileJoomla_Settings);
 	$lists['iphone.middle3'] = JHTML::_('mjconfig.positionparam', 'iphone.middle3', $modulepositions, $MobileJoomla_Settings);
@@ -311,7 +303,6 @@ function saveconfig()
 					   'iphone.template', 'iphone.homepage', 'iphone.gzip', 'iphone.domain', 'iphone.redirect', 'iphone.buffer_width',
 					   'global.removetags', 'global.img', 'global.img_addstyles', 'global.homepage', 'global.componenthome',
 					   'xhtml.header1', 'xhtml.header2', 'xhtml.header3',
-					   'xhtml.pathway', 'xhtml.pathwayhome',
 					   'xhtml.middle1', 'xhtml.middle2', 'xhtml.middle3',
 					   'xhtml.componenthome',
 					   'xhtml.footer1', 'xhtml.footer2', 'xhtml.footer3',
@@ -320,21 +311,18 @@ function saveconfig()
 					   'xhtml.entitydecode', 'xhtml.embedcss', 'xhtml.contenttype', 'xhtml.xmlhead',
 					   'xhtml.doctype', 'xhtml.xmlns',
 					   'wml.header1', 'wml.header2', 'wml.header3',
-					   'wml.pathway', 'wml.pathwayhome',
 					   'wml.middle1', 'wml.middle2', 'wml.middle3',
 					   'wml.componenthome',
 					   'wml.footer1', 'wml.footer2', 'wml.footer3',
 					   'wml.cards', 'wml.jfooter',
 					   'wml.removetags', 'wml.img', 'wml.entitydecode', 'wml.doctype',
 					   'chtml.header1', 'chtml.header2', 'chtml.header3',
-					   'chtml.pathway', 'chtml.pathwayhome',
 					   'chtml.middle1', 'chtml.middle2', 'chtml.middle3',
 					   'chtml.componenthome',
 					   'chtml.footer1', 'chtml.footer2', 'chtml.footer3',
 					   'chtml.jfooter', 'chtml.removetags', 'chtml.img',
 					   'chtml.entitydecode', 'chtml.doctype',
 					   'iphone.header1', 'iphone.header2', 'iphone.header3',
-					   'iphone.pathway', 'iphone.pathwayhome',
 					   'iphone.middle1', 'iphone.middle2', 'iphone.middle3',
 					   'iphone.componenthome',
 					   'iphone.footer1', 'iphone.footer2', 'iphone.footer3',

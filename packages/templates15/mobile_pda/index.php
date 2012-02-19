@@ -90,7 +90,6 @@ $MobileJoomla->showDocType();
 			?><div id="<?php echo $modulepos; ?>"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
 		endif;
 
-		$MobileJoomla->showBreadcrumbs();
 		$MobileJoomla->showComponent();
 
 		$modulepos = $MobileJoomla->getPosition('middle2');
