@@ -113,15 +113,11 @@ class HTML_mobilejoomla
 					'COM_MJ__INFORMATION' => array(
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__CURRENT_VERSION'),
-							'input_blob' => '<p>'.self::getMJVersion().' <a class="fltrt" href="#">'.JText::_('COM_MJ__GO_PRO').'</a></p>'
+							'input_blob' => '<p>'.self::getMJVersion().'</p>'
 						),
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__LATEST_VERSION'),
 							'input_blob' => '<p>'.self::getMJVersion().' <a class="fltrt" href="#">'.JText::_('COM_MJ__UPDATE').'</a></p>'
-						),
-						array(
-							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__DEV_DB_SIZE'),
-							'input_blob' => '<p>100 MB <a class="fltrt" href="#">'.JText::_('COM_MJ__REDUCE_DEV_DB_SIZE').'</a></p>'
 						)
 					),
 					'COM_MJ__SUPPORT'=>array(
@@ -179,7 +175,7 @@ class HTML_mobilejoomla
 							'input_blob' => $lists['xhtml.gzip']
 						),
 						array(
-							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__REMOVE_UNSUPPORTED_TAGS'),
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__REMOVE_UNSUPPORTED_TAGS', 'COM_MJ__REMOVE_UNSUPPORTED_TAGS_XHTMLMP_DESC'),
 							'input_blob' => $lists['xhtml.removetags']
 						),
 						array(
