@@ -171,7 +171,6 @@ class ImageRescaler
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
 		$MobileJoomla        =& MobileJoomla::getInstance();
 
-		$markupName = $MobileJoomla->getMarkup();
 		$dev_width  = $MobileJoomla_Device['screenwidth'];
 		$dev_height = $MobileJoomla_Device['screenheight'];
 		$formats    = $MobileJoomla_Device['imageformats'];
