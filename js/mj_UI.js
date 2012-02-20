@@ -1,3 +1,4 @@
+/* ###SHORTHEADER### */
 window.addEvent('domready',function(){
 	function hidetabs(){
 		$$('#submenu li a').each(function(a){

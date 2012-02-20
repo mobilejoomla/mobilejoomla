@@ -1,3 +1,4 @@
+/* ###SHORTHEADER### */
 var jQT = new $.jQTouch({
 	addGlossToIcon: true,
 	statusBar: 'black'

@@ -1,3 +1,4 @@
+/* ###SHORTHEADER### */
 function init()
 {
 	var myStyleTweaks = new StyleTweaker();
