@@ -37,17 +37,7 @@ window.addEvent('domready',function(){
 	}
 
 	function checkupdate(){
-		if(typeof Ajax == "function"){
-			new Ajax( 'http://www.mobilejoomla.com/getver.php?v=' + escape('0.9'), {
-				method: 'get',
-				update: $('mjlatestver'),
-				onComplete: function(response){
-					if(response != '0.9'){
-						$('mjlatestverurl').setStyle('display', 'block');
-					}
-				}
-			}).request();
-		} else if(typeof Request == "function"){
+		if(typeof Request.HTML == "function"){
 			new Request.HTML( {
 				url: 'http://www.mobilejoomla.com/getver.php?v=' + escape('0.9'),
 				method: 'get',
@@ -58,6 +48,16 @@ window.addEvent('domready',function(){
 					}
 				}
 			}).send();
+		} else if(typeof Ajax == "function"){
+			new Ajax( 'http://www.mobilejoomla.com/getver.php?v=' + escape('0.9'), {
+				method: 'get',
+				update: $('mjlatestver'),
+				onComplete: function(response){
+					if(response != '0.9'){
+						$('mjlatestverurl').setStyle('display', 'block');
+					}
+				}
+			}).request();
 		}
 	}
 
