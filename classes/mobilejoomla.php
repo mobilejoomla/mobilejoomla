@@ -218,45 +218,19 @@ class MobileJoomla
 		if($device=='auto')
 			$device = $MobileJoomla_Device['real_markup']=='' ? 'desktop' : $MobileJoomla_Device['real_markup'];
 
-		if($MobileJoomla_Settings['domains'] == '1')
+		switch($device)
 		{
-			switch($device)
-			{
-			case 'xhtml':
-				if($MobileJoomla_Settings['xhtml.domain'] && $MobileJoomla_Settings['xhtml.redirect'])
-					$uri->setHost($MobileJoomla_Settings['xhtml.domain']);
-				break;
-			case 'wml':
-				if($MobileJoomla_Settings['wml.domain'] && $MobileJoomla_Settings['wml.redirect'])
-					$uri->setHost($MobileJoomla_Settings['wml.domain']);
-				break;
-			case 'chtml':
-				if($MobileJoomla_Settings['chtml.domain'] && $MobileJoomla_Settings['chtml.redirect'])
-					$uri->setHost($MobileJoomla_Settings['chtml.domain']);
-				break;
-			case 'iphone':
-				if($MobileJoomla_Settings['iphone.domain'] && $MobileJoomla_Settings['iphone.redirect'])
-					$uri->setHost($MobileJoomla_Settings['iphone.domain']);
-				break;
-			case 'desktop':
-				break;
-			default:
-				$device = false;
-			}
-		}
-		else
-		{
-			switch($device)
-			{
-			case 'xhtml':
-			case 'wml':
-			case 'chtml':
-			case 'iphone':
-			case 'desktop':
-				break;
-			default:
-				$device = false;
-			}
+		case 'xhtml':
+		case 'wml':
+		case 'chtml':
+		case 'iphone':
+			if($MobileJoomla_Settings[$device.'.domain'])
+				$uri->setHost($MobileJoomla_Settings[$device.'.domain']);
+			break;
+		case 'desktop':
+			break;
+		default:
+			$device = false;
 		}
 
 		if($device !== false)
