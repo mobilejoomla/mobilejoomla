@@ -348,6 +348,15 @@ function UpdateConfig($prev_version)
 					unset($MobileJoomla_Settings[$param]);
 				}
 			}
+
+			if($MobileJoomla_Settings['domains'] == 0)
+			{
+				$MobileJoomla_Settings['xhtmldomain'] = '';
+				$MobileJoomla_Settings['wapdomain'] = '';
+				$MobileJoomla_Settings['imodedomain'] = '';
+				$MobileJoomla_Settings['iphonedomain'] = '';
+			}
+
 			$removeList = array('xhtml.pathway', 'xhtml.pathwayhome', 'wml.pathway', 'wml.pathwayhome',
 								'chtml.pathway', 'chtml.pathwayhome', 'iphone.pathway', 'iphone.pathwayhome',
 								'domains', 'xhtml.redirect', 'wml.redirect', 'chtml.redirect', 'iphone.redirect');
@@ -385,14 +394,12 @@ function UpdateConfig($prev_version)
 	if(!function_exists('imagecopyresized'))
 	{
 		JError::raiseWarning(0, JText::_('COM_MJ__GD2_LIBRARY_IS_NOT_LOADED'));
-		if($MobileJoomla_Settings['xhtml.img'] > 1)
-			$MobileJoomla_Settings['xhtml.img'] = 1;
-		if($MobileJoomla_Settings['wml.img'] > 1)
-			$MobileJoomla_Settings['wml.img'] = 1;
-		if($MobileJoomla_Settings['chtml.img'] > 1)
-			$MobileJoomla_Settings['chtml.img'] = 1;
-		if($MobileJoomla_Settings['iphone.img'] > 1)
-			$MobileJoomla_Settings['iphone.img'] = 1;
+		if($MobileJoomla_Settings['global.img'] > 1)
+			$MobileJoomla_Settings['global.img'] = 1;
+		$MobileJoomla_Settings['xhtml.img'] = '';
+		$MobileJoomla_Settings['wml.img'] = '';
+		$MobileJoomla_Settings['chtml.img'] = '';
+		$MobileJoomla_Settings['iphone.img'] = '';
 	}
 
 	//save config
