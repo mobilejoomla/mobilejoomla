@@ -44,6 +44,12 @@ function showconfig()
 
 	include_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'classes'.DS.'jhtmlmjconfig.php';
 
+	$app =& JFactory::getApplication();
+	if(!JFile::exists(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php'))
+		$app->enqueueMessage(JText::_('COM_MJ__CONFIG_MISSING'), 'banner');
+	elseif(!is_writable(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php'))
+		$app->enqueueMessage(JText::_('COM_MJ__CONFIG_UNWRITEABLE'), 'banner');
+
 	/** @var JDatabase $db */
 	$db =& JFactory::getDBO();
 	$query = 'SELECT DISTINCT(position) FROM #__modules WHERE client_id = 0';
