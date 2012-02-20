@@ -351,24 +351,12 @@ class plgSystemMobileBot extends JPlugin
 		switch($MobileJoomla_Device['markup'])
 		{
 			case 'xhtml':
-				$template = $MobileJoomla_Settings['xhtml.template'];
-				$homepage = $MobileJoomla_Settings['xhtml.homepage'];
-				$gzip = $MobileJoomla_Settings['xhtml.gzip'];
-				break;
 			case 'wml':
-				$template = $MobileJoomla_Settings['wml.template'];
-				$homepage = $MobileJoomla_Settings['wml.homepage'];
-				$gzip = $MobileJoomla_Settings['wml.gzip'];
-				break;
 			case 'chtml':
-				$template = $MobileJoomla_Settings['chtml.template'];
-				$homepage = $MobileJoomla_Settings['chtml.homepage'];
-				$gzip = $MobileJoomla_Settings['chtml.gzip'];
-				break;
 			case 'iphone':
-				$template = $MobileJoomla_Settings['iphone.template'];
-				$homepage = $MobileJoomla_Settings['iphone.homepage'];
-				$gzip = $MobileJoomla_Settings['iphone.gzip'];
+				$template = $MobileJoomla->getParam('template');
+				$homepage = $MobileJoomla->getParam('homepage');
+				$gzip     = $MobileJoomla->getParam('gzip');
 				break;
 		}
 

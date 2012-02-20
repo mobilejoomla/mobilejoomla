@@ -17,7 +17,6 @@ $lang =& JFactory::getLanguage();
 $lang->load('tpl_mobile_iphone');
 
 $MobileJoomla =& MobileJoomla::getInstance();
-$MobileJoomla_Settings =& MobileJoomla::getConfig();
 
 $base = $this->baseurl.'/templates/'.$this->template;
 $home = $this->baseurl.'/';

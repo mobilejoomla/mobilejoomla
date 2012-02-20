@@ -17,7 +17,6 @@ $lang =& JFactory::getLanguage();
 $lang->load('tpl_mobile_pda');
 
 $MobileJoomla =& MobileJoomla::getInstance();
-$MobileJoomla_Settings =& MobileJoomla::getConfig();
 
 $base = $this->baseurl.'/templates/'.$this->template;
 $home = $this->baseurl.'/';
@@ -44,7 +43,7 @@ $MobileJoomla->showDocType();
 <?php
 	if(@filesize(JPATH_SITE.DS.'templates'.DS.$this->template.DS.'css'.DS.'custom.css'))
 	{
-		if($MobileJoomla_Settings['xhtml.embedcss'])
+		if($MobileJoomla->getParam('embedcss', false))
 		{
 			echo "<style>\n";
 			@readfile(JPATH_SITE.DS.'templates'.DS.$this->template.DS.'css'.DS.'custom.css');
