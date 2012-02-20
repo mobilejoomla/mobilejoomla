@@ -15,6 +15,7 @@ class MobileJoomla
 	var $config = null;
 	var $device = null;
 	var $_ishomepage = false;
+	var $_hidemodules = false;
 
 	function &getConfig()
 	{
@@ -171,13 +172,37 @@ class MobileJoomla
 		return $MobileJoomla_Settings[$full_name];
 	}
 
+	function hideModules()
+	{
+		$this->_hidemodules = true;
+	}
+
 	function getPosition($pos)
 	{
+		if(!isset($this->config)) return '';
+		if($this->_hidemodules) return '';
+		switch($pos)
+		{
+			case 'header':
+				return $this->getParam('header1');
+			case 'middle':
+				return $this->getParam('middle1');
+			case 'footer':
+				return $this->getParam('footer1');
+			case 'header2':
+			case 'header3':
+			case 'middle2':
+			case 'middle3':
+			case 'footer2':
+			case 'footer3':
+				return $this->getParam($pos);
+		}
 		return '';
 	}
 
 	function loadModules($position)
 	{
+		if($this->_hidemodules) return;
 		echo '<jdoc:include type="modules" name="'.$position.'" />';
 	}
 

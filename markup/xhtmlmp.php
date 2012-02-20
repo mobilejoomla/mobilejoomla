@@ -96,35 +96,9 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 			echo '<link rel="canonical" href="'.$canonical.'">';
 	}
 
-	function getPosition($pos)
-	{
-		if(!isset($this->config)) return '';
-		switch($pos)
-		{
-			case 'header':
-				return $this->config['xhtml.header1'];
-			case 'header2':
-				return $this->config['xhtml.header2'];
-			case 'header3':
-				return $this->config['xhtml.header3'];
-			case 'middle':
-				return $this->config['xhtml.middle1'];
-			case 'middle2':
-				return $this->config['xhtml.middle2'];
-			case 'middle3':
-				return $this->config['xhtml.middle3'];
-			case 'footer':
-				return $this->config['xhtml.footer1'];
-			case 'footer2':
-				return $this->config['xhtml.footer2'];
-			case 'footer3':
-				return $this->config['xhtml.footer3'];
-		}
-		return '';
-	}
-
 	function loadModules($position, $style='xhtml_m')
 	{
+		if($this->_hidemodules) return;
 		echo '<jdoc:include type="modules" name="'.$position.'" style="'.$style.'" />';
 	}
 

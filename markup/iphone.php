@@ -87,34 +87,8 @@ $document->setHeadData($headerstuff);*/
 
 	function loadModules($position, $style='iphone')
 	{
+		if($this->_hidemodules) return;
 		echo '<jdoc:include type="modules" name="'.$position.'" style="'.$style.'" />';
-	}
-
-	function getPosition($pos)
-	{
-		if(!isset($this->config)) return '';
-		switch($pos)
-		{
-			case 'header':
-				return $this->config['iphone.header1'];
-			case 'header2':
-				return $this->config['iphone.header2'];
-			case 'header3':
-				return $this->config['iphone.header3'];
-			case 'middle':
-				return $this->config['iphone.middle1'];
-			case 'middle2':
-				return $this->config['iphone.middle2'];
-			case 'middle3':
-				return $this->config['iphone.middle3'];
-			case 'footer':
-				return $this->config['iphone.footer1'];
-			case 'footer2':
-				return $this->config['iphone.footer2'];
-			case 'footer3':
-				return $this->config['iphone.footer3'];
-		}
-		return '';
 	}
 
 	function getAccessKey()

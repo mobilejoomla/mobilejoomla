@@ -49,42 +49,15 @@ class MobileJoomla_WML extends MobileJoomla
 	{
 	}
 
-	function getPosition($pos)
-	{
-		if(!isset($this->config)) return '';
-		switch($pos)
-		{
-			case 'header':
-				return $this->config['wml.header1'];
-			case 'header2':
-				return $this->config['wml.header2'];
-			case 'header3':
-				return $this->config['wml.header3'];
-			case 'middle':
-				return $this->config['wml.middle1'];
-			case 'middle2':
-				return $this->config['wml.middle2'];
-			case 'middle3':
-				return $this->config['wml.middle3'];
-			case 'footer':
-				return $this->config['wml.footer1'];
-			case 'footer2':
-				return $this->config['wml.footer2'];
-			case 'footer3':
-				return $this->config['wml.footer3'];
-			case 'cards':
-				return $this->config['wml.cards'];
-		}
-		return '';
-	}
-
 	function loadModules($position, $style='wml')
 	{
+		if($this->_hidemodules) return;
 		echo '<jdoc:include type="modules" name="'.$position.'" style="'.$style.'" />';
 	}
 
 	function loadModulesAsCards($position, $style='wmlcards')
 	{
+		if($this->_hidemodules) return;
 		echo '<jdoc:include type="modules" name="'.$position.'" style="'.$style.'" />';
 	}
 
