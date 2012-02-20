@@ -370,6 +370,9 @@ function UpdateConfig($prev_version)
 					'iphonetemplate' => 'iphone.template', 'iphonehomepage' => 'iphone.homepage', 'iphonegzip' => 'iphone.gzip',
 					'iphonedomain' => 'iphone.domain', 'iphoneredirect' => 'iphone.redirect', 'iphone_buffer_width' => 'iphone.buffer_width'
 				);
+			$newGlobalList = array(
+					'removetags'=>0, 'img'=>2, 'img_addstyles'=>0, 'homepage'=>'', 'componenthome'=>1, 'gzip'=>1
+				);
 			foreach($removeList as $old)
 			{
 				unset($MobileJoomla_Settings[$old]);
@@ -379,12 +382,18 @@ function UpdateConfig($prev_version)
 				$MobileJoomla_Settings[$new] = $MobileJoomla_Settings[$old];
 				unset($MobileJoomla_Settings[$old]);
 			}
-			$MobileJoomla_Settings['global.removetags'] = 0;
-			$MobileJoomla_Settings['global.img'] = 2;
-			$MobileJoomla_Settings['global.img_addstyles'] = 0;
-			$MobileJoomla_Settings['global.homepage'] = '';
-			$MobileJoomla_Settings['global.componenthome'] = 1;
-			$MobileJoomla_Settings['global.gzip'] = 1;
+			foreach($newGlobalList as $new=>$val)
+			{
+				$MobileJoomla_Settings['global.'.$new] = $val;
+				if($MobileJoomla_Settings['xhtml.'.$new] == $val)
+					$MobileJoomla_Settings['xhtml.'.$new] = '';
+				if($MobileJoomla_Settings['wml.'.$new] == $val)
+					$MobileJoomla_Settings['wml.'.$new] = '';
+				if($MobileJoomla_Settings['chtml.'.$new] == $val)
+					$MobileJoomla_Settings['chtml.'.$new] = '';
+				if($MobileJoomla_Settings['iphone.'.$new] == $val)
+					$MobileJoomla_Settings['iphone.'.$new] = '';
+			}
 		}
 	}
 
