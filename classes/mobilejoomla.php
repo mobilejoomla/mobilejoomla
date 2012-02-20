@@ -39,6 +39,10 @@ class MobileJoomla
 		return $instance;
 	}
 
+	/**
+	 * @param string $markup
+	 * @return MobileJoomla
+	 */
 	function &getInstance($markup = '')
 	{
 		static $instance;
