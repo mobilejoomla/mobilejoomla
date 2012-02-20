@@ -46,7 +46,7 @@ class JHTMLMjconfig
 
 	function g_listParam($param_name, $values, $MobileJoomla_Settings)
 	{
-		array_push($values, JHTML::_('select.option', '', JText::_('COM_MJ__GLOBAL')));
+		array_unshift($values, JHTML::_('select.option', '', JText::_('COM_MJ__GLOBAL')));
 		return JHTMLMjconfig::listParam($param_name, $values, $MobileJoomla_Settings);
 	}
 
