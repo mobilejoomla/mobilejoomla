@@ -18,7 +18,7 @@ if(version_compare(JVERSION,'1.6.0','ge') &&
 require_once(JPATH_COMPONENT.DS.'admin.mobilejoomla.html.php');
 
 $task = JRequest::getCmd('task');
-$mainframe =& JFactory::getApplication();
+$app =& JFactory::getApplication();
 
 // TODO: transform into JController-based controller
 switch($task)
@@ -27,7 +27,7 @@ switch($task)
 		saveconfig($task);
 		break;
 	case 'cancel':
-		$mainframe->redirect('index.php');
+		$app->redirect('index.php');
 		break;
 	case 'update':
 		update();
@@ -351,16 +351,16 @@ function saveconfig()
 			. "?>";
 
 	jimport('joomla.filesystem.file');
-	$mainframe =& JFactory::getApplication();
+	$app =& JFactory::getApplication();
 	if(JFile::write($configfname, $config))
 	{
-		$mainframe->redirect('index.php?option=com_mobilejoomla',
-		                     JText::_('COM_MJ__CONFIG_UPDATED'));
+		$app->redirect('index.php?option=com_mobilejoomla',
+		               JText::_('COM_MJ__CONFIG_UPDATED'));
 	}
 	else
 	{
-		$mainframe->redirect('index.php?option=com_mobilejoomla',
-		                     JText::_('COM_MJ__UNABLE_OPEN_CONFIG'));
+		$app->redirect('index.php?option=com_mobilejoomla',
+		               JText::_('COM_MJ__UNABLE_OPEN_CONFIG'));
 	}
 }
 
@@ -389,7 +389,7 @@ function update()
 	jimport('joomla.filesystem.folder');
 	jimport('joomla.installer.helper');
 	jimport('joomla.installer.installer');
-	$mainframe =& JFactory::getApplication();
+	$app =& JFactory::getApplication();
 	$option = JRequest::getString('option');
 
 	$state = JRequest::getWord('state');
@@ -400,21 +400,21 @@ function update()
 		$url = 'http://www.mobilejoomla.com/latest.php';
 		$filename = JInstallerHelper::downloadPackage($url);
 		if($filename)
-			$mainframe->setUserState( "$option.updatefilename", $filename );
+			$app->setUserState( "$option.updatefilename", $filename );
 		_sendStatus();
 		break;
 	case 'unpack':
 		_initStatus();
-		$filename = $mainframe->getUserState( "$option.updatefilename", false );
+		$filename = $app->getUserState( "$option.updatefilename", false );
 		$config =& JFactory::getConfig();
 		$path = $config->getValue('config.tmp_path').DS.$filename;
 		if($path)
 		{
 			$result = JInstallerHelper::unpack($path);
-			$mainframe->setUserState( "$option.updatefilename", false );
+			$app->setUserState( "$option.updatefilename", false );
 			if($result!==false)
 			{
-				$mainframe->setUserState( "$option.updatedir", $result['dir'] );
+				$app->setUserState( "$option.updatedir", $result['dir'] );
 				JFile::delete($path);
 			}
 		}
@@ -424,12 +424,12 @@ function update()
 		break;
 	case 'install':
 		_initStatus();
-		$dir = $mainframe->getUserState( "$option.updatedir", false );
+		$dir = $app->getUserState( "$option.updatedir", false );
 		if($dir)
 		{
 			$installer = new JInstaller();
 			$installer->install($dir);
-			$mainframe->setUserState( "$option.updatedir", false );
+			$app->setUserState( "$option.updatedir", false );
 			JFolder::delete($dir);
 		}
 		else

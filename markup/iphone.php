@@ -29,8 +29,8 @@ unset($headerstuff['scripts'][JURI::base(true).'/media/system/js/caption.js']);
 unset($headerstuff['scripts'][JURI::base(true).'/media/system/js/mootools.js']);
 $document->setHeadData($headerstuff);*/
 		echo '<jdoc:include type="head" />';
-		$mainframe =& JFactory::getApplication();
-		$template = $mainframe->getTemplate();
+		$app =& JFactory::getApplication();
+		$template = $app->getTemplate();
 		if(file_exists(JPATH_THEMES.DS.$template.DS.'apple-touch-icon.png'))
 			echo '<link rel="apple-touch-icon" href="'.JURI::base(true).'/templates/'.$template.'/apple-touch-icon.png" />';
 		$canonical = MobileJoomla::getCanonicalURI();
@@ -46,7 +46,7 @@ $document->setHeadData($headerstuff);*/
 
 	function showFooter()
 	{
-		$mainframe =& JFactory::getApplication();
+		$app =& JFactory::getApplication();
 		if($this->config['iphone.jfooter'])
 		{
 			/** @var JLanguage $lang */
@@ -55,7 +55,7 @@ $document->setHeadData($headerstuff);*/
 			$fyear = (substr(JVERSION,0,3) != '1.5') ? 'Y' : '%Y';
 			$version = new JVersion();
 ?>
-<p class="jfooter">&copy; <?php echo JHTML::_('date', 'now', $fyear).' '.$mainframe->getCfg('sitename'); ?><br><?php echo $version->URL; ?><br><?php echo JText::_('COM_MJ__MOBILE_VERSION_BY');?> <a href="http://www.mobilejoomla.com/">Mobile Joomla!</a></p>
+<p class="jfooter">&copy; <?php echo JHTML::_('date', 'now', $fyear).' '.$app->getCfg('sitename'); ?><br><?php echo $version->URL; ?><br><?php echo JText::_('COM_MJ__MOBILE_VERSION_BY');?> <a href="http://www.mobilejoomla.com/">Mobile Joomla!</a></p>
 <?php
 		}
 	}

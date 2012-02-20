@@ -76,9 +76,9 @@ class plgMobileDomains extends JPlugin
 		}
 		else
 		{ // Desktop domain
-			$mainframe =& JFactory::getApplication();
+			$app =& JFactory::getApplication();
 			// is it non-first visit? Then don't redirect
-			if($mainframe->getUserState('mobilejoomla.markup') !== null)
+			if($app->getUserState('mobilejoomla.markup') !== null)
 				$MobileJoomla_Device['markup'] = '';
 		}
 	}
@@ -99,29 +99,29 @@ class plgMobileDomains extends JPlugin
 		$parsed = parse_url($uri->toString());
 		$path = isset($parsed['path']) ? $parsed['path'] : '/';
 
-		/** @var JSite $mainframe */
-		$mainframe =& JFactory::getApplication();
+		/** @var JSite $app */
+		$app =& JFactory::getApplication();
 		switch($MobileJoomla_Device['markup'])
 		{
 		case 'xhtml':
 			$domain_xhtml = $MobileJoomla_Settings['xhtml.domain'];
 			if($domain_xhtml && $_SERVER['HTTP_HOST'] != $domain_xhtml)
-				$mainframe->redirect($http.'://'.$domain_xhtml.$path);
+				$app->redirect($http.'://'.$domain_xhtml.$path);
 			break;
 		case 'wml':
 			$domain_wap = $MobileJoomla_Settings['wml.domain'];
 			if($domain_wap && $_SERVER['HTTP_HOST'] != $domain_wap)
-				$mainframe->redirect($http.'://'.$domain_wap.$path);
+				$app->redirect($http.'://'.$domain_wap.$path);
 			break;
 		case 'chtml':
 			$domain_imode = $MobileJoomla_Settings['chtml.domain'];
 			if($domain_imode && $_SERVER['HTTP_HOST'] != $domain_imode)
-				$mainframe->redirect($http.'://'.$domain_imode.$path);
+				$app->redirect($http.'://'.$domain_imode.$path);
 			break;
 		case 'iphone':
 			$domain_iphone = $MobileJoomla_Settings['iphone.domain'];
 			if($domain_iphone && $_SERVER['HTTP_HOST'] != $domain_iphone)
-				$mainframe->redirect($http.'://'.$domain_iphone.$path);
+				$app->redirect($http.'://'.$domain_iphone.$path);
 			break;
 		}
 	}
@@ -133,8 +133,8 @@ class plgMobileDomains extends JPlugin
 		else
 			$http = 'http';
 
-		$mainframe =& JFactory::getApplication();
-		$live_url = $mainframe->getCfg('live_site');
+		$app =& JFactory::getApplication();
+		$live_url = $app->getCfg('live_site');
 		if($live_url)
 		{
 			$parsed = parse_url($live_url);

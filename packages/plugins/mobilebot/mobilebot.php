@@ -28,9 +28,9 @@ class plgSystemMobileBot extends JPlugin
 
 	function onAfterInitialise()
 	{
-		/** @var JSite $mainframe */
-		$mainframe =& JFactory::getApplication();
-		if($mainframe->isAdmin()) // don't use MobileJoomla in backend
+		/** @var JSite $app */
+		$app =& JFactory::getApplication();
+		if($app->isAdmin()) // don't use MobileJoomla in backend
 			return;
 
 		$is_joomla15 = (substr(JVERSION,0,3) == '1.5');
@@ -52,12 +52,12 @@ class plgSystemMobileBot extends JPlugin
 				$uri->setScheme('http');
 			$uri->setHost($desktop_uri->getHost());
 			$uri->setPort($desktop_uri->getPort());
- 			$mainframe->redirect($uri->toString());
+ 			$app->redirect($uri->toString());
 		}
 
 		JPluginHelper::importPlugin('mobile');
 
-		$cached_data = $mainframe->getUserState('mobilejoomla.cache');
+		$cached_data = $app->getUserState('mobilejoomla.cache');
 		if($cached_data!==null)
 		{
 			$cached_data = @gzinflate(@base64_decode($cached_data));
@@ -78,17 +78,17 @@ class plgSystemMobileBot extends JPlugin
 		}
 		else
 		{
-			$mainframe->triggerEvent('onDeviceDetection', array(&$MobileJoomla_Settings, &$MobileJoomla_Device));
+			$app->triggerEvent('onDeviceDetection', array(&$MobileJoomla_Settings, &$MobileJoomla_Device));
 
 			$gzlevel = 5;
 			$cached_data = array('settings'=>$MobileJoomla_Settings, 'device'=>$MobileJoomla_Device);
 			$cached_data = base64_encode(gzdeflate(serialize($cached_data), $gzlevel));
-			$mainframe->setUserState('mobilejoomla.cache', $cached_data);
+			$app->setUserState('mobilejoomla.cache', $cached_data);
 		}
 
 		$MobileJoomla_Device['real_markup'] = $MobileJoomla_Device['markup'];
 
-		$mainframe->triggerEvent('onAfterDeviceDetection', array (&$MobileJoomla_Settings, &$MobileJoomla_Device));
+		$app->triggerEvent('onAfterDeviceDetection', array (&$MobileJoomla_Settings, &$MobileJoomla_Device));
 
 		$markup = $MobileJoomla_Device['markup'];
 		$MobileJoomla_Device['default_markup'] = $markup;
@@ -185,7 +185,7 @@ class plgSystemMobileBot extends JPlugin
 			$MobileJoomla_Settings['iphone.img'] = 1;
 		}
 
-		$mainframe->triggerEvent('onBeforeMobileMarkupInit', array (&$MobileJoomla_Settings, &$MobileJoomla_Device));
+		$app->triggerEvent('onBeforeMobileMarkupInit', array (&$MobileJoomla_Settings, &$MobileJoomla_Device));
 
 		$this->updateUserMarkup();
 
@@ -228,11 +228,11 @@ class plgSystemMobileBot extends JPlugin
 							? implode('', $MobileJoomla_Device['imageformats'])
 							: '');
 			$this->setRequestVar('mjcachekey', $cachekey);
-			$registeredurlparams = $mainframe->get('registeredurlparams');
+			$registeredurlparams = $app->get('registeredurlparams');
 			if(empty($registeredurlparams))
 				$registeredurlparams = new stdClass();
 			$registeredurlparams->mjcachekey = 'CMD';
-			$mainframe->set('registeredurlparams', $registeredurlparams);
+			$app->set('registeredurlparams', $registeredurlparams);
 		}
 		else //Joomla!1.5
 		{
@@ -259,7 +259,7 @@ class plgSystemMobileBot extends JPlugin
 				}
 			}
 		}
-		$router =& $mainframe->getRouter();
+		$router =& $app->getRouter();
 		$router->attachBuildRule(array($this, 'buildRule'));
 
 		if(!defined('SHMOBILE_MOBILE_TEMPLATE_SWITCHED'))
@@ -302,9 +302,9 @@ class plgSystemMobileBot extends JPlugin
 
 	function onAfterRoute()
 	{
-		/** @var JSite $mainframe */
-		$mainframe =& JFactory::getApplication();
-		if($mainframe->isAdmin()) // don't use MobileJoomla in backend
+		/** @var JSite $app */
+		$app =& JFactory::getApplication();
+		if($app->isAdmin()) // don't use MobileJoomla in backend
 			return;
 
 		$is_joomla15 = (substr(JVERSION,0,3) == '1.5');
@@ -337,7 +337,7 @@ class plgSystemMobileBot extends JPlugin
 		{
 			$pcpage = $MobileJoomla_Settings['pcpage'];
 			if($pcpage && ($pcpage!=='http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']))
-				$mainframe->redirect($pcpage);
+				$app->redirect($pcpage);
 			return;
 		}
 
@@ -346,7 +346,7 @@ class plgSystemMobileBot extends JPlugin
 		$MobileJoomla =& MobileJoomla::getInstance();
 
 		JPluginHelper::importPlugin('mobile');
-		$mainframe->triggerEvent('onMobile', array (&$MobileJoomla, &$MobileJoomla_Settings, &$MobileJoomla_Device));
+		$app->triggerEvent('onMobile', array (&$MobileJoomla, &$MobileJoomla_Settings, &$MobileJoomla_Device));
 
 		switch($MobileJoomla_Device['markup'])
 		{
@@ -374,18 +374,18 @@ class plgSystemMobileBot extends JPlugin
 			}
 			if(version_compare(JVERSION,'1.7','ge'))
 			{
-				$mainframe->setTemplate($template, $params_data);
+				$app->setTemplate($template, $params_data);
 			}
 			elseif(version_compare(JVERSION,'1.6','ge'))
 			{
-				$mainframe->setTemplate($template);
-				$template_obj = $mainframe->getTemplate(true);
+				$app->setTemplate($template);
+				$template_obj = $app->getTemplate(true);
 				$template_obj->params->loadJSON($params_data);
 			}
 			else
 			{
-				$mainframe->setUserState('setTemplate', $template);
-				$mainframe->setTemplate($template);
+				$app->setUserState('setTemplate', $template);
+				$app->setTemplate($template);
 			}
 		}
 
@@ -422,7 +422,7 @@ class plgSystemMobileBot extends JPlugin
 		if(isset($current[session_name()]))
 			unset($current[session_name()]);
 
-        $menu =& $mainframe->getMenu();
+        $menu =& $app->getMenu();
 		/** @var JMenuSite $menu */
 		$menu =& JSite::getMenu();
 		if($is_joomla15)
@@ -457,7 +457,7 @@ class plgSystemMobileBot extends JPlugin
 					global $Itemid;
 					$Itemid = $mj_home_Itemid;
 					$menu->setActive($Itemid);
-					$mainframe->authorize($Itemid);
+					$app->authorize($Itemid);
 				}
 
 				$_SERVER['REQUEST_URI'] = JURI::base(true).'/'.$homepage;
@@ -481,7 +481,7 @@ class plgSystemMobileBot extends JPlugin
 					$url .= '://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 
 					$uri = new JURI($url);
-					$router =& $mainframe->getRouter();
+					$router =& $app->getRouter();
 					$result = $router->parse($uri);
 					JRequest::set($result, 'get');
 				}
@@ -510,8 +510,8 @@ class plgSystemMobileBot extends JPlugin
 
 	function getUserMarkup()
 	{
-		/** @var JSite $mainframe */
-		$mainframe =& JFactory::getApplication();
+		/** @var JSite $app */
+		$app =& JFactory::getApplication();
 
 		$markup = false;
 
@@ -524,7 +524,7 @@ class plgSystemMobileBot extends JPlugin
 		}
 
 		if($markup === false)
-			$markup = $this->CheckMarkup($mainframe->getUserState('mobilejoomla.markup'));
+			$markup = $this->CheckMarkup($app->getUserState('mobilejoomla.markup'));
 
 		if($markup === false && isset($_COOKIE['mjmarkup']))
 			$markup = $this->CheckMarkup($_COOKIE['mjmarkup']);
@@ -540,9 +540,9 @@ class plgSystemMobileBot extends JPlugin
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
 		$markup = $MobileJoomla_Device['markup'];
 
-		/** @var JSite $mainframe */
-		$mainframe =& JFactory::getApplication();
-		$mainframe->setUserState('mobilejoomla.markup', $markup);
+		/** @var JSite $app */
+		$app =& JFactory::getApplication();
+		$app->setUserState('mobilejoomla.markup', $markup);
 
 		if($markup != $MobileJoomla_Device['default_markup'])
 			setcookie('mjmarkup', $markup ? $markup : 'desktop', time()+365*24*60*60, '/');
@@ -562,9 +562,9 @@ class plgSystemMobileBot extends JPlugin
 
 		$text = JResponse::getBody();
 
-		/** @var JSite $mainframe */
-		$mainframe =& JFactory::getApplication();
-		$mainframe->triggerEvent('onMobilePagePrepare', array (&$text));
+		/** @var JSite $app */
+		$app =& JFactory::getApplication();
+		$app->triggerEvent('onMobilePagePrepare', array (&$text));
 
 		/** @var MobileJoomla $MobileJoomla */
 		$MobileJoomla =& MobileJoomla::getInstance();

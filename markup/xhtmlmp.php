@@ -110,7 +110,7 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 
 	function showFooter()
 	{
-		$mainframe =& JFactory::getApplication();
+		$app =& JFactory::getApplication();
 		if($this->config['xhtml.jfooter'])
 		{
 			/** @var JLanguage $lang */
@@ -119,7 +119,7 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 			$fyear = (substr(JVERSION,0,3) != '1.5') ? 'Y' : '%Y';
 			$version = new JVersion();
 ?>
-<p class="jfooter">&copy; <?php echo JHTML::_('date', 'now', $fyear).' '.$mainframe->getCfg('sitename'); ?><br/><?php echo $version->URL; ?><br/><?php echo JText::_('COM_MJ__MOBILE_VERSION_BY');?> <a href="http://www.mobilejoomla.com/">Mobile Joomla!</a></p>
+<p class="jfooter">&copy; <?php echo JHTML::_('date', 'now', $fyear).' '.$app->getCfg('sitename'); ?><br/><?php echo $version->URL; ?><br/><?php echo JText::_('COM_MJ__MOBILE_VERSION_BY');?> <a href="http://www.mobilejoomla.com/">Mobile Joomla!</a></p>
 <?php
 		}
 	}
