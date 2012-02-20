@@ -35,11 +35,39 @@ window.addEvent('domready',function(){
 		slider.addEvent('onChange',function(val){quality.value=val});
 		quality.addEvent('change',function(){slider.set(+quality.value)});
 	}
-	
+
+	function checkupdate(){
+		if(typeof Ajax == "function"){
+			new Ajax( 'http://www.mobilejoomla.com/getver.php?v=' + escape('0.9'), {
+				method: 'get',
+				update: $('mjlatestver'),
+				onComplete: function(response){
+					if(response != '0.9'){
+						$('mjlatestverurl').setStyle('display', 'block');
+					}
+				}
+			}).request();
+		} else if(typeof Request == "function"){
+			new Request.HTML( {
+				url: 'http://www.mobilejoomla.com/getver.php?v=' + escape('0.9'),
+				method: 'get',
+				update: 'mjlatestver',
+				onSuccess : function(response){
+					if(response != '0.9'){
+						$('mjlatestverurl').setStyle('display', 'block');
+					}
+				}
+			}).send();
+		}
+	}
+
 	try{
 		inittabs();
 	}catch(e){}
 	try{
 		initslider();
+	}catch(e){}
+	try{
+		checkupdate();
 	}catch(e){}
 });

@@ -60,6 +60,8 @@ class HTML_mobilejoomla
 		jimport('joomla.event.dispatcher');
 		JHTML::_('behavior.tooltip');
 		JHTML::_('behavior.switcher');
+		JHTML::_('behavior.modal', 'a.modal');
+
 		HTML_mobilejoomla::showUpdateNotification();
 		$document =& JFactory::getDocument();
 		$document->addScript(JURI::base(true).'/components/com_mobilejoomla/js/mj_UI.js');
@@ -117,7 +119,7 @@ class HTML_mobilejoomla
 						),
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__LATEST_VERSION'),
-							'input_blob' => '<p>'.self::getMJVersion().' <a class="fltrt" href="#">'.JText::_('COM_MJ__UPDATE').'</a></p>'
+							'input_blob' => '<p><span id="mjlatestver"></span> <a class="fltrt modal" id="mjlatestverurl" href="index.php?tmpl=component&option=com_mobilejoomla&task=update" rel="{handler: \'iframe\', size: {x: 480, y: 320}}">'.JText::_('COM_MJ__UPDATE').'</a></p>'
 						)
 					),
 					'COM_MJ__SUPPORT'=>array(
