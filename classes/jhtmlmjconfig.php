@@ -21,15 +21,18 @@ class JHTMLMjconfig
 
 	function booleanParam($param_name, $MobileJoomla_Settings)
 	{
-		$name = JHTMLMjconfig::formName($param_name);
-		return JHTML::_('select.booleanlist', $name, 'class="inputradio"', $MobileJoomla_Settings[$param_name], 'COM_MJ__ON', 'COM_MJ__OFF');
+		$values = array(
+			JHTML::_('select.option', '1', JText::_('COM_MJ__ON')),
+			JHTML::_('select.option', '0', JText::_('COM_MJ__OFF'))
+		);
+		return JHTMLMjconfig::radioParam($param_name, $values, $MobileJoomla_Settings);
 	}
 
 	function g_booleanParam($param_name, $MobileJoomla_Settings)
 	{
 		$values = array(
-			JHTML::_('select.option', '0', JText::_('COM_MJ__OFF')),
 			JHTML::_('select.option', '1', JText::_('COM_MJ__ON')),
+			JHTML::_('select.option', '0', JText::_('COM_MJ__OFF')),
 			JHTML::_('select.option', '', JText::_('COM_MJ__GLOBAL'))
 		);
 		return JHTMLMjconfig::radioParam($param_name, $values, $MobileJoomla_Settings);
