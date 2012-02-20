@@ -10,7 +10,7 @@
  */
 defined('_JEXEC') or die('Restricted access');
 
-jimport('joomla.html');
+jimport('joomla.html.html');
 
 class JHTMLMjconfig
 {
