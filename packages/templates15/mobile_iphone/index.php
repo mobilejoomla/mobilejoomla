@@ -79,13 +79,13 @@ if($modulepos && $this->countModules($modulepos) > 0)
 }
 
 $show_content = false;
-$show_content |= $MobileJoomla->config['tmpl_iphone_componenthome'] || !$MobileJoomla->isHome();
+$show_content |= $MobileJoomla->getParam('componenthome') || !$MobileJoomla->isHome();
 $show_content |= $this->countModules($MobileJoomla->getPosition('middle2'));
 $show_content |= $this->countModules($MobileJoomla->getPosition('middle3'));
 
 if($show_content): ?>
 	<div class="content">
-<?php if($MobileJoomla->config['tmpl_iphone_componenthome'] || !$MobileJoomla->isHome()): ?>
+<?php if($MobileJoomla->getParam('componenthome') || !$MobileJoomla->isHome()): ?>
 		<div class="container">
 			<?php $MobileJoomla->showComponent(); ?>
 		</div>
