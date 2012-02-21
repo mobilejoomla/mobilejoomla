@@ -167,7 +167,7 @@ function showconfig()
 	$lists['xhtml.jfooter'] = JHTML::_('mjconfig.booleanparam', 'xhtml.jfooter', $MobileJoomla_Settings);
 	$lists['xhtml.simplehead'] = JHTML::_('mjconfig.listparam', 'xhtml.simplehead', $simplehead, $MobileJoomla_Settings);
 	$lists['xhtml.allowextedit'] = JHTML::_('mjconfig.booleanparam', 'xhtml.allowextedit', $MobileJoomla_Settings);
-	$lists['xhtml.removetags'] = JHTML::_('mjconfig.booleanparam', 'xhtml.removetags', $MobileJoomla_Settings);
+	$lists['xhtml.removetags'] = JHTML::_('mjconfig.g_booleanparam', 'xhtml.removetags', $MobileJoomla_Settings);
 	$lists['xhtml.removescripts'] = JHTML::_('mjconfig.booleanparam', 'xhtml.removescripts', $MobileJoomla_Settings);
 	$lists['xhtml.img'] = JHTML::_('mjconfig.g_listparam', 'xhtml.img', $img, $MobileJoomla_Settings);
 	$lists['xhtml.img_addstyles'] = JHTML::_('mjconfig.g_booleanparam', 'xhtml.img_addstyles', $MobileJoomla_Settings);
@@ -191,7 +191,7 @@ function showconfig()
 	$lists['wml.footer3'] = JHTML::_('mjconfig.positionparam', 'wml.footer3', $modulepositions, $MobileJoomla_Settings);
 	$lists['wml.jfooter'] = JHTML::_('mjconfig.booleanparam', 'wml.jfooter', $MobileJoomla_Settings);
 	$lists['wml.cards'] = JHTML::_('mjconfig.positionparam', 'wml.cards', $modulepositions, $MobileJoomla_Settings);
-	$lists['wml.removetags'] = JHTML::_('mjconfig.booleanparam', 'wml.removetags', $MobileJoomla_Settings);
+	$lists['wml.removetags'] = JHTML::_('mjconfig.g_booleanparam', 'wml.removetags', $MobileJoomla_Settings);
 	$lists['wml.img'] = JHTML::_('mjconfig.g_listparam', 'wml.img', $img, $MobileJoomla_Settings);
 	$lists['wml.entitydecode'] = JHTML::_('mjconfig.booleanparam', 'wml.entitydecode', $MobileJoomla_Settings);
 	$lists['wml.doctype'] = JHTML::_('mjconfig.listparam', 'wml.doctype', $wmldoctype, $MobileJoomla_Settings);
@@ -208,7 +208,7 @@ function showconfig()
 	$lists['chtml.footer2'] = JHTML::_('mjconfig.positionparam', 'chtml.footer2', $modulepositions, $MobileJoomla_Settings);
 	$lists['chtml.footer3'] = JHTML::_('mjconfig.positionparam', 'chtml.footer3', $modulepositions, $MobileJoomla_Settings);
 	$lists['chtml.jfooter'] = JHTML::_('mjconfig.booleanparam', 'chtml.jfooter', $MobileJoomla_Settings);
-	$lists['chtml.removetags'] = JHTML::_('mjconfig.booleanparam', 'chtml.removetags', $MobileJoomla_Settings);
+	$lists['chtml.removetags'] = JHTML::_('mjconfig.g_booleanparam', 'chtml.removetags', $MobileJoomla_Settings);
 	$lists['chtml.img'] = JHTML::_('mjconfig.g_listparam', 'chtml.img', $img, $MobileJoomla_Settings);
 	$lists['chtml.entitydecode'] = JHTML::_('mjconfig.booleanparam', 'chtml.entitydecode', $MobileJoomla_Settings);
 	$lists['chtml.doctype'] = JHTML::_('mjconfig.booleanparam', 'chtml.doctype', $MobileJoomla_Settings);
@@ -227,8 +227,7 @@ function showconfig()
 	$lists['iphone.jfooter'] = JHTML::_('mjconfig.booleanparam', 'iphone.jfooter', $MobileJoomla_Settings);
 	$lists['iphone.img'] = JHTML::_('mjconfig.g_listparam', 'iphone.img', $img, $MobileJoomla_Settings);
 	$lists['iphone.img_addstyles'] = JHTML::_('mjconfig.g_booleanparam', 'iphone.img_addstyles', $MobileJoomla_Settings);
-	$lists['iphone.removetags'] = JHTML::_('mjconfig.booleanparam', 'iphone.removetags', $MobileJoomla_Settings);
-	$lists['iphone.removetags'] = JHTML::_('mjconfig.booleanparam', 'iphone.removetags', $MobileJoomla_Settings);
+	$lists['iphone.removetags'] = JHTML::_('mjconfig.g_booleanparam', 'iphone.removetags', $MobileJoomla_Settings);
 
 	function menuoptions()
 	{
