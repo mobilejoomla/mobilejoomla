@@ -99,7 +99,7 @@ function showconfig()
 	$caching = array (JHTML::_('select.option', 0, JText::_('COM_MJ__DISABLE')),
 					  JHTML::_('select.option', 1, JText::_('COM_MJ__JOOMLA')));
 	$gzip = array (JHTML::_('select.option', 1, JText::_('COM_MJ__AUTO')),
-				   JHTML::_('select.option', 0, JText::_('COM_MJ__NO')));
+				   JHTML::_('select.option', 0, JText::_('COM_MJ__OFF')));
 	$simplehead = array (JHTML::_('select.option', 0, JText::_('COM_MJ__HEAD_STANDARD')),
 	                     JHTML::_('select.option', 1, JText::_('COM_MJ__HEAD_SIMPLIFIED')));
 	$contenttype = array (JHTML::_('select.option', 0, JText::_('COM_MJ__AUTO')),
