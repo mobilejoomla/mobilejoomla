@@ -8,7 +8,7 @@ MJ_DESC="Mobile Joomla!"
 MJ_AUTHOR="Mobile Joomla!"
 MJ_EMAIL="hello@mobilejoomla.com"
 MJ_COPYRIGHT="(C) 2008-$CUR_YEAR Mobile Joomla!"
-MJ_LICENSE="GNU/GPL v2 - http://www.gnu.org/licenses/gpl-2.0.htm"
+MJ_LICENSE="GNU/GPL v2 - http://www.gnu.org/licenses/gpl-2.0.html"
 MJ_SHORTHEADER="Mobile Joomla! $MJ_VERSION | mobilejoomla.com/license.html"
 
 # do replacements
