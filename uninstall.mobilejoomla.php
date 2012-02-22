@@ -85,9 +85,16 @@ function UninstallPlugin($group, $name)
 
 function InstallTemplate($sourcedir, $name)
 {
+	//hide warnings until template installing in Joomla!2.5 will be fixed
+	$error_reporting = error_reporting();
+	error_reporting($error_reporting & (E_ALL ^ E_WARNING));
+
 	$installer = new JInstaller();
 	if(!$installer->install($sourcedir.DS.$name))
 		return false;
+
+	error_reporting($error_reporting);
+
 	if(isJoomla15())
 	{
 		/** @var JDatabase $db */
