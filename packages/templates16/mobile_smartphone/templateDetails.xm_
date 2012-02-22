@@ -24,12 +24,12 @@
 		<language tag="en-GB">en-GB.tpl_mobile_smartphone.ini</language>
 	</languages>
 	<positions>
-		<position>mj_pda_header</position>
-		<position>mj_pda_header2</position>
-		<position>mj_pda_middle</position>
-		<position>mj_pda_middle2</position>
-		<position>mj_pda_footer</position>
-		<position>mj_pda_footer2</position>
+		<position>mj_smartphone_header</position>
+		<position>mj_smartphone_header2</position>
+		<position>mj_smartphone_middle</position>
+		<position>mj_smartphone_middle2</position>
+		<position>mj_smartphone_footer</position>
+		<position>mj_smartphone_footer2</position>
 		<position>mj_all_header</position>
 		<position>mj_all_middle</position>
 		<position>mj_all_footer</position>
