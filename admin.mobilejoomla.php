@@ -39,6 +39,9 @@ switch($task)
 
 function showconfig()
 {
+	jimport('joomla.filesystem.file');
+	jimport('joomla.filesystem.folder');
+
 	/** @var array $MobileJoomla_Settings */
 	include JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php';
 
@@ -61,7 +64,6 @@ function showconfig()
 	$templates = array ();
 	$templates[] = array ('value' => '');
 
-	jimport('joomla.filesystem.folder');
 	$templateDirs = JFolder::folders($templateBaseDir);
 	foreach($templateDirs as $templateDir)
 	{
