@@ -14,7 +14,7 @@ defined('_MJ') or die('Incorrect usage of Mobile Joomla.');
 
 //load language file (to allow users to rename template)
 $lang =& JFactory::getLanguage();
-$lang->load('tpl_mobile_pda');
+$lang->load('tpl_mobile_smartphone');
 
 $MobileJoomla =& MobileJoomla::getInstance();
 
@@ -102,14 +102,14 @@ $MobileJoomla->showDocType();
 
 ?>
 		<div class="top">
-			<a href="#header"><?php echo JText::_('TPL_MOBILE_PDA__BACK_TO_THE_TOP'); ?></a>
+			<a href="#header"><?php echo JText::_('TPL_MOBILE_SMARTPHONE__BACK_TO_THE_TOP'); ?></a>
 		</div>
 <?php
 		if(!$MobileJoomla->isHome())
 		{
 ?>
 			<div class="home">
-				<a href="<?php echo $home; ?>"><?php echo JText::_('TPL_MOBILE_PDA__HOME'); ?></a>
+				<a href="<?php echo $home; ?>"><?php echo JText::_('TPL_MOBILE_SMARTPHONE__HOME'); ?></a>
 			</div>
 <?php
 		}

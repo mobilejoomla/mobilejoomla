@@ -20,6 +20,7 @@ Stable release
 - remove ipad option
 - fix rescaling of images with urlencoded urls
 - minor fixes
+- rename mobile_pda to mobile_smartphone template
 
 1.0
 RC6 release

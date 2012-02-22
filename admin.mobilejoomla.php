@@ -153,7 +153,7 @@ function showconfig()
 	$lists['iphone.gzip'] = JHTML::_('mjconfig.g_radioparam', 'iphone.gzip', $gzip, $MobileJoomla_Settings);
 	$lists['iphone.redirect'] = JHTML::_('mjconfig.booleanparam', 'iphone.redirect', $MobileJoomla_Settings);
 
-	//mobile_pda template setting
+	//mobile_smartphone template setting
 	$lists['xhtml.header1'] = JHTML::_('mjconfig.positionparam', 'xhtml.header1', $modulepositions, $MobileJoomla_Settings);
 	$lists['xhtml.header2'] = JHTML::_('mjconfig.positionparam', 'xhtml.header2', $modulepositions, $MobileJoomla_Settings);
 	$lists['xhtml.header3'] = JHTML::_('mjconfig.positionparam', 'xhtml.header3', $modulepositions, $MobileJoomla_Settings);

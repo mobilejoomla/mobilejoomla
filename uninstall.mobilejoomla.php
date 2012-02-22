@@ -319,8 +319,6 @@ function UpdateConfig($prev_version)
 				JError::raiseWarning(0, JText::_('COM_MJ__IPAD_OPTION_UNSUPPORTED'));
 			unset($MobileJoomla_Settings['iphoneipad']);
 
-			unset($MobileJoomla_Settings['xhtml.pathway']);
-
 			foreach($MobileJoomla_Settings as $param => $value)
 			{
 				if(strpos($param, 'tmpl_xhtml_')===0)
@@ -373,6 +371,7 @@ function UpdateConfig($prev_version)
 			$newGlobalList = array(
 					'removetags'=>0, 'img'=>2, 'img_addstyles'=>0, 'homepage'=>'', 'componenthome'=>1, 'gzip'=>1
 				);
+			$markups = array('xhtml', 'wml', 'chtml', 'iphone');
 			foreach($removeList as $old)
 			{
 				unset($MobileJoomla_Settings[$old]);
@@ -385,15 +384,21 @@ function UpdateConfig($prev_version)
 			foreach($newGlobalList as $new=>$val)
 			{
 				$MobileJoomla_Settings['global.'.$new] = $val;
-				if($MobileJoomla_Settings['xhtml.'.$new] == $val)
-					$MobileJoomla_Settings['xhtml.'.$new] = '';
-				if($MobileJoomla_Settings['wml.'.$new] == $val)
-					$MobileJoomla_Settings['wml.'.$new] = '';
-				if($MobileJoomla_Settings['chtml.'.$new] == $val)
-					$MobileJoomla_Settings['chtml.'.$new] = '';
-				if($MobileJoomla_Settings['iphone.'.$new] == $val)
-					$MobileJoomla_Settings['iphone.'.$new] = '';
+				foreach($markups as $markup)
+					if($MobileJoomla_Settings[$markup.'.'.$new] == $val)
+						$MobileJoomla_Settings[$markup.'.'.$new] = '';
 			}
+			// mobile_pda -> mobile_smartphone
+			foreach($markups as $markup)
+				if($MobileJoomla_Settings[$markup.'.template'] == 'mobile_pda')
+					$MobileJoomla_Settings[$markup.'.template'] = 'mobile_smartphone';
+			$css_custom = JPATH_ROOT.DS.'templates'.DS.'mobile_pda'.DS.'css'.DS.'custom.css';
+			if(isJoomla15)
+				$css_custom_new = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'templates15'.DS.'mobile_smartphone'.DS.'css'.DS.'custom.css');
+			else
+				$css_custom_new = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'templates16'.DS.'mobile_smartphone'.DS.'css'.DS.'custom.css');
+			JFile::copy($css_custom, $css_custom_new);
+			UninstallTemplate('mobile_pda');
 		}
 	}
 
@@ -765,10 +770,10 @@ function com_install()
 		$TemplateSource = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'templates15';
 		$TemplateSource16 = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'templates16';
 		JFolder::move($TemplateSource16.DS.'mobile_iphone'.DS.'jqtouch-src', $TemplateSource.DS.'mobile_iphone'.DS.'jqtouch-src');
-		JFolder::move($TemplateSource16.DS.'mobile_pda'.DS.'resources',      $TemplateSource.DS.'mobile_pda'.DS.'resources');
+		JFolder::move($TemplateSource16.DS.'mobile_smartphone'.DS.'resources', $TemplateSource.DS.'mobile_smartphone'.DS.'resources');
 		JFolder::delete($TemplateSource16);
 	}
-	$templates = array ('mobile_pda','mobile_wap','mobile_imode','mobile_iphone');
+	$templates = array ('mobile_smartphone','mobile_wap','mobile_imode','mobile_iphone');
 	$status = true;
 	foreach($templates as $template)
 	{
@@ -931,7 +936,7 @@ function com_uninstall()
 	clear_terawurfl_db();
 
 	//uninstall templates
-	$templateslist = array ('mobile_pda', 'mobile_wap', 'mobile_imode', 'mobile_iphone');
+	$templateslist = array ('mobile_smartphone', 'mobile_wap', 'mobile_imode', 'mobile_iphone');
 	foreach($templateslist as $t)
 	{
 		if($cur_template == $t)

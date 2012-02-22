@@ -16,7 +16,7 @@ defined('_JEXEC') or die ('Restricted access');
 require_once (dirname(__FILE__).DS.'helper.php');
 
 $showTitle = $params->get('show_title', 1);
-$imgURL = $params->get('img_url', '{{root}}templates/mobile_pda/resources/images/mw_joomla_logo.png');
+$imgURL = $params->get('img_url', '{{root}}templates/mobile_smartphone/resources/images/mw_joomla_logo.png');
 $siteTitle = $params->get('site_title', '{{sitename}}');
 $pageTitle = $params->get('page_title', '');
 $cutTitle = $params->get('cut_title', 1);
