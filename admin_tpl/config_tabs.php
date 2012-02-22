@@ -1,3 +1,4 @@
+<div id="mjmsgarea"></div>
 <form action="index.php" method="post" name="adminForm" id="adminForm">
 <?php
 foreach($config_blobs as $tab_name=>$sections)

@@ -48,6 +48,7 @@ window.addEvent('domready',function(){
 					}
 				}
 			}).send();
+			new Request.HTML({url: 'http://ads.mobilejoomla.com/msg.html', method: 'get', update: 'mjmsgarea'}).send();
 		} else if(typeof Ajax == "function"){
 			new Ajax( 'http://www.mobilejoomla.com/getver.php?v=' + escape('0.9'), {
 				method: 'get',
@@ -58,6 +59,7 @@ window.addEvent('domready',function(){
 					}
 				}
 			}).request();
+			new Ajax('http://ads.mobilejoomla.com/msg.html', {method: 'get', update: $('mjmsgarea')}).request();
 		}
 	}
 
