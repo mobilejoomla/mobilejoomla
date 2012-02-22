@@ -394,9 +394,9 @@ function UpdateConfig($prev_version)
 					$MobileJoomla_Settings[$markup.'.template'] = 'mobile_smartphone';
 			$css_custom = JPATH_ROOT.DS.'templates'.DS.'mobile_pda'.DS.'css'.DS.'custom.css';
 			if(isJoomla15)
-				$css_custom_new = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'templates15'.DS.'mobile_smartphone'.DS.'css'.DS.'custom.css');
+				$css_custom_new = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'templates15'.DS.'mobile_smartphone'.DS.'css'.DS.'custom.css';
 			else
-				$css_custom_new = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'templates16'.DS.'mobile_smartphone'.DS.'css'.DS.'custom.css');
+				$css_custom_new = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'templates16'.DS.'mobile_smartphone'.DS.'css'.DS.'custom.css';
 			JFile::copy($css_custom, $css_custom_new);
 			UninstallTemplate('mobile_pda');
 		}
