@@ -102,12 +102,6 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 		echo '<jdoc:include type="modules" name="'.$position.'" style="'.$style.'" />';
 	}
 
-	function showComponent()
-	{
-		if(!$this->_ishomepage || $this->config['xhtml.componenthome'])
-			echo '<jdoc:include type="component" />';
-	}
-
 	function showFooter()
 	{
 		$app =& JFactory::getApplication();

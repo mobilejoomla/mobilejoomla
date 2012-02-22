@@ -38,12 +38,6 @@ $document->setHeadData($headerstuff);*/
 			echo '<link rel="canonical" href="'.$canonical.'">';
 	}
 
-	function showComponent()
-	{
-		if(!$this->_ishomepage || $this->config['iphone.componenthome'])
-			echo '<jdoc:include type="component" />';
-	}
-
 	function showFooter()
 	{
 		$app =& JFactory::getApplication();

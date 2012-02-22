@@ -143,7 +143,8 @@ class MobileJoomla
 
 	function showComponent()
 	{
-		echo '<jdoc:include type="component" />';
+		if(!$this->_ishomepage || $this->getParam('componenthome'))
+			echo '<jdoc:include type="component" />';
 	}
 	
 	function showMessage()

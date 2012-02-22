@@ -54,12 +54,6 @@ class MobileJoomla_CHTML extends MobileJoomla
 			echo '<link rel="canonical" href="'.$canonical.'">';
 	}
 
-	function showComponent()
-	{
-		if(!$this->_ishomepage || $this->config['chtml.componenthome'])
-			echo '<jdoc:include type="component" />';
-	}
-
 	function showFooter()
 	{
 		$app =& JFactory::getApplication();
