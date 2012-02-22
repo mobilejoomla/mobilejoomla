@@ -56,10 +56,10 @@ window.addEvent('domready',function(){
 	function checkupdate(){
 		if(typeof Request.HTML == "function"){
 			new Request.HTML( {
-				url: 'http://www.mobilejoomla.com/getver.php?v=' + escape('0.9'),
+				url: 'http://www.mobilejoomla.com/getver.php?v=' + escape('###VERSION###'),
 				method: 'get',
 				update: 'mjlatestver',
-				onSuccess : function(response){
+				onSuccess : function(tree, elements, response){
 					if(version_compare('###VERSION###', response)>0){
 						$('mjlatestverurl').setStyle('display', 'block');
 					}
@@ -67,16 +67,17 @@ window.addEvent('domready',function(){
 			}).send();
 			new Request.HTML({url: 'http://ads.mobilejoomla.com/msg.html', method: 'get', update: 'mjmsgarea'}).send();
 		} else if(typeof Ajax == "function"){
-			new Ajax( 'http://www.mobilejoomla.com/getver.php?v=' + escape('0.9'), {
+			new Ajax( 'http://www.mobilejoomla.com/getver.php?v=' + escape('###VERSION###'), {
 				method: 'get',
 				update: $('mjlatestver'),
 				onComplete: function(response){
+					$('mjlatestver').empty().setHTML(response);
 					if(version_compare('###VERSION###', response)>0){
 						$('mjlatestverurl').setStyle('display', 'block');
 					}
 				}
 			}).request();
-			new Ajax('http://ads.mobilejoomla.com/msg.html', {method: 'get', update: $('mjmsgarea')}).request();
+			new Ajax('http://ads.mobilejoomla.com/msg.html', {method: 'get', evalScripts: true, update: $('mjmsgarea')}).request();
 		}
 	}
 
