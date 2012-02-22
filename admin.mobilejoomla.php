@@ -98,7 +98,7 @@ function showconfig()
 	foreach($result as $row)
 		$size += $row['Data_length'];
 	$size /= 1024*1024;
-	$lists['dbsize'] = number_format($size, 2, '.', '');
+	$lists['dbsize'] = $size ? number_format($size, 2, '.', '') : '';
 
 	$img = array (JHTML::_('select.option', 0, JText::_('COM_MJ__IMG_DONT_RESCALE')),
 	              JHTML::_('select.option', 2, JText::_('COM_MJ__IMG_RESCALE')),
