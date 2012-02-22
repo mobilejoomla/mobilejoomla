@@ -75,11 +75,7 @@ class HTML_mobilejoomla
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__MOBILE_SITENAME', 'COM_MJ__MOBILE_SITENAME_DESC', 'mobile_sitename'),
 							'input_blob' => JHTML::_('mjconfig.textinput', 'mobile_sitename', $MobileJoomla_Settings['mobile_sitename'], 30)
-						),
-						array(
-							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__REMOVE_UNSUPPORTED_TAGS'),
-							'input_blob' => $lists['global.removetags']
-						),
+						)
 					),
 					'COM_MJ__IMAGE' => array(
 						array(
@@ -90,11 +86,7 @@ class HTML_mobilejoomla
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__IMAGE_ADAPTATION_METHOD', 'COM_MJ__IMAGE_ADAPTATION_METHOD_DESC'),
 							'input_blob' => $lists['global.img']
-						),
-						array(
-							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__STYLE_IMAGE_SIZE', 'COM_MJ__STYLE_IMAGE_SIZE_DESC'),
-							'input_blob' => $lists['global.img_addstyles']
-						),
+						)
 					),
 					'COM_MJ__HOMEPAGE' => array(
 						array(
@@ -419,7 +411,17 @@ class HTML_mobilejoomla
 					'COM_MJ__IMAGE' => array(
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__PC_TEMPLATE_WIDTH', 'COM_MJ__PC_TEMPLATE_WIDTH_DESC', 'templatewidth'),
-							'input_blob' => JHTML::_('mjconfig.textinput', 'templatewidth', $MobileJoomla_Settings['templatewidth'], 5, array('style'=>'text-align:right'))
+							'input_blob' => JHTML::_('mjconfig.textinput', 'templatewidth', $MobileJoomla_Settings['templatewidth'], 5, array('style'=>'text-align:right')),
+						),
+						array(
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__STYLE_IMAGE_SIZE', 'COM_MJ__STYLE_IMAGE_SIZE_DESC'),
+							'input_blob' => $lists['global.img_addstyles']
+						)
+					),
+					'COM_MJ__COMPATIBILITY' => array(
+						array(
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__REMOVE_UNSUPPORTED_TAGS'),
+							'input_blob' => $lists['global.removetags']
 						)
 					)
 				),
