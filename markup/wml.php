@@ -128,11 +128,11 @@ class MobileJoomla_WML extends MobileJoomla
 
 		$text = "<wml>\n"."<head>\n"."<meta http-equiv=\"Cache-Control\" content=\"max-age=0\" forua=\"true\" />\n"."</head>\n".$text."\n"."</wml>";
 
-		if($this->config['wml.img'] == 1)
+		if($this->getParam('img') == 1)
 			$text = preg_replace('#<img [^>]+>#is', '', $text);
-		elseif($this->config['wml.img'] >= 2)
+		elseif($this->getParam('img') >= 2)
 		{
-			$scaletype = $this->config['wml.img']-2;
+			$scaletype = $this->getParam('img')-2;
 			$text = MobileJoomla::RescaleImages($text, $scaletype);
 		}
 

@@ -83,15 +83,15 @@ class MobileJoomla_CHTML extends MobileJoomla
 		// TODO: remove table
 		// TODO: remove colors
 		// TODO: remove stylesheet
-		if($this->config['chtml.img'] == 1)
+		if($this->getParam('img') == 1)
 			$text = preg_replace('#<img [^>]+>#is', '', $text);
-		elseif($this->config['chtml.img'] >= 2)
+		elseif($this->getParam('img') >= 2)
 		{
-			$scaletype = $this->config['chtml.img']-2;
+			$scaletype = $this->getParam('img')-2;
 			$text = MobileJoomla::RescaleImages($text, $scaletype);
 		}
 		// allowable tags: a base blockquote body br center dd dir div dl dt form head h... hr html img input(exept type=image&file) li menu meta(refresh only) ol option(selected, but not value) p plaintext pre select textarea title ul
-		if($this->config['chtml.removetags'])
+		if($this->getParam('removetags'))
 		{
 			$text = preg_replace('#<iframe\s[^>]+ ?/>#is', '', $text);
 			$text = preg_replace('#<iframe.+</iframe>#is', '', $text);

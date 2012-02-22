@@ -120,15 +120,15 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 
 	function processPage($text)
 	{
-		if($this->config['xhtml.img'] == 1)
+		if($this->getParam('img') == 1)
 			$text = preg_replace('#<img [^>]+>#is', '', $text);
-		elseif($this->config['xhtml.img'] >= 2)
+		elseif($this->getParam('img') >= 2)
 		{
-			$scaletype = $this->config['xhtml.img']-2;
-			$addstyles = $this->config['xhtml.img_addstyles'];
+			$scaletype = $this->getParam('img')-2;
+			$addstyles = $this->getParam('img_addstyles');
 			$text = MobileJoomla::RescaleImages($text, $scaletype, $addstyles);
 		}
-		if($this->config['xhtml.removetags'])
+		if($this->getParam('removetags'))
 		{
 			$text = preg_replace('#<iframe\s[^>]+? />#is', '', $text);
 			$text = preg_replace('#<iframe.+?</iframe>#is', '', $text);
