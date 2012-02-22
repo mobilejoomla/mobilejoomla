@@ -50,8 +50,16 @@
 #adminForm fieldset button
 {
 	float:none;
-	vertical-align:text-bottom;
 	margin:0;
+}
+
+#adminForm fieldset input.inputradio,
+#adminForm fieldset textarea,
+#adminForm fieldset select,
+#adminForm fieldset img,
+#adminForm fieldset button
+{
+	vertical-align:text-bottom;
 }
 
 #adminForm .inputradio
@@ -73,7 +81,7 @@
 	border-radius:0.3em;
 	overflow:visible;
 	margin:0 2em 0 0;
-	vertical-align:text-top;
+	vertical-align:middle;
 }
 
 #mjconfig_jpegquality_knob
@@ -85,4 +93,9 @@
 	border:0.1em solid #666;
 	border-radius:0.7em;
 	margin-top:-0.4em;
+}
+
+#mjconfig_latestver
+{
+	white-space:normal;
 }
