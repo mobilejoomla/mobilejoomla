@@ -134,10 +134,6 @@ class HTML_mobilejoomla
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__TEMPLATE_NAME', 'COM_MJ__TEMPLATE_NAME_XHTMLMP_DESC'),
 							'input_blob' => $lists['xhtml.template']
-						),
-						array(
-							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__REMOVE_UNSUPPORTED_TAGS', 'COM_MJ__REMOVE_UNSUPPORTED_TAGS_XHTMLMP_DESC'),
-							'input_blob' => $lists['xhtml.removetags']
 						)
 					),
 					'COM_MJ__HOMEPAGE' => array(
@@ -171,6 +167,10 @@ class HTML_mobilejoomla
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__GZIP_COMPRESSION'),
 							'input_blob' => $lists['xhtml.gzip']
+						),
+						array(
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__REMOVE_UNSUPPORTED_TAGS', 'COM_MJ__REMOVE_UNSUPPORTED_TAGS_XHTMLMP_DESC'),
+							'input_blob' => $lists['xhtml.removetags']
 						),
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__REMOVE_SCRIPT_TAGS'),
@@ -224,10 +224,6 @@ class HTML_mobilejoomla
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__TEMPLATE_NAME', 'COM_MJ__TEMPLATE_NAME_IPHONE_DESC'),
 							'input_blob' => $lists['iphone.template']
-						),
-						array(
-							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__REMOVE_UNSUPPORTED_TAGS'),
-							'input_blob' => $lists['iphone.removetags']
 						)
 					),
 					'COM_MJ__HOMEPAGE' => array(
@@ -261,6 +257,10 @@ class HTML_mobilejoomla
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__GZIP_COMPRESSION'),
 							'input_blob' => $lists['iphone.gzip']
+						),
+						array(
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__REMOVE_UNSUPPORTED_TAGS'),
+							'input_blob' => $lists['iphone.removetags']
 						)
 					)
 				),
@@ -276,10 +276,6 @@ class HTML_mobilejoomla
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__TEMPLATE_NAME', 'COM_MJ__TEMPLATE_NAME_WML_DESC'),
 							'input_blob' => $lists['wml.template']
-						),
-						array(
-							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__REMOVE_UNSUPPORTED_TAGS'),
-							'input_blob' => $lists['wml.removetags']
 						)
 					),
 					'COM_MJ__HOMEPAGE' => array(
@@ -309,6 +305,10 @@ class HTML_mobilejoomla
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__GZIP_COMPRESSION'),
 							'input_blob' => $lists['wml.gzip']
+						),
+						array(
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__REMOVE_UNSUPPORTED_TAGS'),
+							'input_blob' => $lists['wml.removetags']
 						)
 					)
 				),
@@ -330,10 +330,6 @@ class HTML_mobilejoomla
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__TEMPLATE_NAME', 'COM_MJ__TEMPLATE_NAME_CHTML_DESC'),
 							'input_blob' => $lists['chtml.template']
-						),
-						array(
-							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__REMOVE_UNSUPPORTED_TAGS'),
-							'input_blob' => $lists['chtml.removetags']
 						)
 					),
 					'COM_MJ__HOMEPAGE' => array(
@@ -363,6 +359,10 @@ class HTML_mobilejoomla
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__GZIP_COMPRESSION'),
 							'input_blob' => $lists['chtml.gzip']
+						),
+						array(
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__REMOVE_UNSUPPORTED_TAGS'),
+							'input_blob' => $lists['chtml.removetags']
 						),
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__CONVERT_HTMLENTITIES', 'COM_MJ__CONVERT_HTMLENTITIES_DESC'),
