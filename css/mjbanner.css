@@ -35,5 +35,5 @@ dd.banner #mjupdate{
     color:inherit;
     padding:0;
     border:none;
-    background:none;
+    background:none !important;
 }
