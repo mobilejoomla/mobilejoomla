@@ -49,9 +49,9 @@ function showconfig()
 
 	$app =& JFactory::getApplication();
 	if(!JFile::exists(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php'))
-		$app->enqueueMessage(JText::_('COM_MJ__CONFIG_MISSING'), 'banner');
+		$app->enqueueMessage(JText::_('COM_MJ__CONFIG_MISSING'), 'warning');
 	elseif(!is_writable(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php'))
-		$app->enqueueMessage(JText::_('COM_MJ__CONFIG_UNWRITEABLE'), 'banner');
+		$app->enqueueMessage(JText::_('COM_MJ__CONFIG_UNWRITEABLE'), 'warning');
 
 	/** @var JDatabase $db */
 	$db =& JFactory::getDBO();

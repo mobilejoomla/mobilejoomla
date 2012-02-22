@@ -47,7 +47,8 @@ class HTML_mobilejoomla
 		HTML_mobilejoomla::CheckForUpdate();
 		JHTML::_('behavior.modal', 'a.modal');
 		$app =& JFactory::getApplication();
-		$updatenotice = '<div id="mjupdate"><h2>'.JText::_('COM_MJ__UPDATE_AVAILABLE').'</h2>'.
+		$updatenotice = '<div id="mjmsgarea"></div>'.
+						'<div id="mjupdate"><h2>'.JText::_('COM_MJ__UPDATE_AVAILABLE').'</h2>'.
 							JText::sprintf('COM_MJ__UPDATE_NOTIFICATION',
 								'class="modal" href="index.php?tmpl=component&option=com_mobilejoomla&task=update" rel="{handler: \'iframe\', size: {x: 480, y: 320}}"').
 						'</div>';
