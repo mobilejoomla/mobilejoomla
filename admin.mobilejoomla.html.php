@@ -116,13 +116,13 @@ class HTML_mobilejoomla
 					),
 					'COM_MJ__SUPPORT'=>array(
 						array(
-							'label_blob' => '<p><a target="_blank" href="http://www.mobilejoomla.com/documentation.html">'.JText::_('COM_MJ__DOCUMENTATION').'</a></p>'
+							'label_blob' => '<p><a target="_blank" href="http://www.mobilejoomla.com/documentation.html?ref=info">'.JText::_('COM_MJ__DOCUMENTATION').'</a></p>'
 						),
 						array(
-							'label_blob' => '<p><a target="_blank" href="http://www.mobilejoomla.com/forums.html">'.JText::_('COM_MJ__FORUMS').'</a></p>'
+							'label_blob' => '<p><a target="_blank" href="http://www.mobilejoomla.com/forums.html?ref=info">'.JText::_('COM_MJ__FORUMS').'</a></p>'
 						),
 						array(
-							'label_blob' => '<p><a target="_blank" href="http://www.mobilejoomla.com/blog.html">'.JText::_('COM_MJ__LATEST_NEWS').'</a></p>'
+							'label_blob' => '<p><a target="_blank" href="http://www.mobilejoomla.com/blog.html?ref=info">'.JText::_('COM_MJ__LATEST_NEWS').'</a></p>'
 						)
 					)
 				)
