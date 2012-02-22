@@ -92,6 +92,14 @@ function showconfig()
 
 	$lists = array ();
 
+	$db->setQuery('SHOW TABLE STATUS FROM `'.$app->getCfg('db').'` LIKE '.$db->Quote($app->getCfg('dbprefix').'TeraWurfl%'));
+	$result = $db->loadRowList();
+	$size = 0;
+	foreach($result as $row)
+		$size += $row['Data_length'];
+	$size /= 1024*1024;
+	$lists['dbsize'] = number_format($size, 2, '.', '');
+
 	$img = array (JHTML::_('select.option', 0, JText::_('COM_MJ__IMG_DONT_RESCALE')),
 	              JHTML::_('select.option', 2, JText::_('COM_MJ__IMG_RESCALE')),
 	              JHTML::_('select.option', 3, JText::_('COM_MJ__IMG_FIXED_RESCALE_RATIO')),

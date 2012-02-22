@@ -446,6 +446,13 @@ class HTML_mobilejoomla
 				)
 			)
 		);
+		if($lists['dbsize'])
+		{
+			$config_blobs['COM_MJ__GENERAL_SETTINGS'][1]['COM_MJ__INFORMATION'][] = array(
+					'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__DEVICE_DATABASE_SIZE'),
+					'input_blob' => $lists['dbsize'].' MB'
+				);
+		}
 		$tplmod_devices = array(
 			'COM_MJ__XHTMLMP_SETTINGS' => 'xhtml',
 			'COM_MJ__IPHONE_SETTINGS' => 'iphone',
