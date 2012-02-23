@@ -314,7 +314,7 @@ function saveconfig()
 					   'wml.template', 'wml.homepage', 'wml.gzip', 'wml.domain', 'wml.redirect', 'wml.buffer_width',
 					   'chtml.template', 'chtml.homepage', 'chtml.gzip', 'chtml.domain', 'chtml.redirect', 'chtml.buffer_width',
 					   'iphone.template', 'iphone.homepage', 'iphone.gzip', 'iphone.domain', 'iphone.redirect', 'iphone.buffer_width',
-					   'global.removetags', 'global.img', 'global.img_addstyles', 'global.homepage', 'global.componenthome',
+					   'global.gzip', 'global.removetags', 'global.img', 'global.img_addstyles', 'global.homepage', 'global.componenthome',
 					   'xhtml.header1', 'xhtml.header2', 'xhtml.header3',
 					   'xhtml.middle1', 'xhtml.middle2', 'xhtml.middle3',
 					   'xhtml.componenthome',
