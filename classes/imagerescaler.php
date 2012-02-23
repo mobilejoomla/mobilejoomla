@@ -79,13 +79,6 @@ class ImageRescaler
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
 		if(ImageRescaler::$scaledimage_width>$MobileJoomla_Device['screenwidth']/2)
 		{
-			static $included = false;
-			if(!$included)
-			{
-				$included = true;
-				$doc =& JFactory::getDocument();
-				$doc->addStyleDeclaration('.mjwideimg{display:block;width:100%;text-align:center}');
-			}
 			$text = '<span class="mjwideimg"><img'.$text.' /></span>';
 		}
 		else

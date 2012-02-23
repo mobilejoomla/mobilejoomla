@@ -314,3 +314,9 @@ div.clear {
 .pagenav {
 	padding: 0 5px;
 }
+
+.mjwideimg {
+	display: block;
+	width: 100%;
+	text-align: center;
+}

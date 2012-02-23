@@ -357,3 +357,9 @@ body > div.current {
 	padding: 0 !important;
 	border: none !important;
 }
+
+.mjwideimg {
+	display: block;
+	width: 100%;
+	text-align: center;
+}

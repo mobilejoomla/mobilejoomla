@@ -352,3 +352,9 @@ p {
 .image-right {
 	float:right;
 }
+
+.mjwideimg {
+	display: block;
+	width: 100%;
+	text-align: center;
+}
