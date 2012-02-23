@@ -168,7 +168,7 @@ class MobileJoomla
 		$global_name = 'global.'.$name;
 		if(!isset($MobileJoomla_Settings[$full_name]))
 			return isset($MobileJoomla_Settings[$name]) ? $MobileJoomla_Settings[$name] : $default;
-		if($MobileJoomla_Settings[$full_name]=='' && isset($MobileJoomla_Settings[$global_name]))
+		if($MobileJoomla_Settings[$full_name]==='' && isset($MobileJoomla_Settings[$global_name]))
 			return $MobileJoomla_Settings[$global_name];
 		return $MobileJoomla_Settings[$full_name];
 	}
