@@ -97,7 +97,7 @@ class JHTMLMjconfig
 		{
 			$attrs = array();
 		}
-		if(!$attrs['id'])
+		if(!isset($attrs['id']))
 		{
 			$attrs['id'] = $name;
 		}
@@ -109,7 +109,7 @@ class JHTMLMjconfig
 		}
 		else
 		{
-			$attrs['class'] .= ' fullwidth';
+			$attrs['class'] = isset($attrs['class']) ? $attrs['class'].' fullwidth' : 'fullwidth';
 		}
 		$attr_list = array();
 		foreach($attrs as $attr=>$val)

@@ -392,7 +392,7 @@ function UpdateConfig($prev_version)
 			{
 				$MobileJoomla_Settings['global.'.$new] = $val;
 				foreach($markups as $markup)
-					if($MobileJoomla_Settings[$markup.'.'.$new] == $val)
+					if(isset($MobileJoomla_Settings[$markup.'.'.$new]) && $MobileJoomla_Settings[$markup.'.'.$new] == $val)
 						$MobileJoomla_Settings[$markup.'.'.$new] = '';
 			}
 			// mobile_pda -> mobile_smartphone

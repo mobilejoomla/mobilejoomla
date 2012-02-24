@@ -1,3 +1,15 @@
+<?php
+/**
+ * ###DESC###
+ * ###URL###
+ *
+ * @version		###VERSION###
+ * @license		###LICENSE###
+ * @copyright	###COPYRIGHT###
+ * @date		###DATE###
+ */
+defined('_JEXEC') or die('Restricted access');
+?>
 <form action="index.php" method="post" name="adminForm" id="adminForm">
 <?php
 foreach($config_blobs as $tab_name=>$sections)
@@ -13,7 +25,13 @@ foreach($config_blobs as $tab_name=>$sections)
 			echo '<fieldset><legend>'.JText::_($section_title).'</legend><table>';
 			foreach($fields as $j=>$row)
 			{
-				echo "<tr><th>{$row['label_blob']}</th><td>{$row['input_blob']}</td></tr>";
+				echo '<tr><th>';
+				if(isset($row['label_blob']))
+					echo $row['label_blob'];
+				echo '</th><td>';
+				if(isset($row['input_blob']))
+					echo $row['input_blob'];
+				echo '</td></tr>';
 			}
 			echo '</table></fieldset>';
 		}
