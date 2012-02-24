@@ -42,16 +42,13 @@ class HTML_mobilejoomla
 		}
 	}
 	
-	function showUpdateNotification()
+	function showNotification()
 	{
 		HTML_mobilejoomla::CheckForUpdate();
 		JHTML::_('behavior.modal', 'a.modal');
+
 		$app =& JFactory::getApplication();
-		$updatenotice = '<div id="mjmsgarea"></div>'.
-						'<div id="mjupdate"><h2>'.JText::_('COM_MJ__UPDATE_AVAILABLE').'</h2>'.
-							JText::sprintf('COM_MJ__UPDATE_NOTIFICATION',
-								'class="modal" href="index.php?tmpl=component&option=com_mobilejoomla&task=update" rel="{handler: \'iframe\', size: {x: 480, y: 320}}"').
-						'</div>';
+		$updatenotice = '<div id="mjmsgarea"></div>';
 		$app->enqueueMessage($updatenotice, 'banner');
 		if(version_compare(JVERSION,'1.6.0','lt'))
 		{
@@ -68,7 +65,7 @@ class HTML_mobilejoomla
 		JHTML::_('behavior.switcher');
 		JHTML::_('behavior.modal', 'a.modal');
 
-		HTML_mobilejoomla::showUpdateNotification();
+		HTML_mobilejoomla::showNotification();
 		$document =& JFactory::getDocument();
 		$document->addScript(JURI::base(true).'/components/com_mobilejoomla/js/mj_UI.js');
 		$document->addStyleSheet(JURI::base(true).'/components/com_mobilejoomla/css/mjsettings.css');
