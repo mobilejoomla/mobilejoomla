@@ -53,6 +53,11 @@ class HTML_mobilejoomla
 								'class="modal" href="index.php?tmpl=component&option=com_mobilejoomla&task=update" rel="{handler: \'iframe\', size: {x: 480, y: 320}}"').
 						'</div>';
 		$app->enqueueMessage($updatenotice, 'banner');
+		if(version_compare(JVERSION,'1.6.0','lt'))
+		{
+			$document =& JFactory::getDocument();
+			$document->addStyleDeclaration('#mjmsgarea{margin:-8px -10px 0}');
+		}
 	}
 
 	function showconfig(&$lists, $MobileJoomla_Settings)
