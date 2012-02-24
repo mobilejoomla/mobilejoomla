@@ -97,7 +97,7 @@ class JHTMLMjconfig
 		{
 			$attrs = array();
 		}
-		if(!isset($attrs['id']))
+		if(!isset($attrs['id']) || $attrs['id']=='')
 		{
 			$attrs['id'] = $name;
 		}
