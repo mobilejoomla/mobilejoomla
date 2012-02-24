@@ -49,7 +49,7 @@ function showconfig()
 
 	$app =& JFactory::getApplication();
 	if(!JFile::exists(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php'))
-		$app->enqueueMessage(JText::_('COM_MJ__CONFIG_MISSING'), 'warning');
+		$app->enqueueMessage(JText::_('COM_MJ__CONFIG_MISSING'), 'error');
 	elseif(!is_writable(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php'))
 		$app->enqueueMessage(JText::_('COM_MJ__CONFIG_UNWRITEABLE'), 'warning');
 
