@@ -95,10 +95,10 @@ function showconfig()
 	$lists = array ();
 
 	$db->setQuery('SHOW TABLE STATUS FROM `'.$app->getCfg('db').'` LIKE '.$db->Quote($app->getCfg('dbprefix').'TeraWurfl%'));
-	$result = $db->loadRowList();
+	$result = $db->loadObjectList();
 	$size = 0;
 	foreach($result as $row)
-		$size += $row['Data_length'];
+		$size += $row->Data_length;
 	$size /= 1024*1024;
 	$lists['dbsize'] = $size ? number_format($size, 2, '.', '') : '';
 
