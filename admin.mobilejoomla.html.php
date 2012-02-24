@@ -50,10 +50,10 @@ class HTML_mobilejoomla
 		$app =& JFactory::getApplication();
 		$updatenotice = '<div id="mjmsgarea"></div>';
 		$app->enqueueMessage($updatenotice, 'banner');
-		if(version_compare(JVERSION,'1.6.0','lt'))
+		if(version_compare(JVERSION,'1.7.0','lt'))
 		{
 			$document =& JFactory::getDocument();
-			$document->addStyleDeclaration('#mjmsgarea{margin:-8px -10px 0}');
+			$document->addStyleDeclaration('#mjmsgarea{margin:-8px -10px 8px}');
 		}
 	}
 
