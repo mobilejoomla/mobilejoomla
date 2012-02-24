@@ -222,8 +222,8 @@ class MobileJoomla
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
 		if($markup=='auto')
 			$markup = $MobileJoomla_Device['real_markup'];
-		elseif($markup=='desktop')
-			$markup = '';
+		elseif($markup=='desktop' || $markup=='')
+			$markup = false;
 		elseif($markup=='mobile')
 			$markup = $MobileJoomla_Device['real_markup']=='' ? 'xhtml' : $MobileJoomla_Device['real_markup'];
 		return $markup === $MobileJoomla_Device['markup'];
