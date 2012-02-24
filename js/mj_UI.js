@@ -71,7 +71,6 @@ window.addEvent('domready',function(){
 				method: 'get',
 				update: $('mjlatestver'),
 				onComplete: function(response){
-					$('mjlatestver').empty().setHTML(response);
 					if(version_compare('###VERSION###', response)>0){
 						$('mjlatestverurl').setStyle('display', 'block');
 					}
