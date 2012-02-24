@@ -220,6 +220,7 @@ function UpdateConfig($prev_version)
 	{ // first install
 		$conf =& JFactory::getConfig();
 		$MobileJoomla_Settings['mobile_sitename'] = $conf->getValue('sitename');
+		$MobileJoomla_Settings['global.gzip'] = $conf->getValue('gzip');
 	}
 	else
 	{ // update from previous version
