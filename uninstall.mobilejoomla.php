@@ -802,8 +802,7 @@ function com_install()
 	$ModuleSource = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'modules';
 	$status = true;
 	$status = InstallModule($ModuleSource, 'mod_mj_header', 'Header Module', 'mj_smartphone_header', 1, 0) && $status;
-	$status = InstallModule($ModuleSource, 'mod_mj_menu', 'Mobile Menu',
-							array('mj_smartphone_header2', 'mj_wap_footer', 'mj_imode_footer', 'mj_iphone_middle'), !$upgrade, 0) && $status;
+	$status = InstallModule($ModuleSource, 'mod_mj_menu', 'Mobile Menu', 'mj_all_header', !$upgrade, 0) && $status;
 	$status = InstallModule($ModuleSource, 'mod_mj_markupchooser', 'Select Markup',
 	                        array ('footer', 'mj_all_footer'), 1, 0) && $status;
 	$status = InstallModule($ModuleSource, 'mod_mj_adminicon', 'MobileJoomla CPanel Icons', 'icon', 1, 0, 1) && $status;

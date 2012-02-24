@@ -75,6 +75,9 @@ $MobileJoomla->showDocType();
 	if($modulepos && $this->countModules($modulepos) > 0):
 		?><div id="<?php echo $modulepos; ?>"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
 	endif;
+
+	$MobileJoomla->showMessage();
+
 	$modulepos = $MobileJoomla->getPosition('header3');
 	if($modulepos && $this->countModules($modulepos) > 0):
 		?><div id="<?php echo $modulepos; ?>"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
@@ -82,8 +85,6 @@ $MobileJoomla->showDocType();
 ?>
 	<div id="content">
 <?php
-		$MobileJoomla->showMessage();
-
 		$modulepos = $MobileJoomla->getPosition('middle');
 		if($modulepos && $this->countModules($modulepos) > 0):
 			?><div id="<?php echo $modulepos; ?>"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
@@ -121,13 +122,13 @@ $MobileJoomla->showDocType();
 		if($modulepos && $this->countModules($modulepos) > 0):
 			?><div id="<?php echo $modulepos; ?>"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
 		endif;
-
-		$MobileJoomla->showFooter();
-
 		$modulepos = $MobileJoomla->getPosition('footer2');
 		if($modulepos && $this->countModules($modulepos) > 0):
 			?><div id="<?php echo $modulepos; ?>"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
 		endif;
+
+		$MobileJoomla->showFooter();
+
 		$modulepos = $MobileJoomla->getPosition('footer3');
 		if($modulepos && $this->countModules($modulepos) > 0):
 			?><div id="<?php echo $modulepos; ?>"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php

@@ -31,15 +31,20 @@ if($modulepos && $this->countModules($modulepos) > 0)
 $modulepos = $MobileJoomla->getPosition('header2');
 if($modulepos && $this->countModules($modulepos) > 0)
 	$MobileJoomla->loadModules($modulepos);
+
+$MobileJoomla->showMessage();
+
 $modulepos = $MobileJoomla->getPosition('header3');
 if($modulepos && $this->countModules($modulepos) > 0)
 	$MobileJoomla->loadModules($modulepos);
 
-$MobileJoomla->showMessage();
 
 $modulepos = $MobileJoomla->getPosition('middle');
 if($modulepos && $this->countModules($modulepos) > 0)
 	$MobileJoomla->loadModules($modulepos);
+
+$MobileJoomla->showComponent();
+
 $modulepos = $MobileJoomla->getPosition('middle2');
 if($modulepos && $this->countModules($modulepos) > 0)
 	$MobileJoomla->loadModules($modulepos);
@@ -47,7 +52,6 @@ $modulepos = $MobileJoomla->getPosition('middle3');
 if($modulepos && $this->countModules($modulepos) > 0)
 	$MobileJoomla->loadModules($modulepos);
 
-$MobileJoomla->showComponent();
 
 $modulepos = $MobileJoomla->getPosition('footer');
 if($modulepos && $this->countModules($modulepos) > 0)
@@ -55,11 +59,13 @@ if($modulepos && $this->countModules($modulepos) > 0)
 $modulepos = $MobileJoomla->getPosition('footer2');
 if($modulepos && $this->countModules($modulepos) > 0)
 	$MobileJoomla->loadModules($modulepos);
+
+$MobileJoomla->showFooter();
+
 $modulepos = $MobileJoomla->getPosition('footer3');
 if($modulepos && $this->countModules($modulepos) > 0)
 	$MobileJoomla->loadModules($modulepos);
 
-$MobileJoomla->showFooter();
 ?>
 </body>
 </html>
