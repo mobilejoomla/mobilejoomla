@@ -54,7 +54,7 @@ window.addEvent('domready',function(){
 	}
 
 	function checkupdate(){
-		if(typeof Request.HTML == "function"){
+		if(typeof Request == "function"){
 			new Request.HTML( {
 				url: 'http://www.mobilejoomla.com/getver.php?v=' + escape('###VERSION###'),
 				method: 'get',
