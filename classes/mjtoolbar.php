@@ -1,4 +1,13 @@
 <?php
+/**
+ * ###DESC###
+ * ###URL###
+ *
+ * @version		###VERSION###
+ * @license		###LICENSE###
+ * @copyright	###COPYRIGHT###
+ * @date		###DATE###
+ */
 class MJToolbar extends JObject
 {
 	var $_title = null;
