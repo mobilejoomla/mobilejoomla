@@ -407,6 +407,12 @@ function UpdateConfig($prev_version)
 				$css_custom_new = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'templates16'.DS.'mobile_smartphone'.DS.'css'.DS.'custom.css';
 			JFile::copy($css_custom, $css_custom_new);
 			UninstallTemplate('mobile_pda');
+
+			// move position mj_iphone_middle to mj_iphone_header2
+			$db =& JFactory::getDBO();
+			$query = "UPDATE `#__modules` SET position='mj_iphone_header2' WHERE position='mj_iphone_middle'";
+			$db->setQuery($query);
+			$db->query();
 		}
 	}
 
