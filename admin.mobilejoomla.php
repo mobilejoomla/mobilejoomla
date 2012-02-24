@@ -141,7 +141,6 @@ function showconfig()
 	//Plugin settings
 	$lists['caching'] = JHTML::_('mjconfig.radioparam', 'caching', $caching, $MobileJoomla_Settings);
 	$lists['httpcaching'] = JHTML::_('mjconfig.booleanparam', 'httpcaching', $MobileJoomla_Settings);
-	$lists['domains'] = JHTML::_('mjconfig.booleanparam', 'domains', $MobileJoomla_Settings);
 
 	//XHTML/WAP2.0 devices
 	$lists['xhtml.template'] = JHTML::_('mjconfig.templateparam', 'xhtml.template', $templates, $MobileJoomla_Settings);
