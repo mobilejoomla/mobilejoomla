@@ -16,11 +16,14 @@ CHANGELOG
 1.0
 Stable release
 - new UI
-- fix redirect to subdomain issue
+- change places of some module positions
+- rename mobile_pda to mobile_smartphone template
+- remove special support of breadcrumbs module
 - remove ipad option
+- fix detecting of tablet devices
+- fix redirect to subdomain issue
 - fix rescaling of images with urlencoded urls
 - minor fixes
-- rename mobile_pda to mobile_smartphone template
 
 1.0
 RC6 release
