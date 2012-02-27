@@ -401,16 +401,6 @@ class HTML_mobilejoomla
 							'input_blob' => $lists['global.gzip']
 						)
 					),
-					'COM_MJ__DOMAIN_NAME' => array(
-						array(
-							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__DESKTOP_URL', 'COM_MJ__DESKTOP_URL_DESC', 'desktop_url'),
-							'input_blob' => JHTML::_('mjconfig.textinput', 'desktop_url', $MobileJoomla_Settings['desktop_url'])
-						),
-						array(
-							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__PAGE_FOR_PC', 'COM_MJ__PAGE_FOR_PC_DESC', 'pcpage'),
-							'input_blob' => JHTML::_('mjconfig.textinput', 'pcpage', $MobileJoomla_Settings['pcpage'])
-						)
-					),
 					'COM_MJ__IMAGE' => array(
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__PC_TEMPLATE_WIDTH', 'COM_MJ__PC_TEMPLATE_WIDTH_DESC', 'templatewidth'),
@@ -430,6 +420,16 @@ class HTML_mobilejoomla
 				),
 				//right
 				array(
+					'COM_MJ__DOMAIN_NAME' => array(
+						array(
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__DESKTOP_URL', 'COM_MJ__DESKTOP_URL_DESC', 'desktop_url'),
+							'input_blob' => JHTML::_('mjconfig.textinput', 'desktop_url', $MobileJoomla_Settings['desktop_url'])
+						),
+						array(
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__PAGE_FOR_PC', 'COM_MJ__PAGE_FOR_PC_DESC', 'pcpage'),
+							'input_blob' => JHTML::_('mjconfig.textinput', 'pcpage', $MobileJoomla_Settings['pcpage'])
+						)
+					),
 					'COM_MJ__REDIRECT_TO_DOMAIN' => array(
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__XHTMLMP_DOMAIN', 'COM_MJ__DOMAIN_NAME_XHTMLMP_DESC', 'xhtml.domain'),
