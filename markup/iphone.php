@@ -40,10 +40,9 @@ $document->setHeadData($headerstuff);*/
 
 	function showFooter()
 	{
-		if($this->_hidemodules) return;
-		$app =& JFactory::getApplication();
-		if($this->config['iphone.jfooter'])
+		if($this->getParam('jfooter'))
 		{
+			$app =& JFactory::getApplication();
 			/** @var JLanguage $lang */
 			$lang =& JFactory::getLanguage();
 			$lang->load('com_mobilejoomla', JPATH_ADMINISTRATOR);
@@ -82,7 +81,6 @@ $document->setHeadData($headerstuff);*/
 
 	function loadModules($position, $style='iphone')
 	{
-		if($this->_hidemodules) return;
 		echo '<jdoc:include type="modules" name="'.$position.'" style="'.$style.'" />';
 	}
 

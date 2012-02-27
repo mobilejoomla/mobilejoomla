@@ -56,10 +56,9 @@ class MobileJoomla_CHTML extends MobileJoomla
 
 	function showFooter()
 	{
-		if($this->_hidemodules) return;
-		$app =& JFactory::getApplication();
-		if($this->config['chtml.jfooter'])
+		if($this->getParam('jfooter'))
 		{
+			$app =& JFactory::getApplication();
 			/** @var JLanguage $lang */
 			$lang =& JFactory::getLanguage();
 			$lang->load('com_mobilejoomla', JPATH_ADMINISTRATOR);
@@ -73,7 +72,6 @@ class MobileJoomla_CHTML extends MobileJoomla
 
 	function loadModules($position, $style='chtml')
 	{
-		if($this->_hidemodules) return;
 		echo '<jdoc:include type="modules" name="'.$position.'" style="'.$style.'" />';
 	}
 

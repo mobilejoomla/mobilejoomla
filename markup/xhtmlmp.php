@@ -98,16 +98,14 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 
 	function loadModules($position, $style='xhtml_m')
 	{
-		if($this->_hidemodules) return;
 		echo '<jdoc:include type="modules" name="'.$position.'" style="'.$style.'" />';
 	}
 
 	function showFooter()
 	{
-		if($this->_hidemodules) return;
-		$app =& JFactory::getApplication();
-		if($this->config['xhtml.jfooter'])
+		if($this->getParam('jfooter'))
 		{
+			$app =& JFactory::getApplication();
 			/** @var JLanguage $lang */
 			$lang =& JFactory::getLanguage();
 			$lang->load('com_mobilejoomla', JPATH_ADMINISTRATOR);

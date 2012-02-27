@@ -51,22 +51,19 @@ class MobileJoomla_WML extends MobileJoomla
 
 	function loadModules($position, $style='wml')
 	{
-		if($this->_hidemodules) return;
 		echo '<jdoc:include type="modules" name="'.$position.'" style="'.$style.'" />';
 	}
 
 	function loadModulesAsCards($position, $style='wmlcards')
 	{
-		if($this->_hidemodules) return;
 		echo '<jdoc:include type="modules" name="'.$position.'" style="'.$style.'" />';
 	}
 
 	function showFooter()
 	{
-		if($this->_hidemodules) return;
-		$app =& JFactory::getApplication();
-		if($this->config['wml.jfooter'])
+		if($this->getParam('jfooter'))
 		{
+			$app =& JFactory::getApplication();
 			/** @var JLanguage $lang */
 			$lang =& JFactory::getLanguage();
 			$lang->load('com_mobilejoomla', JPATH_ADMINISTRATOR);

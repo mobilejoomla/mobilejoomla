@@ -15,7 +15,6 @@ class MobileJoomla
 	var $config = null;
 	var $device = null;
 	var $_ishomepage = false;
-	var $_hidemodules = false;
 
 	function &getConfig()
 	{
@@ -173,15 +172,36 @@ class MobileJoomla
 		return $MobileJoomla_Settings[$full_name];
 	}
 
-	function hideModules()
+	function setParam($name, $value)
 	{
-		$this->_hidemodules = true;
+		$MobileJoomla_Settings =& MobileJoomla::getConfig();
+		$full_name = $this->getMarkup().'.'.$name;
+		$MobileJoomla_Settings[$full_name] = $value;
+	}
+
+	function hideModules($scope = '')
+	{
+		switch($scope)
+		{
+			case 'all':
+				$this->setParam('jfooter', 0);
+				$this->setParam('footer1', 0);
+				$this->setParam('footer2', 0);
+				$this->setParam('footer3', 0);
+			case '':
+				$this->setParam('header1', 0);
+				$this->setParam('header2', 0);
+				$this->setParam('header3', 0);
+				$this->setParam('middle1', 0);
+				$this->setParam('middle2', 0);
+				$this->setParam('middle3', 0);
+				$this->setParam('cards', 0);
+		}
 	}
 
 	function getPosition($pos)
 	{
 		if(!isset($this->config)) return '';
-		if($this->_hidemodules) return '';
 		switch($pos)
 		{
 			case 'header':
@@ -196,6 +216,7 @@ class MobileJoomla
 			case 'middle3':
 			case 'footer2':
 			case 'footer3':
+			case 'cards':
 				return $this->getParam($pos);
 		}
 		return '';
@@ -203,7 +224,6 @@ class MobileJoomla
 
 	function loadModules($position)
 	{
-		if($this->_hidemodules) return;
 		echo '<jdoc:include type="modules" name="'.$position.'" />';
 	}
 
