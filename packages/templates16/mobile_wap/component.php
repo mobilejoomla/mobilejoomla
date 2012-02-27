@@ -16,4 +16,3 @@ $MobileJoomla =& MobileJoomla::getInstance();
 
 $MobileJoomla->showMessage();
 $MobileJoomla->showComponent();
-?>
