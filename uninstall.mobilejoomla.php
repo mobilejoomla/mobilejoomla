@@ -903,8 +903,6 @@ function com_install()
 
 	//Show install status
 	$msg = '';
-	if($upgrade)
-		$msg .= '<font color=green><b>'.JText::_('COM_MJ__UPDATED_EXTENSIONS')."</b></font> $prev_version<br /><br />";
 	$count = 0;
 	foreach(JError::getErrors() as $error)
 		if($error->get('level') & E_ERROR)
