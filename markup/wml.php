@@ -63,6 +63,7 @@ class MobileJoomla_WML extends MobileJoomla
 
 	function showFooter()
 	{
+		if($this->_hidemodules) return;
 		$app =& JFactory::getApplication();
 		if($this->config['wml.jfooter'])
 		{

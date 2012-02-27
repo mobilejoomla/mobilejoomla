@@ -104,6 +104,7 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 
 	function showFooter()
 	{
+		if($this->_hidemodules) return;
 		$app =& JFactory::getApplication();
 		if($this->config['xhtml.jfooter'])
 		{
