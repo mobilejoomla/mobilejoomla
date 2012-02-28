@@ -455,7 +455,7 @@ class HTML_mobilejoomla
 		{
 			$config_blobs['COM_MJ__GENERAL_SETTINGS'][1]['COM_MJ__INFORMATION'][] = array(
 					'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__DEVICE_DATABASE_SIZE'),
-					'input_blob' => $lists['dbsize'].' MB'
+					'input_blob' => '<p>'.$lists['dbsize'].' MB</p>'
 				);
 		}
 		$tplmod_devices = array(
