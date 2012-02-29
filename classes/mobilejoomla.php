@@ -16,7 +16,7 @@ class MobileJoomla
 	var $device = null;
 	var $_ishomepage = false;
 
-	function &getConfig()
+	/*static*/function &getConfig()
 	{
 		static $instance;
 		if(!is_array($instance))
@@ -24,12 +24,12 @@ class MobileJoomla
 			$config = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php';
 			$MobileJoomla_Settings = array ();
 			include($config);
-			$instance = &$MobileJoomla_Settings;
+			$instance = $MobileJoomla_Settings;
 		}
 		return $instance;
 	}
 
-	function &getDevice()
+	/*static*/function &getDevice()
 	{
 		static $instance;
 		if(!is_array($instance))
@@ -185,17 +185,17 @@ class MobileJoomla
 		{
 			case 'all':
 				$this->setParam('jfooter', 0);
-				$this->setParam('footer1', 0);
-				$this->setParam('footer2', 0);
-				$this->setParam('footer3', 0);
+				$this->setParam('footer1', '');
+				$this->setParam('footer2', '');
+				$this->setParam('footer3', '');
 			case '':
-				$this->setParam('header1', 0);
-				$this->setParam('header2', 0);
-				$this->setParam('header3', 0);
-				$this->setParam('middle1', 0);
-				$this->setParam('middle2', 0);
-				$this->setParam('middle3', 0);
-				$this->setParam('cards', 0);
+				$this->setParam('header1', '');
+				$this->setParam('header2', '');
+				$this->setParam('header3', '');
+				$this->setParam('middle1', '');
+				$this->setParam('middle2', '');
+				$this->setParam('middle3', '');
+				$this->setParam('cards', '');
 		}
 	}
 
