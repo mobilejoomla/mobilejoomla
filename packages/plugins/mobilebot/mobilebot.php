@@ -73,7 +73,6 @@ class plgSystemMobileBot extends JPlugin
 
 		if(is_array($cached_data))
 		{
-			$MobileJoomla_Settings = $cached_data['settings'];
 			$MobileJoomla_Device   = $cached_data['device'];
 		}
 		else
@@ -81,7 +80,7 @@ class plgSystemMobileBot extends JPlugin
 			$app->triggerEvent('onDeviceDetection', array(&$MobileJoomla_Settings, &$MobileJoomla_Device));
 
 			$gzlevel = 5;
-			$cached_data = array('settings'=>$MobileJoomla_Settings, 'device'=>$MobileJoomla_Device);
+			$cached_data = array('device'=>$MobileJoomla_Device);
 			$cached_data = base64_encode(gzdeflate(serialize($cached_data), $gzlevel));
 			$app->setUserState('mobilejoomla.cache', $cached_data);
 		}
