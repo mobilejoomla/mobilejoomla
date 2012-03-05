@@ -55,7 +55,7 @@ function getExtensionId($type, $name, $group='')
 	}
 }
 
-function InstallPlugin($group, $sourcedir, $name, $fullname, $publish = 1, $ordering = -99)
+function InstallPlugin($group, $sourcedir, $name, $publish = 1, $ordering = -99)
 {
 	$upgrade = getExtensionId('plugin', $name, $group);
 	$installer = new JInstaller();
@@ -835,7 +835,7 @@ function com_install()
 	//install plugins
 	$PluginSource = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'plugins';
 	$status = true;
-	if(!InstallPlugin('system', $PluginSource, 'mobilebot', 'Mobile Joomla Plugin'))
+	if(!InstallPlugin('system', $PluginSource, 'mobilebot'))
 	{
 		$status = false;
 		JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_INSTALL').' Mobile Joomla Plugin.</b>');
@@ -847,7 +847,7 @@ function com_install()
 	}
 	$checkers = array ('simple' => -2, 'always' => 8, 'domains' => 9);
 	foreach($checkers as $plugin => $order)
-		if(!InstallPlugin('mobile', $PluginSource, $plugin, 'Mobile - '.ucfirst($plugin), 1, $order))
+		if(!InstallPlugin('mobile', $PluginSource, $plugin, 1, $order))
 		{
 			$status = false;
 			JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_INSTALL').' Mobile - '.ucfirst($plugin).'.</b>');
@@ -858,7 +858,7 @@ function com_install()
 	$teraSQL = $PluginSource.DS.'terawurfl'.DS.'tera_dump.sql.bz2';
 	if(file_exists($teraSQL))
 	{
-		if(!InstallPlugin('mobile', $PluginSource, 'terawurfl', 'Mobile - TeraWURFL', 1, 0))
+		if(!InstallPlugin('mobile', $PluginSource, 'terawurfl', 1, 0))
 		{
 			$status = false;
 			JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_INSTALL').' Mobile - TeraWURFL</b>');
