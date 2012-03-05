@@ -430,6 +430,9 @@ function UpdateConfig($prev_version)
 		$MobileJoomla_Settings['iphone.img'] = '';
 	}
 
+	if(function_exists('MJAddonUpdateConfig'))
+		MJAddonUpdateConfig($MobileJoomla_Settings);
+
 	//save config
 	$params = array ();
 	unset($MobileJoomla_Settings['version']);
@@ -770,6 +773,10 @@ function com_install()
 		JFile::move($file, $newfile);
 	}
 
+	$addons_installer = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'install.addons.php';
+	if(JFile::exists($addons_installer))
+		include($addons_installer);
+	
 	//update config & files
 	UpdateConfig($prev_version);
 
@@ -802,6 +809,9 @@ function com_install()
 	if(!JFile::exists($apple_touch_icon))
 		JFile::move($TemplateSource.DS.'mobile_iphone'.DS.'apple-touch-icon.png', $apple_touch_icon);
 
+	if(function_exists('MJAddonInstallTemplates'))
+		$status = MJAddonInstallTemplates($TemplateSource) && $status;
+
 	if($status)
 		JFolder::delete($TemplateSource);
 
@@ -813,6 +823,10 @@ function com_install()
 	$status = InstallModule($ModuleSource, 'mod_mj_markupchooser', 'Select Markup',
 	                        array ('footer', 'mj_all_footer'), 1, 0) && $status;
 	$status = InstallModule($ModuleSource, 'mod_mj_adminicon', 'MobileJoomla CPanel Icons', 'icon', 1, 0, 1) && $status;
+
+	if(function_exists('MJAddonInstallModules'))
+		$status = MJAddonInstallModules($ModuleSource) && $status;
+
 	if($status)
 		JFolder::delete($ModuleSource);
 	else
@@ -898,6 +912,10 @@ function com_install()
 			}
 		}
 	}
+
+	if(function_exists('MJAddonInstallPlugins'))
+		$status = MJAddonInstallPlugins($PluginSource) && $status;
+
 	if($status)
 		JFolder::delete($PluginSource);
 
@@ -928,6 +946,10 @@ function com_uninstall()
 	$lang =& JFactory::getLanguage();
 	$lang->load('com_mobilejoomla');
 
+	$addons_installer = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'install.addons.php';
+	if(JFile::exists($addons_installer))
+		include($addons_installer);
+	
 	if(!isJoomla15())
 		$db->setQuery("SELECT template FROM #__template_styles WHERE client_id = 0 AND home = 1 LIMIT 1");
 	else
@@ -935,6 +957,8 @@ function com_uninstall()
 	$cur_template = $db->loadResult();
 
 	//uninstall plugins
+	if(function_exists('MJAddonUninstallPlugins'))
+		MJAddonUninstallPlugins();
 	if(!UninstallPlugin('system', 'mobilebot'))
 		JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_UNINSTALL').' Mobile Joomla Plugin.</b>');
 	$checkers = array ('simple', 'always', 'domains');
@@ -947,6 +971,8 @@ function com_uninstall()
 	clear_terawurfl_db();
 
 	//uninstall templates
+	if(function_exists('MJAddonUninstallTemplates'))
+		MJAddonUninstallTemplates();
 	$templateslist = array ('mobile_smartphone', 'mobile_wap', 'mobile_imode', 'mobile_iphone');
 	foreach($templateslist as $t)
 	{
@@ -965,6 +991,8 @@ function com_uninstall()
 				JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_UNINSTALL')." Mobile Joomla '$m' module.</b>");
 	}
 
+	if(function_exists('MJAddonUninstallModules'))
+		MJAddonUninstallModules();
 	$moduleslist = array ('mod_mj_menu', 'mod_mj_markupchooser', 'mod_mj_header', 'mod_mj_adminicon');
 	foreach($moduleslist as $m)
 		if(!UninstallModule($m))
