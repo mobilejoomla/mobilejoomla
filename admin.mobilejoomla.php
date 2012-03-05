@@ -20,6 +20,11 @@ require_once(JPATH_COMPONENT.DS.'admin.mobilejoomla.html.php');
 $task = JRequest::getCmd('task');
 $app =& JFactory::getApplication();
 
+JPluginHelper::importPlugin('mobile');
+
+$dispatcher =& JDispatcher::getInstance();
+$dispatcher->trigger('onMJBeforeDispatch', array($task));
+
 // TODO: transform into JController-based controller
 switch($task)
 {
@@ -336,6 +341,10 @@ function saveconfig()
 					   'iphone.footer1', 'iphone.footer2', 'iphone.footer3',
 					   'iphone.jfooter', 'iphone.img', 'iphone.img_addstyles',
 					   'iphone.removetags');
+
+	$dispatcher =& JDispatcher::getInstance();
+	$dispatcher->trigger('onMJBeforeSave', array(&$settings, &$MobileJoomla_Settings));
+
 	$params = array ();
 	foreach($settings as $param)
 	{
