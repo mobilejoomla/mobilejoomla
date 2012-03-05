@@ -966,9 +966,12 @@ function com_uninstall()
 		if(!UninstallPlugin('mobile', $plugin))
 			JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_UNINSTALL').' Mobile - '.ucfirst($plugin).'.</b>');
 	//uninstall terawurfl
-	if(!UninstallPlugin('mobile', 'terawurfl'))
-		JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_UNINSTALL').' Mobile - TeraWURFL.</b>');
-	clear_terawurfl_db();
+	if(getExtensionId('plugin', 'terawurfl', 'mobile') !== null)
+	{
+		if(!UninstallPlugin('mobile', 'terawurfl'))
+			JError::raiseError(0, JText::_('COM_MJ__CANNOT_UNINSTALL').' Mobile - TeraWURFL.');
+		clear_terawurfl_db();
+	}
 
 	//uninstall templates
 	if(function_exists('MJAddonUninstallTemplates'))
