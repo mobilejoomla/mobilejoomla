@@ -154,7 +154,7 @@ class ImageRescaler
 
 		$src_imagepath = implode(DS, explode('/', $src_imagepath));
 
-		if(!file_exists($src_imagepath))
+		if(!JFile::exists($src_imagepath))
 			return $imageurl;
 
 		list($src_width, $src_height) = getimagesize($src_imagepath);
@@ -238,7 +238,7 @@ class ImageRescaler
 									 $dest_imageuri);
 
 		$src_mtime = ImageRescaler::getmtime($src_imagepath);
-		if(file_exists($dest_imagepath))
+		if(JFile::exists($dest_imagepath))
 		{
 			$dest_mtime = ImageRescaler::getmtime($dest_imagepath);
 			if($src_mtime == $dest_mtime)

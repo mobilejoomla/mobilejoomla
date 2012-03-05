@@ -73,7 +73,7 @@ function showconfig()
 	foreach($templateDirs as $templateDir)
 	{
 		$templateFile = $templateBaseDir.$templateDir.DS.'templateDetails.xml';
-		if(!is_file($templateFile))
+		if(!JFile::exists($templateFile))
 			continue;
 		$xml = JApplicationHelper::parseXMLInstallFile($templateFile);
 		if($xml['type'] != 'template')
