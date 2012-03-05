@@ -59,8 +59,6 @@ class HTML_mobilejoomla
 
 	function showconfig(&$lists, $MobileJoomla_Settings)
 	{
-		jimport('joomla.filesystem.file');
-		jimport('joomla.event.dispatcher');
 		JHTML::_('behavior.tooltip');
 		JHTML::_('behavior.switcher');
 		JHTML::_('behavior.modal', 'a.modal');

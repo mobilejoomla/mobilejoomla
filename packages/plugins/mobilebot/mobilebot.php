@@ -11,6 +11,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 jimport('joomla.plugin.plugin');
+jimport('joomla.environment.uri');
 
 class _CacheStub
 {
@@ -517,7 +518,6 @@ class plgSystemMobileBot extends JPlugin
 		if(isset($_GET['device']))
 		{
 			$markup = $this->CheckMarkup($_GET['device']);
-			jimport('joomla.environment.uri');
 			$uri =& JURI::getInstance();
 			$uri->delVar('device');
 		}
