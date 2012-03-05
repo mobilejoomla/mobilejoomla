@@ -801,7 +801,7 @@ function com_install()
 		if(!InstallTemplate($TemplateSource, $template))
 		{
 			$status = false;
-			JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_INSTALL')." Mobile Joomla '$template' template.</b>");
+			JError::raiseError(0, JText::_('COM_MJ__CANNOT_INSTALL')." Mobile Joomla '$template' template.");
 		}
 	}
 
@@ -830,7 +830,7 @@ function com_install()
 	if($status)
 		JFolder::delete($ModuleSource);
 	else
-		JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_INSTALL').' Mobile Joomla modules.</b>');
+		JError::raiseError(0, JText::_('COM_MJ__CANNOT_INSTALL').' Mobile Joomla modules.');
 
 	//install plugins
 	$PluginSource = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'plugins';
@@ -838,19 +838,19 @@ function com_install()
 	if(!InstallPlugin('system', $PluginSource, 'mobilebot'))
 	{
 		$status = false;
-		JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_INSTALL').' Mobile Joomla Plugin.</b>');
+		JError::raiseError(0, JText::_('COM_MJ__CANNOT_INSTALL').' Mobile Joomla Plugin.');
 	}
 	if(!JFolder::create(JPATH_PLUGINS.DS.'mobile'))
 	{
 		$status = false;
-		JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_CREATE_DIRECTORY').' '.JPATH_PLUGINS.DS.'mobile</b>');
+		JError::raiseError(0, JText::_('COM_MJ__CANNOT_CREATE_DIRECTORY').' '.JPATH_PLUGINS.DS.'mobile');
 	}
 	$checkers = array ('simple' => -2, 'always' => 8, 'domains' => 9);
 	foreach($checkers as $plugin => $order)
 		if(!InstallPlugin('mobile', $PluginSource, $plugin, 1, $order))
 		{
 			$status = false;
-			JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_INSTALL').' Mobile - '.ucfirst($plugin).'.</b>');
+			JError::raiseError(0, JText::_('COM_MJ__CANNOT_INSTALL').' Mobile - '.ucfirst($plugin).'.');
 		}
 
 	// install terawurfl plugin
@@ -860,7 +860,7 @@ function com_install()
 		if(!InstallPlugin('mobile', $PluginSource, 'terawurfl', 1, 0))
 		{
 			$status = false;
-			JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_INSTALL').' Mobile - TeraWURFL</b>');
+			JError::raiseError(0, JText::_('COM_MJ__CANNOT_INSTALL').' Mobile - TeraWURFL');
 		}
 		else
 		{
@@ -960,11 +960,11 @@ function com_uninstall()
 	if(function_exists('MJAddonUninstallPlugins'))
 		MJAddonUninstallPlugins();
 	if(!UninstallPlugin('system', 'mobilebot'))
-		JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_UNINSTALL').' Mobile Joomla Plugin.</b>');
+		JError::raiseError(0, JText::_('COM_MJ__CANNOT_UNINSTALL').' Mobile Joomla Plugin.');
 	$checkers = array ('simple', 'always', 'domains');
 	foreach($checkers as $plugin)
 		if(!UninstallPlugin('mobile', $plugin))
-			JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_UNINSTALL').' Mobile - '.ucfirst($plugin).'.</b>');
+			JError::raiseError(0, JText::_('COM_MJ__CANNOT_UNINSTALL').' Mobile - '.ucfirst($plugin).'.');
 	//uninstall terawurfl
 	if(getExtensionId('plugin', 'terawurfl', 'mobile') !== null)
 	{
@@ -980,9 +980,9 @@ function com_uninstall()
 	foreach($templateslist as $t)
 	{
 		if($cur_template == $t)
-			JError::raiseError(0, '<b>'.str_replace('%1', $t, JText::_('COM_MJ__CANNOT_DELETE_DEFAULT_TEMPLATE')).'</b>');
+			JError::raiseError(0, str_replace('%1', $t, JText::_('COM_MJ__CANNOT_DELETE_DEFAULT_TEMPLATE')));
 		elseif(!UninstallTemplate($t))
-			JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_UNINSTALL')." Mobile Joomla '$t' template.</b>");
+			JError::raiseError(0, JText::_('COM_MJ__CANNOT_UNINSTALL')." Mobile Joomla '$t' template.");
 	}
 
 	//uninstall modules from previous MJ releases
@@ -991,7 +991,7 @@ function com_uninstall()
 	{
 		if(JFolder::exists(JPATH_SITE.DS.'modules'.DS.$m))
 			if(!UninstallModule($m))
-				JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_UNINSTALL')." Mobile Joomla '$m' module.</b>");
+				JError::raiseError(0, JText::_('COM_MJ__CANNOT_UNINSTALL')." Mobile Joomla '$m' module.");
 	}
 
 	if(function_exists('MJAddonUninstallModules'))
@@ -999,7 +999,7 @@ function com_uninstall()
 	$moduleslist = array ('mod_mj_menu', 'mod_mj_markupchooser', 'mod_mj_header', 'mod_mj_adminicon');
 	foreach($moduleslist as $m)
 		if(!UninstallModule($m))
-			JError::raiseError(0, '<b>'.JText::_('COM_MJ__CANNOT_UNINSTALL')." Mobile Joomla '$m' module.</b>");
+			JError::raiseError(0, JText::_('COM_MJ__CANNOT_UNINSTALL')." Mobile Joomla '$m' module.");
 
 	//Show uninstall status
 	$msg = '';
