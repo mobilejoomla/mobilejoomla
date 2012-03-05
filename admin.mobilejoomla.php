@@ -353,7 +353,7 @@ function saveconfig()
 		if(isset($_POST[$post_name]))
 		{
 			if(!get_magic_quotes_gpc())
-				$_POST[$post_name] = addslashes($_POST[$post_name]);
+				$_POST[$post_name] = addcslashes($_POST[$post_name], "'");
 			$MobileJoomla_Settings[$param] = $_POST[$post_name];
 		}
 		if(is_numeric($MobileJoomla_Settings[$param]))
