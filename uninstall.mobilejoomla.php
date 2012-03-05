@@ -854,7 +854,6 @@ function com_install()
 		}
 
 	// install terawurfl plugin
-	clear_terawurfl_db();
 	$teraSQL = $PluginSource.DS.'terawurfl'.DS.'tera_dump.sql.bz2';
 	if(file_exists($teraSQL))
 	{
@@ -865,6 +864,7 @@ function com_install()
 		}
 		else
 		{
+			clear_terawurfl_db();
 			$dump_ok = load_mysql_dump($teraSQL);
 			JFile::delete($teraSQL);
 			if($dump_ok && !terawurfl_install_procedure())
