@@ -13,6 +13,13 @@ defined('_JEXEC') or die('Restricted access');
 
 CHANGELOG
 
+1.0.1
+Stable release
+- fix issue with cached settings
+- fix issue with saving mobile sitename containing quote marks
+- fix possible notice at saving MJ settings
+- support new ad remover plugin
+
 1.0
 Stable release
 - new UI
