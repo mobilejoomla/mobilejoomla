@@ -309,7 +309,7 @@ function saveconfig()
 	$configfname = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php';
 	include($configfname);
 
-	$settings = array ('caching', 'httpcaching', 'domains', 'pcpage', 'templatewidth', 'jpegquality',
+	$settings = array ('caching', 'httpcaching', 'pcpage', 'templatewidth', 'jpegquality',
 					   'desktop_url', 'mobile_sitename',
 					   'xhtml.template', 'xhtml.homepage', 'xhtml.gzip', 'xhtml.domain', 'xhtml.redirect', 'xhtml.buffer_width',
 					   'wml.template', 'wml.homepage', 'wml.gzip', 'wml.domain', 'wml.redirect', 'wml.buffer_width',
