@@ -10,6 +10,9 @@
  */
 defined('_JEXEC') or die('Restricted Access');
 
+if(!is_file(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'admin.mobilejoomla.html.php'))
+	return;
+
 $document =& JFactory::getDocument();
 $lang =& JFactory::getLanguage();
 
