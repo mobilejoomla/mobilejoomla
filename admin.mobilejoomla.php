@@ -112,8 +112,8 @@ function showconfig()
 	              JHTML::_('select.option', 2, JText::_('COM_MJ__IMG_RESCALE')),
 	              JHTML::_('select.option', 3, JText::_('COM_MJ__IMG_FIXED_RESCALE_RATIO')),
 	              JHTML::_('select.option', 1, JText::_('COM_MJ__IMG_REMOVE_ALL')));
-	$caching = array (JHTML::_('select.option', 0, JText::_('COM_MJ__DISABLE')),
-					  JHTML::_('select.option', 1, JText::_('COM_MJ__JOOMLA')));
+	$caching = array (JHTML::_('select.option', 1, JText::_('COM_MJ__JOOMLA')),
+					  JHTML::_('select.option', 0, JText::_('COM_MJ__DISABLE')));
 	$gzip = array (JHTML::_('select.option', 1, JText::_('COM_MJ__AUTO')),
 				   JHTML::_('select.option', 0, JText::_('COM_MJ__OFF')));
 	$simplehead = array (JHTML::_('select.option', 0, JText::_('COM_MJ__HEAD_STANDARD')),
