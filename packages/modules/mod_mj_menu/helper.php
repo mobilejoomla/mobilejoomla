@@ -112,7 +112,7 @@ class JMobileMenuHelper
 			}
 			else
 			{
-				if($item->type=='menuitem' && ($refItem = $sitemenu->getItem($item->query['Itemid'])))
+				if($item->type=='menulink' && ($refItem = $sitemenu->getItem($item->query['Itemid'])))
 				{
 					$item->id     = $refItem->id;
 					$item->link   = $refItem->link;
