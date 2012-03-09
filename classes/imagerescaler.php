@@ -109,13 +109,6 @@ class ImageRescaler
 	{
 		$imageurl = str_replace(array('\\"','\\\''), array('"','\''), $imageurl);
 
-		if(defined('PATHINFO_FILENAME'))
-			$src_imagename = pathinfo($imageurl, PATHINFO_FILENAME);
-		else
-		{
-			$base = basename($imageurl);
-			$src_imagename = substr($base, 0, strrpos($base, '.'));
-		}
 		$src_ext = strtolower(pathinfo($imageurl, PATHINFO_EXTENSION));
 		if($src_ext == 'jpeg')
 			$src_ext = 'jpg';
@@ -230,11 +223,19 @@ class ImageRescaler
 		else
 			$dest_ext = $formats[0];
 
+		if(defined('PATHINFO_FILENAME'))
+			$src_imagename = pathinfo($imageurl_decoded, PATHINFO_FILENAME);
+		else
+		{
+			$base = basename($imageurl_decoded);
+			$src_imagename = substr($base, 0, strrpos($base, '.'));
+		}
+
 		$dest_imagedir = dirname($src_imagepath).DS.ImageRescaler::$thumbdir;
 		$dest_imagepath = $dest_imagedir.DS.$src_imagename.'_'.$dest_width.'x'.$dest_height.'.'.$dest_ext;
 		$dest_imageuri = $base_rel.implode('/', explode(DS, substr($dest_imagepath, strlen(JPATH_SITE.DS))));
-		$dest_imageuri = str_replace(array(' ',   '"',   '#',   '%',   "'",   '+'),
-									 array('%20', '%22', '%23', '%25', '%27', '%2B'),
+		$dest_imageuri = str_replace(array('%',   ' ',   '"',   '#',   "'",   '+'),
+									 array('%25', '%20', '%22', '%23', '%27', '%2B'),
 									 $dest_imageuri);
 
 		$src_mtime = ImageRescaler::getmtime($src_imagepath);
