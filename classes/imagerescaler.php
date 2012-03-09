@@ -218,6 +218,13 @@ class ImageRescaler
 		if($dest_width ==0) $dest_width  = 1;
 		if($dest_height==0) $dest_height = 1;
 
+		if(isset($MobileJoomla_Settings['hiresimages']) && $MobileJoomla_Settings['hiresimages'] != 0 &&
+			isset($MobileJoomla_Device['pixelratio']) && $MobileJoomla_Device['pixelratio'] != 0)
+		{
+			$dest_width  *= $MobileJoomla_Device['pixelratio'];
+			$dest_height *= $MobileJoomla_Device['pixelratio'];
+		}
+
 		if(in_array($src_ext, $formats))
 			$dest_ext = $src_ext;
 		else
