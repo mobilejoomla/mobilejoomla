@@ -227,11 +227,13 @@ class plgSystemMobileBot extends JPlugin
 						(is_array($MobileJoomla_Device['imageformats'])
 							? implode('', $MobileJoomla_Device['imageformats'])
 							: '');
-			$this->setRequestVar('mjcachekey', $cachekey);
 			$registeredurlparams = $app->get('registeredurlparams');
 			if(empty($registeredurlparams))
 				$registeredurlparams = new stdClass();
+			$this->setRequestVar('mjcachekey', $cachekey);
 			$registeredurlparams->mjcachekey = 'CMD';
+			$this->setRequestVar('mjurlkey', JRequest::getURI());
+			$registeredurlparams->mjurlkey = 'STRING';
 			$app->set('registeredurlparams', $registeredurlparams);
 		}
 		else //Joomla!1.5
@@ -344,6 +346,14 @@ class plgSystemMobileBot extends JPlugin
 		define('_MJ', 1);
 		/** @var MobileJoomla $MobileJoomla */
 		$MobileJoomla =& MobileJoomla::getInstance();
+
+		if(!$is_joomla15) //Joomla!1.6+
+		{
+			$registeredurlparams = $app->get('registeredurlparams');
+			$this->setRequestVar('mjurlkey', null);
+			unset($registeredurlparams->mjurlkey);
+			$app->set('registeredurlparams', $registeredurlparams);
+		}
 
 		JPluginHelper::importPlugin('mobile');
 		$app->triggerEvent('onMobile', array (&$MobileJoomla, &$MobileJoomla_Settings, &$MobileJoomla_Device));
@@ -551,8 +561,16 @@ class plgSystemMobileBot extends JPlugin
 
 	function setRequestVar($name, $value = null)
 	{
-		$_REQUEST[$name] = $value;
-		$GLOBALS['_JREQUEST'][$name] = array('SET.REQUEST'=>true);
+		if($value !== null)
+		{
+			$_REQUEST[$name] = $value;
+			$GLOBALS['_JREQUEST'][$name] = array('SET.REQUEST'=>true);
+		}
+		else
+		{
+			unset($_REQUEST[$name]);
+			unset($GLOBALS['_JREQUEST'][$name]);
+		}
 	}
 
 	function onAfterRender()
