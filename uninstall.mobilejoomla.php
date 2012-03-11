@@ -321,7 +321,7 @@ function UpdateConfig($prev_version)
 				JFolder::delete($admin.'extensions');
 		}
 
-		if(version_compare('1.0', $prev_version, '>'))
+		if(version_compare('1.0.0', $prev_version, '>'))
 		{
 			if($MobileJoomla_Settings['iphoneipad'])
 				JError::raiseWarning(0, JText::_('COM_MJ__IPAD_OPTION_UNSUPPORTED'));
