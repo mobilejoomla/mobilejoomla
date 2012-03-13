@@ -13,6 +13,13 @@ defined('_JEXEC') or die('Restricted access');
 
 CHANGELOG
 
+1.0.2
+Stable release
+- update WURFL to v.2.3.1
+- fix conflict with System-Cache plugin
+- fix issue with alias-type menuitems
+- fix rescaling of urlencoded files
+
 1.0.1
 Stable release
 - fix issue with cached settings
