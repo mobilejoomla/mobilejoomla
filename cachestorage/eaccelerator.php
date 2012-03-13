@@ -139,7 +139,6 @@ class JCacheStorageEaccelerator extends JCacheStorage
 	 * @access private
 	 *
 	 * @param string  $key   Cache key to expire.
-	 * @param integer $lifetime  Lifetime of the data in seconds.
 	 */
 	function _setExpire($key)
 	{
