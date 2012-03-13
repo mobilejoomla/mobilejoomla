@@ -30,7 +30,7 @@ function isJoomla15()
 function getExtensionId($type, $name, $group='')
 {
 	/** @var JDatabase $db */
-	$db =& JFactory::getDBO();
+	$db = JFactory::getDBO();
  	if(!isJoomla15())
 	{
 		if($type=='plugin')
@@ -64,7 +64,7 @@ function InstallPlugin($group, $sourcedir, $name, $publish = 1, $ordering = -99)
 	if(!$upgrade)
 	{
 		/** @var JDatabase $db */
-		$db =& JFactory::getDBO();
+		$db = JFactory::getDBO();
 		if(!isJoomla15())
 			$db->setQuery("UPDATE `#__extensions` SET `enabled`=$publish, `ordering`=$ordering WHERE `type`='plugin' AND `element`='$name' AND `folder`='$group'");
 		else
@@ -98,7 +98,7 @@ function InstallTemplate($sourcedir, $name)
 	if(isJoomla15())
 	{
 		/** @var JDatabase $db */
-		$db =& JFactory::getDBO();
+		$db = JFactory::getDBO();
 		$db->setQuery('SELECT COUNT(*) FROM #__templates_menu WHERE template = '.$db->Quote($name));
 		if($db->loadResult()==0)
 		{
@@ -128,7 +128,7 @@ function UninstallTemplate($name)
 	if(isJoomla15())
 	{
 		/** @var JDatabase $db */
-		$db =& JFactory::getDBO();
+		$db = JFactory::getDBO();
 		$db->setQuery('DELETE FROM #__templates_menu WHERE template = '.$db->Quote($name));
 		$db->query();
 	}
@@ -149,7 +149,7 @@ function InstallModule($sourcedir, $name, $title, $position, $published = 1, $sh
 		if($id)
 		{
 			/** @var JDatabase $db */
-			$db =& JFactory::getDBO();
+			$db = JFactory::getDBO();
 
 			if(!isJoomla15())
 				$db->setQuery("SELECT `params` FROM `#__extensions` WHERE extension_id=$id");
@@ -218,7 +218,7 @@ function UpdateConfig($prev_version)
 
 	if(!$upgrade)
 	{ // first install
-		$conf =& JFactory::getConfig();
+		$conf = JFactory::getConfig();
 		$MobileJoomla_Settings['mobile_sitename'] = $conf->getValue('sitename');
 		$MobileJoomla_Settings['global.gzip'] = $conf->getValue('gzip');
 	}
@@ -228,7 +228,7 @@ function UpdateConfig($prev_version)
 
 		if(version_compare('0.9.4', $prev_version, '>'))
 		{
-			$db =& JFactory::getDBO();
+			$db = JFactory::getDBO();
 			$query = "DROP TABLE IF EXISTS `#__capability`";
 			$db->setQuery($query);
 			$db->query();
@@ -272,7 +272,7 @@ function UpdateConfig($prev_version)
 
 		if(version_compare('0.9.9', $prev_version, '>'))
 		{
-			$conf =& JFactory::getConfig();
+			$conf = JFactory::getConfig();
 			$MobileJoomla_Settings['mobile_sitename'] = $conf->getValue('sitename');
 			$MobileJoomla_Settings['tmpl_xhtml_img_addstyles'] = 0;
 			$MobileJoomla_Settings['tmpl_iphone_img_addstyles'] = 0;
@@ -409,7 +409,7 @@ function UpdateConfig($prev_version)
 			UninstallTemplate('mobile_pda');
 
 			// move position mj_iphone_middle to mj_iphone_header2
-			$db =& JFactory::getDBO();
+			$db = JFactory::getDBO();
 			$query = "UPDATE `#__modules` SET position='mj_iphone_header2' WHERE position='mj_iphone_middle'";
 			$db->setQuery($query);
 			$db->query();
@@ -465,7 +465,7 @@ function UpdateConfig($prev_version)
 function terawurfl_install_procedure()
 {
 	/** @var JDatabase $db */
-	$db =& JFactory::getDBO();
+	$db = JFactory::getDBO();
 
 	if(version_compare($db->getVersion(), '5.0.0', '<'))
 		return false;
@@ -528,7 +528,7 @@ function terawurfl_test()
 		return false;
 	
 	/** @var JRegistry $config */
-	$config =& JFactory::getConfig();
+	$config = JFactory::getConfig();
 	$host = $config->getValue('host');
 	$port = NULL;
 	$socket = NULL;
@@ -597,11 +597,11 @@ function parse_mysql_dump($handler, $uri)
 		return false;
 
 	/** @var JRegistry $conf */
-	$conf =& JFactory::getConfig();
+	$conf = JFactory::getConfig();
 	$debuglevel = $conf->getValue('config.debug');
 
 	/** @var JDatabase $db */
-	$db =& JFactory::getDBO();
+	$db = JFactory::getDBO();
 	$db->debug(0);
 
 	$sql_line = '';
@@ -690,7 +690,7 @@ function load_mysql_dump($bz2_file)
 function clear_terawurfl_db()
 {
 	/** @var JDatabase $db */
-	$db =& JFactory::getDBO();
+	$db = JFactory::getDBO();
 	$tables = array ('#__TeraWurflCache', '#__TeraWurflCache_TEMP', '#__TeraWurflIndex', '#__TeraWurflMerge',
 					 '#__TeraWurflSettings',
 					 '#__TeraWurfl_Alcatel', '#__TeraWurfl_Android', '#__TeraWurfl_AOL', '#__TeraWurfl_Apple',
@@ -745,9 +745,9 @@ function com_install()
 		@ini_set('memory_limit', $mj_memory_limit);
 
 	/** @var JDatabase $db */
-	$db =& JFactory::getDBO();
+	$db = JFactory::getDBO();
 	/** @var JLanguage $lang */
-	$lang =& JFactory::getLanguage();
+	$lang = JFactory::getLanguage();
 	$lang->load('com_mobilejoomla');
 
 	// check for upgrade
@@ -756,10 +756,10 @@ function com_install()
 	$manifest = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'mobilejoomla.xml';
 	if(is_file($manifest))
 	{
-		$xml =& JFactory::getXMLParser('Simple');
+		$xml = JFactory::getXMLParser('Simple');
 		if($xml->loadFile($manifest))
 		{
-			$element =& $xml->document->getElementByPath('version');
+			$element = $xml->document->getElementByPath('version');
 			$prev_version = $element ? $element->data() : '';
 			if($prev_version)
 				$upgrade = true;
@@ -941,9 +941,9 @@ function com_uninstall()
 	JError::setErrorHandling(E_ERROR, 'Message');
 
 	/** @var JDatabase $db */
-	$db =& JFactory::getDBO();
+	$db = JFactory::getDBO();
 	/** @var JLanguage $lang */
-	$lang =& JFactory::getLanguage();
+	$lang = JFactory::getLanguage();
 	$lang->load('com_mobilejoomla');
 
 	$addons_installer = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'install.addons.php';

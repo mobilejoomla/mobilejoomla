@@ -26,7 +26,7 @@ class plgMobileTerawurfl extends JPlugin
 		if(version_compare(phpversion(), '5.0.0', '<'))
 		{
 			/** @var JDatabase $db */
-			$db =& JFactory::getDBO();
+			$db = JFactory::getDBO();
 			$query = "UPDATE #__plugins SET published = 0 WHERE element = 'terawurfl' AND folder = 'mobile'";
 			$db->setQuery($query);
 			$db->query();
@@ -46,7 +46,7 @@ class plgMobileTerawurfl extends JPlugin
 		require_once(dirname(__FILE__).DS.'terawurfl'.DS.'TeraWurflConfig.php');
 
 		/** @var JRegistry $config */
-		$config =& JFactory::getConfig();
+		$config = JFactory::getConfig();
 		$host = $config->getValue('host');
 		if($host=='' || $host[0]==':')
 			$host = 'localhost'.$host;
@@ -81,7 +81,7 @@ class plgMobileTerawurfl extends JPlugin
 			return;
 		}
 
-		$MobileJoomla_Device['wurfl'] =& $wurflObj;
+		$MobileJoomla_Device['wurfl'] = $wurflObj;
 
 		if($wurflObj->getDeviceCapability('is_tablet'))
 		{

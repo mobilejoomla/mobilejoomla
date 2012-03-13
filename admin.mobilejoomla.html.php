@@ -14,15 +14,15 @@ include_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'class
 
 class HTML_mobilejoomla
 {
-	function getMJVersion()
+	static function getMJVersion()
 	{
 		$manifest = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'mobilejoomla.xml';
 		if(is_file($manifest))
 		{
-			$xml =& JFactory::getXMLParser('Simple');
+			$xml = JFactory::getXMLParser('Simple');
 			if($xml->loadFile($manifest))
 			{
-				$element =& $xml->document->getElementByPath('version');
+				$element = $xml->document->getElementByPath('version');
 				$version = $element ? $element->data() : '';
 				if($version)
 					return $version;
@@ -31,40 +31,40 @@ class HTML_mobilejoomla
 		return false;
 	}
 
-	function CheckForUpdate()
+	static function CheckForUpdate()
 	{
 		$version = HTML_mobilejoomla::getMJVersion();
 		if($version)
 		{
-			$document =& JFactory::getDocument();
+			$document = JFactory::getDocument();
 			$document->addStyleSheet(JURI::base(true).'/components/com_mobilejoomla/css/mjbanner.css');
 			$document->addStyleSheet('http://www.mobilejoomla.com/checker.php?v='.urlencode($version).'&amp;j='.urlencode(JVERSION));
 		}
 	}
 	
-	function showNotification()
+	static function showNotification()
 	{
 		HTML_mobilejoomla::CheckForUpdate();
 		JHTML::_('behavior.modal', 'a.modal');
 
-		$app =& JFactory::getApplication();
+		$app = JFactory::getApplication();
 		$updatenotice = '<div id="mjmsgarea"></div>';
 		$app->enqueueMessage($updatenotice, 'banner');
 		if(version_compare(JVERSION,'1.7.0','lt'))
 		{
-			$document =& JFactory::getDocument();
+			$document = JFactory::getDocument();
 			$document->addStyleDeclaration('#mjmsgarea{margin:-8px -10px 8px}');
 		}
 	}
 
-	function showconfig(&$lists, $MobileJoomla_Settings)
+	static function showconfig(&$lists, $MobileJoomla_Settings)
 	{
 		JHTML::_('behavior.tooltip');
 		JHTML::_('behavior.switcher');
 		JHTML::_('behavior.modal', 'a.modal');
 
 		HTML_mobilejoomla::showNotification();
-		$document =& JFactory::getDocument();
+		$document = JFactory::getDocument();
 		$document->addScript(JURI::base(true).'/components/com_mobilejoomla/js/mj_UI.js');
 		$document->addStyleSheet(JURI::base(true).'/components/com_mobilejoomla/css/mjsettings.css');
 
@@ -483,7 +483,7 @@ class HTML_mobilejoomla
 			}
 		}
 		
-		$dispatcher =& JDispatcher::getInstance();
+		$dispatcher = JDispatcher::getInstance();
 		$dispatcher->trigger('onMJDisplayConfig', array(&$config_blobs, &$MobileJoomla_Settings));
 
 		include(JPATH_COMPONENT.DS.'admin_tpl'.DS.'config_tabs.php');

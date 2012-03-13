@@ -24,9 +24,9 @@ $cutTitle = $params->get('cut_title', 1);
 $imgURL = JString::str_ireplace('{{root}}', JURI::base(), $imgURL);
 
 /** @var JSite $app */
-$app =& JFactory::getApplication();
+$app = JFactory::getApplication();
 /** @var JDocument $doc */
-$doc =& JFactory::getDocument();
+$doc = JFactory::getDocument();
 
 $sitename = $app->getCfg('sitename');
 if(substr(JVERSION,0,3) == '1.5')

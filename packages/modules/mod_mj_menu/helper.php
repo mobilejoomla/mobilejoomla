@@ -12,7 +12,7 @@ defined('_JEXEC') or die('Restricted access');
 
 class JMobileMenuHelper
 {
-	function _isJoomla15()
+	static function _isJoomla15()
 	{
 		static $is_joomla15;
 		if(!isset($is_joomla15))
@@ -20,11 +20,11 @@ class JMobileMenuHelper
 		return $is_joomla15;
 	}
 
-	function getItems($attributes, $values)
+	static function getItems($attributes, $values)
 	{
 		$is_joomla15 = JMobileMenuHelper::_isJoomla15();
-        $app =& JFactory::getApplication();
-		$menu =& $app->getMenu();
+        $app = JFactory::getApplication();
+		$menu = $app->getMenu();
 		if($is_joomla15)
 		{
 			$attribute = array_shift($attributes);
@@ -49,7 +49,7 @@ class JMobileMenuHelper
 		return $items;
 	}
 
-	function getRoot($menutype)
+	static function getRoot($menutype)
 	{
 		$is_joomla15 = JMobileMenuHelper::_isJoomla15();
 		if($is_joomla15)
@@ -60,7 +60,7 @@ class JMobileMenuHelper
 											   array($menutype, 1));
 	}
 
-	function getSiblings($item)
+	static function getSiblings($item)
 	{
 		$is_joomla15 = JMobileMenuHelper::_isJoomla15();
 		if($is_joomla15)
@@ -71,25 +71,25 @@ class JMobileMenuHelper
 											   array($item->menutype, $item->parent_id));
 	}
 
-	function getChildrens($item)
+	static function getChildrens($item)
 	{
 		$is_joomla15 = JMobileMenuHelper::_isJoomla15();
 		return JMobileMenuHelper::getItems(array('menutype', $is_joomla15 ? 'parent' : 'parent_id'),
 										   array($item->menutype, $item->id));
 	}
 
-	function prepareMenu(&$menu, $exclude_menu_ids, $params)
+	static function prepareMenu(&$menu, $exclude_menu_ids, $params)
 	{
-		$MobileJoomla =& MobileJoomla::getInstance();
+		$MobileJoomla = MobileJoomla::getInstance();
 		$is_joomla15 = JMobileMenuHelper::_isJoomla15();
 
 		/** @var JUser $user */
-		$user = & JFactory::getUser();
+		$user = JFactory::getUser();
 		$aid = $user->get('aid', 0);
 
-        $app =& JFactory::getApplication();
-        $sitemenu =& $app->getMenu();
-		$router =& JSite::getRouter();
+        $app = JFactory::getApplication();
+        $sitemenu = $app->getMenu();
+		$router = $app->getRouter();
 
 		foreach($menu as $i=>$item)
 			$menu[$i] = clone($item);
@@ -159,10 +159,10 @@ class JMobileMenuHelper
 		}
 	}
 	
-	function _renderMenu($menu, &$params, $submenu = array())
+	static function _renderMenu($menu, &$params, $submenu = array())
 	{
 		/** @var MobileJoomla $MobileJoomla */
-		$MobileJoomla =& MobileJoomla::getInstance();
+		$MobileJoomla = MobileJoomla::getInstance();
 		$markup = $MobileJoomla->getMarkup();
 		switch($markup)
 		{
@@ -175,8 +175,8 @@ class JMobileMenuHelper
 			$markup = 'xhtml';
 		}
 
-        $app =& JFactory::getApplication();
-        $sitemenu =& $app->getMenu();
+        $app = JFactory::getApplication();
+        $sitemenu = $app->getMenu();
 		$active	= $sitemenu->getActive();
 		$active_id = isset($active) ? $active->id : 0;
 
@@ -186,7 +186,7 @@ class JMobileMenuHelper
 		require(JModuleHelper::getLayoutPath('mod_mj_menu', $markup));
 	}
 
-	function renderMenu($menu, &$params, $submenu = array())
+	static function renderMenu($menu, &$params, $submenu = array())
 	{
 		$prev = $params->get('class_prefix');
 		$params->set('class_prefix', 'menu');
@@ -194,7 +194,7 @@ class JMobileMenuHelper
 		$params->set('class_prefix', $prev);
 	}
 
-	function renderSubmenu($submenu, &$params)
+	static function renderSubmenu($submenu, &$params)
 	{
 		$prev = $params->get('class_prefix');
 		$params->set('class_prefix', 'submenu');

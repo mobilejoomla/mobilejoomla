@@ -13,8 +13,8 @@ defined('_JEXEC') or die('Restricted Access');
 if(!is_file(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'admin.mobilejoomla.html.php'))
 	return;
 
-$document =& JFactory::getDocument();
-$lang =& JFactory::getLanguage();
+$document = JFactory::getDocument();
+$lang = JFactory::getLanguage();
 
 $document->addStyleSheet('modules/mod_mj_adminicon/css/mod_mj_adminicon.css');
 $lang->load('com_mobilejoomla', JPATH_ADMINISTRATOR);

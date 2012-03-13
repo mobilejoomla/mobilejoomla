@@ -13,10 +13,10 @@ defined('_JEXEC') or die('Restricted access');
 defined('_MJ') or die('Incorrect usage of Mobile Joomla.');
 
 //load language file (to allow users to rename template)
-$lang =& JFactory::getLanguage();
+$lang = JFactory::getLanguage();
 $lang->load('tpl_mobile_smartphone');
 
-$MobileJoomla =& MobileJoomla::getInstance();
+$MobileJoomla = MobileJoomla::getInstance();
 
 $base = $this->baseurl.'/templates/'.$this->template;
 $home = $this->baseurl.'/';
@@ -136,7 +136,7 @@ $MobileJoomla->showDocType();
 ?>
 	</div>
 <?php
-	$dispatcher =& JDispatcher::getInstance(); 
+	$dispatcher = JDispatcher::getInstance(); 
 	$results = $dispatcher->trigger( 'onMobileJoomlaAdCheck', array() );
 	if(in_array('f3da4a6dd8f15c9170572d18838c841e', array_map('md5', $results)))
 	{

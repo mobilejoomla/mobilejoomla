@@ -10,7 +10,7 @@
  */
 defined( '_JEXEC' ) or die( 'Restricted access' );
 defined('_MJ') or die('Incorrect usage of Mobile Joomla.');
-$MobileJoomla =& MobileJoomla::getInstance();
+$MobileJoomla = MobileJoomla::getInstance();
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $this->language; ?>" dir="<?php echo $this->direction; ?>">

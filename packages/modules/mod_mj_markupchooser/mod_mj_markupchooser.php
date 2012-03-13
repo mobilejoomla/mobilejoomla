@@ -31,7 +31,7 @@ if(!defined('_MJ'))
 else
 {
 	/** @var MobileJoomla $MobileJoomla */
-	$MobileJoomla =& MobileJoomla::getInstance();
+	$MobileJoomla = MobileJoomla::getInstance();
 	$markup = $MobileJoomla->getMarkup();
 	$base = $MobileJoomla->config['desktop_url'];
 }

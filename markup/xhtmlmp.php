@@ -83,11 +83,11 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 		if($this->config['xhtml.allowextedit'])
 		{
 			/** @var JUser $user */
-			$user =& JFactory::getUser();
+			$user = JFactory::getUser();
 			if(!$user->get('guest'))
 			{
 				/** @var JEditor $editor */
-				$editor =& JFactory::getEditor();
+				$editor = JFactory::getEditor();
 				echo $editor->initialise();
 			}
 		}
@@ -105,9 +105,9 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 	{
 		if($this->getParam('jfooter'))
 		{
-			$app =& JFactory::getApplication();
+			$app = JFactory::getApplication();
 			/** @var JLanguage $lang */
-			$lang =& JFactory::getLanguage();
+			$lang = JFactory::getLanguage();
 			$lang->load('com_mobilejoomla', JPATH_ADMINISTRATOR);
 			$fyear = (substr(JVERSION,0,3) != '1.5') ? 'Y' : '%Y';
 			$version = new JVersion();
@@ -124,7 +124,7 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 		elseif($this->getParam('img') >= 2)
 		{
 			$scaletype = $this->getParam('img')-2;
-			$addstyles = $this->getParam('img_addstyles');
+			$addstyles = (bool)$this->getParam('img_addstyles');
 			$text = MobileJoomla::RescaleImages($text, $scaletype, $addstyles);
 		}
 		if($this->getParam('removetags'))

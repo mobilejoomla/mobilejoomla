@@ -12,7 +12,7 @@ defined('_JEXEC') or die('Restricted access');
 
 defined('_MJ') or die('Incorrect usage of Mobile Joomla.');
 
-$MobileJoomla =& MobileJoomla::getInstance();
+$MobileJoomla = MobileJoomla::getInstance();
 
 $base = $this->baseurl.'/templates/'.$this->template;
 

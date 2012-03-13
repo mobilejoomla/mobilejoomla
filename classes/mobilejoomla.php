@@ -16,7 +16,7 @@ class MobileJoomla
 	var $device = null;
 	var $_ishomepage = false;
 
-	/*static*/function &getConfig()
+	static function &getConfig()
 	{
 		static $instance;
 		if(!is_array($instance))
@@ -29,7 +29,7 @@ class MobileJoomla
 		return $instance;
 	}
 
-	/*static*/function &getDevice()
+	static function &getDevice()
 	{
 		static $instance;
 		if(!is_array($instance))
@@ -43,7 +43,7 @@ class MobileJoomla
 	 * @param string $markup
 	 * @return MobileJoomla
 	 */
-	function &getInstance($markup = '')
+	static function &getInstance($markup = '')
 	{
 		static $instance;
 		if(!is_object($instance))
@@ -68,7 +68,7 @@ class MobileJoomla
 		return $instance;
 	}
 
-	function &getToolbar()
+	static function &getToolbar()
 	{
 		static $instance = null;
 		if($instance == null)
@@ -131,7 +131,7 @@ class MobileJoomla
 	function getPageTitle()
 	{
 		/** @var JDocument $document */
-		$document =& JFactory::getDocument();
+		$document = JFactory::getDocument();
 		return $document->getTitle();
 	}
 
@@ -231,13 +231,13 @@ class MobileJoomla
 	{
 	}
 
-	function RescaleImages($text, $scaletype, $addstyles = false)
+	static function RescaleImages($text, $scaletype, $addstyles = false)
 	{
 		require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'classes'.DS.'imagerescaler.php');
 		return ImageRescaler::RescaleImages($text, $scaletype, $addstyles);
 	}
 
-	function isCurrentMarkup($markup)
+	static function isCurrentMarkup($markup)
 	{
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
 		if($markup=='auto')
@@ -249,7 +249,7 @@ class MobileJoomla
 		return $markup === $MobileJoomla_Device['markup'];
 	}
 
-	function getDeviceViewURI($device)
+	static function getDeviceViewURI($device)
 	{
 		$MobileJoomla_Settings =& MobileJoomla::getConfig();
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
@@ -289,7 +289,7 @@ class MobileJoomla
 		return $uri->toString();
 	}
 
-	function getCanonicalURI()
+	static function getCanonicalURI()
 	{
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
 		if($MobileJoomla_Device['markup'] == $MobileJoomla_Device['default_markup'])

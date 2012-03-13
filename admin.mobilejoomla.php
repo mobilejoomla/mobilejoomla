@@ -22,11 +22,11 @@ jimport('joomla.event.dispatcher');
 require_once(JPATH_COMPONENT.DS.'admin.mobilejoomla.html.php');
 
 $task = JRequest::getCmd('task');
-$app =& JFactory::getApplication();
+$app = JFactory::getApplication();
 
 JPluginHelper::importPlugin('mobile');
 
-$dispatcher =& JDispatcher::getInstance();
+$dispatcher = JDispatcher::getInstance();
 $dispatcher->trigger('onMJBeforeDispatch', array($task));
 
 // TODO: transform into JController-based controller
@@ -53,14 +53,14 @@ function showconfig()
 
 	include_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'classes'.DS.'jhtmlmjconfig.php';
 
-	$app =& JFactory::getApplication();
+	$app = JFactory::getApplication();
 	if(!JFile::exists(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php'))
 		$app->enqueueMessage(JText::_('COM_MJ__CONFIG_MISSING'), 'error');
 	elseif(!is_writable(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php'))
 		$app->enqueueMessage(JText::_('COM_MJ__CONFIG_UNWRITEABLE'), 'warning');
 
 	/** @var JDatabase $db */
-	$db =& JFactory::getDBO();
+	$db = JFactory::getDBO();
 	$query = 'SELECT DISTINCT(position) FROM #__modules WHERE client_id = 0';
 	$db->setQuery($query);
 	$positions = $db->loadResultArray();
@@ -81,10 +81,10 @@ function showconfig()
 			continue;
 		$templates[] = array ('value' => $templateDir);
 
-		$xml =& JFactory::getXMLParser('Simple');
+		$xml = JFactory::getXMLParser('Simple');
 		if($xml->loadFile($templateFile))
 		{
-			$p =& $xml->document->getElementByPath('positions');
+			$p = $xml->document->getElementByPath('positions');
 			if(is_a($p, 'JSimpleXMLElement') && count($p->children()))
 				foreach($p->children() as $child)
 					$positions[] = $child->data();
@@ -243,7 +243,7 @@ function showconfig()
 	function menuoptions()
 	{
 		/** @var JDatabase $db */
-		$db =& JFactory::getDBO();
+		$db = JFactory::getDBO();
 		$isJoomla15 = (substr(JVERSION,0,3) == '1.5');
 		if(!$isJoomla15)
 			$query = 'SELECT id, menutype, title, link, type, parent_id FROM #__menu WHERE published=1 ORDER BY menutype, parent_id, ordering';
@@ -343,7 +343,7 @@ function saveconfig()
 					   'iphone.jfooter', 'iphone.img', 'iphone.img_addstyles',
 					   'iphone.removetags');
 
-	$dispatcher =& JDispatcher::getInstance();
+	$dispatcher = JDispatcher::getInstance();
 	$dispatcher->trigger('onMJBeforeSave', array(&$settings, &$MobileJoomla_Settings));
 
 	$params = array ();
@@ -370,7 +370,7 @@ function saveconfig()
 			. ");\n"
 			. "?>";
 
-	$app =& JFactory::getApplication();
+	$app = JFactory::getApplication();
 	if(JFile::write($configfname, $config))
 	{
 		$app->redirect('index.php?option=com_mobilejoomla',
@@ -406,7 +406,7 @@ function update()
 {
 	jimport('joomla.installer.helper');
 	jimport('joomla.installer.installer');
-	$app =& JFactory::getApplication();
+	$app = JFactory::getApplication();
 	$option = JRequest::getString('option');
 
 	$state = JRequest::getWord('state');
@@ -423,7 +423,7 @@ function update()
 	case 'unpack':
 		_initStatus();
 		$filename = $app->getUserState( "$option.updatefilename", false );
-		$config =& JFactory::getConfig();
+		$config = JFactory::getConfig();
 		$path = $config->getValue('config.tmp_path').DS.$filename;
 		if($path)
 		{

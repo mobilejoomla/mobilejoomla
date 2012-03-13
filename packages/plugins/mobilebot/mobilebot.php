@@ -30,7 +30,7 @@ class plgSystemMobileBot extends JPlugin
 	function onAfterInitialise()
 	{
 		/** @var JSite $app */
-		$app =& JFactory::getApplication();
+		$app = JFactory::getApplication();
 		if($app->isAdmin()) // don't use MobileJoomla in backend
 			return;
 
@@ -192,16 +192,16 @@ class plgSystemMobileBot extends JPlugin
 		switch($MobileJoomla_Device['markup'])
 		{
 			case 'xhtml':
-				$MobileJoomla =& MobileJoomla::getInstance('xhtmlmp');
+				$MobileJoomla = MobileJoomla::getInstance('xhtmlmp');
 				break;
 			case 'wml':
-				$MobileJoomla =& MobileJoomla::getInstance('wml');
+				$MobileJoomla = MobileJoomla::getInstance('wml');
 				break;
 			case 'chtml':
-				$MobileJoomla =& MobileJoomla::getInstance('chtml');
+				$MobileJoomla = MobileJoomla::getInstance('chtml');
 				break;
 			case 'iphone':
-				$MobileJoomla =& MobileJoomla::getInstance('iphone');
+				$MobileJoomla = MobileJoomla::getInstance('iphone');
 				break;
 			default:
 				$MobileJoomla_Device['markup'] = false;
@@ -212,7 +212,7 @@ class plgSystemMobileBot extends JPlugin
 		$MobileJoomla->setHeader();
 
 		/** @var JRegistry $config */
-		$config =& JFactory::getConfig();
+		$config = JFactory::getConfig();
 		if($MobileJoomla_Settings['mobile_sitename'])
 			$config->setValue($is_joomla15?'config.sitename':'sitename', $MobileJoomla_Settings['mobile_sitename']);
 
@@ -249,7 +249,7 @@ class plgSystemMobileBot extends JPlugin
 			else //disable System-Cache plugin
 			{
 				$config->setValue('config.caching', 0);
-				$dispatcher =& JDispatcher::getInstance();
+				$dispatcher = JDispatcher::getInstance();
 				foreach($dispatcher->_observers as $index => $object)
 				{
 					if(is_a($object, 'plgSystemCache'))
@@ -261,7 +261,7 @@ class plgSystemMobileBot extends JPlugin
 				}
 			}
 		}
-		$router =& $app->getRouter();
+		$router = $app->getRouter();
 		$router->attachBuildRule(array($this, 'buildRule'));
 
 		if(!defined('SHMOBILE_MOBILE_TEMPLATE_SWITCHED'))
@@ -290,8 +290,8 @@ class plgSystemMobileBot extends JPlugin
 					$uri->getVar('Itemid') && count($uri->getQuery(true))==2) // check for sh404sef
 			{
 				$itemid = $uri->getVar('Itemid');
-                $app =& JFactory::getApplication();
-                $menu =& $app->getMenu();
+                $app = JFactory::getApplication();
+                $menu = $app->getMenu();
 				$item = $menu->getItem($itemid);
 				$uri->setQuery($item->query);
 				$uri->setVar('Itemid', $itemid);
@@ -305,7 +305,7 @@ class plgSystemMobileBot extends JPlugin
 	function onAfterRoute()
 	{
 		/** @var JSite $app */
-		$app =& JFactory::getApplication();
+		$app = JFactory::getApplication();
 		if($app->isAdmin()) // don't use MobileJoomla in backend
 			return;
 
@@ -313,7 +313,7 @@ class plgSystemMobileBot extends JPlugin
 
 		// don't filter RSS and non-html
 		/** @var JDocument $document */
-		$document =& JFactory::getDocument();
+		$document = JFactory::getDocument();
 		$format = $document->getType();
 		$doctype = JRequest::getVar('type', false);
 		if($doctype == 'rss' || $doctype == 'atom' || (($format!=='html') && ($format!=='raw')))
@@ -332,7 +332,7 @@ class plgSystemMobileBot extends JPlugin
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
 
 		jimport('joomla.environment.browser');
-		$browser =& JBrowser::getInstance();
+		$browser = JBrowser::getInstance();
 		$browser->set('_mobile', $MobileJoomla_Device['markup']!==false);
 
 		if($MobileJoomla_Device['markup']===false) //desktop
@@ -345,7 +345,7 @@ class plgSystemMobileBot extends JPlugin
 
 		define('_MJ', 1);
 		/** @var MobileJoomla $MobileJoomla */
-		$MobileJoomla =& MobileJoomla::getInstance();
+		$MobileJoomla = MobileJoomla::getInstance();
 
 		if(!$is_joomla15) //Joomla!1.6+
 		{
@@ -375,7 +375,7 @@ class plgSystemMobileBot extends JPlugin
 		{
 			if(!$is_joomla15)
 			{
-				$db =& JFactory::getDBO();
+				$db = JFactory::getDBO();
 				$query = "SELECT params FROM #__template_styles WHERE client_id = 0 AND template = ".$db->Quote($template)." ORDER BY id LIMIT 1";
 				$db->setQuery($query);
 				$params_data = $db->loadResult();
@@ -401,7 +401,7 @@ class plgSystemMobileBot extends JPlugin
 
 		//Set gzip
 		/** @var JRegistry $config */
-		$config =& JFactory::getConfig();
+		$config = JFactory::getConfig();
 		if($is_joomla15)
 			$config->setValue('config.gzip', $gzip);
 		else
@@ -410,7 +410,7 @@ class plgSystemMobileBot extends JPlugin
 		//Set headers
 		JResponse::clearHeaders();
 		/** @var JDocument $document */
-		$document =& JFactory::getDocument();
+		$document = JFactory::getDocument();
 		$document->setMimeEncoding($MobileJoomla->getContentType());
 		$MobileJoomla->setHeader();
 
@@ -432,9 +432,7 @@ class plgSystemMobileBot extends JPlugin
 		if(isset($current[session_name()]))
 			unset($current[session_name()]);
 
-        $menu =& $app->getMenu();
-		/** @var JMenuSite $menu */
-		$menu =& JSite::getMenu();
+        $menu = $app->getMenu();
 		if($is_joomla15)
 			$default = $menu->getDefault();
 		else
@@ -491,7 +489,7 @@ class plgSystemMobileBot extends JPlugin
 					$url .= '://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 
 					$uri = new JURI($url);
-					$router =& $app->getRouter();
+					$router = $app->getRouter();
 					$result = $router->parse($uri);
 					JRequest::set($result, 'get');
 				}
@@ -521,14 +519,14 @@ class plgSystemMobileBot extends JPlugin
 	function getUserMarkup()
 	{
 		/** @var JSite $app */
-		$app =& JFactory::getApplication();
+		$app = JFactory::getApplication();
 
 		$markup = false;
 
 		if(isset($_GET['device']))
 		{
 			$markup = $this->CheckMarkup($_GET['device']);
-			$uri =& JURI::getInstance();
+			$uri = JURI::getInstance();
 			$uri->delVar('device');
 		}
 
@@ -550,7 +548,7 @@ class plgSystemMobileBot extends JPlugin
 		$markup = $MobileJoomla_Device['markup'];
 
 		/** @var JSite $app */
-		$app =& JFactory::getApplication();
+		$app = JFactory::getApplication();
 		$app->setUserState('mobilejoomla.markup', $markup);
 
 		if($markup != $MobileJoomla_Device['default_markup'])
@@ -580,11 +578,11 @@ class plgSystemMobileBot extends JPlugin
 		$text = JResponse::getBody();
 
 		/** @var JSite $app */
-		$app =& JFactory::getApplication();
+		$app = JFactory::getApplication();
 		$app->triggerEvent('onMobilePagePrepare', array (&$text));
 
 		/** @var MobileJoomla $MobileJoomla */
-		$MobileJoomla =& MobileJoomla::getInstance();
+		$MobileJoomla = MobileJoomla::getInstance();
 		$MobileJoomla_Settings =& MobileJoomla::getConfig();
 
 		$text = $MobileJoomla->processPage($text);

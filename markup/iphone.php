@@ -25,13 +25,13 @@ class MobileJoomla_IPHONE extends MobileJoomla
 
 	function showHead()
 	{
-		/*$document =& JFactory::getDocument ();
+		/*$document = JFactory::getDocument ();
 $headerstuff = $document->getHeadData();
 unset($headerstuff['scripts'][JURI::base(true).'/media/system/js/caption.js']);
 unset($headerstuff['scripts'][JURI::base(true).'/media/system/js/mootools.js']);
 $document->setHeadData($headerstuff);*/
 		echo '<jdoc:include type="head" />';
-		$app =& JFactory::getApplication();
+		$app = JFactory::getApplication();
 		$template = $app->getTemplate();
 		if(JFile::exists(JPATH_THEMES.DS.$template.DS.'apple-touch-icon.png'))
 			echo '<link rel="apple-touch-icon" href="'.JURI::base(true).'/templates/'.$template.'/apple-touch-icon.png" />';
@@ -44,9 +44,9 @@ $document->setHeadData($headerstuff);*/
 	{
 		if($this->getParam('jfooter'))
 		{
-			$app =& JFactory::getApplication();
+			$app = JFactory::getApplication();
 			/** @var JLanguage $lang */
-			$lang =& JFactory::getLanguage();
+			$lang = JFactory::getLanguage();
 			$lang->load('com_mobilejoomla', JPATH_ADMINISTRATOR);
 			$fyear = (substr(JVERSION,0,3) != '1.5') ? 'Y' : '%Y';
 			$version = new JVersion();
@@ -63,7 +63,7 @@ $document->setHeadData($headerstuff);*/
 		elseif($this->getParam('img') >= 2)
 		{
 			$scaletype = $this->getParam('img')-2;
-			$addstyles = $this->getParam('img_addstyles');
+			$addstyles = (bool)$this->getParam('img_addstyles');
 			$text = MobileJoomla::RescaleImages($text, $scaletype, $addstyles);
 		}
 

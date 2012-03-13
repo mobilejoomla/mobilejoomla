@@ -23,14 +23,14 @@ class ImageRescaler
 	static $scaledimage_height = null;
 	static $scaletype = 0;
 
-	function RescaleImages($text, $scaletype = 0, $addstyles = false)
+	static function RescaleImages($text, $scaletype = 0, $addstyles = false)
 	{
 		ImageRescaler::$scaletype = $scaletype;
 		ImageRescaler::$addstyles = $addstyles;
 		return preg_replace_callback('#<img(\s[^>]*?)\s?/?>#i', array('ImageRescaler','imageParsing'), $text);
 	}
 
-	function imageParsing($matches)
+	static function imageParsing($matches)
 	{
 		$text = $matches[1];
 
@@ -91,7 +91,7 @@ class ImageRescaler
 		return $text;
 	}
 
-	function getmtime($file)
+	static function getmtime($file)
 	{
 		$time = @filemtime($file);
 		if(strtolower(substr(PHP_OS, 0, 3)) !== 'win')
@@ -105,7 +105,7 @@ class ImageRescaler
 		return $time;
 	}
 
-	function rescaleImage($imageurl)
+	static function rescaleImage($imageurl)
 	{
 		$imageurl = str_replace(array('\\"','\\\''), array('"','\''), $imageurl);
 
@@ -155,7 +155,7 @@ class ImageRescaler
 			return $imageurl;
 
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
-		$MobileJoomla        =& MobileJoomla::getInstance();
+		$MobileJoomla        =  MobileJoomla::getInstance();
 
 		$dev_width  = $MobileJoomla_Device['screenwidth'];
 		$dev_height = $MobileJoomla_Device['screenheight'];

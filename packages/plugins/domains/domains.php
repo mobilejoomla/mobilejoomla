@@ -39,7 +39,7 @@ class plgMobileDomains extends JPlugin
 		$domain_iphone = $MobileJoomla_Settings['iphone.domain'];
 
 		/** @var JRegistry $config */
-		$config =& JFactory::getConfig();
+		$config = JFactory::getConfig();
 
 		// Check for current domain
 		if(($markup=='xhtml' && $domain_xhtml && $host==$domain_xhtml) ||
@@ -78,7 +78,7 @@ class plgMobileDomains extends JPlugin
 		}
 		else
 		{ // Desktop domain
-			$app =& JFactory::getApplication();
+			$app = JFactory::getApplication();
 			// is it non-first visit? Then don't redirect
 			if($app->getUserState('mobilejoomla.markup') !== null)
 				$MobileJoomla_Device['markup'] = '';
@@ -110,12 +110,12 @@ class plgMobileDomains extends JPlugin
 		if(isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) != 'off'))
 			$http .= 's';
 
-		$uri =& JURI::getInstance();
+		$uri = JURI::getInstance();
 		$parsed = parse_url($uri->toString());
 		$path = isset($parsed['path']) ? $parsed['path'] : '/';
 
 		/** @var JSite $app */
-		$app =& JFactory::getApplication();
+		$app = JFactory::getApplication();
 		switch($markup)
 		{
 		case 'xhtml':
@@ -144,7 +144,7 @@ class plgMobileDomains extends JPlugin
 		else
 			$http = 'http';
 
-		$app =& JFactory::getApplication();
+		$app = JFactory::getApplication();
 		$live_url = $app->getCfg('live_site');
 		if($live_url)
 		{

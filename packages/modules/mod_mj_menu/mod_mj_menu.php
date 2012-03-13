@@ -15,7 +15,7 @@ if(!defined('_MJ'))
 
 require_once(dirname(__FILE__).DS.'helper.php'); 
 
-$MobileJoomla =& MobileJoomla::getInstance();
+$MobileJoomla = MobileJoomla::getInstance();
 
 /** @var JParameter $params */
 $params->def('menutype', 'mainmenu');
@@ -34,8 +34,8 @@ if($params->get('layout')=='')
 		$params->set('layout', 'h');
 }
 
-$app =& JFactory::getApplication();
-$sitemenu =& $app->getMenu();
+$app = JFactory::getApplication();
+$sitemenu = $app->getMenu();
 $active	= $sitemenu->getActive();
 
 if(isset($active) && $active->menutype==$params->get('menutype'))
