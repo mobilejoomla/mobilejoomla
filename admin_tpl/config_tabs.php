@@ -23,7 +23,7 @@ foreach($config_blobs as $tab_name=>$sections)
 		foreach($subsections as $section_title=>$fields)
 		{
 			echo '<fieldset><legend>'.JText::_($section_title).'</legend><table>';
-			foreach($fields as $j=>$row)
+			foreach($fields as $row)
 			{
 				echo '<tr><th>';
 				if(isset($row['label_blob']))

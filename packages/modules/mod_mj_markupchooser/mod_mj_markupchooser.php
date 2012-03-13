@@ -25,15 +25,12 @@ if(!defined('_MJ'))
 			return;
 	}
 	$markup = '';
-	$config =& MobileJoomla::getConfig();
-	$base = $config['desktop_url'];
 }
 else
 {
 	/** @var MobileJoomla $MobileJoomla */
 	$MobileJoomla = MobileJoomla::getInstance();
 	$markup = $MobileJoomla->getMarkup();
-	$base = $MobileJoomla->config['desktop_url'];
 }
 
 $show_chosen_markup = $params->get('show_choosen', 1);
