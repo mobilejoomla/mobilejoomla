@@ -17,6 +17,7 @@
 		<filename>mj_iphone.js</filename>
 		<filename>template_thumbnail.png</filename>
 		<filename>grayToolbar.png</filename>
+		<filename>params.ini</filename>
 		<folder>css</folder>
 		<folder>html</folder>
 		<folder>jqtouch-src</folder>
