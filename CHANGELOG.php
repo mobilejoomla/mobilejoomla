@@ -19,6 +19,7 @@ Stable release
 - fix conflict with System-Cache plugin
 - fix issue with alias-type menuitems
 - fix rescaling of urlencoded files
+- fix issue with duplicate templates in Joomla!2.5
 
 1.0.1
 Stable release
