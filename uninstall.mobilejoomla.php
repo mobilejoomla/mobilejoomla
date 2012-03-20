@@ -105,7 +105,7 @@ function InstallTemplate($sourcedir, $name)
 		$db->setQuery('DELETE FROM #__template_styles WHERE template='.$qName.' AND client_id=0 AND id<>'.(int)$id);
 		$db->query();
 
-		$db->setQuery('SELECT MIN(extension_id) FROM #__extensions WHERE element='.$qName.' AND type=\'template\' AND client_id=0 GROUP BY element');
+		$db->setQuery('SELECT MAX(extension_id) FROM #__extensions WHERE element='.$qName.' AND type=\'template\' AND client_id=0 GROUP BY element');
 		$id = $db->loadResult();
 		$db->setQuery('DELETE FROM #__extensions WHERE element='.$qName.' AND type=\'template\' AND client_id=0 AND extension_id<>'.(int)$id);
 		$db->query();
