@@ -94,6 +94,22 @@ function InstallTemplate($sourcedir, $name)
 		return false;
 
 	error_reporting($error_reporting);
+	//remove duplicate rows in Joomla!2.5
+	if(substr(JVERSION,0,3) == '2.5')
+	{
+		$db = JFactory::getDBO();
+		$qName = $db->Quote($name);
+		$db->setQuery('SELECT MIN(id) FROM #__template_styles WHERE template='.$qName.' AND client_id=0 GROUP BY template');
+
+		$id = $db->loadResult();
+		$db->setQuery('DELETE FROM #__template_styles WHERE template='.$qName.' AND client_id=0 AND id<>'.(int)$id);
+		$db->query();
+
+		$db->setQuery('SELECT MIN(extension_id) FROM #__extensions WHERE element='.$qName.' AND type=\'template\' AND client_id=0 GROUP BY element');
+		$id = $db->loadResult();
+		$db->setQuery('DELETE FROM #__extensions WHERE element='.$qName.' AND type=\'template\' AND client_id=0 AND extension_id<>'.(int)$id);
+		$db->query();
+	}
 
 	if(isJoomla15())
 	{
