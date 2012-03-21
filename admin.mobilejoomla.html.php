@@ -65,7 +65,8 @@ class HTML_mobilejoomla
 
 		HTML_mobilejoomla::showNotification();
 		$document = JFactory::getDocument();
-		$document->addScript(JURI::base(true).'/components/com_mobilejoomla/js/mj_UI.js');
+		$document->addScript(JURI::base(true).'/components/com_mobilejoomla/js/mj_ui.js');
+		$document->addScript(JURI::base(true).'/components/com_mobilejoomla/js/mj_update.js');
 		$document->addStyleSheet(JURI::base(true).'/components/com_mobilejoomla/css/mjsettings.css');
 
 		$config_blobs = array(
