@@ -85,18 +85,21 @@ function UninstallPlugin($group, $name)
 
 function InstallTemplate($sourcedir, $name)
 {
-	//hide warnings until template installing in Joomla!2.5 will be fixed
-	$error_reporting = error_reporting();
-	error_reporting($error_reporting & (E_ALL ^ E_WARNING));
+	//hide warnings of template installing in Joomla!2.5.0-2.5.3
+	$bugfix = (JVERSION>='2.5.0' && JVERSION<='2.5.3');
+	if($bugfix)
+	{
+		$error_reporting = error_reporting();
+		error_reporting($error_reporting & (E_ALL ^ E_WARNING));
+	}
 
 	$installer = new JInstaller();
 	if(!$installer->install($sourcedir.DS.$name))
 		return false;
 
-	error_reporting($error_reporting);
-	//remove duplicate rows in Joomla!2.5
-	if(substr(JVERSION,0,3) == '2.5')
+	if($bugfix)
 	{
+		error_reporting($error_reporting);
 		$db = JFactory::getDBO();
 		$qName = $db->Quote($name);
 		$db->setQuery('SELECT MIN(id) FROM #__template_styles WHERE template='.$qName.' AND client_id=0 GROUP BY template');
