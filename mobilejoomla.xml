@@ -33,12 +33,12 @@
 			<filename>access.xml</filename>
 			<filename>config.xml</filename>
 			<folder>admin_tpl</folder>
-			<folder>cachestorage</folder>
 			<folder>classes</folder>
 			<folder>css</folder>
 			<folder>images</folder>
 			<folder>js</folder>
 			<folder>markup</folder>
+			<folder>override</folder>
 			<folder>packages</folder>
 		</files>
 	</administration>

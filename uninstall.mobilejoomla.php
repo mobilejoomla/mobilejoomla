@@ -433,6 +433,12 @@ function UpdateConfig($prev_version)
 			$db->setQuery($query);
 			$db->query();
 		}
+
+		if(version_compare('1.0.3', $prev_version, '>'))
+		{
+			if(JFolder::exists($admin.'cachestorage'))
+				JFolder::delete($admin.'cachestorage');
+		}
 	}
 
 	$MobileJoomla_Settings['desktop_url'] = JURI::root();
