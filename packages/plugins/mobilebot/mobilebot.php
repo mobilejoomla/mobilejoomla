@@ -399,6 +399,12 @@ class plgSystemMobileBot extends JPlugin
 			}
 		}
 
+		// JHTML overrides
+		jimport('joomla.html');
+		JHTML::addIncludePath(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'override'.DS.'html');
+		if(@is_dir($dir = JPATH_THEMES.DS.$template.DS.'override'.DS.'html'))
+			JHTML::addIncludePath($dir);
+
 		//Set gzip
 		/** @var JRegistry $config */
 		$config = JFactory::getConfig();
