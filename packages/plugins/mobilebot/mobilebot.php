@@ -612,5 +612,20 @@ class plgSystemMobileBot extends JPlugin
 			JResponse::setHeader('Vary', 'Cookie');
 		}
 		JResponse::setHeader('Cache-Control', 'no-transform');
+
+		//remove Content-Type duplicates
+		$headers = JResponse::getHeaders();
+		JResponse::clearHeaders();
+		$found = false;
+		foreach($headers as $header)
+		{
+			if(strtolower($header['name']) != 'content-type')
+				JResponse::setHeader($header['name'], $header['value']);
+			elseif(!$found)
+			{
+				JResponse::setHeader($header['name'], $header['value']);
+				$found = true;
+			}
+		}
 	}
 }
