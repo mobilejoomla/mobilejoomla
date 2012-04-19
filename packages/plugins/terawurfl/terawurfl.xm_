@@ -21,7 +21,7 @@
 			<option value="0">PLG_MOBILE_TERAWURFL__USEMYSQL5</option>
 			<option value="1">PLG_MOBILE_TERAWURFL__MYSQL4</option>
 		</param>
-		<param name="cache" type="radio" default="1" label="PLG_MOBILE_TERAWURFL__CACHE_LABEL" description="PLG_MOBILE_TERAWURFL__CACHE_DESC">
+		<param name="cache" type="radio" default="0" label="PLG_MOBILE_TERAWURFL__CACHE_LABEL" description="PLG_MOBILE_TERAWURFL__CACHE_DESC">
 			<option value="0">PLG_MOBILE_TERAWURFL__NO</option>
 			<option value="1">PLG_MOBILE_TERAWURFL__YES</option>
 		</param>
@@ -32,7 +32,7 @@
 			<option value="0">PLG_MOBILE_TERAWURFL__USEMYSQL5</option>
 			<option value="1">PLG_MOBILE_TERAWURFL__MYSQL4</option>
 		</field>
-		<field name="cache" type="radio" default="1" label="PLG_MOBILE_TERAWURFL__CACHE_LABEL" description="PLG_MOBILE_TERAWURFL__CACHE_DESC">
+		<field name="cache" type="radio" default="0" label="PLG_MOBILE_TERAWURFL__CACHE_LABEL" description="PLG_MOBILE_TERAWURFL__CACHE_DESC">
 			<option value="0">PLG_MOBILE_TERAWURFL__NO</option>
 			<option value="1">PLG_MOBILE_TERAWURFL__YES</option>
 		</field>
