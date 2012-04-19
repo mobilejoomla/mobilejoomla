@@ -81,7 +81,14 @@ class plgMobileDomains extends JPlugin
 			$app = JFactory::getApplication();
 			// is it non-first visit? Then don't redirect
 			if($app->getUserState('mobilejoomla.markup') !== null)
+			{
+				if( ($MobileJoomla_Device['markup']=='xhtml'  && $domain_xhtml =='') ||
+					($MobileJoomla_Device['markup']=='iphone' && $domain_iphone=='') ||
+					($MobileJoomla_Device['markup']=='chtml'  && $domain_chtml =='') ||
+					($MobileJoomla_Device['markup']=='wml'    && $domain_wml   =='') )
+						return;
 				$MobileJoomla_Device['markup'] = '';
+			}
 		}
 	}
 
