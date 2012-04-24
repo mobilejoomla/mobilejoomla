@@ -13,6 +13,13 @@ defined('_JEXEC') or die('Restricted access');
 
 CHANGELOG
 
+1.0.3
+Stable release
+- Fix issue with email cloaking in ajax templates
+- Fix redirect to mobile version
+- Fix duplicated Content-Type header issue
+- Fix issue with parsing language file
+
 1.0.2
 Stable release
 - update WURFL to v.2.3.1
