@@ -15,9 +15,9 @@ abstract class JHtmlEmail
 	public static function cloak($mail, $mailto = 1, $text = '', $email = 1)
 	{
 		if($mailto)
-			$html = '<a href=" mailto:'.$mail.'">'.($text ? $text : $mail).'</a>';
+			$html = '<a href="javascript:void(location.href=\'mail\'+\'to:'.str_replace('@', "'+'@'+'", $mail).'\')">'.($text ? $text : str_replace('@', '(at)', $mail)).'</a>';
 		else
-			$html = $mail;
+			$html = str_replace('@', '(at)', $mail);
 
 		return $html;
 	}
