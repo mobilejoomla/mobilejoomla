@@ -424,7 +424,8 @@ function update()
 		_initStatus();
 		$filename = $app->getUserState( "$option.updatefilename", false );
 		$config = JFactory::getConfig();
-		$path = $config->getValue('config.tmp_path').DS.$filename;
+		$c = (substr(JVERSION,0,3)=='1.5') ? 'config.' : '';
+		$path = $config->getValue($c.'tmp_path').DS.$filename;
 		if($path)
 		{
 			$result = JInstallerHelper::unpack($path);

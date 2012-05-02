@@ -235,11 +235,13 @@ function UpdateConfig($prev_version)
 		return false;
 	}
 
+	$conf = JFactory::getConfig();
+	$c = (substr(JVERSION,0,3)=='1.5') ? 'config.' : '';
+
 	if(!$upgrade)
 	{ // first install
-		$conf = JFactory::getConfig();
-		$MobileJoomla_Settings['mobile_sitename'] = $conf->getValue('sitename');
-		$MobileJoomla_Settings['global.gzip'] = $conf->getValue('gzip');
+		$MobileJoomla_Settings['mobile_sitename'] = $conf->getValue($c.'sitename');
+		$MobileJoomla_Settings['global.gzip'] = $conf->getValue($c.'gzip');
 	}
 	else
 	{ // update from previous version
@@ -291,8 +293,7 @@ function UpdateConfig($prev_version)
 
 		if(version_compare('0.9.9', $prev_version, '>'))
 		{
-			$conf = JFactory::getConfig();
-			$MobileJoomla_Settings['mobile_sitename'] = $conf->getValue('sitename');
+			$MobileJoomla_Settings['mobile_sitename'] = $conf->getValue($c.'sitename');
 			$MobileJoomla_Settings['tmpl_xhtml_img_addstyles'] = 0;
 			$MobileJoomla_Settings['tmpl_iphone_img_addstyles'] = 0;
 		}
@@ -554,7 +555,8 @@ function terawurfl_test()
 	
 	/** @var JRegistry $config */
 	$config = JFactory::getConfig();
-	$host = $config->getValue('host');
+	$c = (substr(JVERSION,0,3)=='1.5') ? 'config.' : '';
+	$host = $config->getValue($c.'host');
 	$port = NULL;
 	$socket = NULL;
 	if(strpos($host, ':')!==false)
@@ -568,9 +570,9 @@ function terawurfl_test()
 	}
 	if($host == '')
 		$host = 'localhost';
-	$user = $config->getValue('user');
-	$pass = $config->getValue('password');
-	$dbname = $config->getValue('db');
+	$user = $config->getValue($c.'user');
+	$pass = $config->getValue($c.'password');
+	$dbname = $config->getValue($c.'db');
 
 	$mysqli = new mysqli($host, $user, $pass, $dbname, $port, $socket);
 	if(mysqli_connect_error())
@@ -623,7 +625,8 @@ function parse_mysql_dump($handler, $uri)
 
 	/** @var JRegistry $conf */
 	$conf = JFactory::getConfig();
-	$debuglevel = $conf->getValue('config.debug');
+	$c = (substr(JVERSION,0,3)=='1.5') ? 'config.' : '';
+	$debuglevel = $conf->getValue($c.'debug');
 
 	/** @var JDatabase $db */
 	$db = JFactory::getDBO();

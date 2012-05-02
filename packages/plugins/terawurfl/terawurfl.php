@@ -47,14 +47,15 @@ class plgMobileTerawurfl extends JPlugin
 
 		/** @var JRegistry $config */
 		$config = JFactory::getConfig();
-		$host = $config->getValue('host');
+		$c = (substr(JVERSION,0,3)=='1.5') ? 'config.' : '';
+		$host = $config->getValue($c.'host');
 		if($host=='' || $host[0]==':')
 			$host = 'localhost'.$host;
-		TeraWurflConfig::$TABLE_PREFIX = $config->getValue('dbprefix').'TeraWurfl';
+		TeraWurflConfig::$TABLE_PREFIX = $config->getValue($c.'dbprefix').'TeraWurfl';
 		TeraWurflConfig::$DB_HOST      = $host;
-		TeraWurflConfig::$DB_USER      = $config->getValue('user');
-		TeraWurflConfig::$DB_PASS      = $config->getValue('password');
-		TeraWurflConfig::$DB_SCHEMA    = $config->getValue('db');
+		TeraWurflConfig::$DB_USER      = $config->getValue($c.'user');
+		TeraWurflConfig::$DB_PASS      = $config->getValue($c.'password');
+		TeraWurflConfig::$DB_SCHEMA    = $config->getValue($c.'db');
 		TeraWurflConfig::$LOG_LEVEL    = 0;
 
 		$mysql4 = $this->params->get('mysql4', 0);
