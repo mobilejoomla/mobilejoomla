@@ -13,6 +13,10 @@ defined('_JEXEC') or die('Restricted access');
 
 CHANGELOG
 
+1.0.4
+Stable Release
+- Fix backend updater issue (J!1.6+)
+
 1.0.3
 Stable release
 - Fix issue with email cloaking in ajax templates
