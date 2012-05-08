@@ -151,8 +151,8 @@ class plgSystemMobileBot extends JPlugin
 					$MobileJoomla_Device['screenheight'] = 128;
 					break;
 				case 'xhtml':
-					$MobileJoomla_Device['screenwidth'] = 240;
-					$MobileJoomla_Device['screenheight'] = 320;
+					$MobileJoomla_Device['screenwidth'] = 320;
+					$MobileJoomla_Device['screenheight'] = 480;
 					break;
 				case 'iphone':
 					$MobileJoomla_Device['screenwidth'] = 320;
