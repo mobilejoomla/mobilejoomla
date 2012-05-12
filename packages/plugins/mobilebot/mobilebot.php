@@ -68,7 +68,7 @@ class plgSystemMobileBot extends JPlugin
 					Jloader::register('TeraWurfl', JPATH_PLUGINS.DS.'mobile'.DS.'terawurfl'.DS.'TeraWurfl.php');
 				else
 					Jloader::register('TeraWurfl', JPATH_PLUGINS.DS.'mobile'.DS.'terawurfl'.DS.'terawurfl'.DS.'TeraWurfl.php');
-				$cached_data = unserialize($cached_data);
+				$cached_data = @unserialize($cached_data);
 			}
 		}
 
