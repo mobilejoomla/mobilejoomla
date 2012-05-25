@@ -85,10 +85,12 @@ class plgSystemMobileBot extends JPlugin
 			$cached_data = base64_encode(gzdeflate(serialize($cached_data), $gzlevel));
 			$app->setUserState('mobilejoomla.cache', $cached_data);
 		}
+		$MobileJoomla_Device['markup'] = $this->CheckMarkup($MobileJoomla_Device['markup']);
 
 		$MobileJoomla_Device['real_markup'] = $MobileJoomla_Device['markup'];
 
 		$app->triggerEvent('onAfterDeviceDetection', array (&$MobileJoomla_Settings, &$MobileJoomla_Device));
+		$MobileJoomla_Device['markup'] = $this->CheckMarkup($MobileJoomla_Device['markup']);
 
 		$markup = $MobileJoomla_Device['markup'];
 		$MobileJoomla_Device['default_markup'] = $markup;
@@ -186,6 +188,7 @@ class plgSystemMobileBot extends JPlugin
 		}
 
 		$app->triggerEvent('onBeforeMobileMarkupInit', array (&$MobileJoomla_Settings, &$MobileJoomla_Device));
+		$MobileJoomla_Device['markup'] = $this->CheckMarkup($MobileJoomla_Device['markup']);
 
 		$this->updateUserMarkup();
 
