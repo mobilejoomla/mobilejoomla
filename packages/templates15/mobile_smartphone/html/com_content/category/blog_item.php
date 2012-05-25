@@ -94,7 +94,7 @@ echo JText::_('Register to read more...');
 elseif ($readmore = $this->item->params->get('readmore')) :
 echo $readmore;
 else :
-echo JText::sprintf('Read more...');
+echo JText::_('Read more...');
 endif; ?></a>
 </div>
 <?php endif; ?>
