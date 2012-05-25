@@ -44,9 +44,8 @@ if (($numIntroArticles != $startIntroArticles) && ($i < $this->total)) : ?>
 <div class="article_column">
 <?php
 						for ($y = 0; $y < $rows; $y ++) :
-                            if (!isset ($z))
-                                $z = 0;
-                            
+							if (!isset ($z))
+								$z = 0;
 							$target = $i + $y + $z;
 							if ($target < $this->total && $target < ($numIntroArticles)) :
 								$this->item =& $this->getItem($target, $this->params);

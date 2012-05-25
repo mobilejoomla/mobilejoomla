@@ -11,16 +11,16 @@ defined('_JEXEC') or die;
 	$button = '<input type="submit" value="'.$button_text.'" class="button'.$moduleclass_sfx.'" />';
 
 	switch ($button_pos) :
-	    case 'none' :
-		    $output = '<table><tr><td class="text">'.$output.'</td></tr></table>';
-		    break;
-	    case 'right' :
-		    $output = '<table><tr><td class="text">'.$output.'</td><td class="button">'.$button.'</td></tr></table>';
-		    break;
-	    case 'left' :
-	    default :
-		    $output = '<table><tr><td class="button">'.$button.'</td><td class="text">'.$output.'</td></tr></table>';
-		    break;
+		case 'none' :
+			$output = '<table><tr><td class="text">'.$output.'</td></tr></table>';
+			break;
+		case 'right' :
+			$output = '<table><tr><td class="text">'.$output.'</td><td class="button">'.$button.'</td></tr></table>';
+			break;
+		case 'left' :
+		default :
+			$output = '<table><tr><td class="button">'.$button.'</td><td class="text">'.$output.'</td></tr></table>';
+			break;
 	endswitch;
 
 	echo $output;

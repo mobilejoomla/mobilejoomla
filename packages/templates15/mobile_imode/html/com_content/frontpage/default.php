@@ -26,7 +26,7 @@ if (($numIntroArticles != $startIntroArticles) && ($i < $this->total)) : ?>
 <div>
 <?php
 			if ($this->params->def('multi_column_order',1)) : // order across as before
-				    $rows = (int) $this->params->get('num_intro_articles', 4);
+				$rows = (int) $this->params->get('num_intro_articles', 4);
 ?>
 <div class="article_column">
 <?php

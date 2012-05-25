@@ -21,7 +21,7 @@ $numIntroArticles = $startIntroArticles + $this->params->get('num_intro_articles
 if (($numIntroArticles != $startIntroArticles) && ($i < $this->total)) : ?>
 <?php
 			if ($this->params->def('multi_column_order',1)) : // order across as before
-				    $rows = (int) $this->params->get('num_intro_articles', 4);
+				$rows = (int) $this->params->get('num_intro_articles', 4);
 				for ($y = 0; $y < $rows; $y ++) :
 					$target = $i + $y;
 					if ($target < $this->total && $target < ($numIntroArticles)) :

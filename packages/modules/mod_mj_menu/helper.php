@@ -23,7 +23,7 @@ class JMobileMenuHelper
 	static function getItems($attributes, $values)
 	{
 		$is_joomla15 = JMobileMenuHelper::_isJoomla15();
-        $app = JFactory::getApplication();
+		$app = JFactory::getApplication();
 		$menu = $app->getMenu();
 		if($is_joomla15)
 		{
@@ -86,8 +86,8 @@ class JMobileMenuHelper
 		$user = JFactory::getUser();
 		$aid = $user->get('aid', 0);
 
-        $app = JFactory::getApplication();
-        $sitemenu = $app->getMenu();
+		$app = JFactory::getApplication();
+		$sitemenu = $app->getMenu();
 		$router = $app->getRouter();
 
 		foreach($menu as $i=>$item)
@@ -173,8 +173,8 @@ class JMobileMenuHelper
 			$markup = 'xhtml';
 		}
 
-        $app = JFactory::getApplication();
-        $sitemenu = $app->getMenu();
+		$app = JFactory::getApplication();
+		$sitemenu = $app->getMenu();
 		$active	= $sitemenu->getActive();
 		$active_id = isset($active) ? $active->id : 0;
 
