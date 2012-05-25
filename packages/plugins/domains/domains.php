@@ -110,7 +110,7 @@ class plgMobileDomains extends JPlugin
 				$MobileJoomla_Device['markup'] = $this->_domain_markup;
 		}
 
-		if($markup == '')
+		if($markup == '' || @$_SERVER['REQUEST_METHOD']=='POST')
 			return;
 
 		$http = 'http';
