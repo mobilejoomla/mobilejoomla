@@ -190,6 +190,14 @@ class plgMobileSimple extends JPlugin
 			$MobileJoomla_Device['screenheight'] = (int)$matches[2];
 			return;
 		}
+		if(isset($_SERVER['HTTP_X_SKYFIRE_SCREEN'])
+				&& preg_match('#^(\d{3,4}),(\d{3,4})(,|$)#', $_SERVER['HTTP_X_SKYFIRE_SCREEN'], $matches))
+		{
+			$MobileJoomla_Device['screenwidth']  = (int)$matches[1];
+			$MobileJoomla_Device['screenheight'] = (int)$matches[2];
+			return;
+		}
+
 
 		$screen = '';
 		if(empty($screen) && isset($_SERVER['HTTP_UA_PIXELS']))
