@@ -198,6 +198,27 @@ class plgMobileSimple extends JPlugin
 			return;
 		}
 
+		if(isset($_SERVER['HTTP_USER_AGENT']))
+		{
+			if(strpos($_SERVER['HTTP_USER_AGENT'], ' WQVGA ') !== false)
+			{
+				$MobileJoomla_Device['screenwidth']  = 240;
+				$MobileJoomla_Device['screenheight'] = 400;
+				return;
+			}
+			if(strpos($_SERVER['HTTP_USER_AGENT'], ' HVGA ') !== false)
+			{
+				$MobileJoomla_Device['screenwidth']  = 320;
+				$MobileJoomla_Device['screenheight'] = 480;
+				return;
+			}
+			if(strpos($_SERVER['HTTP_USER_AGENT'], ' WVGA ') !== false)
+			{
+				$MobileJoomla_Device['screenwidth']  = 480;
+				$MobileJoomla_Device['screenheight'] = 800;
+				return;
+			}
+		}
 
 		$screen = '';
 		if(empty($screen) && isset($_SERVER['HTTP_UA_PIXELS']))
