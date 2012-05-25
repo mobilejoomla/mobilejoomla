@@ -10,7 +10,7 @@
  */
 defined('_JEXEC') or die('Restricted access');
 
-/** @var JParameter $params */
+/** @var $params JRegistry */
 
 // check that MJ plugin was loaded
 if(!class_exists('MobileJoomla'))
@@ -28,7 +28,6 @@ if(!defined('_MJ'))
 }
 else
 {
-	/** @var MobileJoomla $MobileJoomla */
 	$MobileJoomla = MobileJoomla::getInstance();
 	$markup = $MobileJoomla->getMarkup();
 }

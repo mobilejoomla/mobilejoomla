@@ -83,7 +83,6 @@ class JMobileMenuHelper
 		$MobileJoomla = MobileJoomla::getInstance();
 		$is_joomla15 = JMobileMenuHelper::_isJoomla15();
 
-		/** @var JUser $user */
 		$user = JFactory::getUser();
 		$aid = $user->get('aid', 0);
 
@@ -161,7 +160,6 @@ class JMobileMenuHelper
 	
 	static function _renderMenu($menu, &$params, $submenu = array())
 	{
-		/** @var MobileJoomla $MobileJoomla */
 		$MobileJoomla = MobileJoomla::getInstance();
 		$markup = $MobileJoomla->getMarkup();
 		switch($markup)

@@ -10,6 +10,8 @@
  */
 defined('_JEXEC') or die('Restricted access');
 
+/** @var $links array */
+
 $parts = array();
 foreach($links as $link)
 {

@@ -29,7 +29,6 @@ function isJoomla15()
 
 function getExtensionId($type, $name, $group='')
 {
-	/** @var JDatabase $db */
 	$db = JFactory::getDBO();
  	if(!isJoomla15())
 	{
@@ -63,7 +62,6 @@ function InstallPlugin($group, $sourcedir, $name, $publish = 1, $ordering = -99)
 		return false;
 	if(!$upgrade)
 	{
-		/** @var JDatabase $db */
 		$db = JFactory::getDBO();
 		if(!isJoomla15())
 			$db->setQuery("UPDATE `#__extensions` SET `enabled`=$publish, `ordering`=$ordering WHERE `type`='plugin' AND `element`='$name' AND `folder`='$group'");
@@ -116,7 +114,6 @@ function InstallTemplate($sourcedir, $name)
 
 	if(isJoomla15())
 	{
-		/** @var JDatabase $db */
 		$db = JFactory::getDBO();
 		$db->setQuery('SELECT COUNT(*) FROM #__templates_menu WHERE template = '.$db->Quote($name));
 		if($db->loadResult()==0)
@@ -146,7 +143,6 @@ function UninstallTemplate($name)
 		return false;
 	if(isJoomla15())
 	{
-		/** @var JDatabase $db */
 		$db = JFactory::getDBO();
 		$db->setQuery('DELETE FROM #__templates_menu WHERE template = '.$db->Quote($name));
 		$db->query();
@@ -167,7 +163,6 @@ function InstallModule($sourcedir, $name, $title, $position, $published = 1, $sh
 		$id = getExtensionId('module', $name);
 		if($id)
 		{
-			/** @var JDatabase $db */
 			$db = JFactory::getDBO();
 
 			if(!isJoomla15())
@@ -221,6 +216,7 @@ function UpdateConfig($prev_version)
 	$configfile = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php';
 	$defconfigfile = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'defconfig.php';
 
+	/** @var $MobileJoomla_Settings array */
 	if(is_file($configfile))
 	{
 		include($configfile);
@@ -623,12 +619,10 @@ function parse_mysql_dump($handler, $uri)
 	if(!$f)
 		return false;
 
-	/** @var JRegistry $conf */
 	$conf = JFactory::getConfig();
 	$c = (substr(JVERSION,0,3)=='1.5') ? 'config.' : '';
 	$debuglevel = $conf->getValue($c.'debug');
 
-	/** @var JDatabase $db */
 	$db = JFactory::getDBO();
 	$db->debug(0);
 
@@ -717,7 +711,6 @@ function load_mysql_dump($bz2_file)
 
 function clear_terawurfl_db()
 {
-	/** @var JDatabase $db */
 	$db = JFactory::getDBO();
 	$tables = array ('#__TeraWurflCache', '#__TeraWurflCache_TEMP', '#__TeraWurflIndex', '#__TeraWurflMerge',
 					 '#__TeraWurflSettings',
@@ -772,9 +765,7 @@ function com_install()
 	if($memory_limit && str2int($memory_limit) < str2int($mj_memory_limit))
 		@ini_set('memory_limit', $mj_memory_limit);
 
-	/** @var JDatabase $db */
 	$db = JFactory::getDBO();
-	/** @var JLanguage $lang */
 	$lang = JFactory::getLanguage();
 	$lang->load('com_mobilejoomla');
 
@@ -968,9 +959,7 @@ function com_uninstall()
 {
 	JError::setErrorHandling(E_ERROR, 'Message');
 
-	/** @var JDatabase $db */
 	$db = JFactory::getDBO();
-	/** @var JLanguage $lang */
 	$lang = JFactory::getLanguage();
 	$lang->load('com_mobilejoomla');
 

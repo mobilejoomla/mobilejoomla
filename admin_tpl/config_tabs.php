@@ -9,6 +9,8 @@
  * @date		###DATE###
  */
 defined('_JEXEC') or die('Restricted access');
+/** @var $config_blobs array */
+
 ?>
 <form action="index.php" method="post" name="adminForm" id="adminForm">
 <?php

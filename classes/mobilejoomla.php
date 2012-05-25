@@ -130,7 +130,6 @@ class MobileJoomla
 
 	function getPageTitle()
 	{
-		/** @var JDocument $document */
 		$document = JFactory::getDocument();
 		return $document->getTitle();
 	}

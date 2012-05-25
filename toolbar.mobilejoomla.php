@@ -12,6 +12,7 @@ defined('_JEXEC') or die('Restricted access');
 
 require_once(JApplicationHelper::getPath('toolbar_html'));
 
+/** @var $task string */
 switch($task)
 {
 	case 'settings':

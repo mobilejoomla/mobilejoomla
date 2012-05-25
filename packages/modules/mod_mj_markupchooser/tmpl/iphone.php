@@ -10,6 +10,9 @@
  */
 defined('_JEXEC') or die('Restricted access');
 
+/** @var $params JRegistry */
+/** @var $links array */
+
 ?>
 <div class="markup-chooser">
 <?php

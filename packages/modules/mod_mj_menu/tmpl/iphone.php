@@ -9,7 +9,12 @@
  * @date		###DATE###
  */
 defined('_JEXEC') or die('Restricted access');
-
+/** @var $active_id integer */
+/** @var $is_submenu bool */
+/** @var $is_vertical bool */
+/** @var $menu array */
+/** @var $params JRegistry */
+/** @var $submenu array */
 ?>
 <?php if(!$is_submenu) : ?>
 <div class="menu<?php echo htmlspecialchars($params->get('class_sfx')); ?>">

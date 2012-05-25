@@ -59,7 +59,6 @@ function showconfig()
 	elseif(!is_writable(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php'))
 		$app->enqueueMessage(JText::_('COM_MJ__CONFIG_UNWRITEABLE'), 'warning');
 
-	/** @var JDatabase $db */
 	$db = JFactory::getDBO();
 	$query = 'SELECT DISTINCT(position) FROM #__modules WHERE client_id = 0';
 	$db->setQuery($query);
@@ -242,7 +241,6 @@ function showconfig()
 
 	function menuoptions()
 	{
-		/** @var JDatabase $db */
 		$db = JFactory::getDBO();
 		$isJoomla15 = (substr(JVERSION,0,3) == '1.5');
 		if(!$isJoomla15)
@@ -307,6 +305,7 @@ function showconfig()
 function saveconfig()
 {
 	$configfname = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php';
+	/** @var $MobileJoomla_Settings array */
 	include($configfname);
 
 	$settings = array ('caching', 'httpcaching', 'pcpage', 'templatewidth', 'jpegquality',

@@ -17,7 +17,7 @@ require_once(dirname(__FILE__).DS.'helper.php');
 
 $MobileJoomla = MobileJoomla::getInstance();
 
-/** @var JParameter $params */
+/** @var $params JRegistry */
 $params->def('menutype', 'mainmenu');
 $params->def('layout', '');
 $params->def('type', 'submenu');

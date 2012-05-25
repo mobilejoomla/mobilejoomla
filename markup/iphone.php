@@ -45,7 +45,6 @@ $document->setHeadData($headerstuff);*/
 		if($this->getParam('jfooter'))
 		{
 			$app = JFactory::getApplication();
-			/** @var JLanguage $lang */
 			$lang = JFactory::getLanguage();
 			$lang->load('com_mobilejoomla', JPATH_ADMINISTRATOR);
 			$fyear = (substr(JVERSION,0,3) != '1.5') ? 'Y' : '%Y';

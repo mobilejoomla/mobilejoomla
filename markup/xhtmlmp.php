@@ -82,11 +82,9 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 			echo '<jdoc:include type="head" />';
 		if($this->config['xhtml.allowextedit'])
 		{
-			/** @var JUser $user */
 			$user = JFactory::getUser();
 			if(!$user->get('guest'))
 			{
-				/** @var JEditor $editor */
 				$editor = JFactory::getEditor();
 				echo $editor->initialise();
 			}
@@ -106,7 +104,6 @@ class MobileJoomla_XHTMLMP extends MobileJoomla
 		if($this->getParam('jfooter'))
 		{
 			$app = JFactory::getApplication();
-			/** @var JLanguage $lang */
 			$lang = JFactory::getLanguage();
 			$lang->load('com_mobilejoomla', JPATH_ADMINISTRATOR);
 			$fyear = (substr(JVERSION,0,3) != '1.5') ? 'Y' : '%Y';

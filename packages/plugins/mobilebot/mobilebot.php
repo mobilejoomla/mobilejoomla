@@ -406,7 +406,6 @@ class plgSystemMobileBot extends JPlugin
 			JHTML::addIncludePath($dir);
 
 		//Set gzip
-		/** @var JRegistry $config */
 		$config = JFactory::getConfig();
 		if($is_joomla15)
 			$config->setValue('config.gzip', $gzip);
@@ -415,7 +414,6 @@ class plgSystemMobileBot extends JPlugin
 
 		//Set headers
 		JResponse::clearHeaders();
-		/** @var JDocument $document */
 		$document = JFactory::getDocument();
 		$document->setMimeEncoding($MobileJoomla->getContentType());
 		$MobileJoomla->setHeader();
@@ -524,7 +522,6 @@ class plgSystemMobileBot extends JPlugin
 
 	function getUserMarkup()
 	{
-		/** @var JSite $app */
 		$app = JFactory::getApplication();
 
 		$markup = false;
@@ -553,7 +550,6 @@ class plgSystemMobileBot extends JPlugin
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
 		$markup = $MobileJoomla_Device['markup'];
 
-		/** @var JSite $app */
 		$app = JFactory::getApplication();
 		$app->setUserState('mobilejoomla.markup', $markup);
 
@@ -593,11 +589,9 @@ class plgSystemMobileBot extends JPlugin
 
 		$text = JResponse::getBody();
 
-		/** @var JSite $app */
 		$app = JFactory::getApplication();
 		$app->triggerEvent('onMobilePagePrepare', array (&$text));
 
-		/** @var MobileJoomla $MobileJoomla */
 		$MobileJoomla = MobileJoomla::getInstance();
 		$MobileJoomla_Settings =& MobileJoomla::getConfig();
 

@@ -10,7 +10,7 @@
  */
 defined('_JEXEC') or die ('Restricted access');
 
-/** @var JParameter $params */
+/** @var $params JRegistry */
 
 // Include the syndicate functions only once
 require_once (dirname(__FILE__).DS.'helper.php');
@@ -23,9 +23,7 @@ $cutTitle = $params->get('cut_title', 1);
 
 $imgURL = JString::str_ireplace('{{root}}', JURI::base(), $imgURL);
 
-/** @var JSite $app */
 $app = JFactory::getApplication();
-/** @var JDocument $doc */
 $doc = JFactory::getDocument();
 
 $sitename = $app->getCfg('sitename');

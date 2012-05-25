@@ -38,7 +38,6 @@ class plgMobileDomains extends JPlugin
 		$domain_chtml = $MobileJoomla_Settings['chtml.domain'];
 		$domain_iphone = $MobileJoomla_Settings['iphone.domain'];
 
-		/** @var JRegistry $config */
 		$config = JFactory::getConfig();
 
 		// Check for current domain
@@ -121,7 +120,6 @@ class plgMobileDomains extends JPlugin
 		$parsed = parse_url($uri->toString());
 		$path = isset($parsed['path']) ? $parsed['path'] : '/';
 
-		/** @var JSite $app */
 		$app = JFactory::getApplication();
 		switch($markup)
 		{

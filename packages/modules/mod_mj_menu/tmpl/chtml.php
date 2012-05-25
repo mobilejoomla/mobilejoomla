@@ -10,6 +10,12 @@
  */
 defined('_JEXEC') or die('Restricted access');
 
+/** @var $active_id integer */
+/** @var $is_vertical bool */
+/** @var $menu array */
+/** @var $params JRegistry */
+/** @var $submenu array */
+
 $separator = $is_vertical ? "\n" : ' | ';
 
 echo $is_vertical ? '<ul>' : '<p>';
