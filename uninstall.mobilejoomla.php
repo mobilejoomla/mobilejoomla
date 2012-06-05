@@ -66,7 +66,7 @@ function InstallPlugin($group, $sourcedir, $name, $publish = 1, $ordering = -99)
 		if(!isJoomla15())
 			$db->setQuery("UPDATE `#__extensions` SET `enabled`=$publish, `ordering`=$ordering WHERE `type`='plugin' AND `element`='$name' AND `folder`='$group'");
 		else
-			$db->setQuery("UPDATE `#__plugins` SET `published`=$publish, `ordering`=$ordering  WHERE `element`='$name' AND `folder`='$group'");
+			$db->setQuery("UPDATE `#__plugins` SET `published`=$publish, `ordering`=$ordering WHERE `element`='$name' AND `folder`='$group'");
 		$db->query();
 	}
 	return true;
