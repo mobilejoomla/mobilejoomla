@@ -20,6 +20,11 @@ class _CacheStub
 	function store(){}
 }
 
+function plgSystemMobileBot_onAfterRenderLast()
+{
+	return plgSystemMobileBot::onAfterRenderLast();
+}
+
 class plgSystemMobileBot extends JPlugin
 {
 	function plgSystemMobileBot(& $subject, $config)
@@ -330,6 +335,9 @@ class plgSystemMobileBot extends JPlugin
 			return;
 		}
 
+		//be last registered onAfterRender event
+		$app->registerEvent('onAfterRender', 'plgSystemMobileBot_onAfterRenderLast');
+
 		// Load config
 		$MobileJoomla_Settings =& MobileJoomla::getConfig();
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
@@ -586,7 +594,10 @@ class plgSystemMobileBot extends JPlugin
 		}
 	}
 
-	function onAfterRender()
+	/**
+	 * @static
+	 */
+	function onAfterRenderLast()
 	{
 		if(!defined('_MJ')) return;
 
