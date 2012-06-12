@@ -485,7 +485,7 @@ class HTML_mobilejoomla
 		}
 		
 		$dispatcher = JDispatcher::getInstance();
-		$dispatcher->trigger('onMJDisplayConfig', array(&$config_blobs, &$MobileJoomla_Settings));
+		$dispatcher->trigger('onMJDisplayConfig', array(&$config_blobs, &$MobileJoomla_Settings, $lists));
 
 		include(JPATH_COMPONENT.DS.'admin_tpl'.DS.'config_tabs.php');
 	}

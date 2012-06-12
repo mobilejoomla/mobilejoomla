@@ -136,6 +136,11 @@ function showconfig()
 	                     JHTML::_('select.option', 1, 'WAPFORUM/WML1.1'),
 	                     JHTML::_('select.option', 2, 'WAPFORUM/WML1.2'));
 
+	$lists['private.templates'] = $templates;
+	$lists['private.gzip'] = $gzip;
+	$lists['private.img'] = $img;
+	$lists['private.modulepositions'] = $modulepositions;
+
 	//Global settings
 	$lists['global.removetags'] = JHTML::_('mjconfig.booleanparam', 'global.removetags', $MobileJoomla_Settings);
 	$lists['global.img'] = JHTML::_('mjconfig.listparam', 'global.img', $img, $MobileJoomla_Settings);
