@@ -580,10 +580,7 @@ class plgSystemMobileBot extends JPlugin
 		}
 	}
 
-	/**
-	 * @static
-	 */
-	function onAfterRenderLast()
+	function onAfterRender()
 	{
 		if(!defined('_MJ')) return;
 
@@ -593,12 +590,17 @@ class plgSystemMobileBot extends JPlugin
 		$app->triggerEvent('onMobilePagePrepare', array (&$text));
 
 		$MobileJoomla = MobileJoomla::getInstance();
-		$MobileJoomla_Settings =& MobileJoomla::getConfig();
-
 		$text = $MobileJoomla->processPage($text);
 
 		if(!empty($text))
 			JResponse::setBody($text);
+	}
+
+	static function onAfterRenderLast()
+	{
+		if(!defined('_MJ')) return;
+
+		$MobileJoomla_Settings =& MobileJoomla::getConfig();
 
 		if($MobileJoomla_Settings['httpcaching'])
 		{
