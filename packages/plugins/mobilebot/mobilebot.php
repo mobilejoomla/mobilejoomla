@@ -197,24 +197,14 @@ class plgSystemMobileBot extends JPlugin
 
 		$this->updateUserMarkup();
 
-		switch($MobileJoomla_Device['markup'])
+		$markup = $MobileJoomla_Device['markup'];
+		if(empty($markup))
 		{
-			case 'xhtml':
-				$MobileJoomla = MobileJoomla::getInstance('xhtmlmp');
-				break;
-			case 'wml':
-				$MobileJoomla = MobileJoomla::getInstance('wml');
-				break;
-			case 'chtml':
-				$MobileJoomla = MobileJoomla::getInstance('chtml');
-				break;
-			case 'iphone':
-				$MobileJoomla = MobileJoomla::getInstance('iphone');
-				break;
-			default:
-				$MobileJoomla_Device['markup'] = false;
-				return;
+			$MobileJoomla_Device['markup'] = false;
+			return;
 		}
+
+		$MobileJoomla = MobileJoomla::getInstance($markup);
 
 		// set headers here to be compatible with System-Cache
 		$MobileJoomla->setHeader();
@@ -369,22 +359,19 @@ class plgSystemMobileBot extends JPlugin
 		JPluginHelper::importPlugin('mobile');
 		$app->triggerEvent('onMobile', array (&$MobileJoomla, &$MobileJoomla_Settings, &$MobileJoomla_Device));
 
-		switch($MobileJoomla_Device['markup'])
-		{
-			case 'xhtml':
-			case 'wml':
-			case 'chtml':
-			case 'iphone':
-				$template = $MobileJoomla->getParam('template');
-				$homepage = $MobileJoomla->getParam('homepage');
-				$gzip     = $MobileJoomla->getParam('gzip');
-				break;
-		}
+		$template = $MobileJoomla->getParam('template');
+		$homepage = $MobileJoomla->getParam('homepage');
+		$gzip     = $MobileJoomla->getParam('gzip');
 
 		//Set template
-		if($template)
+		if(!empty($template))
 		{
-			if(!$is_joomla15)
+			if($is_joomla15)
+			{
+				$app->setUserState('setTemplate', $template);
+				$app->setTemplate($template);
+			}
+			else
 			{
 				$db = JFactory::getDBO();
 				$query = "SELECT params FROM #__template_styles WHERE client_id = 0 AND template = ".$db->Quote($template)." ORDER BY id LIMIT 1";
@@ -392,21 +379,16 @@ class plgSystemMobileBot extends JPlugin
 				$params_data = $db->loadResult();
 				if(empty($params_data))
 					$params_data = '{}';
-			}
-			if(version_compare(JVERSION,'1.7','ge'))
-			{
-				$app->setTemplate($template, $params_data);
-			}
-			elseif(version_compare(JVERSION,'1.6','ge'))
-			{
-				$app->setTemplate($template);
-				$template_obj = $app->getTemplate(true);
-				$template_obj->params->loadJSON($params_data);
-			}
-			else
-			{
-				$app->setUserState('setTemplate', $template);
-				$app->setTemplate($template);
+				if(version_compare(JVERSION,'1.7','ge'))
+				{
+					$app->setTemplate($template, $params_data);
+				}
+				elseif(version_compare(JVERSION,'1.6','ge'))
+				{
+					$app->setTemplate($template);
+					$template_obj = $app->getTemplate(true);
+					$template_obj->params->loadJSON($params_data);
+				}
 			}
 		}
 
@@ -517,16 +499,20 @@ class plgSystemMobileBot extends JPlugin
 	{
 		if(($markup===false)||($markup===null))
 			return false;
+		static $markup_path = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'markup'.DS;
 		switch($markup)
 		{
 			case 'desktop':
-				return '';
 			case '':
+				return '';
 			case 'xhtml':
 			case 'iphone':
 			case 'wml':
 			case 'chtml':
 				return $markup;
+			default:
+				if(class_exists('MobileJoomla_'.$markup, false) || file_exists($markup_path.$markup.'.php'))
+					return $markup;
 		}
 		return false;
 	}

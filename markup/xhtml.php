@@ -10,7 +10,7 @@
  */
 defined('_JEXEC') or die('Restricted access');
 
-class MobileJoomla_XHTMLMP extends MobileJoomla
+class MobileJoomla_XHTML extends MobileJoomla
 {
 	var $contenttype = null;
 
