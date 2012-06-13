@@ -499,7 +499,9 @@ class plgSystemMobileBot extends JPlugin
 	{
 		if(($markup===false)||($markup===null))
 			return false;
-		static $markup_path = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'markup'.DS;
+		static $markup_path;
+		if(!isset($markup_path))
+			$markup_path = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'markup'.DS;
 		switch($markup)
 		{
 			case 'desktop':
