@@ -450,13 +450,28 @@ class HTML_mobilejoomla
 				)
 			)
 		);
-		if($lists['dbsize'])
+
+		if(count($lists['dbsize']))
 		{
-			$config_blobs['COM_MJ__GENERAL_SETTINGS'][1]['COM_MJ__INFORMATION'][] = array(
-					'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__DEVICE_DATABASE_SIZE'),
-					'input_blob' => '<p>'.$lists['dbsize'].' MB</p>'
-				);
+			$text = '';
+			foreach($lists['dbsize'] as $plugin)
+			{
+				$title = $plugin[0];
+				if(is_int($plugin[1]) || ctype_digit($plugin[1]))
+					$size = number_format($plugin[1]/(1024*1024), 2, '.', '') . ' Mb';
+				else
+					$size = $plugin[1];
+				$date = isset($plugin[2]) ? '<i>'.$plugin[2].'</i>' : '';
+				$text .= "<p>$title $date &nbsp; [$size]</p>";
+			}
 		}
+		else
+			$text = 'N/A';
+			$config_blobs['COM_MJ__GENERAL_SETTINGS'][1]['COM_MJ__INFORMATION'][] = array(
+				'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__DEVICE_DATABASE_SIZE'),
+				'input_blob' => $text
+			);
+
 		$tplmod_devices = array(
 			'COM_MJ__XHTMLMP_SETTINGS' => 'xhtml',
 			'COM_MJ__IPHONE_SETTINGS' => 'iphone',
