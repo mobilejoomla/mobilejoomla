@@ -13,8 +13,12 @@ defined('_JEXEC') or die('Restricted access');
 
 CHANGELOG
 
-1.0.4
+1.1.0
 Stable Release
+- Use GPL AMDD detector plugin instead of MPL TeraWURFL
+- Optional download ScientiaMobile plugin
+- Improve Mobile-Simple detector plugin
+- Fix issue with styles in mobile_iphone template
 - Fix backend updater issue (J!1.6+)
 
 1.0.3
