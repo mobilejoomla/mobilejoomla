@@ -181,7 +181,10 @@ class JMobileMenuHelper
 		$is_vertical = $params->get('layout')=='v';
 		$is_submenu = $params->get('class_prefix')=='submenu';
 
-		require(JModuleHelper::getLayoutPath('mod_mj_menu', $markup));
+		$layout_file = JModuleHelper::getLayoutPath('mod_mj_menu', $markup);
+		if(!is_file($layout_file))
+			$layout_file = JModuleHelper::getLayoutPath('mod_mj_menu', 'xhtml');
+		require($layout_file);
 	}
 
 	static function renderMenu($menu, &$params, $submenu = array())

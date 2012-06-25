@@ -113,4 +113,7 @@ if($params->get('chtml_show', 0))
 	}
 }
 
-require(JModuleHelper::getLayoutPath('mod_mj_markupchooser', $markup?$markup:'default'));
+$layout_file = JModuleHelper::getLayoutPath('mod_mj_markupchooser', $markup?$markup:'default');
+if(!is_file($layout_file))
+	$layout_file = JModuleHelper::getLayoutPath('mod_mj_markupchooser', 'xhtml');
+require($layout_file);
