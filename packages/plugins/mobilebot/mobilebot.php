@@ -68,18 +68,12 @@ class plgSystemMobileBot extends JPlugin
 		{
 			$cached_data = @gzinflate(@base64_decode($cached_data));
 			if($cached_data!==false)
-			{
-				if($is_joomla15)
-					Jloader::register('TeraWurfl', JPATH_PLUGINS.DS.'mobile'.DS.'terawurfl'.DS.'TeraWurfl.php');
-				else
-					Jloader::register('TeraWurfl', JPATH_PLUGINS.DS.'mobile'.DS.'terawurfl'.DS.'terawurfl'.DS.'TeraWurfl.php');
 				$cached_data = @unserialize($cached_data);
-			}
 		}
 
 		if(is_array($cached_data))
 		{
-			$MobileJoomla_Device   = $cached_data['device'];
+			$MobileJoomla_Device = $cached_data['device'];
 		}
 		else
 		{
