@@ -89,8 +89,10 @@ function mjAjaxInstall()
 				mjOnError();
 			} else {
 				$("mjinstall").addClass("pass");
-//				window.parent.location.href = '../../../index.php?option=com_mobilejoomla';
-				window.parent.SqueezeBox.close();
+				ajaxGet("http://www.mobilejoomla.com/checker.php?v=<?php echo urlencode('###VERSION###'); ?>&amp;j=<?php echo urlencode(JVERSION); ?>&amp;d=wurfl", function(){}, function(){});
+				setTimeout(function(){
+					window.parent.SqueezeBox.close();
+				}, 300);
 			}
 		},
 		function(){

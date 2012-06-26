@@ -38,7 +38,16 @@ class HTML_mobilejoomla
 		{
 			$document = JFactory::getDocument();
 			$document->addStyleSheet(JURI::base(true).'/components/com_mobilejoomla/css/mjbanner.css');
-			$document->addStyleSheet('http://www.mobilejoomla.com/checker.php?v='.urlencode($version).'&amp;j='.urlencode(JVERSION));
+			jimport('joomla.plugins.helper');
+			if(JPluginHelper::isEnabled('mobile', 'scientia'))
+				$detector = 'wurfl';
+			elseif(JPluginHelper::isEnabled('mobile', 'amdd'))
+				$detector = 'amdd';
+			else
+				$detector = 'simple';
+			$document->addStyleSheet('http://www.mobilejoomla.com/checker.php?v='.urlencode($version)
+										.'&amp;j='.urlencode(JVERSION)
+										.'&amd;d='.$detector);
 		}
 	}
 	
