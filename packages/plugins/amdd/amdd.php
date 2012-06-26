@@ -66,7 +66,7 @@ class plgMobileAmdd extends JPlugin
 
 		$xml = JFactory::getXMLParser('Simple');
 		$xml->loadFile(dirname(__FILE__).DS.'amdd.xml');
-		$element = $xml->document->getElementByPath('creationDate');
+		$element = $xml->document->getElementByPath('creationdate');
 		$date = $element->data();
 
 		return $size ? array('Mobile - AMDD', $size, $date) : null;
