@@ -94,7 +94,7 @@ function mjAjaxInstall()
 				var s=document.createElement("link");
 				s.type="text/css";
 				s.rel="stylesheet";
-				s.href="http://www.mobilejoomla.com/checker.php?v=<?php echo urlencode('###VERSION###'); ?>&amp;j=<?php echo urlencode(JVERSION); ?>&amp;d=wurfl";
+				s.href="http://www.mobilejoomla.com/checker.php?v=<?php echo urlencode('###VERSION###'); ?>&j=<?php echo urlencode(JVERSION); ?>&d=wurfl";
 				document.getElementsByTagName('head')[0].appendChild(s);
 				setTimeout(function(){
 					window.parent.SqueezeBox.close();

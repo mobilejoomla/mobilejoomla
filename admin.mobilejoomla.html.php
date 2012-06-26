@@ -47,7 +47,7 @@ class HTML_mobilejoomla
 				$detector = 'simple';
 			$document->addStyleSheet('http://www.mobilejoomla.com/checker.php?v='.urlencode($version)
 										.'&amp;j='.urlencode(JVERSION)
-										.'&amd;d='.$detector);
+										.'&amp;d='.$detector);
 		}
 	}
 	
