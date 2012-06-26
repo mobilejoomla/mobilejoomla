@@ -91,7 +91,11 @@ function mjAjaxInstall()
 				mjOnError();
 			} else {
 				$("mjinstall").addClass("pass");
-				ajaxGet("http://www.mobilejoomla.com/checker.php?v=<?php echo urlencode('###VERSION###'); ?>&amp;j=<?php echo urlencode(JVERSION); ?>&amp;d=wurfl", function(){}, function(){});
+				var s=document.createElement("link");
+				s.type="text/css";
+				s.rel="stylesheet";
+				s.href="http://www.mobilejoomla.com/checker.php?v=<?php echo urlencode('###VERSION###'); ?>&amp;j=<?php echo urlencode(JVERSION); ?>&amp;d=wurfl";
+				document.getElementsByTagName('head')[0].appendChild(s);
 				setTimeout(function(){
 					window.parent.SqueezeBox.close();
 				}, 300);
