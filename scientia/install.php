@@ -31,7 +31,9 @@ global $mootools;
 <script type="text/javascript">
 function mjOnError()
 {
-	location.href = 'index.php?action=error';
+	setTimeout(function(){
+		location.href = 'index.php?action=error';
+	}, 1000);
 }
 function mjAjaxDownload()
 {
