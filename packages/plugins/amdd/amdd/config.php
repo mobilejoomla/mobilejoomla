@@ -10,6 +10,6 @@
 
 class AmddConfig
 {
-    public static $dbHandlerName = 'joomla';
-    public static $cacheSize = 1000;
+	public static $dbHandlerName = 'joomla';
+	public static $cacheSize = 1000;
 }

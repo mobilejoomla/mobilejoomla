@@ -10,5 +10,5 @@
 
 class AmddDatabaseJoomlaConfig
 {
-    public static $dbTableName = '#__mj_amdd';
+	public static $dbTableName = '#__mj_amdd';
 }
