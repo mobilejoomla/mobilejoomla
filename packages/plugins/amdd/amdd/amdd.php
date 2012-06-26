@@ -97,7 +97,7 @@ class Amdd
 
 		self::$matchType = 4;
 		$data = self::findByPrefix($ua, $devices);
-		if($data !== null)
+		if($data === null)
 		{
 			self::$matchType = 5;
 			$data = self::findByLevenshtein($ua, $devices);
@@ -147,7 +147,7 @@ class Amdd
 
 		$data = null;
 
-		$best = 8; // maximum number of changes in UA string
+		$best = 12; // maximum number of changes in UA string
 		foreach($devices as $device)
 		{
 			if(abs(strlen($device->ua) - $ua_size) > $best)

@@ -17,8 +17,8 @@ class AmddDatabaseJoomla extends AmddDatabase
 
 	public function __construct()
 	{
-		$this->table = '#__'.AmddDatabaseJoomlaConfig::$dbTableName;
-		$this->tableCache ='#__'.AmddDatabaseJoomlaConfig::$dbTableName.'_cache';
+		$this->table = AmddDatabaseJoomlaConfig::$dbTableName;
+		$this->tableCache = AmddDatabaseJoomlaConfig::$dbTableName.'_cache';
 	}
 
 	public function createTables()
