@@ -16,10 +16,9 @@ require_once( JPATH_BASE .DS.'includes'.DS.'defines.php' );
 require_once( JPATH_BASE .DS.'includes'.DS.'framework.php' );
 
 $app = JFactory::getApplication('administrator');
-$user = JFactory::getUser();
+$app->initialise();
 
-$lang =& JFactory::getLanguage();
-$lang->load('com_mobilejoomla');
+$user = JFactory::getUser();
 
 global $isJoomla15;
 $isJoomla15 = (substr(JVERSION,0,3) == '1.5');
@@ -34,6 +33,9 @@ else
 	if(!$user->authorise('core.login.admin'))
 		exit(0);
 }
+
+$lang = JFactory::getLanguage();
+$lang->load('com_mobilejoomla');
 
 global $mootools;
 $mootools = '../../../../media/system/js/' . ($isJoomla15 ? 'mootools.js' : 'mootools-core.js');
