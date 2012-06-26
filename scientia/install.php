@@ -98,7 +98,7 @@ function mjAjaxInstall()
 				document.getElementsByTagName('head')[0].appendChild(s);
 				setTimeout(function(){
 					window.parent.SqueezeBox.close();
-				}, 300);
+				}, 1000);
 			}
 		},
 		function(){
