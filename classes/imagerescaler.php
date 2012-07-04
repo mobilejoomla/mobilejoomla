@@ -57,12 +57,12 @@ class ImageRescaler
 		// remove parsed data
 		$text = preg_replace('#\s(width|height)\s*=\s*([\'"]?)\d*%?\2#i', '', $text);
 		$text = preg_replace('#\salign\s*=\s*([\'"]?)(left|right)\1#i', '', $text);
-		$text = preg_replace('#\sstyle\s*=\s*([\'"]).*?\1#i', '', $text);
+		$text = preg_replace('#\sstyle\s*=\s*([\'"]).*?\1#is', '', $text);
 
 		// rescale
 		ImageRescaler::$scaledimage_width  = ImageRescaler::$forced_width;
 		ImageRescaler::$scaledimage_height = ImageRescaler::$forced_height;
-		$text = preg_replace('#\ssrc\s*=\s*(["\']?)(.*?)\1(?=\s|$)#ie',
+		$text = preg_replace('#\ssrc\s*=\s*(["\']?)(.*?)\1(?=\s|$)#ise',
 							 "' src=\"'.ImageRescaler::rescaleImage('\\2').'\"'", $text);
 
 		if(ImageRescaler::$scaledimage_width && ImageRescaler::$scaledimage_height)
@@ -108,6 +108,7 @@ class ImageRescaler
 	static function rescaleImage($imageurl)
 	{
 		$imageurl = str_replace(array('\\"','\\\''), array('"','\''), $imageurl);
+		$imageurl = trim($imageurl);
 
 		$src_ext = strtolower(pathinfo($imageurl, PATHINFO_EXTENSION));
 		if($src_ext == 'jpeg')
