@@ -121,6 +121,12 @@ function InstallTemplate($sourcedir, $name)
 			$db->setQuery('INSERT INTO #__templates_menu (template, menuid) VALUES ('.$db->Quote($name).', -1)');
 			$db->query();
 		}
+		$params_ini = JPATH_SITE.DS.'templates'.DS.$name.DS.'params.ini';
+		if(!is_file($params_ini))
+		{
+			$data = '';
+			JFile::write($params_ini, $data);
+		}
 	}
 	$path_css = JPATH_SITE.DS.'templates'.DS.$name.DS.'css';
 	if(is_dir($path_css))
