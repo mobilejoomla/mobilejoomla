@@ -36,7 +36,7 @@ if($params->get('layout')=='')
 
 $app = JFactory::getApplication();
 $sitemenu = $app->getMenu();
-$active	= $sitemenu->getActive();
+$active   = $sitemenu->getActive();
 
 if(isset($active) && $active->menutype==$params->get('menutype'))
 {
@@ -44,7 +44,8 @@ if(isset($active) && $active->menutype==$params->get('menutype'))
 	$subrows = (array)JMobileMenuHelper::getChildrens($active);
 	if($params->get('type')=='submenu')
 	{
-		if(!$MobileJoomla->isHome())
+		$home = $sitemenu->getDefault();
+		if($active->id != $home->id)
 			$rows = $subrows;
 		$subrows = array();
 	}
