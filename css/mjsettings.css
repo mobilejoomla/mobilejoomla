@@ -12,8 +12,14 @@
 #adminForm td,
 #adminForm th
 {
-	padding:0.5em 0;
+	padding:0.8em 0 0.4em;
 	white-space:nowrap;
+	vertical-align:top;
+}
+
+#adminForm th label
+{
+	margin:0;
 }
 
 #adminForm td label
