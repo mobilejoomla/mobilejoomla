@@ -552,9 +552,9 @@ class plgSystemMobileBot extends JPlugin
 		if(substr($cookie_domain, 0, 4)=='www.')
 			$cookie_domain = substr($cookie_domain, 4);
 		$cookie_domain = '.'.$cookie_domain;
-		$http_host = $_SERVER['HTTP_HOST'];
-		if(substr($http_host, -strlen($cookie_domain))==$cookie_domain)
-			$cookie_domain = $http_host;
+//		$http_host = $_SERVER['HTTP_HOST'];
+//		if(substr($http_host, -strlen($cookie_domain))==$cookie_domain)
+//			$cookie_domain = $http_host;
 
 		if($markup != $MobileJoomla_Device['default_markup'])
 			setcookie('mjmarkup', $markup ? $markup : 'desktop', time()+365*24*60*60, '/', $cookie_domain);
