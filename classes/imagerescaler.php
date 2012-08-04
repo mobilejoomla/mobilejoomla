@@ -359,7 +359,12 @@ class ImageRescaler
 				ImageWBMP($dest_image);
 				break;
 			case 'png':
-				ImagePNG($dest_image);
+				if(version_compare(PHP_VERSION, '5.1.3', '>='))
+					ImagePNG($dest_image, null, 9, PNG_ALL_FILTERS);
+				elseif(version_compare(PHP_VERSION, '5.1.2', '>='))
+					ImagePNG($dest_image, null, 9);
+				else
+					ImagePNG($dest_image);
 				break;
 		}
 		$data = ob_get_contents();
