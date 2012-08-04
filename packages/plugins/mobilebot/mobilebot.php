@@ -216,6 +216,9 @@ class plgSystemMobileBot extends JPlugin
 			$cachekey = $MobileJoomla_Device['markup'].'_'.
 						$MobileJoomla_Device['screenwidth'].'_'.
 						$MobileJoomla_Device['screenheight'].'_'.
+						(isset($MobileJoomla_Device['pixelratio']) && $MobileJoomla_Device['pixelratio']!=1
+							? $MobileJoomla_Device['pixelratio']
+							: '').
 						(is_array($MobileJoomla_Device['imageformats'])
 							? implode('', $MobileJoomla_Device['imageformats'])
 							: '');
