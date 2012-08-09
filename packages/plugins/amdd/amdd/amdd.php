@@ -14,7 +14,7 @@ require_once dirname(__FILE__) . '/database/database.php';
 
 class Amdd
 {
-	/**
+    /**
 	 * Status of last device detecting:
 	 * 0 no detection
 	 * 1 isDesktop
@@ -31,23 +31,24 @@ class Amdd
 	 * Get capabilities for given UA
 	 * @static
 	 * @param string $ua User-Agent (will be auto-detected if it's null)
+	 * @param bool $exact
 	 * @return stdClass
 	 */
-	public static function getCapabilities($ua = null)
+	public static function getCapabilities($ua = null, $exact = false)
 	{
 		self::$matchType = 0;
 
 		if($ua === null)
 			$ua = AmddUA::getUserAgentFromRequest();
 
+		$ua = AmddUA::normalize($ua);
+
 		self::$matchType = 1;
 		if(AmddUA::isDesktop($ua))
 			return self::makeDesktop();
 
-		$ua = AmddUA::normalize($ua);
-
 		$ua = substr($ua, 0, 255);
-		$data = self::getDevice($ua);
+		$data = self::getDevice($ua, $exact);
 
 		if($data !== null)
 			$data = @json_decode($data);
@@ -72,7 +73,7 @@ class Amdd
 		return $data;
 	}
 
-	private static function getDevice($ua)
+	private static function getDevice($ua, $exact = false)
 	{
 		$db = AmddDatabase::getInstance(AmddConfig::$dbHandlerName);
 
@@ -82,13 +83,15 @@ class Amdd
 		if($data !== null)
 			return $data;
 
+		if($exact) return null;
+
 		// load device from cache
 		if(AmddConfig::$cacheSize != 0)
 		{
 			self::$matchType = 3;
 			$data = $db->getDeviceFromCache($ua);
-			if(!empty($data))
-				return $data;
+			if($data !== null)
+				return empty($data) ? null : $data;
 		}
 
 		// find closest device
@@ -97,7 +100,7 @@ class Amdd
 
 		self::$matchType = 4;
 		$data = self::findByPrefix($ua, $devices);
-		if($data === null)
+		if($data !== null)
 		{
 			self::$matchType = 5;
 			$data = self::findByLevenshtein($ua, $devices);
@@ -147,7 +150,7 @@ class Amdd
 
 		$data = null;
 
-		$best = 12; // maximum number of changes in UA string
+		$best = min(12, intval($ua_size/2)); // maximum number of changes in UA string
 		foreach($devices as $device)
 		{
 			if(abs(strlen($device->ua) - $ua_size) > $best)

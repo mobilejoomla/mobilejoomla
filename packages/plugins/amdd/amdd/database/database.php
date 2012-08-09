@@ -28,7 +28,7 @@ abstract class AmddDatabase
 		if(!isset($handlers[$handlerName]))
 		{
 			$className = 'AmddDatabase'.$handlerName;
-			if(!class_exists($className))
+			if(!class_exists($className, false))
 			{
 				$path = dirname(__FILE__)."/{$handlerName}/db.{$handlerName}.php";
 				if(!is_file($path))

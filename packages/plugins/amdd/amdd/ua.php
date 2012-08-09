@@ -47,41 +47,122 @@ class AmddUA
 	public static function normalize($ua)
 	{
 		// Remove serial numbers
-		$ua = preg_replace('#(/SN\d{15}|\[(NT|ST|TF)\d+\])#', '', $ua);
+		$ua = preg_replace('#(/SN\d{15}|\[(NT|ST|TF)?\d+\])#', '', $ua);
 
 		// Replace locale id by xx
-		$ua = preg_replace('#(?<=[/;\[ ])[a-z]{2}([_-][A-Za-z]{2})?(?=[);\] ])#', 'xx', $ua);
+		$ua = preg_replace('#(?<=[/;\[ ])[A-Za-z][a-z]([_-][A-Za-z]{2})?(?=[);\] ])#', 'xx', $ua);
+		$ua = preg_replace('#(?<=; )[a-z]{2}-(?=;)#', 'xx', $ua); //buggy strings
+		// Remove locale id
+		$ua = preg_replace('#; xx(?=[);])#', '', $ua);
+		$ua = str_replace(' [xx]', '', $ua);
 
 		// Remove security level
-		$ua = preg_replace('#; [UIN](?=[;)])#', '', $ua);
+		$ua = preg_replace('#; ?[UIN](?=[;)])#', '', $ua);
 
+		
 		// Normalize Blackberry
 		$ua = str_ireplace('blackberry', 'BlackBerry', $ua);
-		$ua = preg_replace('#(?<= VendorID/)\d{3,}#', '100', $ua);
+		$ua = preg_replace('#(?<= VendorID/)(?:\d+|-1)#', '100', $ua);
 
 		// Normalize Nokia
 		$ua = str_ireplace('nokia', 'Nokia', $ua);
 
-		// Remove Android revision version
-		$ua = preg_replace('#(?<=Android )(\d+\.\d+)[\w\.-]+#', '\1', $ua);
+		// Remove Nokia build version
+		$ua = preg_replace('#(?<=^Nokia)([\w\./-]+ )\([\d\.a-z]+\) #', '\1', $ua);
+		$ua = preg_replace('#(?<=^Nokia)([\w\./-]+)/[\d\.a-z]+(/[\d\.a-z]+)?(?= )#', '\1', $ua);
+		$ua = preg_replace('#(?<=^Mozilla/[45]\.0 \()(.*?Nokia\s?[\w\.-]+)/[\d\.a-z]+(?=;)#', '\1', $ua);
 
-		// Remove Opera Mini revision version
-		$ua = preg_replace('#(?<=Opera Mini/)(\d(\.\d)?)\.[^;)]+#', '\1', $ua);
+		// Remove Motorola version
+		$ua = preg_replace('#(?<=/)Blur_Version\.[^\s]+(?= )#', '', $ua);
+		$ua = preg_replace('#(?<=^MOT-)([\w-]+)/[\w\.]+(?= )#', '\1', $ua);
+
+		// Remove Samsung build numbers
+		$ua = preg_replace('#((?:^|; )(?:SAMSUNG|Samsung|GT|SAMSUNG GT)-[\w-]+)/[\w\.-]+#', '\1', $ua);
+
+		// Remove SonyEricsson build numbers
+		$ua = preg_replace('#(?<=SonyEricsson)([\w-]+)/[\w\.-]+#', '\1', $ua);
+
+		// Remove Pantech build numbers
+		$ua = preg_replace('#(?<=^Pantech)([\w-]+)/[\w\.-]+#', '\1', $ua);
+
+
+		// Remove Android revision version
+		$ua = preg_replace('#(?<=Android)(\s?(?>\d+\.\d+))[\w\.-]+#', '\1', $ua);
+
+		// Remove Cyanogen identificator
+		$ua = str_replace(' (thor & digetx)', '', $ua);
+		$ua = preg_replace('#; (?:CyanogenMod|CyanMobile)[\w\s\.-]+#', '', $ua);
+
+		// Remove Android build version
+		$ua = preg_replace('#(Android .*?) Build/[^;)]+#', '\1', $ua);
+
+
+		// Remove iPhone revision version
+		$ua = preg_replace('#(?<= OS )(\d+_\d+)_\d+(?= like Mac OS X)#', '\1', $ua);
+
+		// Remove iPhone build version
+		$ua = preg_replace('#( \(KHTML, like Gecko\).*? Mobile/\d{1,2})[A-Z]\d+\b#', '\1', $ua);
+
+
+		// Remove Opera Mini/Mobile/Tablet version
+		$ua = preg_replace('#(?<=Opera )(Mini|Mobi|Mobile|Tablet)/[^;)]+#', '\1', $ua);
+
+//		// Remove Opera Mini revision version
+//		$ua = preg_replace('#(?<=Opera Mini/)(\d+\.\d+)\.[^;)]+#', '\1', $ua);
+//		$ua = preg_replace('#(?<=Opera Mini/)(\d+)\.[^\d;)][^;)]*#', '\1', $ua);
+//
+//		// Remove Opera Mobile/Tablet build number
+//		$ua = preg_replace('#(?<=Opera )((?:Mobi|Tablet)/[A-Z]+)\-\d+#', '\1', $ua);
+
+
+		// Remove Chrome for iPhone revision version
+		$ua = preg_replace('#(?<= CriOS/)(\d+)\.[\d\.]+#', '\1', $ua);
+		// Remove Chrome for Android revision version
+		$ua = preg_replace('#(?<= Chrome/)(\d+)\.[\d\.]+#', '\1', $ua);
+
+
+		// Fennec browser
+		if(strpos($ua, ' Firefox'))
+		{
+			$ua = preg_replace('#(?<=^Mozilla/5\.0 \()([^;)]+); ([^;)]+); [^)]+\) Gecko/[\d\.]+ Firefox/[\d\.]+ Fennec/([\d\.]+).*?#', '\1; \2) Fennec/\3', $ua);
+			$ua = preg_replace('#(?<=^Mozilla/5\.0 \()([^;)]+); (Mobile|Tablet); [^)]+\) Gecko/[\d\.]+ Firefox/([\d\.]+).*?#', '\1; \2) Firefox/\3', $ua);
+		}
+
+		// Remove Maxthon fingerprint
+		$ua = str_replace(')Maxthon ', ') ', $ua);
 
 		// Remove Vodafone/1.0/ prefix
 		$ua = preg_replace('#^Vodafone/(\d+\.\d+/)?#', '', $ua, 1);
+		// Remove Vodafone suffix
+		$ua = str_replace('-Vodafone ', ' ', $ua);
+
+		// Remove UCBrowser/UCWEB subversion numbers
+		$ua = preg_replace('#(\b(UC\s?Browser|UCWEB)/?\d+)\..*$#', '\1', $ua);
 
 		// Remove UP.Link version of Openwave WAP Gateway
 		$ua = preg_replace('#\sUP\.Link.*$#', '', $ua);
 
-		// Remove long numbers series after slash
-		$ua = preg_replace('#(/\d+\.\d+\.\d+)\.[\w\.-]+#', '\1', $ua);
-
-		// Remove Google Translate suffix
-		$ua = str_replace(',gzip(gfe) (via translate.google.com)', '', $ua);
-
 		// Shrink Facebook App suffix
 		$ua = preg_replace('#(?<= \[FBAN/FBForIPhone);.*$#', ']', $ua);
+
+		// Remove common suffixes
+		$ua = str_replace(' 3gpp-gba', '', $ua);
+		$ua = str_ireplace(' UNTRUSTED/1.0', '', $ua);
+		$ua = str_replace(',gzip(gfe) (via translate.google.com)', '', $ua);
+		$ua = str_replace(' MMS/LG-Android-MMS-V1.0/1.2', '', $ua);
+		$ua = preg_replace('#( BingWeb|flameblur)/[\d\.]+$#', '', $ua);
+		$ua = preg_replace('#; [\w\.-]+-user-\d+$#', '', $ua); // Garmin
+
+		// Remove long numbers series
+		$ua = preg_replace('#(?<=/| |-)(\d+\.\d+)[_\.][\w\.-]+#', '\1', $ua);
+
+		// Beautify
+		$ua = preg_replace('#(?<=\s)\s+#', '', $ua);
+		$ua = str_replace(' ;', ';', $ua);
+		$ua = preg_replace('#(?<=;);+#', '', $ua);
+		$ua = str_replace(';)', ')', $ua);
+		$ua = str_replace(' )', ')', $ua);
+		$ua = str_replace(')AppleWebKit', ') AppleWebKit', $ua);
 
 		$ua = substr($ua, 0, 255);
 		$ua = trim($ua);
@@ -144,8 +225,8 @@ class AmddUA
 		if(preg_match('#CFNetwork/[\d\.]+ Darwin/\d#', $ua))
 			return true;
 
-			// wget, php, java, etc
-		if(preg_match('#^(AppEngine-Google|curl/|Java/|libwww-perl|Microsoft Office/|Outlook-Express/|PHP|php|Python-urllib|Reeder/|Wget)#', $ua))
+		// wget, php, java, etc
+		if(preg_match('#^(AppEngine-Google|curl/|Feedfetcher-Google;|Java/|libwww-perl|Microsoft Office/|Outlook-Express/|PHP|php|Python-urllib|Reeder/|Wget)#', $ua))
 			return true;
 
 		return false;
@@ -165,7 +246,7 @@ class AmddUA
 			'Apple iPhone ',
 			'Mozilla/5.0 (iPhone Simulator;',
 			'Mozilla/5.0 (Aspen Simulator;',
-			'Mozilla/5.0 (device; CPU iPhone OS',
+			'Mozilla/5.0 (device; CPU iPhone OS'
 		);
 		foreach($iphone_list as $part)
 			if(strpos($ua, $part)===0)
@@ -225,6 +306,9 @@ class AmddUA
 
 			if(stripos($ua, 'bird')===0)
 				return 'bird';
+
+			if(stripos($ua, 'BlackBerry')===0)
+				return 'blackberry';
 
 			break;
 		case 'C':
@@ -320,6 +404,12 @@ class AmddUA
 			if(stripos($ua, 'mot-')===0)
 				return 'motorola_mot';
 
+			if(strpos($ua, 'Mozilla/5.0 (BlackBerry; ')===0)
+				return 'blackberry_mozilla';
+
+			if(strpos($ua, 'Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0; ')===0)
+				return 'windowsphone';
+
 			if(strpos($ua, 'Mozilla/4.0 (MobilePhone ')===0)
 				return 'sanyo_mobilephone';
 
@@ -335,6 +425,15 @@ class AmddUA
 		case 'O':
 			if(strpos($ua, 'o2imode/')===0)
 				return 'imode_o2';
+
+			if(strpos($ua, 'Opera/')===0)
+			{
+				if(strpos($ua, 'Opera Mobile/')!==false)
+					return 'opera_mobile';
+				if(strpos($ua, 'Opera Mini/')!==false)
+					return 'opera_mini';
+				return 'opera';
+			}
 
 			break;
 		case 'P':
@@ -480,9 +579,9 @@ class AmddUA
 			if(preg_match('#^(SCH-|SHW-|SPH-)#', $model))
 				return 'android_samsung';
 			if(preg_match('#^(Galaxy|GT-|SAMSUNG GT-)#', $model))
-				return 'android_samsung_galaxy';
+				return 'android_samsung_gt';
 			if(preg_match('#^(SAMSUNG-SGH-|SGH-)#', $model))
-				return 'android_samsung_galaxytab';
+				return 'android_samsung_sgh';
 			if(preg_match('#^SonyEricsson#', $model))
 				return 'android_sonyericsson';
 			if(preg_match('#^T-Mobile#', $model))
@@ -532,7 +631,7 @@ class AmddUA
 		}
 
 		if(strpos($ua, 'BlackBerry')!==false)
-			return 'blackberry';
+			return 'blackberry_general';
 
 		if(strpos($ua, 'PalmOS')!==false || strpos($ua, 'Blazer')!==false)
 			return 'palm';
