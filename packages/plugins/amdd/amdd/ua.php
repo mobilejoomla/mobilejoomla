@@ -101,7 +101,7 @@ class AmddUA
 		$ua = preg_replace('#(?<= OS )(\d+_\d+)_\d+(?= like Mac OS X)#', '\1', $ua);
 
 		// Remove iPhone build version
-		$ua = preg_replace('#( \(KHTML, like Gecko\).*? Mobile/\d{1,2})[A-Z]\d+\b#', '\1', $ua);
+		$ua = preg_replace('#( \(KHTML, like Gecko\).*? Mobile/\d{1,2})[A-Z]\d+\w\b#', '\1', $ua);
 
 
 		// Remove Opera Mini/Mobile/Tablet version
@@ -152,6 +152,7 @@ class AmddUA
 		$ua = str_replace(' MMS/LG-Android-MMS-V1.0/1.2', '', $ua);
 		$ua = preg_replace('#( BingWeb|flameblur)/[\d\.]+$#', '', $ua);
 		$ua = preg_replace('#; [\w\.-]+-user-\d+$#', '', $ua); // Garmin
+		$ua = str_replace(' Twitter for iPad', '', $ua);
 
 		// Remove long numbers series
 		$ua = preg_replace('#(?<=/| |-)(\d+\.\d+)[_\.][\w\.-]+#', '\1', $ua);
