@@ -191,6 +191,8 @@ class plgSystemMobileBot extends JPlugin
 
 		$this->updateUserMarkup();
 
+		$app->triggerEvent('onMobileMarkupInit', array (&$MobileJoomla_Settings, &$MobileJoomla_Device));
+
 		$markup = $MobileJoomla_Device['markup'];
 		if(empty($markup))
 		{
@@ -586,13 +588,15 @@ class plgSystemMobileBot extends JPlugin
 		$text = JResponse::getBody();
 
 		$app = JFactory::getApplication();
-		$app->triggerEvent('onMobilePagePrepare', array (&$text));
+		$app->triggerEvent('onMobilePagePrepare', array(&$text));
 
 		$MobileJoomla = MobileJoomla::getInstance();
 		$text = $MobileJoomla->processPage($text);
 
 		if(!empty($text))
 			JResponse::setBody($text);
+
+		$app->triggerEvent('onMobileAfterPagePrepare');
 	}
 
 	static function onAfterRenderLast()
