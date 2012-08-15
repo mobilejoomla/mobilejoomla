@@ -14,6 +14,31 @@ global $mootools;
 $app = JFactory::getApplication();
 $app->setUserState( "com_mobilejoomla.scientiainstall", false );
 
+// get current configuration
+$db = JFactory::getDBO();
+if($isJoomla15)
+{
+	$query = "SELECT element FROM #__plugins WHERE published=1 AND folder='mobile' AND element IN ('amdd', 'scientia')";
+	$db->setQuery($query);
+	$plugins = $db->loadResultArray();
+}
+else
+{
+	$query = "SELECT element FROM #__extensions WHERE enabled=1 AND type='plugin' AND folder='mobile' AND element IN ('amdd', 'scientia')";
+	$db->setQuery($query);
+	$plugins = $db->loadColumn();
+}
+if(count($plugins) && in_array('amdd', $plugins) && !in_array('scientia', $plugins))
+{
+	$defaul_amdd = ' checked="checked"';
+	$defaul_scientia = '';
+}
+else
+{
+	$defaul_amdd = '';
+	$defaul_scientia = ' checked="checked"';
+}
+
 ?><html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -29,8 +54,8 @@ $app->setUserState( "com_mobilejoomla.scientiainstall", false );
 <p>DB-API is provided by courtesy of <a href="http://scientiamobile.com/" target="_blank">Scientia Mobile</a> under <a href="http://www.gnu.org/licenses/agpl-3.0.html" target="_blank">AGPL license</a>. For more information, please visit <a href="http://scientiamobile.com/" target="_blank">Scientia Mobile website</a>.</p>
 
 <p>
-<label><input type="radio" name="database" value="scientia" checked="checked" /> I'd like to install Scientia Mobile DB API. I read and accept <a href="http://www.gnu.org/licenses/agpl-3.0.html" target="_blank">AGPL license</a></label><br/>
-<label><input type="radio" name="database" value="amdd" /> I'd like to install default Mobile Joomla! device database</label>
+<label><input type="radio" name="database" value="scientia"<?php echo $default_scientia; ?> /> I'd like to install Scientia Mobile DB API. I read and accept <a href="http://www.gnu.org/licenses/agpl-3.0.html" target="_blank">AGPL license</a></label><br/>
+<label><input type="radio" name="database" value="amdd"<?php echo $default_amdd; ?> /> I'd like to install default Mobile Joomla! device database</label>
 </p>
 
 <div>
