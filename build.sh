@@ -1,7 +1,7 @@
 CUR_YEAR=`date +"%Y"`
 
 # set variables
-MJ_VERSION="1.1.0-dev"
+MJ_VERSION="1.1.1-dev"
 MJ_DATE=`date +"%B %Y"`
 MJ_URL="http://www.mobilejoomla.com"
 MJ_DESC="Mobile Joomla!"

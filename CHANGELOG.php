@@ -13,6 +13,11 @@ defined('_JEXEC') or die('Restricted access');
 
 CHANGELOG
 
+1.1.1
+Stable Release
+- Update AMDD database
+- Improve png compression (php 5.1.3 or higher is required)
+
 1.1.0
 Stable Release
 - Use GPL AMDD detector plugin instead of MPL TeraWURFL
