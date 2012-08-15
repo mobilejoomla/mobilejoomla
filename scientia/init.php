@@ -30,6 +30,7 @@ else
 }
 if(count($plugins) && in_array('amdd', $plugins) && !in_array('scientia', $plugins))
 {
+<<<<<<< HEAD
 	$default_amdd = ' checked="checked"';
 	$default_scientia = '';
 }
@@ -37,6 +38,15 @@ else
 {
 	$default_amdd = '';
 	$default_scientia = ' checked="checked"';
+=======
+	$defaul_amdd = ' checked="checked"';
+	$defaul_scientia = '';
+}
+else
+{
+	$defaul_amdd = '';
+	$defaul_scientia = ' checked="checked"';
+>>>>>>> a856aaa6a4d3b45043144e89b0ce0f89c7beafcb
 }
 
 ?><html>
