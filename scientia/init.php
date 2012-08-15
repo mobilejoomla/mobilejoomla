@@ -39,6 +39,13 @@ else
 	$default_scientia = ' checked="checked"';
 }
 
+if($isJoomla15)
+	$query = "UPDATE #__extensions SET enabled=0 WHERE element='scientia' AND folder='mobile' AND type='plugin'";
+else
+	$query = "UPDATE #__plugins SET published=0 WHERE element='scientia' AND folder='mobile'";
+$db->setQuery($query);
+$db->query();
+
 ?><html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
