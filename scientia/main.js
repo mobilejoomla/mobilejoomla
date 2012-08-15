@@ -18,18 +18,10 @@ function ajaxGet(url, onComplete, onError)
 	}
 }
 
-function onConfirmChange(){
-    var $confirmtext=$('confirmtext'),
-        $nextbutton=$('nextbutton');
-    if($('confirmbox').checked){
-        $confirmtext.setStyle('display','none');
-        $nextbutton.removeClass('disabled');
-        $nextbutton.addClass('enabled');
-    }else{
-        $confirmtext.setStyle('display','');
-        $nextbutton.removeClass('enabled');
-        $nextbutton.addClass('disabled');
-    }
-    return true;
+function onDatabaseInstall(){
+	var $db=$$('input[name=database]:checked')[0].get('value');
+	if($db=='scientia')
+		return true;
+	window.parent.SqueezeBox.close();
+	return false;
 }
-
