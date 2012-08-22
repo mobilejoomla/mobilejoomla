@@ -285,7 +285,7 @@ class MobileJoomla
 		if($device !== false)
 			$uri->setVar('device', $device);
 
-		return $uri->toString();
+		return htmlspecialchars($uri->toString());
 	}
 
 	static function getCanonicalURI()
@@ -302,7 +302,7 @@ class MobileJoomla
 		$uri->delVar('format');
 		$uri->setHost($desktop_uri->getHost());
 
-		return $uri->toString();
+		return htmlspecialchars($uri->toString());
 	}
 
 	function getAccessKey()
