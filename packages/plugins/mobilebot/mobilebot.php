@@ -258,8 +258,11 @@ class plgSystemMobileBot extends JPlugin
 				}
 			}
 		}
-		$router = $app->getRouter();
-		$router->attachBuildRule(array($this, 'buildRule'));
+		if(@$_SERVER['REQUEST_METHOD'] != 'POST')
+		{
+			$router = $app->getRouter();
+			$router->attachBuildRule(array($this, 'buildRule'));
+		}
 
 		if(!defined('SHMOBILE_MOBILE_TEMPLATE_SWITCHED'))
 			define('SHMOBILE_MOBILE_TEMPLATE_SWITCHED', 1);
