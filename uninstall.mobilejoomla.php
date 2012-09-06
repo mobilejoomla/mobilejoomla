@@ -54,7 +54,7 @@ function getExtensionId($type, $name, $group='')
 	}
 }
 
-function InstallPlugin($group, $sourcedir, $name, $publish = 1, $ordering = -99)
+function InstallPlugin($group, $sourcedir, $name, $publish = 1, $ordering = 0)
 {
 	$upgrade = getExtensionId('plugin', $name, $group);
 	$installer = new JInstaller();
@@ -626,6 +626,8 @@ function com_install()
 	@ini_set('max_execution_time', 1200);
 	ignore_user_abort(true);
 
+	$db = JFactory::getDBO();
+
 	$mj_memory_limit = '32M';
 	$memory_limit = @ini_get('memory_limit');
 	if($memory_limit && str2int($memory_limit) < str2int($mj_memory_limit))
@@ -719,11 +721,24 @@ function com_install()
 	//install plugins
 	$PluginSource = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'packages'.DS.'plugins';
 	$status = true;
-	if(!InstallPlugin('system', $PluginSource, 'mobilebot'))
+	if(!InstallPlugin('system', $PluginSource, 'mobilebot', 1, -99))
 	{
 		$status = false;
 		JError::raiseError(0, JText::_('COM_MJ__CANNOT_INSTALL').' Mobile Joomla Plugin.');
 	}
+
+	$plugin_table = isJoomla15() ? '#__plugins' : '#__extensions';
+	$query = "SELECT element, ordering FROM $plugin_table WHERE element IN ('mobilebot', 'cache') AND folder='system'";
+	$db->setQuery($query);
+	$rows = $db->loadObjectList('element');
+	if(isset($rows['cache']) && $rows['cache']->ordering <= $rows['mobilebot']->ordering)
+	{
+		$ordering = max(0, $rows['mobilebot']->ordering + 1);
+		$query = "UPDATE $plugin_table SET ordering=$ordering WHERE element='cache' AND folder='system'";
+		$db->setQuery($query);
+		$db->query();
+	}
+
 	if(!JFolder::create(JPATH_PLUGINS.DS.'mobile'))
 	{
 		$status = false;
