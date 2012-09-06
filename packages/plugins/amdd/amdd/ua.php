@@ -46,8 +46,12 @@ class AmddUA
 	 */
 	public static function normalize($ua)
 	{
+		// Fix possible proxy bugs
+		$ua = preg_replace('#^((User-Agent)?[:=]\s+)+#i', '', $ua);
+		$ua = trim($ua, " \t\n\r\'\"\\");
+
 		// Remove serial numbers
-		$ua = preg_replace('#(/SN\d{15}|\[(NT|ST|TF)?\d+\])#', '', $ua);
+		$ua = preg_replace('#([/;]SN\d{15}|[/;]SNX{15}|\[(NT|ST|TF)?\d+\])#', '', $ua);
 
 		// Replace locale id by xx
 		$ua = preg_replace('#(?<=[/;\[ ])[A-Za-z][a-z]([_-][A-Za-z]{2})?(?=[);\] ])#', 'xx', $ua);
@@ -59,60 +63,53 @@ class AmddUA
 		// Remove security level
 		$ua = preg_replace('#; ?[UIN](?=[;)])#', '', $ua);
 
-		
+
+		// Remove AppleWebKit and Safari subversion
+		$ua = preg_replace('#(?<=\sAppleWebKit/|\sSafari/)(\d+)\.[\w\.]+#', '\1', $ua);
+
+
 		// Normalize Blackberry
 		$ua = str_ireplace('blackberry', 'BlackBerry', $ua);
 		$ua = preg_replace('#(?<= VendorID/)(?:\d+|-1)#', '100', $ua);
 
 		// Normalize Nokia
 		$ua = str_ireplace('nokia', 'Nokia', $ua);
-
 		// Remove Nokia build version
-		$ua = preg_replace('#(?<=^Nokia)([\w\./-]+ )\([\d\.a-z]+\) #', '\1', $ua);
-		$ua = preg_replace('#(?<=^Nokia)([\w\./-]+)/[\d\.a-z]+(/[\d\.a-z]+)?(?= )#', '\1', $ua);
-		$ua = preg_replace('#(?<=^Mozilla/[45]\.0 \()(.*?Nokia\s?[\w\.-]+)/[\d\.a-z]+(?=;)#', '\1', $ua);
+		$ua = preg_replace('#(?<=^Nokia)([\w\./-]+ )\([\d\.a-z_]+\) #', '\1', $ua);
+		$ua = preg_replace('#(?<=^Nokia)([\w\./-]+)/[\d\.a-z_]+(/[\d\.a-z_]+)?(?= )#', '\1', $ua);
+		$ua = preg_replace('#(?<=^Mozilla/[45]\.0 \()(.*?Nokia\s?[\w\.-]+)/[\d\.a-z_]+(?=;)#', '\1', $ua);
 
 		// Remove Motorola version
 		$ua = preg_replace('#(?<=/)Blur_Version\.[^\s]+(?= )#', '', $ua);
 		$ua = preg_replace('#(?<=^MOT-)([\w-]+)/[\w\.]+(?= )#', '\1', $ua);
 
 		// Remove Samsung build numbers
-		$ua = preg_replace('#((?:^|; )(?:SAMSUNG|Samsung|GT|SAMSUNG GT)-[\w-]+)/[\w\.-]+#', '\1', $ua);
+		$ua = preg_replace('#((?:^|; )(?:SAMSUNG|Samsung|GT|SAMSUNG GT)-[\w-]+)/[\w\./-]+#', '\1', $ua);
 
 		// Remove SonyEricsson build numbers
-		$ua = preg_replace('#(?<=SonyEricsson)([\w-]+)/[\w\.-]+#', '\1', $ua);
+		$ua = preg_replace('#(?<=SonyEricsson)([\w-]+)/[\w\./-]+#', '\1', $ua);
 
 		// Remove Pantech build numbers
-		$ua = preg_replace('#(?<=^Pantech)([\w-]+)/[\w\.-]+#', '\1', $ua);
+		$ua = preg_replace('#(?<=^Pantech)([\w-]+)/[\w\./-]+#', '\1', $ua);
 
 
 		// Remove Android revision version
 		$ua = preg_replace('#(?<=Android)(\s?(?>\d+\.\d+))[\w\.-]+#', '\1', $ua);
-
 		// Remove Cyanogen identificator
 		$ua = str_replace(' (thor & digetx)', '', $ua);
 		$ua = preg_replace('#; (?:CyanogenMod|CyanMobile)[\w\s\.-]+#', '', $ua);
-
 		// Remove Android build version
 		$ua = preg_replace('#(Android .*?) Build/[^;)]+#', '\1', $ua);
 
 
 		// Remove iPhone revision version
 		$ua = preg_replace('#(?<= OS )(\d+_\d+)_\d+(?= like Mac OS X)#', '\1', $ua);
-
 		// Remove iPhone build version
-		$ua = preg_replace('#( \(KHTML, like Gecko\).*? Mobile/\d{1,2})[A-Z]\d+\w\b#', '\1', $ua);
+		$ua = preg_replace('#( \(KHTML, like Gecko\).*? Mobile/\d{1,2})[A-Z]\d*\w\b#', '\1', $ua);
 
 
 		// Remove Opera Mini/Mobile/Tablet version
 		$ua = preg_replace('#(?<=Opera )(Mini|Mobi|Mobile|Tablet)/[^;)]+#', '\1', $ua);
-
-//		// Remove Opera Mini revision version
-//		$ua = preg_replace('#(?<=Opera Mini/)(\d+\.\d+)\.[^;)]+#', '\1', $ua);
-//		$ua = preg_replace('#(?<=Opera Mini/)(\d+)\.[^\d;)][^;)]*#', '\1', $ua);
-//
-//		// Remove Opera Mobile/Tablet build number
-//		$ua = preg_replace('#(?<=Opera )((?:Mobi|Tablet)/[A-Z]+)\-\d+#', '\1', $ua);
 
 
 		// Remove Chrome for iPhone revision version
@@ -143,26 +140,31 @@ class AmddUA
 		$ua = preg_replace('#\sUP\.Link.*$#', '', $ua);
 
 		// Shrink Facebook App suffix
-		$ua = preg_replace('#(?<= \[FBAN/FBForIPhone);.*$#', ']', $ua);
+		$ua = preg_replace('#(?<= \[FBAN)/.*$#', ']', $ua);
 
 		// Remove common suffixes
 		$ua = str_replace(' 3gpp-gba', '', $ua);
 		$ua = str_ireplace(' UNTRUSTED/1.0', '', $ua);
 		$ua = str_replace(',gzip(gfe) (via translate.google.com)', '', $ua);
-		$ua = str_replace(' MMS/LG-Android-MMS-V1.0/1.2', '', $ua);
+		$ua = preg_replace('# MMS/LG-Android-MMS-(V1\.0/V?1\.2|V1\.0|V1\.2)#', '', $ua);
 		$ua = preg_replace('#( BingWeb|flameblur)/[\d\.]+$#', '', $ua);
 		$ua = preg_replace('#; [\w\.-]+-user-\d+$#', '', $ua); // Garmin
-		$ua = str_replace(' Twitter for iPad', '', $ua);
+		$ua = preg_replace('# Twitter for (iPhone|iPad)#', '', $ua);
+		$ua = str_replace(' Mobitest', '', $ua);
+		$ua = preg_replace('# FirePHP/[\d\.]+$#', '', $ua);
 
 		// Remove long numbers series
-		$ua = preg_replace('#(?<=/| |-)(\d+\.\d+)[_\.][\w\.-]+#', '\1', $ua);
+		$ua = preg_replace('#(?<=[^\d])(\d+\.\d+)[_\.][\w\.-]+#', '\1', $ua);
+
+		// Feed readers
+		$ua = preg_replace('#\d+ (reader|subscriber)s?#', '1 \1', $ua);
+		$ua = preg_replace('#(?<=feedID: )\d+#', '0', $ua);
 
 		// Beautify
 		$ua = preg_replace('#(?<=\s)\s+#', '', $ua);
 		$ua = str_replace(' ;', ';', $ua);
 		$ua = preg_replace('#(?<=;);+#', '', $ua);
-		$ua = str_replace(';)', ')', $ua);
-		$ua = str_replace(' )', ')', $ua);
+		$ua = preg_replace('#[;\s]+(?=\))#', '', $ua);
 		$ua = str_replace(')AppleWebKit', ') AppleWebKit', $ua);
 
 		$ua = substr($ua, 0, 255);
@@ -186,26 +188,34 @@ class AmddUA
 		if(strpos($ua, ' Mobile Safari/') !== false)
 			return false;
 
-		$windows_platforms = 'Windows (NT |XP|2000|ME|98|95|3\.1)';
-		$linux_platforms   = '(Ubuntu; )?X11;( Ubuntu;)? Linux[ ;]';
-		$desktop_platforms = "(Macintosh; |(Windows; )?$windows_platforms|$linux_platforms)";
+		$windows_platforms = 'Windows (?:NT|XP|2000|ME|98|95|3\.)';
+		$linux_platforms   = '(?:Ubuntu; )?X11;(?: Ubuntu;)? Linux[ ;]';
+		$desktop_platforms = "(?:Macintosh; |(?:Windows; )?$windows_platforms|$linux_platforms)";
 
 		// test Windows Phone in desktop mode
 		//if(preg_match('#^Mozilla/5\.0 \(compatible; MSIE (9|10)\.0; Windows NT[^)]* Trident/[56]\.0.* ZuneWP7#', $ua))
 		//	return false;
 
-		// test IE 5+
-		if(preg_match('#^Mozilla/[45]\.0 \(compatible; MSIE \d+\.[\dab]+; '.$windows_platforms.'#', $ua))
+//		// test IE 5+
+//		if(preg_match('#^Mozilla/[45]\.0 \(compatible; MSIE \d+\.[\dab]+; '.$windows_platforms.'#', $ua))
+//		{
+//			if(preg_match('#(?:Google Wireless Transcoder|PalmSource|Windows Phone 6\.5)#i', $ua))
+//				return false;
+//			return true;
+//		}
+
+		// test IE-based browsers for windows
+		if(preg_match('#^Mozilla/\d\.\d+ \(compatible; .*; ?'.$windows_platforms.'#', $ua))
 		{
-			if(preg_match('#(Google Wireless Transcoder|PalmSource|Windows Phone 6\.5)#i', $ua))
+			if(preg_match('#(?:Google Wireless Transcoder|PalmSource|Windows Phone 6\.5)#i', $ua))
 				return false;
 			return true;
 		}
 
 		// test Firefox/Chrome/Safari
-		if(preg_match('#^Mozilla/5\.0 \('.$desktop_platforms.'#i', $ua))
+		if(preg_match('#^Mozilla/\d\.\d \('.$desktop_platforms.'#i', $ua))
 		{
-			if(preg_match('#(Maemo Browser|Novarra-Vision|Tablet browser)#', $ua))
+			if(preg_match('#(?:Maemo Browser|Novarra-Vision|Tablet browser)#', $ua))
 				return false;
 			return true;
 		}
@@ -219,7 +229,7 @@ class AmddUA
 			return true;
 
 		// test AOL
-		if(preg_match('# (AOL|America Online Browser) #', $ua))
+		if(preg_match('# (?:AOL|America Online Browser) #', $ua))
 			return true;
 
 		// test iOS download library
@@ -227,7 +237,8 @@ class AmddUA
 			return true;
 
 		// wget, php, java, etc
-		if(preg_match('#^(AppEngine-Google|curl/|Feedfetcher-Google;|Java/|libwww-perl|Microsoft Office/|Outlook-Express/|PHP|php|Python-urllib|Reeder/|Wget)#', $ua))
+		if(preg_match('#^(?:AppEngine-Google|Apple-PubSub/|curl/|Feedfetcher-Google;|iTunes/|Java/|Liferea/|Lynx/|Microsoft Office/|Outlook-Express/|PHP|php|python-requests/|Python-urllib|Reeder/|Wget|WordPress)#', $ua)
+				|| preg_match('#(?:HttpClient|HttpStream|libwww-perl)#', $ua))
 			return true;
 
 		return false;
@@ -649,7 +660,7 @@ class AmddUA
 		if(strpos($ua, 'UP.Browser')!==false)
 			return 'upbrowser';
 
-		if(preg_match('#(bot\b|crawler|search|slurp|spider|yahoo)#i', $ua))
+		if(preg_match('#(?:bot\b|crawler|search|slurp|spider|yahoo|https?://|download)#i', $ua))
 			return 'bot';
 
 		return '';

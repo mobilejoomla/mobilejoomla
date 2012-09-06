@@ -98,12 +98,35 @@ class Amdd
 		$group = AmddUA::getGroup($ua);
 		$devices = $db->getDevices($group);
 
-		self::$matchType = 4;
-		$data = self::findByPrefix($ua, $devices);
-		if($data !== null)
+		if(preg_match('#^(Mozilla|Opera|NetFront)/#', $ua))
 		{
 			self::$matchType = 5;
 			$data = self::findByLevenshtein($ua, $devices);
+
+			if($data === null)
+			{
+				$pos = strpos($ua, ')');
+				if(!$pos)
+					$pos = strlen($ua);
+
+				self::$matchType = 4;
+				$data = self::findByPrefix($ua, $devices, $pos);
+			}
+		}
+		else
+		{
+			preg_match('#^(DoCoMo|portalmmm)/.*?(\(|$)#', $ua, $match)
+				or preg_match('#^.{5,}?[ /]#', $ua, $match);
+			$pos = isset($match[0]) ? strlen($match[0]) : strlen($ua);
+
+			self::$matchType = 4;
+			$data = self::findByPrefix($ua, $devices, $pos);
+
+			if($data === null)
+			{
+				self::$matchType = 5;
+				$data = self::findByLevenshtein($ua, $devices);
+			}
 		}
 
 		// save to cache
@@ -112,33 +135,24 @@ class Amdd
 		return $data;
 	}
 
-	private static function findByPrefix($ua, $devices)
+	private static function findByPrefix($ua, $devices, $best)
 	{
 		$ua_size = strlen($ua);
-
 		$data = null;
 
-		if(!preg_match('#^(Mozilla|Opera|NetFront)/#', $ua))
+		foreach($devices as $device)
 		{
-			preg_match('#^(DoCoMo|portalmmm)/.*?(\(|$)#', $ua, $match)
-			or preg_match('#^.{5,}?[ /]#', $ua, $match);
+			$dev_ua = $device->ua;
+			if(substr($ua, 0, $best) != substr($dev_ua, 0, $best))
+				continue;
 
-			$best = isset($match[0]) ? strlen($match[0]) : $ua_size;
-
-			foreach($devices as $device)
+			$min_size = min($ua_size, strlen($dev_ua));
+			for($i = $best; $i < $min_size; $i++)
 			{
-				$dev_ua = $device->ua;
-				if(substr($ua, 0, $best) != substr($dev_ua, 0, $best))
-					continue;
-
-				$min_size = min($ua_size, strlen($dev_ua));
-				for($i = $best; $i < $min_size; $i++)
-				{
-					if($ua{$i} == $dev_ua{$i})
-						$best++;
-				}
-				$data = $device->data;
+				if($ua{$i} == $dev_ua{$i})
+					$best++;
 			}
+			$data = $device->data;
 		}
 
 		return $data;
@@ -147,7 +161,6 @@ class Amdd
 	private static function findByLevenshtein($ua, $devices)
 	{
 		$ua_size = strlen($ua);
-
 		$data = null;
 
 		$best = min(12, intval($ua_size/2)); // maximum number of changes in UA string
