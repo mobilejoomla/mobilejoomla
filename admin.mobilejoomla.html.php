@@ -556,7 +556,7 @@ class HTML_mobilejoomla
 
 	private static function checkRemoteConnection()
 	{
-		if(!preg_match('#\.pro$#', $this->getMJVersion()))
+		if(!preg_match('#\.pro$#', self::getMJVersion()))
 			return;
 		if(!function_exists('fsockopen')
 			&& !function_exists('curl_init')
