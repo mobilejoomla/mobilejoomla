@@ -84,12 +84,12 @@ class plgSystemMobileBot extends JPlugin
 			$cached_data = base64_encode(gzdeflate(serialize($cached_data), $gzlevel));
 			$app->setUserState('mobilejoomla.cache', $cached_data);
 		}
-		$MobileJoomla_Device['markup'] = $this->CheckMarkup($MobileJoomla_Device['markup']);
+		$MobileJoomla_Device['markup'] = self::CheckMarkup($MobileJoomla_Device['markup']);
 
 		$MobileJoomla_Device['real_markup'] = $MobileJoomla_Device['markup'];
 
 		$app->triggerEvent('onAfterDeviceDetection', array (&$MobileJoomla_Settings, &$MobileJoomla_Device));
-		$MobileJoomla_Device['markup'] = $this->CheckMarkup($MobileJoomla_Device['markup']);
+		$MobileJoomla_Device['markup'] = self::CheckMarkup($MobileJoomla_Device['markup']);
 
 		$markup = $MobileJoomla_Device['markup'];
 		$MobileJoomla_Device['default_markup'] = $markup;
@@ -187,11 +187,13 @@ class plgSystemMobileBot extends JPlugin
 		}
 
 		$app->triggerEvent('onBeforeMobileMarkupInit', array (&$MobileJoomla_Settings, &$MobileJoomla_Device));
-		$MobileJoomla_Device['markup'] = $this->CheckMarkup($MobileJoomla_Device['markup']);
+		$MobileJoomla_Device['markup'] = self::CheckMarkup($MobileJoomla_Device['markup']);
 
 		$this->updateUserMarkup();
 
 		$app->triggerEvent('onMobileMarkupInit', array (&$MobileJoomla_Settings, &$MobileJoomla_Device));
+
+		$this->filterExtensions($MobileJoomla_Settings, $MobileJoomla_Device);
 
 		$markup = $MobileJoomla_Device['markup'];
 		if(empty($markup))
@@ -497,7 +499,7 @@ class plgSystemMobileBot extends JPlugin
 	}
 
 	// Validate markup
-	function CheckMarkup($markup)
+	static function CheckMarkup($markup)
 	{
 		if(($markup===false)||($markup===null))
 			return false;
@@ -529,16 +531,16 @@ class plgSystemMobileBot extends JPlugin
 
 		if(isset($_GET['device']))
 		{
-			$markup = $this->CheckMarkup($_GET['device']);
+			$markup = self::CheckMarkup($_GET['device']);
 			$uri = JURI::getInstance();
 			$uri->delVar('device');
 		}
 
 		if($markup === false)
-			$markup = $this->CheckMarkup($app->getUserState('mobilejoomla.markup'));
+			$markup = self::CheckMarkup($app->getUserState('mobilejoomla.markup'));
 
 		if($markup === false && isset($_COOKIE['mjmarkup']))
-			$markup = $this->CheckMarkup($_COOKIE['mjmarkup']);
+			$markup = self::CheckMarkup($_COOKIE['mjmarkup']);
 
 		return $markup;
 	}
@@ -630,4 +632,38 @@ class plgSystemMobileBot extends JPlugin
 			}
 		}
 	}
+
+	function filterExtensions(&$MobileJoomla_Settings, &$MobileJoomla_Device)
+	{
+		$markup = $MobileJoomla_Device['markup'];
+		if(empty($markup))
+			$markup = 'desktop';
+
+		jimport('joomla.plugins.helper');
+		jimport('joomla.application.module.helper');
+		$db = JFactory::getDBO();
+
+		if(substr(JVERSION,0,3) == '1.5')
+			$query = "SELECT p.folder AS type, p.element AS name FROM #__mj_plugins AS mj LEFT JOIN #__plugins AS p ON p.id=mj.id WHERE mj.markup=".$db->Quote($markup);
+		else
+			$query = "SELECT p.folder AS type, p.element AS name FROM #__mj_plugins AS mj LEFT JOIN #__extensions AS p ON p.extension_id=mj.id WHERE mj.markup=".$db->Quote($markup);
+		$db->setQuery($query);
+		$mj_plugins = $db->loadObjectList();
+		foreach($mj_plugins as $plugin)
+		{
+			$p = JPluginHelper::getPlugin($plugin->type, $plugin->name);
+			$p->type = '_mj_dummy_';
+		}
+
+		$query = "SELECT m.module, m.title FROM #__mj_modules AS mj LEFT JOIN #__modules AS m ON m.id=mj.id WHERE mj.markup=".$db->Quote($markup);
+		$db->setQuery($query);
+		$mj_modules = $db->loadObjectList();
+		foreach($mj_modules as $module)
+		{
+			$m = JModuleHelper::getModule($module->module, $module->title);
+			if($m !== null && $m->id > 0)
+				$m->position = $m->module = $m->name = '_mj_dummy_';
+		}
+	}
+
 }

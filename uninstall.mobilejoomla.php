@@ -771,6 +771,23 @@ function com_install()
 		}
 	}
 
+	//tables for extmanager
+	$db = JFactory::getDBO();
+	$query = "CREATE TABLE IF NOT EXISTS `#__mj_modules` ("
+			." `id` integer(10) UNSIGNED NOT NULL,"
+			." `markup` varchar(16) NOT NULL,"
+			." PRIMARY KEY (`markup`, `id`)"
+			.") DEFAULT CHARSET=utf8";
+	$db->setQuery($query);
+	$db->query();
+	$query = "CREATE TABLE IF NOT EXISTS `#__mj_plugins` ("
+			." `id` integer(10) UNSIGNED NOT NULL,"
+			." `markup` varchar(16) NOT NULL,"
+			." PRIMARY KEY (`markup`, `id`)"
+			.") DEFAULT CHARSET=utf8";
+	$db->setQuery($query);
+	$db->query();
+
 	if(function_exists('MJAddonInstallPlugins'))
 		$status = MJAddonInstallPlugins($PluginSource) && $status;
 
@@ -877,6 +894,12 @@ function com_uninstall()
 	foreach($moduleslist as $m)
 		if(!UninstallModule($m))
 			JError::raiseError(0, JText::_('COM_MJ__CANNOT_UNINSTALL')." Mobile Joomla '$m' module.");
+
+	// remove extmanager tables
+	$db = JFactory::getDBO();
+	$query = "DROP TABLE IF EXISTS `#__mj_modules`, `#__mj_plugins`";
+	$db->setQuery($query);
+	$db->query();
 
 	//Show uninstall status
 	$msg = '';

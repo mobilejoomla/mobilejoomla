@@ -29,6 +29,40 @@ JPluginHelper::importPlugin('mobile');
 $dispatcher = JDispatcher::getInstance();
 $dispatcher->trigger('onMJBeforeDispatch', array($task));
 
+$extmanager = JRequest::getCmd('extmanager');
+if(!empty($extmanager))
+{
+	require_once dirname(__FILE__).DS.'classes'.DS.'mjextmanager.php';
+
+	header('Content-Type: text/html');
+
+	switch(JRequest::getCmd('extmanager'))
+	{
+	case 'view_modules':
+		require dirname(__FILE__).DS.'admin_tpl'.DS.'modules.php';
+		break;
+
+	case 'view_plugins':
+		require dirname(__FILE__).DS.'admin_tpl'.DS.'plugins.php';
+		break;
+
+	case 'set_module_state':
+		$id = JRequest::getInt('id');
+		$markup = JRequest::getWord('markup');
+		$published = MJExtManager::changeState('#__mj_modules', $id, $markup);
+		echo MJExtManager::getImage($published);
+		break;
+
+	case 'set_plugin_state':
+		$id = JRequest::getInt('id');
+		$markup = JRequest::getWord('markup');
+		$published = MJExtManager::changeState('#__mj_plugins', $id, $markup);
+		echo MJExtManager::getImage($published);
+		break;
+	}
+	$app->close();
+}
+
 // TODO: transform into JController-based controller
 switch($task)
 {
