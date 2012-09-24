@@ -14,6 +14,8 @@ include_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'class
 
 class HTML_mobilejoomla
 {
+	static $selftest_blob;
+
 	static function getMJVersion()
 	{
 		$manifest = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'mobilejoomla.xml';
@@ -77,6 +79,13 @@ class HTML_mobilejoomla
 		$document->addScript(JURI::base(true).'/components/com_mobilejoomla/js/mj_ui.js');
 		$document->addScript(JURI::base(true).'/components/com_mobilejoomla/js/mj_update.js');
 		$document->addStyleSheet(JURI::base(true).'/components/com_mobilejoomla/css/mjsettings.css');
+
+		self::$selftest_blob = array();
+		self::checkGD2();
+		self::checkRemoteConnection();
+		self::checkAliasDuplicates();
+		self::checkTemplateAssignments();
+		self::checkForcedMarkup();
 
 		$config_blobs = array(
 			'COM_MJ__GENERAL_SETTINGS' => array(
@@ -460,6 +469,11 @@ class HTML_mobilejoomla
 			)
 		);
 
+		if(count(self::$selftest_blob))
+			array_unshift_assoc($config_blobs['COM_MJ__GENERAL_SETTINGS'][1],
+				self::$selftest_blob,
+				'COM_MJ__SELFTEST_WARNINGS');
+
 		if(count($lists['dbsize']))
 		{
 			$text = '';
@@ -492,7 +506,7 @@ class HTML_mobilejoomla
 			'COM_MJ__MODULE_BETWEEN_PATHWAY_COMPONENT' => 'middle',
 			'COM_MJ__MODULE_BELOW_COMPONENT' => 'footer'
 		);
-		
+
 		//template modules
 		foreach($tplmod_devices as $device=>$deviceconfig)
 		{
@@ -507,10 +521,194 @@ class HTML_mobilejoomla
 				}
 			}
 		}
-		
+
 		$dispatcher = JDispatcher::getInstance();
 		$dispatcher->trigger('onMJDisplayConfig', array(&$config_blobs, &$MobileJoomla_Settings, $lists));
 
 		include(JPATH_COMPONENT.DS.'admin_tpl'.DS.'config_tabs.php');
+	}
+
+	private static function isJoomla15()
+	{
+		static $is_joomla15;
+		if(!isset($is_joomla15))
+			$is_joomla15 = (substr(JVERSION,0,3) == '1.5');
+		return $is_joomla15;
+	}
+
+	private static function checkGD2()
+	{
+		if(!function_exists('imagecopyresized'))
+		{
+			self::$selftest_blob[] = array(
+				'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__WARNING_GD2'),
+				'input_blob' => '<p>'.JText::_('COM_MJ__WARNING_GD2_TEXT').'</p>'
+			);
+		}
+	}
+
+	private static function checkRemoteConnection()
+	{
+		if(!preg_match('#\.pro$#', $this->getMJVersion()))
+			return;
+		if(!function_exists('fsockopen')
+			&& !function_exists('curl_init')
+			&& !ini_get('allow_url_fopen'))
+		{
+			self::$selftest_blob[] = array(
+				'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__WARNING_REMOTE'),
+				'input_blob' => '<p>'.JText::_('COM_MJ__WARNING_REMOTE_TEXT').'</p>'
+			);
+		}
+	}
+
+	private static function checkAliasDuplicates()
+	{
+		$db = JFactory::getDBO();
+
+		if(!self::isJoomla15())
+			return;
+
+		$query = "SELECT m1.id, m1.menutype, m1.name AS title, m1.alias FROM #__menu AS m1 LEFT JOIN #__menu AS m2 ON m1.alias=m2.alias WHERE m1.id<>m2.id AND m1.type<>'menulink' AND m2.type<>'menulink' GROUP BY m1.id ORDER BY m1.alias";
+		$db->setQuery($query);
+		$duples = $db->loadObjectList();
+
+		$url_prefix = 'index.php?option=com_menus&task=edit&cid[]=';
+
+		if(count($duples))
+		{
+			$list = array();
+			$alias = $duples[0]->alias;
+			foreach($duples as $item)
+			{
+				if($alias != $item->alias)
+				{
+					$list[] = '';
+					$alias = $item->alias;
+				}
+				$list[] = '<a href="'.$url_prefix.$item->id.'">'.$item->title.'</a> ['.$item->menutype.']';
+			}
+			self::$selftest_blob[] = array(
+					'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__WARNING_ALIASES'),
+					'input_blob' => '<p>' . implode('<br/>', $list) . '</p>'
+			);
+		}
+	}
+
+	private static function checkTemplateAssignments()
+	{
+		jimport('joomla.filesystem.file');
+		jimport('joomla.filesystem.folder');
+		$db = JFactory::getDBO();
+
+		//get mobile templates
+		$jpath_themes = JPATH_ROOT.DS.'templates';
+		$templates = JFolder::folders($jpath_themes);
+		$mobile_templates = array();
+		foreach($templates as $template)
+			if(is_file($jpath_themes.DS.$template.DS.'templateDetails.xml')
+				&& is_file($jpath_themes.DS.$template.DS.'index.php'))
+			{
+				$content = JFile::read($jpath_themes.DS.$template.DS.'index.php');
+				if(strpos($content, "defined('_MJ') or die(")!==false)
+					$mobile_templates[] = $template;
+			}
+
+		// no mobile templates
+		if(count($mobile_templates)==0)
+		{
+			self::$selftest_blob[] = array(
+					'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__WARNING_NOTEMPLATES'),
+					'input_blob' => '<p>'.JText::_('COM_MJ__WARNING_NOTEMPLATES_TEXT').'</p>'
+			);
+			return;
+		}
+
+		// get assigned mobile templates
+		$list = array();
+		foreach($mobile_templates as $template)
+			$list[] = $db->Quote($template);
+		$list = implode(', ', $list);
+
+		$assigned_templates = array();
+		if(self::isJoomla15())
+		{
+			$query = "SELECT tm.template, tm.menuid, m.name FROM #__templates_menu AS tm LEFT JOIN #__menu AS m ON m.id=tm.menuid WHERE template IN ($list) AND tm.menuid>=0 AND tm.client_id=0 ORDER BY tm.template, tm.menuid";
+			$db->setQuery($query);
+			$rows = $db->loadObjectList();
+			foreach($rows as $row)
+				$assigned_templates[$row->template][] = array($row->menuid, $row->name);
+		}
+		else
+		{
+			$query = "SELECT template FROM #__template_styles WHERE template IN ($list) AND home=1 AND client_id=0 ORDER BY template";
+			$db->setQuery($query);
+			$rows = $db->loadObjectList();
+			foreach($rows as $row)
+				$assigned_templates[$row->template][] = array(0, null);
+
+			$query = "SELECT ts.template, m.id, m.title FROM #__menu AS m LEFT JOIN #__template_styles AS ts ON m.template_style_id=ts.id WHERE ts.template IN ($list) AND ts.client_id=0 ORDER BY ts.template, m.id";
+			$db->setQuery($query);
+			$rows = $db->loadObjectList();
+			foreach($rows as $row)
+				$assigned_templates[$row->template][] = array($row->id, $row->title);
+		}
+
+		if(count($assigned_templates))
+		{
+			if(self::isJoomla15())
+				$url_prefix = 'index.php?option=com_menus&task=edit&cid[]=';
+			else
+				$url_prefix = 'index.php?option=com_menus&task=item.edit&id=';
+
+			$list = array();
+			foreach($assigned_templates as $key=>$items)
+			{
+				foreach($items as $item)
+				{
+					$menuid = $item[0];
+					$title  = $item[1];
+					if($menuid)
+						$list[] = $key.' &lt; <a href="'.$url_prefix.$menuid.'">'.htmlspecialchars($title).'</a>';
+					else
+						$list[] = '<a href="index.php?option=com_templates">'.$key.'</a>'
+								 .' ('.JText::_('COM_MJ__WARNING_ASSIGNEDTEMPLATES_DEFAULT').')';
+				}
+			}
+			self::$selftest_blob[] = array(
+					'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__WARNING_ASSIGNEDTEMPLATES', 'COM_MJ__WARNING_ASSIGNEDTEMPLATES_DESC'),
+					'input_blob' => '<p>'.implode('<br/>', $list).'</p>'
+				);
+		}
+	}
+
+	private static function checkForcedMarkup()
+	{
+		$markup = isset($_COOKIE['mjmarkup']) ? $_COOKIE['mjmarkup'] : '';
+		if($markup=='desktop' || $markup=='')
+			return;
+		$resetUrl = JURI::root().'?device=desktop';
+		self::$selftest_blob[] = array(
+				'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__WARNING_FORCEDMARKUP'),
+				'input_blob' => '<p>'
+									.JText::_('COM_MJ__WARNING_FORCEDMARKUP_MARKUP_'.strtoupper($markup))
+									.' [<a href="'.$resetUrl.'" target="_blank">'
+										.JText::_('COM_MJ__WARNING_FORCEDMARKUP_RESET')
+									.'</a>]'
+								.'</p>'
+			);
+	}
+}
+
+if(!function_exists('array_unshift_assoc'))
+{
+	function array_unshift_assoc(&$arr, $value, $key=null)
+	{
+		$arr = array_reverse($arr, true);
+		if($key)
+			$arr[$key] = $value;
+		else
+			$arr[] = $value;
+		$arr = array_reverse($arr, true);
 	}
 }
