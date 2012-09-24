@@ -133,6 +133,8 @@ class AmddUA
 		// Remove Vodafone suffix
 		$ua = str_replace('-Vodafone ', ' ', $ua);
 
+		// Remove UCBrowser suffix
+		$ua = preg_replace('#/UCBrowser/[\d\./]+$#', '', $ua);
 		// Remove UCBrowser/UCWEB subversion numbers
 		$ua = preg_replace('#(\b(UC\s?Browser|UCWEB)/?\d+)\..*$#', '\1', $ua);
 
