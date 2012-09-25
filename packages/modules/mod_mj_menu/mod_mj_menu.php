@@ -13,7 +13,7 @@ defined('_JEXEC') or die('Restricted access');
 if(!defined('_MJ'))
 	return;
 
-require_once(dirname(__FILE__).DS.'helper.php'); 
+require_once(dirname(__FILE__).'/helper.php'); 
 
 $MobileJoomla = MobileJoomla::getInstance();
 

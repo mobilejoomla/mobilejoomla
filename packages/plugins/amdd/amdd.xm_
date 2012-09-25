@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<install version="1.5" type="plugin" group="mobile" method="upgrade">
+<extension version="1.5" type="plugin" group="mobile" method="upgrade">
 	<name>Mobile - AMDD</name>
 	<version>###VERSION###</version>
 	<author>###AUTHOR###</author>
@@ -32,4 +32,4 @@
 		<field name="cachesize" type="text" default="1000" label="PLG_MOBILE_AMDD__CACHESIZE_LABEL" description="PLG_MOBILE_AMDD__CACHESIZE_DESC" />
 	</fieldset>
 	</fields></config>
-</install>
+</extension>

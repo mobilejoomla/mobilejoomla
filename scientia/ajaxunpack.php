@@ -37,8 +37,11 @@ function _sendStatus()
 	_initStatus();
 	$filename = $app->getUserState( "com_mobilejoomla.scientiaupdatefilename", false );
 	$config = JFactory::getConfig();
-	$c = (substr(JVERSION,0,3)=='1.5') ? 'config.' : '';
-	$path = $config->getValue($c.'tmp_path').DS.$filename;
+	if(substr(JVERSION,0,3)=='1.5')
+		$path = $config->getValue('config.tmp_path');
+	else
+		$path = $config->get('tmp_path');
+	$path .= '/'.$filename;
 	if($path)
 	{
 		$result = JInstallerHelper::unpack($path);

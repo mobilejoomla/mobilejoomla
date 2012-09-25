@@ -10,7 +10,7 @@
  */
 defined('_JEXEC') or die('Restricted access');
 
-include_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'classes'.DS.'jhtmlmjconfig.php';
+include_once JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/classes/jhtmlmjconfig.php';
 
 class HTML_mobilejoomla
 {
@@ -18,17 +18,13 @@ class HTML_mobilejoomla
 
 	static function getMJVersion()
 	{
-		$manifest = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'mobilejoomla.xml';
+		$manifest = JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/mobilejoomla.xml';
 		if(is_file($manifest))
 		{
-			$xml = JFactory::getXMLParser('Simple');
-			if($xml->loadFile($manifest))
-			{
-				$element = $xml->document->getElementByPath('version');
-				$version = $element ? $element->data() : '';
-				if($version)
-					return $version;
-			}
+			$xml = simplexml_load_file($manifest);
+			$version = isset($xml->version) ? (string)$xml->version : null;
+			if($version)
+				return $version;
 		}
 		return false;
 	}
@@ -40,6 +36,7 @@ class HTML_mobilejoomla
 		{
 			$document = JFactory::getDocument();
 			$document->addStyleSheet(JURI::base(true).'/components/com_mobilejoomla/css/mjbanner.css');
+
 			jimport('joomla.plugins.helper');
 			if(JPluginHelper::isEnabled('mobile', 'scientia'))
 				$detector = 'wurfl';
@@ -52,15 +49,16 @@ class HTML_mobilejoomla
 										.'&amp;d='.$detector);
 		}
 	}
-
+	
 	static function showNotification()
 	{
-		HTML_mobilejoomla::CheckForUpdate();
 		JHTML::_('behavior.modal', 'a.modal');
+
+		HTML_mobilejoomla::CheckForUpdate();
 
 		$app = JFactory::getApplication();
 		$updatenotice = '<div id="mjmsgarea"></div>';
-		$app->enqueueMessage($updatenotice, 'banner');
+		$app->enqueueMessage($updatenotice, 'mj');
 		if(version_compare(JVERSION,'1.7.0','lt'))
 		{
 			$document = JFactory::getDocument();
@@ -73,6 +71,17 @@ class HTML_mobilejoomla
 		JHTML::_('behavior.tooltip');
 		JHTML::_('behavior.switcher');
 		JHTML::_('behavior.modal', 'a.modal');
+
+		JToolBarHelper::title(JText::_('COM_MJ__MOBILE_JOOMLA_SETTINGS'), 'config.php');
+		JToolBarHelper::apply();
+		JToolBarHelper::cancel('cancel');
+		$version = substr(JVERSION,0,3);
+		$user = JFactory::getUser();
+		if($version != '1.5' && $user->authorise('core.admin', 'com_mobilejoomla'))
+		{
+			JToolBarHelper::divider();
+			JToolBarHelper::preferences('com_mobilejoomla');
+		}
 
 		HTML_mobilejoomla::showNotification();
 		$document = JFactory::getDocument();
@@ -513,7 +522,7 @@ class HTML_mobilejoomla
 			'COM_MJ__MODULE_BETWEEN_PATHWAY_COMPONENT' => 'middle',
 			'COM_MJ__MODULE_BELOW_COMPONENT' => 'footer'
 		);
-
+		
 		//template modules
 		foreach($tplmod_devices as $device=>$deviceconfig)
 		{
@@ -528,11 +537,11 @@ class HTML_mobilejoomla
 				}
 			}
 		}
-
+		
 		$dispatcher = JDispatcher::getInstance();
 		$dispatcher->trigger('onMJDisplayConfig', array(&$config_blobs, &$MobileJoomla_Settings, $lists));
 
-		include(JPATH_COMPONENT.DS.'admin_tpl'.DS.'config_tabs.php');
+		include(JPATH_COMPONENT.'/admin_tpl/config_tabs.php');
 	}
 
 	private static function isJoomla15()
@@ -609,14 +618,14 @@ class HTML_mobilejoomla
 		$db = JFactory::getDBO();
 
 		//get mobile templates
-		$jpath_themes = JPATH_ROOT.DS.'templates';
+		$jpath_themes = JPATH_ROOT.'/templates';
 		$templates = JFolder::folders($jpath_themes);
 		$mobile_templates = array();
 		foreach($templates as $template)
-			if(is_file($jpath_themes.DS.$template.DS.'templateDetails.xml')
-				&& is_file($jpath_themes.DS.$template.DS.'index.php'))
+			if(is_file($jpath_themes.'/'.$template.'/templateDetails.xml')
+				&& is_file($jpath_themes.'/'.$template.'/index.php'))
 			{
-				$content = JFile::read($jpath_themes.DS.$template.DS.'index.php');
+				$content = JFile::read($jpath_themes.'/'.$template.'/index.php');
 				if(strpos($content, "defined('_MJ') or die(")!==false)
 					$mobile_templates[] = $template;
 			}

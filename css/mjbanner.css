@@ -1,39 +1,54 @@
 /* ###SHORTHEADER### */
 #mjupdate, #mjlatestverurl
 {
-    display: none;
+	display: none;
 }
 
 #mjupdate h2
 {
-    margin:0 0 0.5em;
+	margin:0 0 0.5em;
 }
 
 
-dd.banner #mjupdate{
-    background: url("../images/warning.png") no-repeat scroll 10px 50% #FDFBB9;
-    font-weight: bold;
-    border-top: 3px solid  #FBA;
-    border-bottom: 3px solid  #FBA;
-    line-height: 100%;
-    padding: 10px 10px 10px 48px;
-    text-align: left;
+dd.mj #mjupdate{
+	background: url("../images/warning.png") no-repeat scroll 10px 50% #FDFBB9;
+	font-weight: bold;
+	border-top: 3px solid  #FBA;
+	border-bottom: 3px solid  #FBA;
+	line-height: 100%;
+	padding: 10px 10px 10px 48px;
+	text-align: left;
 }
 
-#system-message dt.banner
+#system-message dt.mj
 {
-    display:none;
+	display:none;
 }
 
-#system-message dd.banner
+#system-message dd.mj
 {
-    text-indent: inherit;
+	text-indent: inherit;
 }
 
-#system-message dd.banner ul
+#system-message dd.mj ul
 {
-    color:inherit;
-    padding:0;
-    border:none;
-    background:none !important;
+	color:inherit;
+	padding:0;
+	border:none;
+	background:none !important;
+}
+
+#system-message div.alert-mj
+{
+	background-color: inherit;
+	border: inherit;
+	padding: 0;
+	margin: 0;
+	color: #000;
+	border-radius: 0;
+}
+#system-message div.alert-mj a.close,
+#system-message div.alert-mj h4.alert-heading
+{
+	display: none;
 }

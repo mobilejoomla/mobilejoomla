@@ -46,7 +46,7 @@ function _sendStatus()
 		global $isJoomla15;
 		if($isJoomla15)
 		{
-			require_once JPATH_ROOT.DS.'plugins'.DS.'mobile'.DS.'scientia'.DS.'scientia_helper.php';
+			require_once JPATH_ROOT.'/plugins/mobile/scientia/scientia_helper.php';
 			ScientiaHelper::installDatabase();
 			ScientiaHelper::enablePlugin();
 		}

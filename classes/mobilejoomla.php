@@ -21,7 +21,7 @@ class MobileJoomla
 		static $instance;
 		if(!is_array($instance))
 		{
-			$config = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php';
+			$config = JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/config.php';
 			$MobileJoomla_Settings = array ();
 			include($config);
 			$instance = $MobileJoomla_Settings;
@@ -56,7 +56,7 @@ class MobileJoomla
 			$class = 'MobileJoomla_'.strtoupper($markup);
 			if(!class_exists($class))
 			{
-				$path = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'markup'.DS.$markup.'.php';
+				$path = JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/markup/'.$markup.'.php';
 				require_once($path);
 				if(!class_exists($class))
 					JError::raiseError(500, 'Class not found: '.$class);
@@ -73,7 +73,7 @@ class MobileJoomla
 		static $instance = null;
 		if($instance == null)
 		{
-			include_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'classes'.DS.'mjtoolbar.php';
+			include_once JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/classes/mjtoolbar.php';
 			$instance = new MJToolbar;
 		}
 		return $instance;
@@ -144,7 +144,7 @@ class MobileJoomla
 		if(!$this->_ishomepage || $this->getParam('componenthome'))
 			echo '<jdoc:include type="component" />';
 	}
-	
+
 	function showMessage()
 	{
 		echo '<jdoc:include type="message" />';
@@ -232,7 +232,7 @@ class MobileJoomla
 
 	static function RescaleImages($text, $scaletype, $addstyles = false)
 	{
-		require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'classes'.DS.'imagerescaler.php');
+		require_once(JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/classes/imagerescaler.php');
 		return ImageRescaler::RescaleImages($text, $scaletype, $addstyles);
 	}
 
@@ -250,10 +250,12 @@ class MobileJoomla
 
 	static function getDeviceViewURI($device)
 	{
+		jimport('joomla.environment.uri');
+
 		$MobileJoomla_Settings =& MobileJoomla::getConfig();
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
 
-		$uri = clone(JFactory::getURI());
+		$uri = clone(JURI::getInstance());
 		if($uri->getVar('format')=='html')
 			$uri->delVar('format');
 		$uri->delVar('device');
@@ -290,6 +292,8 @@ class MobileJoomla
 
 	static function getCanonicalURI()
 	{
+		jimport('joomla.environment.uri');
+
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
 		if($MobileJoomla_Device['markup'] == $MobileJoomla_Device['default_markup'])
 			return false;
@@ -297,7 +301,7 @@ class MobileJoomla
 		$MobileJoomla_Settings =& MobileJoomla::getConfig();
 		$desktop_uri = new JURI($MobileJoomla_Settings['desktop_url']);
 
-		$uri = clone(JFactory::getURI());
+		$uri = clone(JURI::getInstance());
 		$uri->delVar('device');
 		$uri->delVar('format');
 		$uri->setHost($desktop_uri->getHost());

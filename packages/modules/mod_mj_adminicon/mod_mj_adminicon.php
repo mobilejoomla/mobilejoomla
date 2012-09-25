@@ -10,7 +10,7 @@
  */
 defined('_JEXEC') or die('Restricted Access');
 
-if(!is_file(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'admin.mobilejoomla.html.php'))
+if(!is_file(JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/mobilejoomla.html.php'))
 	return;
 
 JHTML::_('behavior.modal', 'a.modal');
@@ -42,7 +42,7 @@ case '1.6': $iconclass = 'icon16'; break;
 default:    $iconclass = 'icon17'; break; // 1.7 & 2.6
 }
 
-include_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'admin.mobilejoomla.html.php';
+include_once JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/mobilejoomla.html.php';
 HTML_MobileJoomla::CheckForUpdate();
 
 ?>

@@ -13,7 +13,7 @@ defined('_JEXEC') or die ('Restricted access');
 /** @var $params JRegistry */
 
 // Include the syndicate functions only once
-require_once (dirname(__FILE__).DS.'helper.php');
+require_once (dirname(__FILE__).'/helper.php');
 
 $showTitle = $params->get('show_title', 1);
 $imgURL = $params->get('img_url', '{{root}}templates/mobile_smartphone/resources/images/mw_joomla_logo.png');

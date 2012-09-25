@@ -33,7 +33,7 @@ $document->setHeadData($headerstuff);*/
 		echo '<jdoc:include type="head" />';
 		$app = JFactory::getApplication();
 		$template = $app->getTemplate();
-		if(JFile::exists(JPATH_THEMES.DS.$template.DS.'apple-touch-icon.png'))
+		if(JFile::exists(JPATH_THEMES.'/'.$template.'/apple-touch-icon.png'))
 			echo '<link rel="apple-touch-icon" href="'.JURI::base(true).'/templates/'.$template.'/apple-touch-icon.png" />';
 		$canonical = MobileJoomla::getCanonicalURI();
 		if($canonical)

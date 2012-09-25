@@ -124,7 +124,7 @@ class ImageRescaler
 		{
 			if($imageurl{0}!=='/')
 			{
-				$src_imagepath = JPATH_SITE.DS.$imageurl_decoded;
+				$src_imagepath = JPATH_SITE.'/'.$imageurl_decoded;
 				$imageurl = $base_rel.$imageurl;
 			}
 			else
@@ -133,20 +133,18 @@ class ImageRescaler
 				{
 					if(strpos($imageurl, $base_rel)!==0)
 						return $imageurl;
-					$src_imagepath = JPATH_SITE.DS.substr($imageurl_decoded, strlen($base_rel));
+					$src_imagepath = JPATH_SITE.'/'.substr($imageurl_decoded, strlen($base_rel));
 				}
 				else
 					$src_imagepath = JPATH_SITE.$imageurl_decoded;
 			}
 		}
 		elseif(strpos($imageurl, $base_abs)===0)
-			$src_imagepath = JPATH_SITE.DS.substr($imageurl_decoded, strlen($base_abs));
+			$src_imagepath = JPATH_SITE.'/'.substr($imageurl_decoded, strlen($base_abs));
 		elseif($MobileJoomla_Settings['desktop_url'] && strpos($imageurl, $MobileJoomla_Settings['desktop_url'])===0)
-			$src_imagepath = JPATH_SITE.DS.substr($imageurl_decoded, strlen($MobileJoomla_Settings['desktop_url']));
+			$src_imagepath = JPATH_SITE.'/'.substr($imageurl_decoded, strlen($MobileJoomla_Settings['desktop_url']));
 		else
 			return $imageurl;
-
-		$src_imagepath = implode(DS, explode('/', $src_imagepath));
 
 		if(!JFile::exists($src_imagepath))
 			return $imageurl;
@@ -239,9 +237,9 @@ class ImageRescaler
 			$src_imagename = substr($base, 0, strrpos($base, '.'));
 		}
 
-		$dest_imagedir = dirname($src_imagepath).DS.ImageRescaler::$thumbdir;
-		$dest_imagepath = $dest_imagedir.DS.$src_imagename.'_'.$dest_width.'x'.$dest_height.'.'.$dest_ext;
-		$dest_imageuri = $base_rel.implode('/', explode(DS, substr($dest_imagepath, strlen(JPATH_SITE.DS))));
+		$dest_imagedir = dirname($src_imagepath).'/'.ImageRescaler::$thumbdir;
+		$dest_imagepath = $dest_imagedir.'/'.$src_imagename.'_'.$dest_width.'x'.$dest_height.'.'.$dest_ext;
+		$dest_imageuri = $base_rel.implode('/', explode('/', substr($dest_imagepath, strlen(JPATH_SITE.'/'))));
 		$dest_imageuri = str_replace(array('%',   ' ',   '"',   '#',   "'",   '+'),
 									 array('%25', '%20', '%22', '%23', '%27', '%2B'),
 									 $dest_imageuri);
@@ -258,7 +256,7 @@ class ImageRescaler
 		{
 			JFolder::create($dest_imagedir);
 			$indexhtml = '<html><body bgcolor="#FFFFFF"></body></html>';
-			JFile::write($dest_imagedir.DS.'index.html', $indexhtml);
+			JFile::write($dest_imagedir.'/index.html', $indexhtml);
 		}
 
 		if(!JFile::copy($src_imagepath, $dest_imagepath))

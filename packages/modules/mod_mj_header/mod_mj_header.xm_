@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<install type="module" version="1.5.0" client="site" method="upgrade">
+<extension type="module" version="1.5.0" client="site" method="upgrade">
 	<name>Header</name>
 	<version>###VERSION###</version>
 	<creationDate>###DATE###</creationDate>
@@ -56,4 +56,4 @@
 				size="90"/>
 	</fieldset>
 	</fields></config>
-</install>
+</extension>

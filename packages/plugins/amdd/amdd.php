@@ -23,13 +23,13 @@ class plgMobileAmdd extends JPlugin
 
 	function onDeviceDetection(&$MobileJoomla_Settings, &$MobileJoomla_Device)
 	{
-		require_once(dirname(__FILE__).DS.'amdd'.DS.'config.php');
+		require_once(dirname(__FILE__).'/amdd/config.php');
 
 		$cache     = (bool)$this->params->get('cache', 1);
 		$cachesize = (int) $this->params->get('cachesize', 1000);
 		AmddConfig::$cacheSize = $cache ? $cachesize : 0;
 
-		require_once(dirname(__FILE__).DS.'amdd'.DS.'amdd.php');
+		require_once(dirname(__FILE__).'/amdd/amdd.php');
 
 		try
 		{
@@ -64,10 +64,10 @@ class plgMobileAmdd extends JPlugin
 		foreach($result as $row)
 			$size += $row->Data_length;
 
-		$xml = JFactory::getXMLParser('Simple');
-		$xml->loadFile(dirname(__FILE__).DS.'amdd.xml');
-		$element = $xml->document->getElementByPath('creationdate');
-		$date = $element->data();
+		$date = null;
+		$xml = simplexml_load_file(dirname(__FILE__).'/amdd.xml');
+		if(isset($xml->creationdate))
+			$date = (string)$xml->creationdate;
 
 		return $size ? array('Mobile - AMDD', $size, $date) : null;
 	}

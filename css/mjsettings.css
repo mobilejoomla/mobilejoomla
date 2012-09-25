@@ -78,6 +78,11 @@
 	width:100%;
 }
 
+#mjconfig_jpegquality
+{
+	width: 2em;
+}
+
 #mjconfig_jpegquality_slider
 {
 	display:inline-block;
@@ -101,7 +106,19 @@
 	margin-top:-0.4em;
 }
 
+#mjconfig_templatewidth
+{
+	width: 4em;
+}
+
 #mjconfig_latestver
 {
 	white-space:normal;
+}
+
+#adminForm .width-40 {
+	width: 40%;
+}
+#adminForm .width-50 {
+	width: 50%;
 }
