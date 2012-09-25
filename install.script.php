@@ -5,6 +5,10 @@ include_once dirname(__FILE__).'/classes/mjinstaller.php';
 
 class Com_MobilejoomlaInstallerScript
 {
+	/**
+	 * @param string $type
+	 * @param JInstallerComponent $adapter
+	 */
 	function postflight($type, $adapter)
 	{
 		$path = $adapter->getParent()->getPath('source');
@@ -20,15 +24,27 @@ class Com_MobilejoomlaInstallerScript
 		$adapter->getParent()->setPath('manifest', $xml);
 	}
 
+	/**
+	 * @param JInstallerComponent $adapter
+	 * @return bool
+	 */
 	function install($adapter)
 	{
 		return MjInstaller::install();
 	}
+	/**
+	 * @param JInstallerComponent $adapter
+	 * @return bool
+	 */
 	function update($adapter)
 	{
 		return MjInstaller::install();
 	}
 
+	/**
+	 * @param JInstallerComponent $adapter
+	 * @return bool
+	 */
 	function uninstall($adapter)
 	{
 		return MjInstaller::uninstall();
