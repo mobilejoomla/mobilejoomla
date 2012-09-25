@@ -1,0 +1,322 @@
+/* ###SHORTHEADER### */
+a {
+	padding: 0 5px;
+}
+
+a, a:link, a:visited {
+	color: #003399;
+}
+
+a img {
+	border: none;
+}
+
+ul {
+	list-style: disc inside !important;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+
+ul li {
+	padding-bottom: 0.25em;
+}
+
+ul ul {
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+}
+
+ul#mainlevel, ul.hmenu, ul.hsubmenu {
+	margin: 0;
+	padding: 5px 10px !important;
+	border-bottom: 1px solid #d8d8d8;
+	list-style: none !important;
+}
+
+ul.vmenu, ul.vsubmenu {
+	margin: 0;
+	padding: 5px 10px !important;
+	list-style: none !important;
+}
+
+ul#mainlevel li, ul.hmenu li, ul.hsubmenu li {
+	display: inline;
+	position: relative;
+	padding-right: 10px;
+}
+
+ul.vsubmenu li {
+	padding-left: 1em;
+}
+
+ul.hmenu {
+	margin-top: 0;
+}
+
+ul.hmenu li a, ul.hmenu li span {
+	position: relative;
+	white-space: nowrap;
+}
+
+ul#mainlevel li a, ul.hmenu li a, ul.vmenu li a, ul.hsubmenu li a, ul.vsubmenu li a {
+	color: #006600;
+}
+
+ul#mainlevel li a#active_menu, ul.hmenu li.current a, ul.vmenu li.current a {
+	color: #000;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+#content {
+	margin: 10px 2px 2px;
+}
+
+#content h5 {
+	font-size: 1.2em;
+}
+
+#content h1, .contentheading {
+	font-size: 150%;
+	line-height: 130%;
+	margin-bottom: 0.3em;
+}
+
+#content .moduletable {
+	margin: 15px 0;
+}
+
+.createdate {
+	font-size: 10px;
+	text-align: right;
+	color: #999;
+}
+
+.contentpagetitle {
+	text-decoration: none;
+	font-size: 22px;
+	line-height: 100%;
+}
+
+.contentheading {
+	font-size: 22px;
+	font-weight: bold;
+}
+
+p {
+	margin-bottom: 1em;
+}
+
+.breadcrumbs.pathway {
+	display: block;
+	padding: 5px 10px;
+	margin-bottom: 10px;
+	font-size: 11px;
+	border-bottom: 1px solid #d8d8d8;
+}
+
+/* patches to nokia styles */
+#header {
+	background: url('../resources/images/img-branding-background.png') repeat-x top;
+	padding: 17px 10px 0;
+	height: 53px;
+}
+
+#header h1 a {
+	font-weight: bold;
+	display: block;
+	text-decoration: none;
+	color: #44AA33;
+}
+
+h1, div.h1 {
+	border: none;
+	margin: 0;
+	padding: 0;
+	font-size: 23px;
+	background: none;
+}
+
+h2, div.h2 {
+	border-top: none;
+	border-bottom: none;
+	font-size: 14px;
+}
+
+h3, div.h3, .componentheading {
+	border-top: none;
+	border-bottom: none;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 5px 0;
+}
+
+span.markupchooser {
+	color: #C0C0C0;
+}
+
+#footer {
+	height: auto;
+	padding: 0.7em;
+	color: #fff;
+}
+
+#footer ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+#footer ul li {
+	padding-bottom: 0.35em;
+}
+
+#footer ul li a {
+	color: white;
+	text-decoration: none;
+}
+
+#footer a {
+	color: white;
+}
+
+#footer p.jfooter {
+	margin: 15px 0;
+	font-size: 12px;
+	line-height: 120%;
+	color: #ddd;
+}
+
+ol {
+	margin-left: 0.5em;
+	padding-left: 1.5em;
+}
+
+input[type="button"], input[type="submit"], button[type="submit"] {
+	width: 98%;
+}
+
+input[type="button"]:hover, input[type="submit"]:hover, button[type="submit"]:hover,
+input[type="button"]:active, input[type="submit"]:active, button[type="submit"]:active {
+	background-color: #666666;
+	color: white;
+}
+
+div.search {
+	margin: 1em 10px;
+}
+
+div.search table {
+	border: 0;
+	padding: 0;
+	width: 98%;
+}
+
+div.search td.text, div.search td.button {
+	border: 1px solid #d8d8d8;
+	margin:0;
+	padding: 0;
+	line-height: 1;
+	vertical-align: top;
+}
+
+div.search td.button {
+	width: 55px;
+}
+
+div.search td.text input[type="text"] {
+	display: inline;
+	border: 0;
+	margin: 0;
+	padding: 0.2em 0;
+	width: 100%;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+}
+
+div.search td.button input[type="submit"] {
+	display: inline;
+	border: 0;
+	margin: 0;
+	padding: 0.2em 0;
+	width: 100%;
+	color: #666666;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+}
+
+#searchForm table {
+	display: none;
+}
+
+#searchForm .hidden {
+	display: none;
+}
+
+#searchForm select {
+	width: 100%;
+}
+
+#form-login ul li {
+	list-style-type: none;
+}
+
+#form-login a {
+	color: #060;
+	line-height: 1.5;
+}
+
+body {
+	overflow:auto;
+	font-size:12px;
+}
+#wrap {
+	overflow:visible;
+}
+.contentheading, .contentpagetitle {
+	font-size: 18px;
+}
+.categoryview {
+	text-align: left;
+}
+.sectiontableheader {
+	font-weight: bold;
+}
+.sectiontableheader, .sectiontableentry1, .sectiontableentry2 {
+	text-indent: -1em;
+	margin: 0 0 0.5em 1em;
+}
+span.num, span.itemtitle, span.itemdate {
+	padding-right: 0.5em;
+}
+span.num {
+	min-width: 1.5em;
+}
+span.itemhits {
+	font-style: italic;
+}
+
+div.clear {
+	clear: both;
+}
+
+.image-left {
+	float:left;
+}
+.image-right {
+	float:right;
+}
+
+.pagenav {
+	padding: 0 5px;
+}
+
+.mjwideimg {
+	display: block;
+	width: 100%;
+	text-align: center;
+}

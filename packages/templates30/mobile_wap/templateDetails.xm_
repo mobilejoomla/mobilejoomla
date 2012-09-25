@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE install PUBLIC "-//Joomla! 1.6//DTD template 1.0//EN" "http://www.joomla.org/xml/dtd/1.6/template-install.dtd">
+<extension version="1.6" type="template" client="site" method="upgrade">
+	<name>mobile_wap</name>
+	<version>###VERSION###</version>
+	<author>###AUTHOR###</author>
+	<copyright>###COPYRIGHT###</copyright>
+	<creationDate>###DATE###</creationDate>
+	<authorEmail>###EMAIL###</authorEmail>
+	<authorUrl>###URL###</authorUrl>
+	<license>###LICENSE###</license>
+	<description>Mobile Joomla!</description>
+	<files>
+		<filename>index.php</filename>
+		<filename>component.php</filename>
+		<filename>error.php</filename>
+		<filename>template_thumbnail.png</filename>
+		<folder>html</folder>
+	</files>
+	<positions>
+		<position>mj_wap_header</position>
+		<position>mj_wap_middle</position>
+		<position>mj_wap_footer</position>
+		<position>mj_wap_cards</position>
+		<position>mj_all_header</position>
+		<position>mj_all_middle</position>
+		<position>mj_all_footer</position>
+	</positions>
+</extension>

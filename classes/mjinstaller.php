@@ -732,10 +732,20 @@ class MjInstaller
 		self::UpdateConfig($prev_version);
 
 		// install templates
-		if(!self::isJoomla15())
+		if(version_compare(JVERSION, '3.0', '>='))
+		{
+			$TemplateSource = JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/packages/templates30';
+			$TemplateSource16 = JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/packages/templates16';
+			JFolder::move($TemplateSource16.'/mobile_iphone/jqtouch-src', $TemplateSource.'/mobile_iphone/jqtouch-src');
+			JFolder::move($TemplateSource16.'/mobile_smartphone/resources', $TemplateSource.'/mobile_smartphone/resources');
+			JFolder::delete(JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/packages/templates15');
+			JFolder::delete($TemplateSource16);
+		}
+		elseif(version_compare(JVERSION, '1.6', '>='))
 		{
 			$TemplateSource = JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/packages/templates16';
 			JFolder::delete(JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/packages/templates15');
+			JFolder::delete(JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/packages/templates30');
 		}
 		else
 		{
@@ -744,7 +754,9 @@ class MjInstaller
 			JFolder::move($TemplateSource16.'/mobile_iphone/jqtouch-src', $TemplateSource.'/mobile_iphone/jqtouch-src');
 			JFolder::move($TemplateSource16.'/mobile_smartphone/resources', $TemplateSource.'/mobile_smartphone/resources');
 			JFolder::delete($TemplateSource16);
+			JFolder::delete(JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/packages/templates30');
 		}
+
 		$templates = array ('mobile_smartphone','mobile_wap','mobile_imode','mobile_iphone');
 		$status = true;
 		foreach($templates as $template)
