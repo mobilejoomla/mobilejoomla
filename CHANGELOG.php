@@ -13,6 +13,13 @@ defined('_JEXEC') or die('Restricted access');
 
 CHANGELOG
 
+1.2.0
+Stable Release
+- Support Joomla!3.0
+- Add Modules/Plugins Manager
+- Selftest (from MJPro)
+- Update AMDD database
+
 1.1.1
 Stable Release
 - Update AMDD database
