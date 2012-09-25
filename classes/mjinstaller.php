@@ -804,7 +804,7 @@ class MjInstaller
 			JError::raiseError(0, JText::_('COM_MJ__CANNOT_INSTALL').' Mobile Joomla Plugin.');
 		}
 
-		$plugin_table = isJoomla15() ? '#__plugins' : '#__extensions';
+		$plugin_table = self::isJoomla15() ? '#__plugins' : '#__extensions';
 		$query = "SELECT element, ordering FROM $plugin_table WHERE element IN ('mobilebot', 'cache') AND folder='system'";
 		$db->setQuery($query);
 		$rows = $db->loadObjectList('element');
@@ -987,7 +987,7 @@ window.addEvent('domready', function() {
 			$msg .= '<b>'.str_replace('[VER]', self::MJ_version(), JText::_('COM_MJ__UNINSTALL_OK')).'</b>';
 ?>
 <link rel="stylesheet" type="text/css"
-      href="http://www.mobilejoomla.com/checker.php?v=<?php echo urlencode(MJ_version()); ?>&amp;s=2&amp;j=<?php echo urlencode(JVERSION); ?>"/>
+      href="http://www.mobilejoomla.com/checker.php?v=<?php echo urlencode(self::MJ_version()); ?>&amp;s=2&amp;j=<?php echo urlencode(JVERSION); ?>"/>
 <a href="http://www.mobilejoomla.com/" id="mjupdate" target="_blank"></a>
 <?php echo $msg; ?>
 <?php
