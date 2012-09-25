@@ -370,6 +370,9 @@ class plgSystemMobileBot extends JPlugin
 			$browser->set('_mobile', $MobileJoomla_Device['markup']!==false);
 		}
 
+		JPluginHelper::importPlugin('mobile');
+		$app->triggerEvent('onMobileAfterRoute', array (&$MobileJoomla_Settings, &$MobileJoomla_Device));
+
 		if($MobileJoomla_Device['markup']===false) //desktop
 		{
 			$pcpage = $MobileJoomla_Settings['pcpage'];
@@ -390,7 +393,6 @@ class plgSystemMobileBot extends JPlugin
 			$app->registeredurlparams = $registeredurlparams;
 		}
 
-		JPluginHelper::importPlugin('mobile');
 		$app->triggerEvent('onMobile', array (&$MobileJoomla, &$MobileJoomla_Settings, &$MobileJoomla_Device));
 
 		$template = $MobileJoomla->getParam('template');
