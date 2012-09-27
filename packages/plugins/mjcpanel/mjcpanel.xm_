@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.5" type="plugin" group="quickicon" method="upgrade">
+	<name>Quickicon - Mobile Joomla! CPanel Icon</name>
+	<version>###VERSION###</version>
+	<author>###AUTHOR###</author>
+	<copyright>###COPYRIGHT###</copyright>
+	<creationDate>###DATE###</creationDate>
+	<authorEmail>###EMAIL###</authorEmail>
+	<authorUrl>###URL###</authorUrl>
+	<license>###LICENSE###</license>
+	<description>MobileJoomla Control Panel Icon</description>
+	<files>
+		<filename plugin="mjcpanel">mjcpanel.php</filename>
+	</files>
+</extension>

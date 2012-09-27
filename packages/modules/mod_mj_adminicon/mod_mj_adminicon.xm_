@@ -11,7 +11,5 @@
 	<description>Display MJ icon on cpanel.</description>
 	<files>
 		<filename module="mod_mj_adminicon">mod_mj_adminicon.php</filename>
-		<folder>css</folder>
-		<folder>images</folder>
 	</files>
 </extension>

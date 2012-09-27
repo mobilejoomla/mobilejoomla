@@ -9,6 +9,13 @@
 	margin:0 0 0.5em;
 }
 
+i.icon-mj-cpanel, i.icon-mj-update {
+    background-image: url('../images/mj16x16.gif');
+    width: 16px;
+    height: 16px;
+	vertical-align: top;
+}
+
 
 dd.mj #mjupdate{
 	background: url("../images/warning.png") no-repeat scroll 10px 50% #FDFBB9;

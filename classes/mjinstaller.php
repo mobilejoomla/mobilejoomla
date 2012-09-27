@@ -510,6 +510,26 @@ class MjInstaller
 				}
 			}
 
+			if(version_compare('1.2.0', $prev_version, '>'))
+			{
+				if(self::isJoomla15())
+				{
+					$old_files = array( 'admin.mobilejoomla.html.php',
+										'imagerescaler.class.php',
+										'mobilejoomla.class.php',
+										'toolbar.mobilejoomla.php',
+										'toolbar.mobilejoomla.html.php');
+					foreach($old_files as $file)
+						if(JFile::exists($admin.$file))
+							JFile::delete($admin.$file);
+				}
+				if(version_compare(JVERSION, '2.5', '>='))
+				{
+					if(self::getExtensionId('module', 'mod_mj_adminicon') !== null
+						&& !self::UninstallModule('mod_mj_adminicon'))
+						JError::raiseError(0, JText::_('COM_MJ__CANNOT_UNINSTALL').' MobileJoomla CPanel Icons.');
+				}
+			}
 		}
 
 		$MobileJoomla_Settings['desktop_url'] = JURI::root();
@@ -785,7 +805,8 @@ class MjInstaller
 		$status = self::InstallModule($ModuleSource, 'mod_mj_menu', 'Mobile Menu', 'mj_all_header', !$upgrade, 0) && $status;
 		$status = self::InstallModule($ModuleSource, 'mod_mj_markupchooser', 'Select Markup',
 								array ('footer', 'mj_all_footer'), 1, 0) && $status;
-		$status = self::InstallModule($ModuleSource, 'mod_mj_adminicon', 'MobileJoomla CPanel Icons', 'icon', 1, 0, 1) && $status;
+		if(version_compare(JVERSION, '2.5', '<'))
+			$status = self::InstallModule($ModuleSource, 'mod_mj_adminicon', 'MobileJoomla CPanel Icons', 'icon', 1, 0, 1) && $status;
 
 		if(function_exists('MJAddonInstallModules'))
 			$status = MJAddonInstallModules($ModuleSource) && $status;
@@ -816,6 +837,14 @@ class MjInstaller
 			$db->query();
 		}
 
+		// install quickicon plugin
+		if(!self::InstallPlugin('quickicon', $PluginSource, 'mjcpanel'))
+		{
+			$status = false;
+			JError::raiseError(0, JText::_('COM_MJ__CANNOT_INSTALL').' Quickicon - Mobile Joomla! CPanel Icon.');
+		}
+
+		// install mobile plugins
 		if(!JFolder::create(JPATH_PLUGINS.'/mobile'))
 		{
 			$status = false;
@@ -935,6 +964,8 @@ window.addEvent('domready', function() {
 			MJAddonUninstallPlugins();
 		if(!self::UninstallPlugin('system', 'mobilebot'))
 			JError::raiseError(0, JText::_('COM_MJ__CANNOT_UNINSTALL').' Mobile Joomla Plugin.');
+		if(!self::UninstallPlugin('quickicon', 'mjcpanel'))
+			JError::raiseError(0, JText::_('COM_MJ__CANNOT_UNINSTALL').' Quickicon - Mobile Joomla! CPanel Icon.');
 		$checkers = array ('simple', 'always', 'domains');
 		foreach($checkers as $plugin)
 			if(!self::UninstallPlugin('mobile', $plugin))
@@ -966,7 +997,9 @@ window.addEvent('domready', function() {
 
 		if(function_exists('MJAddonUninstallModules'))
 			MJAddonUninstallModules();
-		$moduleslist = array ('mod_mj_menu', 'mod_mj_markupchooser', 'mod_mj_header', 'mod_mj_adminicon');
+		$moduleslist = array ('mod_mj_menu', 'mod_mj_markupchooser', 'mod_mj_header');
+		if(version_compare(JVERSION, '2.5', '<'))
+			$moduleslist[] = 'mod_mj_adminicon';
 		foreach($moduleslist as $m)
 			if(!self::UninstallModule($m))
 				JError::raiseError(0, JText::_('COM_MJ__CANNOT_UNINSTALL')." Mobile Joomla '$m' module.");
