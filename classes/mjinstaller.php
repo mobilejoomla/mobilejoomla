@@ -15,6 +15,16 @@ jimport('joomla.installer.installer');
 jimport('joomla.filesystem.file');
 jimport('joomla.filesystem.folder');
 
+//workaround for MJPro 1.1.x downgrade
+function MJ_version()
+{
+	return MjInstaller::MJ_version();
+}
+function isJoomla15()
+{
+	return MjInstaller::isJoomla15();
+}
+
 class MjInstaller
 {
 	static function MJ_version()
