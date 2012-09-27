@@ -9,19 +9,19 @@ class Com_MobilejoomlaInstallerScript
 	 * @param string $type
 	 * @param JInstallerComponent $adapter
 	 */
-	function postflight($type, $adapter)
+	function preflight($type, $adapter)
 	{
 		$path = $adapter->getParent()->getPath('source');
 		$name = $adapter->get('name');
-		$xml = $path.'/'.$name.'.xml';
-		$xmlsrc = $path.'/'.$name.'.j2x.xml';
+		$xmldest = $path.'/mobilejoomla.xml';
+		$xmlsrc = $path.'/mobilejoomla.j2x.xml';
 		if(JFile::exists($xmlsrc))
 		{
-			if(JFile::exists($xml))
-				JFile::delete($xml);
-			JFile::move($xmlsrc, $xml);
+			if(JFile::exists($xmldest))
+				JFile::delete($xmldest);
+			JFile::move($xmlsrc, $xmldest);
 		}
-		$adapter->getParent()->setPath('manifest', $xml);
+		$adapter->getParent()->setPath('manifest', $xmldest);
 	}
 
 	/**
