@@ -108,14 +108,14 @@ function showconfig()
 	$templates = array ();
 	$templates[] = array ('value' => '');
 
-	jimport('joomla.installer');
+	jimport('joomla.installer.installer');
 	$templateDirs = JFolder::folders($templateBaseDir);
 	foreach($templateDirs as $templateDir)
 	{
 		$templateFile = $templateBaseDir.$templateDir.'/templateDetails.xml';
 		if(!JFile::exists($templateFile))
 			continue;
-		if($isJoomla15)
+		if(version_compare(JVERSION, '2.5', '<'))
 			$xml = JApplicationHelper::parseXMLInstallFile($templateFile);
 		else
 			$xml = JInstaller::parseXMLInstallFile($templateFile);

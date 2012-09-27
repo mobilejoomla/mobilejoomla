@@ -16,7 +16,7 @@ $app->setUserState( "com_mobilejoomla.scientiainstall", false );
 
 // get current configuration
 $db = JFactory::getDBO();
-if($isJoomla15)
+if(version_compare(JVERSION, '1.7', '<'))
 {
 	$query = "SELECT element FROM #__plugins WHERE published=1 AND folder='mobile' AND element IN ('amdd', 'scientia')";
 	$db->setQuery($query);

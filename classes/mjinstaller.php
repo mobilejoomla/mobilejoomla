@@ -494,7 +494,8 @@ class MjInstaller
 					$css_custom_new = JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/packages/templates15/mobile_smartphone/css/custom.css';
 				else
 					$css_custom_new = JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/packages/templates16/mobile_smartphone/css/custom.css';
-				JFile::copy($css_custom, $css_custom_new);
+				if(JFile::exists($css_custom))
+					JFile::copy($css_custom, $css_custom_new);
 				self::UninstallTemplate('mobile_pda');
 
 				// move position mj_iphone_middle to mj_iphone_header2
