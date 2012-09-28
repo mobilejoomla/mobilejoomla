@@ -387,6 +387,26 @@ function saveconfig()
 	$dispatcher = JDispatcher::getInstance();
 	$dispatcher->trigger('onMJBeforeSave', array(&$settings, &$MobileJoomla_Settings));
 
+	if($_POST['mjconfig_desktop_url'] == '')
+		$_POST['mjconfig_desktop_url'] = JURI::root();
+	elseif(strpos($_POST['mjconfig_desktop_url'], '/') === false)
+		$_POST['mjconfig_desktop_url'] = 'http://'.$_POST['mjconfig_desktop_url'].'/';
+	else
+	{
+		$desktop_url = @parse_url($_POST['mjconfig_desktop_url']);
+		if(!isset($desktop_url['scheme']))
+			$desktop_url['scheme'] = 'http';
+		if(!isset($desktop_url['host']))
+			$desktop_url['host'] = $_SERVER['HTTP_HOST'];
+		if(isset($desktop_url['port']))
+			$desktop_url['host'] .= ':' . $desktop_url['port'];
+		if(!isset($desktop_url['path']))
+			$desktop_url['path'] = '/';
+		if(substr($desktop_url['path'], -1, 1) != '/')
+			$desktop_url['path'] .= '/';
+		$_POST['mjconfig_desktop_url'] = $desktop_url['scheme'] . '://' . $desktop_url['host'] . $desktop_url['path'];
+	}
+
 	$params = array ();
 	foreach($settings as $param)
 	{
