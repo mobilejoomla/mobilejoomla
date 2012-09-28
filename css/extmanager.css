@@ -4,6 +4,7 @@ body {
 }
 table {
 	font-size: 100%;
+	width: 100%;
 }
 th {
 	height: 90px;
@@ -11,13 +12,13 @@ th {
 	vertical-align: bottom;
 }
 td {
-	vertical-align: top;
+	vertical-align: middle;
 }
 tr.odd {
-	background-color: #ffffc0;
+	background-color: #f8f8f8;
 }
 tr.even {
-	background-color: #ffe0e0;
+	background-color: #fefefe;
 }
 div.vert {
 	text-align: center;
@@ -36,4 +37,6 @@ span.type {
 }
 .link {
 	cursor: pointer;
+	display: block;
+	text-align: center;
 }

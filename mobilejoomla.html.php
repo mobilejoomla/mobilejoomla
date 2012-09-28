@@ -129,13 +129,6 @@ class HTML_mobilejoomla
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__COMPONENT_ON_HOMEPAGE', 'COM_MJ__COMPONENT_ON_HOMEPAGE_DESC'),
 							'input_blob' => $lists['global.componenthome']
 						)
-					),
-					'COM_MJ__EXTMANAGER' => array(
-						array(
-							'input_blob' =>  '<a class="modal button" href="index.php?option=com_mobilejoomla&extmanager=view_modules" rel="{handler:\'iframe\',size:{x:760,y:480}}">Modules</a>'
-											.' &nbsp; '
-											.'<a class="modal button" href="index.php?option=com_mobilejoomla&extmanager=view_plugins" rel="{handler:\'iframe\',size:{x:760,y:480}}">Plugins</a>'
-						)
 					)
 				),
 				//right
@@ -453,6 +446,14 @@ class HTML_mobilejoomla
 				),
 				//right
 				array(
+					'COM_MJ__EXTMANAGER' => array(
+						array(
+							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__EXTS_MANAGER', 'COM_MJ__EXTS_MANAGER_DESC'),
+							'input_blob' =>  '<a class="modal button" href="index.php?option=com_mobilejoomla&extmanager=view_modules" rel="{handler:\'iframe\',size:{x:760,y:480}}">Modules</a>'
+											.' &nbsp; '
+											.'<a class="modal button" href="index.php?option=com_mobilejoomla&extmanager=view_plugins" rel="{handler:\'iframe\',size:{x:760,y:480}}">Plugins</a>'
+						)
+					),
 					'COM_MJ__DOMAIN_NAME' => array(
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__DESKTOP_URL', 'COM_MJ__DESKTOP_URL_DESC', 'desktop_url'),
