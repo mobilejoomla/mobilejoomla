@@ -31,6 +31,10 @@ class MjInstaller
 	{
 		return '###VERSION###';
 	}
+	static function MJ_publicVersion()
+	{
+		return str_replace('.pro', '', '###VERSION###');
+	}
 
 	static function isJoomla15()
 	{
@@ -918,7 +922,7 @@ class MjInstaller
 			if($error->get('level') & E_ERROR)
 				$count++;
 		if($count == 0)
-			$msg .= str_replace('[VER]', self::MJ_version(), JText::_('COM_MJ__INSTALL_OK'));
+			$msg .= str_replace('[VER]', self::MJ_publicVersion(), JText::_('COM_MJ__INSTALL_OK'));
 ?>
 <link rel="stylesheet" type="text/css"
 	  href="http://www.mobilejoomla.com/checker.php?v=<?php echo urlencode(self::MJ_version()); ?>&amp;s=1&amp;j=<?php echo urlencode(JVERSION); ?>"/>
@@ -1028,7 +1032,7 @@ window.addEvent('domready', function() {
 			if($error->get('level') & E_ERROR)
 				$count++;
 		if($count == 0)
-			$msg .= '<b>'.str_replace('[VER]', self::MJ_version(), JText::_('COM_MJ__UNINSTALL_OK')).'</b>';
+			$msg .= '<b>'.str_replace('[VER]', self::MJ_publicVersion(), JText::_('COM_MJ__UNINSTALL_OK')).'</b>';
 ?>
 <link rel="stylesheet" type="text/css"
       href="http://www.mobilejoomla.com/checker.php?v=<?php echo urlencode(self::MJ_version()); ?>&amp;s=2&amp;j=<?php echo urlencode(JVERSION); ?>"/>
