@@ -449,9 +449,9 @@ class HTML_mobilejoomla
 					'COM_MJ__EXTMANAGER' => array(
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__EXTS_MANAGER', 'COM_MJ__EXTS_MANAGER_DESC'),
-							'input_blob' =>  '<a class="modal button" href="index.php?option=com_mobilejoomla&extmanager=view_modules" rel="{handler:\'iframe\',size:{x:760,y:480}}">Modules</a>'
-											.' &nbsp; '
-											.'<a class="modal button" href="index.php?option=com_mobilejoomla&extmanager=view_plugins" rel="{handler:\'iframe\',size:{x:760,y:480}}">Plugins</a>'
+							'input_blob' =>  '<p><a class="modal button" href="index.php?option=com_mobilejoomla&extmanager=view_modules" rel="{handler:\'iframe\',size:{x:760,y:480}}">Modules</a>'
+											.' &nbsp; &nbsp; '
+											.'<a class="modal button" href="index.php?option=com_mobilejoomla&extmanager=view_plugins" rel="{handler:\'iframe\',size:{x:760,y:480}}">Plugins</a></p>'
 						)
 					),
 					'COM_MJ__DOMAIN_NAME' => array(
