@@ -4,7 +4,7 @@ defined('_JEXEC') or die;
 $params = &$this->item->params;
 JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 JHtml::_('behavior.tooltip');
-JHtml::core();
+JHtml::_('behavior.framework');
 ?>
 <?php if ($this->item->state == 0) : ?>
 <div class="system-unpublished">

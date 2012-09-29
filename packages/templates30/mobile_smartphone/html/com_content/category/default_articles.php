@@ -3,7 +3,7 @@
 defined('_JEXEC') or die;
 JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 JHtml::_('behavior.tooltip');
-JHtml::core();
+JHtml::_('behavior.framework');
 $params		= &$this->item->params;
 $n			= count($this->items);
 $listOrder	= $this->escape($this->state->get('list.ordering'));
