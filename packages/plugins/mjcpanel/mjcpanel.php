@@ -21,11 +21,11 @@ class plgQuickiconMjcpanel extends JPlugin
 	public function onGetIcons($context)
 	{
 		if($context != 'mod_quickicon' || !JFactory::getUser()->authorise('core.manage', 'com_mobilejoomla'))
-			return;
+			return null;
 
 		return self::getIcons();
 	}
-	
+
 	public static function getIcons()
 	{
 		if(!self::isMJInstalled())
@@ -47,7 +47,7 @@ class plgQuickiconMjcpanel extends JPlugin
 		if(version_compare(JVERSION, '3.0', '>='))
 		{
 			$image_prefix = '';
-			$image_suffox = '';
+			$image_suffix = '';
 		}
 		else
 		{
