@@ -433,10 +433,21 @@ class plgSystemMobileBot extends JPlugin
 		}
 
 		// JHTML overrides
-		jimport('joomla.html');
-		JHTML::addIncludePath(JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/override/html');
-		if(@is_dir($dir = JPATH_THEMES.'/'.$template.'/override/html'))
-			JHTML::addIncludePath($dir);
+		if(version_compare(JVERSION, '3.0', '<'))
+		{
+			jimport('joomla.html.html');
+			JHTML::addIncludePath(JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/override/html');
+			if(@is_dir($dir = JPATH_THEMES.'/'.$template.'/override/html'))
+				JHTML::addIncludePath($dir);
+		}
+		else
+		{
+			// load email.php only (workaround for new J!3 class loader)
+			if(@is_file($path = JPATH_THEMES.'/'.$template.'/override/html/email.php'))
+				JLoader::register('JHtmlEmail', $path, true);
+			else
+				JLoader::register('JHtmlEmail', JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/override/html/email.php', true);
+		}
 
 		$this->setConfig('gzip', $gzip);
 
