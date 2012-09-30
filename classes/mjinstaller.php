@@ -918,6 +918,7 @@ class MjInstaller
 		//Show install status
 		$msg = '';
 		$count = 0;
+		/** @var JException $error */
 		foreach(JError::getErrors() as $error)
 			if($error->get('level') & E_ERROR)
 				$count++;
@@ -1028,6 +1029,7 @@ window.addEvent('domready', function() {
 		//Show uninstall status
 		$msg = '';
 		$count = 0;
+		/** @var JException $error */
 		foreach(JError::getErrors() as $error)
 			if($error->get('level') & E_ERROR)
 				$count++;

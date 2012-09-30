@@ -19,6 +19,7 @@ function _initStatus()
 function _sendStatus()
 {
 	$msg = array();
+	/** @var JException $error */
 	foreach(JError::getErrors() as $error)
 		if($error->get('level'))
 			$msg[] = $error->get('message');

@@ -297,6 +297,10 @@ class plgSystemMobileBot extends JPlugin
 			define('SHMOBILE_MOBILE_TEMPLATE_SWITCHED', 1);
 	}
 
+	/**
+	 * @param JRouter $router
+	 * @param JURI $uri
+	 */
 	function buildRule(&$router, &$uri)
 	{
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
@@ -460,6 +464,7 @@ class plgSystemMobileBot extends JPlugin
 		if(isset($current[session_name()]))
 			unset($current[session_name()]);
 
+		/** @var JMenu $menu */
 		$menu = $app->getMenu();
 		if($is_joomla15)
 			$default = $menu->getDefault();
