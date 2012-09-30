@@ -127,7 +127,7 @@ class plgSystemMobileBot extends JPlugin
 
 		// template preview
 		$getTemplate = isset($_GET['template']) ? $_GET['template'] : null;
-		if(version_compare(JVERSION,'1.7','ge'))
+		if(version_compare(JVERSION, '1.7', '>='))
 		{
 			if($getTemplate===null && isset($_GET['templateStyle']) && is_int($_GET['templateStyle']))
 			{
@@ -137,7 +137,7 @@ class plgSystemMobileBot extends JPlugin
 				$getTemplate = $db->loadResult();
 			}
 		}
-		elseif(version_compare(JVERSION,'1.6','ge'))
+		elseif(version_compare(JVERSION, '1.6', '>='))
 		{
 			if(is_int($getTemplate))
 			{
@@ -367,7 +367,7 @@ class plgSystemMobileBot extends JPlugin
 		$MobileJoomla_Settings =& MobileJoomla::getConfig();
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
 
-		if(version_compare(JVERSION,'3.0','lt'))
+		if(version_compare(JVERSION, '3.0', '<'))
 		{
 			jimport('joomla.environment.browser');
 			$browser = JBrowser::getInstance();
@@ -419,11 +419,11 @@ class plgSystemMobileBot extends JPlugin
 				$params_data = $db->loadResult();
 				if(empty($params_data))
 					$params_data = '{}';
-				if(version_compare(JVERSION,'1.7','ge'))
+				if(version_compare(JVERSION, '1.7', '>='))
 				{
 					$app->setTemplate($template, $params_data);
 				}
-				elseif(version_compare(JVERSION,'1.6','ge'))
+				elseif(version_compare(JVERSION, '1.6', '>='))
 				{
 					$app->setTemplate($template);
 					$template_obj = $app->getTemplate(true);

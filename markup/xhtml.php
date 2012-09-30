@@ -83,7 +83,7 @@ class MobileJoomla_XHTML extends MobileJoomla
 		if($this->config['xhtml.allowextedit'])
 		{
 			$user = JFactory::getUser();
-			if(!$user->get('guest') && version_compare(JVERSION,'3.0','lt'))
+			if(!$user->get('guest') && version_compare(JVERSION, '3.0', '<'))
 			{
 				$editor = JFactory::getEditor();
 				echo $editor->initialise();

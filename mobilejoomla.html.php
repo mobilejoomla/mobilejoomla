@@ -59,7 +59,7 @@ class HTML_mobilejoomla
 		$app = JFactory::getApplication();
 		$updatenotice = '<div id="mjmsgarea"></div>';
 		$app->enqueueMessage($updatenotice, 'mj');
-		if(version_compare(JVERSION,'1.7.0','lt'))
+		if(version_compare(JVERSION, '1.7', '<'))
 		{
 			$document = JFactory::getDocument();
 			$document->addStyleDeclaration('#mjmsgarea{margin:-8px -10px 8px}');
