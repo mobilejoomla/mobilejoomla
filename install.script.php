@@ -12,7 +12,6 @@ class Com_MobilejoomlaInstallerScript
 	function preflight($type, $adapter)
 	{
 		$path = $adapter->getParent()->getPath('source');
-		$name = $adapter->get('name');
 		$xmldest = $path.'/mobilejoomla.xml';
 		$xmlsrc = $path.'/mobilejoomla.j2x.xml';
 		if(JFile::exists($xmlsrc))
