@@ -39,7 +39,7 @@ class AmddDatabaseJoomla extends AmddDatabase
 				."  `data`  VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,"
 				."  UNIQUE(`ua`),"
 				."  INDEX(`group`)"
-				.") TYPE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin";
+				.") ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin";
 		$db->setQuery($query);
 		$db->query();
 
@@ -47,7 +47,7 @@ class AmddDatabaseJoomla extends AmddDatabase
 				."  `ua`    VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,"
 				."  `data`  VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,"
 				."  `time`  INT UNSIGNED NOT NULL"
-				.") TYPE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin";
+				.") ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin";
 		$db->setQuery($query);
 		$db->query();
 	}
