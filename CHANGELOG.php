@@ -19,6 +19,7 @@ Stable Release
 - Add Modules/Plugins Manager
 - Selftest (from MJPro)
 - Update AMDD database
+- Minor fixes
 
 1.1.1
 Stable Release
