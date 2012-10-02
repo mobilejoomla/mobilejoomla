@@ -1,6 +1,7 @@
 <?php
 // no direct access
 defined('_JEXEC') or die;
+$COM_CONTENT_PUBLISHED_DATE_ON = version_compare(JVERSION, '1.7', '<') ? 'COM_CONTENT_PUBLISHED_DATE' : 'COM_CONTENT_PUBLISHED_DATE_ON';
 $params = &$this->item->params;
 $canEdit	= $this->item->params->get('access-edit');
 ?>
@@ -53,7 +54,7 @@ $canEdit	= $this->item->params->get('access-edit');
 <div class="modified"><?php echo JText::sprintf('COM_CONTENT_LAST_UPDATED', JHtml::_('date',$this->item->modified, JText::_('DATE_FORMAT_LC2'))); ?></div>
 <?php endif; ?>
 <?php if ($params->get('show_publish_date')) : ?>
-<div class="published"><?php echo JText::sprintf('COM_CONTENT_PUBLISHED_DATE', JHtml::_('date',$this->item->publish_up, JText::_('DATE_FORMAT_LC2'))); ?></div>
+<div class="published"><?php echo JText::sprintf($COM_CONTENT_PUBLISHED_DATE_ON, JHtml::_('date',$this->item->publish_up, JText::_('DATE_FORMAT_LC2'))); ?></div>
 <?php endif; ?>
 <?php if ($params->get('show_author') && !empty($this->item->author )) : ?>
 <div class="createdby"> 
