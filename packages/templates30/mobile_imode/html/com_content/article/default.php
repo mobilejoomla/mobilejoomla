@@ -3,6 +3,7 @@
 defined('_JEXEC') or die;
 JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
 $params		= $this->item->params;
+$images = isset($this->item->images) ? json_decode($this->item->images) : new stdClass;
 $canEdit	= $this->item->params->get('access-edit');
 $user		= JFactory::getUser();
 ?>
@@ -84,6 +85,14 @@ endif; ?>
 <?php 	echo $this->item->toc; ?>
 <?php endif; ?>
 <?php if ($params->get('access-view')):?>
+<?php if (isset($images->image_fulltext) and !empty($images->image_fulltext)) : ?>
+<?php 	$imgfloat = (empty($images->float_fulltext)) ? $params->get('float_fulltext') : $images->float_fulltext; ?>
+<div class="img-fulltext-<?php echo htmlspecialchars($imgfloat); ?>">
+<img <?php if ($images->image_fulltext_caption):
+		echo 'class="caption"'.' title="' .htmlspecialchars($images->image_fulltext_caption) .'"';
+	endif; ?> src="<?php echo htmlspecialchars($images->image_fulltext); ?>" alt="<?php echo htmlspecialchars($images->image_fulltext_alt); ?>"/>
+</div>
+<?php endif; ?>
 <?php 	echo $this->item->text; ?>
 <?php 	//optional teaser intro text for guests ?>
 <?php elseif ($params->get('show_noauth') == true AND  $user->get('guest') ) : ?>

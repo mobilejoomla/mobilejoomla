@@ -2,6 +2,7 @@
 // no direct access
 defined('_JEXEC') or die;
 $params = &$this->item->params;
+$images = isset($this->item->images) ? json_decode($this->item->images) : new stdClass;
 JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.framework');
@@ -73,6 +74,14 @@ JHtml::_('behavior.framework');
 <div class="hits"><?php echo JText::sprintf('COM_CONTENT_ARTICLE_HITS', $this->item->hits); ?></div>
 <?php endif; ?>
 <?php if (($params->get('show_author')) or ($params->get('show_category')) or ($params->get('show_create_date')) or ($params->get('show_modify_date')) or ($params->get('show_publish_date')) or ($params->get('show_parent_category')) or ($params->get('show_hits'))) :?>
+</div>
+<?php endif; ?>
+<?php if (isset($images->image_intro) and !empty($images->image_intro)) : ?>
+<?php $imgfloat = (empty($images->float_intro)) ? $params->get('float_intro') : $images->float_intro; ?>
+<div class="img-intro-<?php echo htmlspecialchars($imgfloat); ?>">
+<img <?php if ($images->image_intro_caption):
+			echo 'class="caption"'.' title="' .htmlspecialchars($images->image_intro_caption) .'"';
+		endif; ?> src="<?php echo htmlspecialchars($images->image_intro); ?>" alt="<?php echo htmlspecialchars($images->image_intro_alt); ?>"/>
 </div>
 <?php endif; ?>
 <?php echo $this->item->introtext; ?>
