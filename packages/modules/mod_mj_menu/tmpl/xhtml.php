@@ -29,7 +29,10 @@ foreach($menu as $item)
 	if($item->type == 'separator')
 		$outline = array('<span'.$class.'>', '</span>');
 	else
-		$outline = array('<a'.$class.' href="'.$item->flink.'"'.$item->accesskey.'>', '</a>');
+	{
+		$target = $item->browserNav > 0 ? ' target="_blank"' : '';
+		$outline = array('<a'.$class.' href="'.$item->flink.'"'.$target.$item->accesskey.'>', '</a>');
+	}
 
 	$text = $item->title;
 	$img  = $item->menu_image ? '<img src="'.$item->menu_image.'" />' : '';
