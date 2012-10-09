@@ -527,17 +527,14 @@ class MjInstaller
 
 			if(version_compare('1.2.0', $prev_version, '>'))
 			{
-				if(self::isJoomla15())
-				{
-					$old_files = array( 'admin.mobilejoomla.html.php',
-										'imagerescaler.class.php',
-										'mobilejoomla.class.php',
-										'toolbar.mobilejoomla.php',
-										'toolbar.mobilejoomla.html.php');
-					foreach($old_files as $file)
-						if(JFile::exists($admin.$file))
-							JFile::delete($admin.$file);
-				}
+				$old_files = array( 'admin.mobilejoomla.html.php',
+									'imagerescaler.class.php',
+									'mobilejoomla.class.php',
+									'toolbar.mobilejoomla.php',
+									'toolbar.mobilejoomla.html.php');
+				foreach($old_files as $file)
+					if(JFile::exists($admin.$file))
+						JFile::delete($admin.$file);
 				if(version_compare(JVERSION, '2.5', '>='))
 				{
 					if(self::getExtensionId('module', 'mod_mj_adminicon') !== null
