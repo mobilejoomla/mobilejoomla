@@ -23,6 +23,7 @@
 		<files>
 			<filename>mobilejoomla.html.php</filename>
 			<filename>mobilejoomla.php</filename>
+			<filename>admin.mobilejoomla.php</filename>
 			<filename>CHANGELOG.php</filename>
 			<filename>defconfig.php</filename>
 			<filename>index.html</filename>
