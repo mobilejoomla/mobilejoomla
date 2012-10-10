@@ -115,7 +115,7 @@ function showconfig()
 		$templateFile = $templateBaseDir.$templateDir.'/templateDetails.xml';
 		if(!JFile::exists($templateFile))
 			continue;
-		if(version_compare(JVERSION, '2.5', '<'))
+		if(version_compare(JVERSION, '2.5.5', '<'))
 			$xml = JApplicationHelper::parseXMLInstallFile($templateFile);
 		else
 			$xml = JInstaller::parseXMLInstallFile($templateFile);
