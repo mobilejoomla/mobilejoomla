@@ -300,10 +300,7 @@ function showconfig()
 			$children[$pt] = $list;
 		}
 		$list = array();
-		if(!$isJoomla15)
-			$id = intval($mitems[0]->id);
-		else
-			$id = intval($mitems[0]->parent_id);
+		$id = $isJoomla15 ? 0 : 1;
 		if(@$children[$id])
 			TreeRecurse($id, '', $list, $children);
 		$mitems = array();
