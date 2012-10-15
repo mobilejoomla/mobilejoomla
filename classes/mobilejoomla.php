@@ -271,17 +271,11 @@ class MobileJoomla
 
 		switch($device)
 		{
-		case 'xhtml':
-		case 'wml':
-		case 'chtml':
-		case 'iphone':
-			if($MobileJoomla_Settings[$device.'.domain'])
-				$uri->setHost($MobileJoomla_Settings[$device.'.domain']);
-			break;
 		case 'desktop':
 			break;
 		default:
-			$device = false;
+			if($MobileJoomla_Settings[$device.'.domain'])
+				$uri->setHost($MobileJoomla_Settings[$device.'.domain']);
 		}
 
 		if($device !== false)
