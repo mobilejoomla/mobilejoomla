@@ -123,6 +123,12 @@ class MjInstaller
 		}
 	}
 
+	static function cleanPluginsCache()
+	{
+		$cache = JFactory::getCache('com_plugins', '');
+		$cache->clean();
+	}
+
 	static function InstallTemplate($sourcedir, $name)
 	{
 		try
@@ -912,6 +918,8 @@ class MjInstaller
 		if($status)
 			JFolder::delete($PluginSource);
 
+		self::cleanPluginsCache();
+
 		//Show install status
 		$msg = '';
 		$count = 0;
@@ -1022,6 +1030,8 @@ window.addEvent('domready', function() {
 		$query = "DROP TABLE IF EXISTS `#__mj_modules`, `#__mj_plugins`";
 		$db->setQuery($query);
 		$db->query();
+
+		self::cleanPluginsCache();
 
 		//Show uninstall status
 		$msg = '';
