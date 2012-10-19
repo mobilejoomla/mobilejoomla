@@ -26,7 +26,7 @@ if($MobileJoomla_Device['markup'] != $MobileJoomla_Device['default_markup'])
 	$home .= '?device='.$MobileJoomla_Device['markup'];
 ?>
 <!doctype html>
-<html <?php echo $MobileJoomla->getXmlnsString(); ?>>
+<html<?php echo $MobileJoomla->getXmlnsString(); ?>>
 <head>
 	<meta http-equiv="Content-Type" content="<?php echo $MobileJoomla->getContentString(); ?>"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
