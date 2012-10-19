@@ -577,9 +577,13 @@ class plgSystemMobileBot extends JPlugin
 
 		if(isset($_GET['device']))
 		{
-			$markup = self::CheckMarkup($_GET['device']);
+			$markup = $_GET['device'];
 			$uri = JURI::getInstance();
 			$uri->delVar('device');
+
+			if($markup == 'auto')
+				return false;
+			$markup = self::CheckMarkup($markup);
 		}
 
 		if($markup === false && isset($_COOKIE['mjmarkup']))
