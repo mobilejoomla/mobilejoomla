@@ -23,6 +23,9 @@ class plgMobileAmdd extends JPlugin
 
 	function onDeviceDetection(&$MobileJoomla_Settings, &$MobileJoomla_Device)
 	{
+		if($MobileJoomla_Device['markup'] !== false)
+			return;
+
 		require_once(dirname(__FILE__).'/amdd/config.php');
 
 		$cache     = (bool)$this->params->get('cache', 1);

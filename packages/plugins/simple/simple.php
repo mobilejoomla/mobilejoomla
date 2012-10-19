@@ -21,6 +21,8 @@ class plgMobileSimple extends JPlugin
 
 	function onDeviceDetection(&$MobileJoomla_Settings, &$MobileJoomla_Device)
 	{
+		if($MobileJoomla_Device['markup'] !== false)
+			return;
 		$this->checkAccept($MobileJoomla_Settings, $MobileJoomla_Device);
 		$this->checkUserAgent($MobileJoomla_Settings, $MobileJoomla_Device);
 		if($MobileJoomla_Device['markup'])
