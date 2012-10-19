@@ -217,11 +217,13 @@ class ImageRescaler
 		if($dest_width ==0) $dest_width  = 1;
 		if($dest_height==0) $dest_height = 1;
 
+		$jpegquality = $MobileJoomla_Settings['jpegquality'];
 		if(isset($MobileJoomla_Settings['hiresimages']) && $MobileJoomla_Settings['hiresimages'] != 0 &&
 			isset($MobileJoomla_Device['pixelratio']) && $MobileJoomla_Device['pixelratio'] != 0)
 		{
 			$dest_width  *= $MobileJoomla_Device['pixelratio'];
 			$dest_height *= $MobileJoomla_Device['pixelratio'];
+			$jpegquality = $MobileJoomla_Settings['hijpegquality'];
 		}
 
 		if(in_array($src_ext, $formats))
@@ -316,7 +318,7 @@ class ImageRescaler
 		switch($dest_ext)
 		{
 			case 'jpg':
-				ImageJPEG($dest_image, null, $MobileJoomla_Settings['jpegquality']);
+				ImageJPEG($dest_image, null, $jpegquality);
 				break;
 			case 'gif':
 				ImageTrueColorToPalette($dest_image, true, 256);
