@@ -109,7 +109,7 @@ class HTML_mobilejoomla
 					'COM_MJ__IMAGE' => array(
 						array(
 							'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__IMAGE_QUALITY', 'COM_MJ__IMAGE_QUALITY_DESC', 'jpegquality'),
-							'input_blob' => '<span id="mjconfig_jpegquality_slider"><span id="mjconfig_jpegquality_knob"></span></span>'
+							'input_blob' => '<span id="mjconfig_jpegquality_slider" class="mjconfig_slider"><span id="mjconfig_jpegquality_knob" class="mjconfig_knob"></span></span>'
 											.JHTML::_('mjconfig.textinput', 'jpegquality', $MobileJoomla_Settings['jpegquality'], 2, array('style'=>'text-align:right')).'%'
 						),
 						array(

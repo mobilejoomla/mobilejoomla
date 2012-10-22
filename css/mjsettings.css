@@ -82,7 +82,7 @@
 	width: 2em;
 }
 
-#mjconfig_jpegquality_slider
+.mjconfig_slider
 {
 	display:inline-block;
 	height:0.6em;
@@ -94,7 +94,7 @@
 	vertical-align:middle;
 }
 
-#mjconfig_jpegquality_knob
+.mjconfig_knob
 {
 	display:block;
 	width:1.2em;
