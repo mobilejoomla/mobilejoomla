@@ -17,7 +17,7 @@
 	vertical-align:top;
 }
 
-#adminForm th label
+#adminForm label
 {
 	margin:0;
 }
@@ -69,6 +69,7 @@
 
 #adminForm .inputradio
 {
+	margin-bottom: 1px;
 	border:none;
 }
 
