@@ -408,7 +408,7 @@ class plgSystemMobileBot extends JPlugin
 		{
 			if($is_joomla15)
 			{
-//				$app->setUserState('setTemplate', $template);
+				$app->setUserState('setTemplate', $template);
 				$app->setTemplate($template);
 			}
 			else
@@ -635,6 +635,9 @@ class plgSystemMobileBot extends JPlugin
 
 	function onAfterRender()
 	{
+		if($this->isJoomla15())
+			$app->setUserState('setTemplate', null);
+
 		if(!defined('_MJ')) return;
 
 		$text = JResponse::getBody();
