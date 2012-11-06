@@ -297,8 +297,15 @@ class AmddUA
 			return true;
 		}
 
-		$regexp = '#^(?:Opera/\d\.\d\d? \('.$desktop_platforms // test Opera
-					. '|Mozilla/5\.0 \(compatible; Konqueror/\d.*\)$' // test Konqueror
+		// test Opera
+		if(preg_match('#^Opera/\d\.\d\d? \('.$desktop_platforms.'#i', $ua))
+		{
+			if(preg_match('#Opera ?(?:Mini|Mobi|Tablet)#i', $ua))
+				return false;
+			return true;
+		}
+
+		$regexp = '#^(?:Mozilla/5\.0 \(compatible; Konqueror/\d.*\)$' // test Konqueror
 					. '|AppEngine-Google|Apple-PubSub/|check_http/|curl/|Feedfetcher-Google;'
 					. '|HTMLParser|ia_archiver|iTunes/|Java/|Liferea/|Lynx/|Microsoft Office/|NSPlayer|Outlook-Express/'
 					. '|PHP|php|PycURL/|python-requests/|Python-urllib|Reeder/|Wget|WordPress|WWW\-' // wget, php, java, etc
