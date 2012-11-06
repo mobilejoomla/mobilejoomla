@@ -34,7 +34,8 @@ if(!empty($extmanager))
 {
 	require_once dirname(__FILE__).'/classes/mjextmanager.php';
 
-	header('Content-Type: text/html');
+	if(!headers_sent())
+		header('Content-Type: text/html');
 
 	switch(JRequest::getCmd('extmanager'))
 	{
