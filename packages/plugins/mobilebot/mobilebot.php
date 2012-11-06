@@ -638,7 +638,11 @@ class plgSystemMobileBot extends JPlugin
 		if(!defined('_MJ')) return;
 
 		if($this->isJoomla15())
+		{
+			/** @var JSite $app */
+			$app = JFactory::getApplication();
 			$app->setUserState('setTemplate', null);
+		}
 
 		$text = JResponse::getBody();
 
