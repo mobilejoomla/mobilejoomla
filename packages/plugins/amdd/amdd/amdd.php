@@ -85,6 +85,11 @@ class Amdd
 
 		if($exact) return null;
 
+		// fast test for bots and desktop browsers
+		$group = AmddUA::getGroup($ua);
+		if($group === 'bot')
+			return null;
+
 		// load device from cache
 		if(AmddConfig::$cacheSize != 0)
 		{
@@ -95,7 +100,6 @@ class Amdd
 		}
 
 		// find closest device
-		$group = AmddUA::getGroup($ua);
 		$devices = $db->getDevices($group);
 
 		if(preg_match('#^(Mozilla|Opera|NetFront)/#', $ua))
@@ -163,13 +167,13 @@ class Amdd
 		$ua_size = strlen($ua);
 		$data = null;
 
-		$best = min(12, intval($ua_size/2)); // maximum number of changes in UA string
+		$best = min(24, $ua_size); // maximum number of changes in UA string
 		foreach($devices as $device)
 		{
 			if(abs(strlen($device->ua) - $ua_size) > $best)
 				continue;
 
-			$current = levenshtein($ua, $device->ua);
+			$current = levenshtein($ua, $device->ua, 1, 2, 2);
 			if($current <= $best)
 			{
 				$best = $current;
