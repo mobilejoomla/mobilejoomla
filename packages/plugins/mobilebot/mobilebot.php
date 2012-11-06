@@ -408,7 +408,7 @@ class plgSystemMobileBot extends JPlugin
 		{
 			if($is_joomla15)
 			{
-				$app->setUserState('setTemplate', $template);
+//				$app->setUserState('setTemplate', $template);
 				$app->setTemplate($template);
 			}
 			else
