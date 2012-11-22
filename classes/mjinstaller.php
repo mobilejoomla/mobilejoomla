@@ -868,7 +868,7 @@ class MjInstaller
 			$status = false;
 			JError::raiseError(0, JText::_('COM_MJ__CANNOT_CREATE_DIRECTORY').' '.JPATH_PLUGINS.'/mobile');
 		}
-		$checkers = array ('simple' => -2, 'always' => 8, 'domains' => 9);
+		$checkers = array ('simple' => 7, 'always' => 8, 'domains' => 9);
 		foreach($checkers as $plugin => $order)
 			if(!self::InstallPlugin('mobile', $PluginSource, $plugin, 1, $order))
 			{
@@ -880,7 +880,7 @@ class MjInstaller
 		$amddSQL = $PluginSource.'/amdd/amdd_dump.sql.gz';
 		if(file_exists($amddSQL))
 		{
-			if(!self::InstallPlugin('mobile', $PluginSource, 'amdd', 1, 0))
+			if(!self::InstallPlugin('mobile', $PluginSource, 'amdd', 1, 0, 1))
 			{
 				$status = false;
 				JError::raiseError(0, JText::_('COM_MJ__CANNOT_INSTALL').' Mobile - AMDD');
