@@ -548,6 +548,17 @@ class MjInstaller
 						JError::raiseError(0, JText::_('COM_MJ__CANNOT_UNINSTALL').' MobileJoomla CPanel Icons.');
 				}
 			}
+
+			if(version_compare('1.2.2', $prev_version, '>'))
+			{
+				$db = JFactory::getDBO();
+				if(self::isJoomla15())
+					$query = "UPDATE #__plugins SET ordering=7 WHERE folder='mobile' AND element='simple' AND ordering<=1";
+				else
+					$query = "UPDATE #__extensions SET ordering=7 WHERE type='plugin' AND folder='mobile' AND element='simple' AND ordering<=1";
+				$db->setQuery($query);
+				$db->query();
+			}
 		}
 
 		$MobileJoomla_Settings['desktop_url'] = JURI::root();
