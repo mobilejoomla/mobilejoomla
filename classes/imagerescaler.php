@@ -319,6 +319,13 @@ class ImageRescaler
 		{
 			case 'jpg':
 				ImageJPEG($dest_image, null, $jpegquality);
+				$data = ob_get_contents();
+				$data = ImageRescaler::jpeg_clean($data);
+				if($data !== false)
+				{
+					ob_clean();
+					echo $data;
+				}
 				break;
 			case 'gif':
 				ImageTrueColorToPalette($dest_image, true, 256);
@@ -374,5 +381,28 @@ class ImageRescaler
 		@touch($dest_imagepath, $src_mtime);
 
 		return $dest_imageuri;
+	}
+
+	/* Remove JFIF and Comment headers from GD2-generated jpeg (saves 79 bytes) */
+	function jpeg_clean($jpeg_src)
+	{
+		$jpeg_clr = "\xFF\xD8";
+		if(substr($jpeg_src, 0, 2) != $jpeg_clr)
+			return false;
+		$pos = 2;
+		$size = strlen($jpeg_src);
+		while($pos < $size)
+		{
+			if($jpeg_src{$pos} != "\xFF")
+				return false;
+			$b = $jpeg_src{$pos+1};
+			if($b == "\xDA")
+				return $jpeg_clr . substr($jpeg_src, $pos);
+			$len = array_shift(unpack('n', substr($jpeg_src, $pos + 2, 2)));
+			if($b != "\xE0" && $b != "\xFE")
+				$jpeg_clr .= substr($jpeg_src, $pos, $len + 2);
+			$pos += $len + 2;
+		}
+		return false;
 	}
 }
