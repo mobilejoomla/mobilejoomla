@@ -707,7 +707,8 @@ class plgSystemMobileBot extends JPlugin
 		foreach($mj_plugins as $plugin)
 		{
 			$p = JPluginHelper::getPlugin($plugin->type, $plugin->name);
-			$p->type = '_mj_dummy_';
+			if(is_object($p))
+				$p->type = '_mj_dummy_';
 		}
 
 		$query = "SELECT m.module, m.title FROM #__mj_modules AS mj LEFT JOIN #__modules AS m ON m.id=mj.id WHERE mj.markup=".$db->Quote($markup);
