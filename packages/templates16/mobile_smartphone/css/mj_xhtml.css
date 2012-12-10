@@ -315,6 +315,10 @@ div.clear {
 	padding: 0 5px;
 }
 
+img {
+	max-width: 100%;
+	height: auto;
+}
 .mjwideimg {
 	display: block;
 	width: 100%;

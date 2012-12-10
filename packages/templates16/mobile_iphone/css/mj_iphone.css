@@ -358,6 +358,10 @@ body > div.current {
 	border: none !important;
 }
 
+img {
+	max-width: 100%;
+	height: auto;
+}
 .mjwideimg {
 	display: block;
 	width: 100%;

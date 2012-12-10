@@ -353,8 +353,17 @@ p {
 	float:right;
 }
 
+img {
+	max-width: 100%;
+	height: auto;
+}
 .mjwideimg {
 	display: block;
 	width: 100%;
 	text-align: center;
+}
+
+.toolbar > h1 {
+	width: 200px;
+	margin-left: -100px;
 }
