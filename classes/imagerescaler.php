@@ -159,7 +159,7 @@ class ImageRescaler
 		$dev_width  = $MobileJoomla_Device['screenwidth'];
 		$dev_height = $MobileJoomla_Device['screenheight'];
 		$formats    = $MobileJoomla_Device['imageformats'];
-		if(!is_array($formats)) //desktop mode
+		if(!is_array($formats) || count($formats) == 0 || empty($formats[0])) //desktop mode
 			return $imageurl;
 
 		if($MobileJoomla->getParam('buffer_width') != null)
