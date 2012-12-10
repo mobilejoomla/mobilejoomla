@@ -469,6 +469,8 @@ class plgSystemMobileBot extends JPlugin
 		unset($current['tp']);
 		unset($current['template']);
 		unset($current['templateStyle']);
+		unset($current['start']);
+		unset($current['limitstart']);
 		unset($current['limit']); // fix for sh404sef
 		if(isset($current['limitstart']) && $current['limitstart']==0)
 			unset($current['limitstart']);
@@ -520,11 +522,10 @@ class plgSystemMobileBot extends JPlugin
 				{
 					$_SERVER['QUERY_STRING'] = substr($homepage, 10);
 					foreach($current as $key => $val) //clear old variables
-						if($key != 'lang')
-						{
-							unset($_REQUEST[$key]);
-							unset($_GET[$key]);
-						}
+					{
+						unset($_REQUEST[$key]);
+						unset($_GET[$key]);
+					}
 					JRequest::set($mj_home, 'get');
 				}
 				else
