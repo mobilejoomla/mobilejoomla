@@ -151,11 +151,10 @@ class Amdd
 				continue;
 
 			$min_size = min($ua_size, strlen($dev_ua));
-			for($i = $best; $i < $min_size; $i++)
-			{
-				if($ua{$i} == $dev_ua{$i})
-					$best++;
-			}
+
+			while($best < $min_size && $ua{$best} == $dev_ua{$best})
+				$best++;
+
 			$data = $device->data;
 		}
 

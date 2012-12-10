@@ -376,9 +376,6 @@ class AmddUA
 		if(strpos($ua, 'Nintendo')!==false)
 			return 'nintendo';
 
-		if(strpos($ua, 'PlayStation')!==false)
-			return 'playstation';
-
 		switch($ua_lc{0})
 		{
 		case '0':
@@ -538,6 +535,12 @@ class AmddUA
 
 			if(strpos($ua, 'Mozilla/4.0 (MobilePhone ')===0)
 				return 'sanyo_mobilephone';
+
+			if(    strpos($ua_lc, 'mozilla/5.0 (playstation ')===0
+				|| strpos($ua_lc, 'mozilla/4.0 (ps2; ')===0
+				|| strpos($ua_lc, 'mozilla/4.0 (psp ')===0
+				)
+				return 'playstation';
 
 			if(strpos($ua, 'Mozilla/5.0 (webOS/')===0)
 				return 'webos';
