@@ -117,7 +117,7 @@ class plgMobileDomains extends JPlugin
 		if(isset($MobileJoomla_Settings[$markup.'.domain']))
 		{
 			$domain_markup = $MobileJoomla_Settings[$markup.'.domain'];
-			if($host != $domain_markup)
+			if(!empty($domain_markup) && $host != $domain_markup)
 				$app->redirect($http.'://'.$domain_markup.$path);
 		}
 	}
