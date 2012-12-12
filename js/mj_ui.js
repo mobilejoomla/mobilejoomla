@@ -8,9 +8,10 @@ window.addEvent('domready',function(){
 	function initTabs(){
 		$$('#submenu li a').addEvent('click',function(e){
 			$$('#submenu li a.active').removeClass('active');
+			$$('#submenu li.active').removeClass('active');
 			var a=$(this);
 			a.blur();
-			a.addClass('active');
+			a.addClass('active').getParent().addClass('active');
 			hidetabs();
 			$$(a.getProperty('href')).setStyle('display','');
 			e.returnValue=false;
@@ -24,7 +25,7 @@ window.addEvent('domready',function(){
 		$('adminForm').setStyle('height',maxheight);
 		hidetabs();
 		var a=$$('#submenu li a')[0];
-		a.addClass('active');
+		a.addClass('active').getParent().addClass('active');;
 		$$(a.getProperty('href')).setStyle('display','');
 	}
 	
