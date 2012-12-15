@@ -704,7 +704,7 @@ class plgSystemMobileBot extends JPlugin
 			$query = "SELECT p.folder AS type, p.element AS name FROM #__mj_plugins AS mj LEFT JOIN #__extensions AS p ON p.extension_id=mj.id WHERE mj.markup=".$db->Quote($markup);
 		$db->setQuery($query);
 		$mj_plugins = $db->loadObjectList();
-		foreach($mj_plugins as $plugin)
+		if(is_array($mj_plugins)) foreach($mj_plugins as $plugin)
 		{
 			$p = JPluginHelper::getPlugin($plugin->type, $plugin->name);
 			if(is_object($p))
@@ -714,7 +714,7 @@ class plgSystemMobileBot extends JPlugin
 		$query = "SELECT m.module, m.title FROM #__mj_modules AS mj LEFT JOIN #__modules AS m ON m.id=mj.id WHERE mj.markup=".$db->Quote($markup);
 		$db->setQuery($query);
 		$mj_modules = $db->loadObjectList();
-		foreach($mj_modules as $module)
+		if(is_array($mj_modules)) foreach($mj_modules as $module)
 		{
 			$m = JModuleHelper::getModule($module->module, $module->title);
 			if($m !== null && $m->id > 0)
