@@ -271,9 +271,10 @@ class plgSystemMobileBot extends JPlugin
 				jimport('joomla.cache.storage');
 				JLoader::register($class, $path);
 			}
-			else //disable System-Cache plugin
+			else
 			{
-				$this->setConfig('config.caching', 0);
+				$this->setConfig('caching', 0);
+				//disable System-Cache plugin
 				$dispatcher = JDispatcher::getInstance();
 				foreach($dispatcher->_observers as $index => $object)
 				{
