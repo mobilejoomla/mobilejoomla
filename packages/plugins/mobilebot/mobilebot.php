@@ -496,7 +496,10 @@ class plgSystemMobileBot extends JPlugin
 			if(isset($mj_home['Itemid']))
 			{
 				$mj_home_Itemid = (int)$mj_home['Itemid'];
-				$menu->setDefault($mj_home_Itemid);
+				if($is_joomla15)
+					$menu->setDefault($mj_home_Itemid);
+				else
+					$menu->setDefault($mj_home_Itemid, '*');
 			}
 			if($current == $mj_home)
 				$MobileJoomla->setHome(true);
