@@ -13,6 +13,19 @@ defined('_JEXEC') or die('Restricted access');
 
 CHANGELOG
 
+1.2.2
+Stable Release
+- Fix issue with caching (J!1.5)
+- Fix issue with mobile homepage in menu (J!1.6+)
+
+1.2.1
+Stable Release
+- Fix issue with pagination on mobile homepage
+- Fix possible warning in MJ's Extension Manager
+- Fix display of external images
+- Reduce filesize of rescaled jpeg images (by removing comment header)
+- Update AMDD database
+
 1.2.0
 Stable Release
 - Support Joomla!3.0
