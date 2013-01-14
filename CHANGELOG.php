@@ -13,6 +13,11 @@ defined('_JEXEC') or die('Restricted access');
 
 CHANGELOG
 
+1.2.3
+Stable Release
+- Improve DB-less Mobile-Simple detector
+- Update AMDD database and Mobile-AMDD plugin
+
 1.2.2
 Stable Release
 - Fix issue with caching (J!1.5)
