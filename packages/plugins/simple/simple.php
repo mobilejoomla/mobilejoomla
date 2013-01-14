@@ -202,22 +202,30 @@ class plgMobileSimple extends JPlugin
 
 		if(isset($_SERVER['HTTP_USER_AGENT']))
 		{
-			if(strpos($_SERVER['HTTP_USER_AGENT'], ' WQVGA ') !== false)
+			$ua = $_SERVER['HTTP_USER_AGENT'];
+			if(strpos($ua, ' WQVGA ') !== false)
 			{
 				$MobileJoomla_Device['screenwidth']  = 240;
 				$MobileJoomla_Device['screenheight'] = 400;
 				return;
 			}
-			if(strpos($_SERVER['HTTP_USER_AGENT'], ' HVGA ') !== false)
+			if(strpos($ua, ' HVGA ') !== false)
 			{
 				$MobileJoomla_Device['screenwidth']  = 320;
 				$MobileJoomla_Device['screenheight'] = 480;
 				return;
 			}
-			if(strpos($_SERVER['HTTP_USER_AGENT'], ' WVGA ') !== false)
+			if(strpos($ua, ' WVGA ') !== false)
 			{
 				$MobileJoomla_Device['screenwidth']  = 480;
 				$MobileJoomla_Device['screenheight'] = 800;
+				return;
+			}
+			if(strpos($ua, ' resolution\\') !== false
+				&& preg_match('# resolution\\(\d{3})(\d{3})\b#', $ua, &$matches))
+			{
+				$MobileJoomla_Device['screenwidth']  = (int)$matches[1];
+				$MobileJoomla_Device['screenheight'] = (int)$matches[2];
 				return;
 			}
 		}
@@ -232,7 +240,7 @@ class plgMobileSimple extends JPlugin
 		if(empty($screen) && isset($_SERVER['HTTP_X_AVANTGO_SCREENSIZE']))
 			$screen = base64_decode($_SERVER['HTTP_X_AVANTGO_SCREENSIZE']);
 		if(empty($screen) && isset($_SERVER['HTTP_USER_AGENT'])
-				&& preg_match('#\b[\d]{3,4}x[\d]{3,4}\b#', $_SERVER['HTTP_USER_AGENT'], $matches))
+				&& preg_match('#\b\d{3,4}x\d{3,4}\b#', $_SERVER['HTTP_USER_AGENT'], $matches))
 		{
 			$screen = $matches[0];
 		}
