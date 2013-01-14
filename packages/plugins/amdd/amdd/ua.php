@@ -306,7 +306,7 @@ class AmddUA
 		}
 
 		$regexp = '#^(?:Mozilla/5\.0 \(compatible; Konqueror/\d.*\)$' // test Konqueror
-					. '|AppEngine-Google|Apple-PubSub/|check_http/|curl/|Feedfetcher-Google;'
+					. '|AppEngine-Google|Apple-PubSub/|check_http/|curl/|Feedfetcher-Google;|GoogleEarth/'
 					. '|HTMLParser|ia_archiver|iTunes/|Java/|Liferea/|Lynx/|Microsoft Office/|NSPlayer|Outlook-Express/'
 					. '|PHP|php|PycURL/|python-requests/|Python-urllib|Reeder/|Wget|WordPress|WWW\-' // wget, php, java, etc
 				.')#';
@@ -315,9 +315,9 @@ class AmddUA
 
 		$regexp = '#(?: (?:AOL|America Online Browser) ' // test AOL
 					.'|CFNetwork/[\d\.]+ Darwin/\d' // test iOS download library
-					.'|\.NET CLR|GTB\d|GoogleToolbar'
-					.'|HttpClient|HttpMonitor|HttpStream|Http_Client|HTTP_Request'
-					.'|libwww-perl|/Nutch-|WinHttp|::'
+					.'|[Dd]etector|\.NET CLR|GTB\d|GoogleToolbar'
+					.'|HttpClient|HTTPClient|HttpStream|Http_Client|HTTP_Request'
+					.'|libwww-perl|[Mm]onitor|/Nutch-|WinHttp|::'
 				.')#';
 		if(preg_match($regexp, $ua))
 			return true;
@@ -530,6 +530,7 @@ class AmddUA
 			if(    strpos($ua, 'Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ') ===0
 				|| strpos($ua, 'Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0; ')===0
 				|| strpos($ua, 'Mozilla/4.0 (compatible; MSIE 7.0; Windows Phone OS 7.0; Trident/3.1; IEMobile/7.0; ')===0
+				|| (strpos($ua, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; ')===0 && strpos($ua, ' Windows Phone 6.5') !== false)
 				)
 				return 'windowsphone';
 
@@ -831,7 +832,7 @@ class AmddUA
 		if(strpos($ua, 'UP.Browser')!==false)
 			return 'upbrowser';
 
-		if(preg_match('#(?:agent\b|archive|\bapi\b|bot\b|\bcatalog\b|capture|check|crawl|dddd|download|mail|extractor|\bfeed|feed\b|https?://|link|\bping|proxy|\brss|rss\b|search|\bseo|server|service|slurp|spider|subscriber|\burl|url\b|validat|\bw3c|website|yahoo|yandex)#', $ua_lc)
+		if(preg_match('#(?:agent\b|archive|\bapi\b|bot\b|\bcatalog\b|capture|check|crawl|dddd|download|fetch|mail|extractor|\bfeed|feed\b|https?://|link|manager|\bping|proxy|\brss|rss\b|search|\bseo|server|service|slurp|spider|subscriber|\burl|url\b|validat|\bw3c|website|yahoo|yandex)#', $ua_lc)
 			|| preg_match('#^(?:[a-z0-9][a-z0-9-]{0,61}[a-z0-9]\.)+[a-z]{2,9}$#', $ua_lc))
 			return 'bot';
 
