@@ -47,7 +47,18 @@ class plgMobileAmdd extends JPlugin
 		}
 
 		$MobileJoomla_Device['amdd'] = $amddObj;
-		$MobileJoomla_Device['markup'] = $amddObj->markup;
+		switch($amddObj->markup)
+		{
+		case 'tv':
+		case 'gametv':
+			$MobileJoomla_Device['markup'] = '';
+			break;
+		case 'gameport':
+			$MobileJoomla_Device['markup'] = 'xhtml';
+			break;
+		default:
+			$MobileJoomla_Device['markup'] = $amddObj->markup;
+		}
 		if(isset($amddObj->screenWidth))
 			$MobileJoomla_Device['screenwidth'] = $amddObj->screenWidth;
 		if(isset($amddObj->screenHeight))
