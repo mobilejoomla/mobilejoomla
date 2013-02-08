@@ -13,6 +13,10 @@ defined('_JEXEC') or die('Restricted access');
 
 CHANGELOG
 
+1.2.4
+Stable Release
+- Fix incorrect work of MJ's module manager with "Force as homepage" feature
+
 1.2.3
 Stable Release
 - Improve DB-less Mobile-Simple detector
