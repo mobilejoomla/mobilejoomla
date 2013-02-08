@@ -219,8 +219,6 @@ class plgSystemMobileBot extends JPlugin
 
 		$app->triggerEvent('onMobileMarkupInit', array (&$MobileJoomla_Settings, &$MobileJoomla_Device));
 
-		$this->filterExtensions($MobileJoomla_Settings, $MobileJoomla_Device);
-
 		$markup = $MobileJoomla_Device['markup'];
 		if(empty($markup))
 		{
@@ -547,6 +545,8 @@ class plgSystemMobileBot extends JPlugin
 				}
 			}
 		}
+
+		$this->filterExtensions($MobileJoomla_Settings, $MobileJoomla_Device);
 	}
 
 	// Validate markup
