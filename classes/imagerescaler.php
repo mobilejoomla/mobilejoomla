@@ -22,6 +22,8 @@ class ImageRescaler
 	static $scaledimage_width = null;
 	static $scaledimage_height = null;
 	static $scaletype = 0;
+	static $fullwidth = false;
+	static $nowrap = false;
 
 	static function RescaleImages($text, $scaletype = 0, $addstyles = false)
 	{
@@ -36,6 +38,18 @@ class ImageRescaler
 
 		ImageRescaler::$forced_width  = 0;
 		ImageRescaler::$forced_height = 0;
+
+		ImageRescaler::$fullwidth = false;
+		ImageRescaler::$nowrap = false;
+		// classes
+		if(preg_match('#\sclass\s*=\s*([\'"])(.*?)\1#is', $text, $matches))
+		{
+			$classes = $matches[2];
+			if(preg_match('#\bfullwidth\b#is', $classes))
+				ImageRescaler::$fullwidth = true;
+			if(preg_match('#\bnowrap\b#is', $classes))
+				ImageRescaler::$nowrap = true;
+		}
 
 		// size
 		if(preg_match('#[^\w-]width\s*:\s*(\d+)\s*(px|!|;)#i',  $text, $matches))
@@ -77,7 +91,7 @@ class ImageRescaler
 
 		// check resulting size
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
-		if(ImageRescaler::$scaledimage_width>$MobileJoomla_Device['screenwidth']/2)
+		if(!ImageRescaler::$nowrap && ImageRescaler::$scaledimage_width>$MobileJoomla_Device['screenwidth']/2)
 		{
 			$text = '<span class="mjwideimg"><img'.$text.' /></span>';
 		}
@@ -162,7 +176,7 @@ class ImageRescaler
 		if(!is_array($formats) || count($formats) == 0 || empty($formats[0])) //desktop mode
 			return $imageurl;
 
-		if($MobileJoomla->getParam('buffer_width') != null)
+		if(!ImageRescaler::$fullwidth && $MobileJoomla->getParam('buffer_width') != null)
 			$templateBuffer = (int) $MobileJoomla->getParam('buffer_width');
 		else
 			$templateBuffer = 0;
