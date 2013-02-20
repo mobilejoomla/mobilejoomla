@@ -60,6 +60,31 @@ class JMobileMenuHelper
 											   array($menutype, 1));
 	}
 
+	static function getActive($menutype)
+	{
+		$app = JFactory::getApplication();
+		$menu = $app->getMenu();
+		$active = $menu->getActive();
+		if($active->menutype == $menutype)
+			return $active;
+
+		$is_joomla15 = JMobileMenuHelper::_isJoomla15();
+		$items = $menu->getItems('menutype', $menutype);
+		if(!$is_joomla15)
+		{
+			foreach($items as $item)
+				if($item->type == 'menulink' && $item->query['Itemid'] == $active->id)
+					return $item;
+		}
+		else
+		{
+			foreach($items as $item)
+				if($item->type == 'alias' && $item->params->get('aliasoptions') == $active->id)
+					return $item;
+		}
+		return $active;
+	}
+
 	static function getSiblings($item)
 	{
 		$is_joomla15 = JMobileMenuHelper::_isJoomla15();

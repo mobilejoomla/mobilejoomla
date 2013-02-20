@@ -34,16 +34,17 @@ if($params->get('layout')=='')
 		$params->set('layout', 'h');
 }
 
-$app = JFactory::getApplication();
-$sitemenu = $app->getMenu();
-$active   = $sitemenu->getActive();
+$menutype = $params->get('menutype');
+$active = JMobileMenuHelper::getActive($menutype);
 
-if(isset($active) && $active->menutype==$params->get('menutype'))
+if(isset($active) && $active->menutype==$menutype)
 {
 	$rows = (array)JMobileMenuHelper::getSiblings($active);
 	$subrows = (array)JMobileMenuHelper::getChildrens($active);
 	if($params->get('type')=='submenu')
 	{
+		$app = JFactory::getApplication();
+		$sitemenu = $app->getMenu();
 		$home = $sitemenu->getDefault();
 		if($active->id != $home->id)
 			$rows = $subrows;
@@ -52,7 +53,7 @@ if(isset($active) && $active->menutype==$params->get('menutype'))
 }
 else
 {
-	$rows = (array)JMobileMenuHelper::getRoot($params->get('menutype'));
+	$rows = (array)JMobileMenuHelper::getRoot($menutype);
 	$subrows = array();
 }
 
