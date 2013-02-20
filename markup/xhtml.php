@@ -69,9 +69,11 @@ class MobileJoomla_XHTML extends MobileJoomla
 
 	function getXmlnsString()
 	{
+		$str = '';
 		if($this->config['xhtml.xmlns'])
-			return ' xmlns="http://www.w3.org/1999/xhtml"';
-		return '';
+			$str .= ' xmlns="http://www.w3.org/1999/xhtml"';
+		$str .= parent::getXmlnsString();
+		return $str;
 	}
 
 	function showHead()

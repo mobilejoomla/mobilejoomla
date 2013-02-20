@@ -13,7 +13,7 @@ defined('_MJ') or die('Incorrect usage of Mobile Joomla.');
 $MobileJoomla =& MobileJoomla::getInstance();
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $this->language; ?>" dir="<?php echo $this->direction; ?>">
+<html<?php echo $MobileJoomla->getXmlnsString(); ?>>
 <head>
 	<meta http-equiv="Content-Type" content="<?php echo $MobileJoomla->getContentString(); ?>">
 	<title><?php echo $this->error->get('code'); ?> - <?php echo $this->title; ?></title>

@@ -124,7 +124,11 @@ class MobileJoomla
 
 	function getXmlnsString()
 	{
-		return '';
+		$document = JFactory::getDocument();
+		$html_attrs = ' lang="' . $document->getLanguage() . '"';
+		if($document->getDirection() == 'rtl')
+			$html_attrs .= ' dir="rtl"';
+		return $html_attrs;
 	}
 
 	function getPageTitle()
