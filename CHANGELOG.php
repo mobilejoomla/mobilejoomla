@@ -15,7 +15,10 @@ CHANGELOG
 
 1.2.4
 Stable Release
+- RTL support
 - Fix incorrect work of MJ's module manager with "Force as homepage" feature
+- Better "Alias" items support in Mobile Menu module
+- Update AMDD database (support BB10, etc.)
 
 1.2.3
 Stable Release
