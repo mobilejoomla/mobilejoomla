@@ -26,6 +26,7 @@ class AmddUA
 			'HTTP_X_SKYFIRE_PHONE',       // Skyfire browser
 			'HTTP_X_BOLT_PHONE_UA',       // Bolt browser
 			'HTTP_X_MOBILE_UA',           // Mowser transcoder
+			'HTTP_X_UCBROWSER_DEVICE_UA', // UC Browser
 			'HTTP_USER_AGENT'
 		);
 
@@ -262,7 +263,7 @@ class AmddUA
 		if(strpos($ua, ' Mobile Safari/') !== false)
 			return false;
 
-		if(strpos($ua, '</') !== false)
+		if(strpos($ua, '</') !== false || strpos($ua, '<?php') !== false)
 			return true; // spam (tags in UA)
 
 		$windows_platforms = '(?:Windows (?:NT|Vista|XP|2000|ME|98|95|3\.)|Win ?[39])';
@@ -382,6 +383,7 @@ class AmddUA
 			if(strpos($ua, '0Vodafone')===0)
 				return 'vodafone';
 
+			break;
 		case 'a':
 			if(strpos($ua, 'ACS-')===0)
 				return 'nec_acs';
@@ -518,7 +520,7 @@ class AmddUA
 			if(strpos($ua_lc, 'mot-')===0)
 				return 'motorola_mot';
 
-			if(strpos($ua, 'Mozilla/5.0 (BlackBerry; ')===0)
+			if(strpos($ua, 'Mozilla/5.0 (BlackBerry; ')===0 || strpos($ua, 'Mozilla/5.0 (BB10; ')===0)
 				return 'blackberry_mozilla';
 
 			if(strpos($ua, 'Mozilla/5.0 (LG-')===0)
@@ -718,7 +720,7 @@ class AmddUA
 				return 'android_asus';
 			if(strpos($model_lc, 'alcatel')===0)
 				return 'android_alcatel';
-			if(strpos($model, 'Fly')===0)
+			if(strpos($model, 'Fly')===0 && ($model{3}==' ' || $model{3}=='_'))
 				return 'android_fly';
 			if(strpos($model, 'HTC')===0 || strpos($model, 'Desire')===0 || strpos($model, 'Sensation')===0)
 				return 'android_htc';
