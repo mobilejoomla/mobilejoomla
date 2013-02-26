@@ -172,14 +172,15 @@ class MobileJoomla_XHTML extends MobileJoomla
 		$c = array ();
 		foreach($accept as $mime_markup => $mime_type)
 		{
-			$c[$mime_markup] = 0;
 			if(stristr($_SERVER['HTTP_ACCEPT'], $mime_type))
 			{
 				if(preg_match('|'.str_replace(array('/','.','+'), array('\/','\.','\+'), $mime_type).';q=(0\.\d+)|i', $_SERVER['HTTP_ACCEPT'], $matches))
-					$c[$mime_markup] += (float) $matches[1];
+					$c[$mime_markup] = (float) $matches[1];
 				else
-					$c[$mime_markup]++;
+					$c[$mime_markup] = 1;
 			}
+			else
+				$c[$mime_markup] = 0;
 		}
 		$max = max($c);
 		foreach($c as $mime_markup=>$val)
