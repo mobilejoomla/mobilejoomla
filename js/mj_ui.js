@@ -39,7 +39,7 @@ window.addEvent('domready',function(){
 
 	function loadNotification(){
 		if(typeof Request == "function"){
-			new Request.HTML({url: 'http://ads.mobilejoomla.com/msg.html', method: 'get', update: 'mjmsgarea'}).send();
+			new Request.HTML({url: 'http://ads.mobilejoomla.com/msg.html?v=###VERSION###', method: 'get', update: 'mjmsgarea'}).send();
 		} else if(typeof Ajax == "function"){
 			new Ajax('http://ads.mobilejoomla.com/msg.html', {method: 'get', evalScripts: true, update: $('mjmsgarea')}).request();
 		}
