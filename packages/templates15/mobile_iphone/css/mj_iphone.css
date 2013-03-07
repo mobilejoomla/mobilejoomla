@@ -353,9 +353,12 @@ p {
 	float:right;
 }
 
-img {
+img, video {
 	max-width: 100%;
 	height: auto;
+}
+iframe, svg {
+	max-width: 100%;
 }
 .mjwideimg {
 	display: block;

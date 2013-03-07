@@ -315,9 +315,12 @@ div.clear {
 	padding: 0 5px;
 }
 
-img {
+img, video {
 	max-width: 100%;
 	height: auto;
+}
+iframe, svg {
+	max-width: 100%;
 }
 .mjwideimg {
 	display: block;
