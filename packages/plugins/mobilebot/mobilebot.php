@@ -703,26 +703,49 @@ class plgSystemMobileBot extends JPlugin
 		$db = JFactory::getDBO();
 
 		if(substr(JVERSION,0,3) == '1.5')
-			$query = "SELECT p.folder AS type, p.element AS name FROM #__mj_plugins AS mj LEFT JOIN #__plugins AS p ON p.id=mj.id WHERE mj.markup=".$db->Quote($markup);
+			$query = "SELECT p.id, p.folder AS type FROM #__mj_plugins AS mj LEFT JOIN #__plugins AS p ON p.id=mj.id WHERE mj.markup=".$db->Quote($markup);
 		else
-			$query = "SELECT p.folder AS type, p.element AS name FROM #__mj_plugins AS mj LEFT JOIN #__extensions AS p ON p.extension_id=mj.id WHERE mj.markup=".$db->Quote($markup);
+			$query = "SELECT p.extension_id AS id, p.folder AS type FROM #__mj_plugins AS mj LEFT JOIN #__extensions AS p ON p.extension_id=mj.id WHERE mj.markup=".$db->Quote($markup);
 		$db->setQuery($query);
 		$mj_plugins = $db->loadObjectList();
+
+		$j_plugins = array();
 		if(is_array($mj_plugins)) foreach($mj_plugins as $plugin)
 		{
-			$p = JPluginHelper::getPlugin($plugin->type, $plugin->name);
-			if(is_object($p))
-				$p->type = '_mj_dummy_';
+			if(!isset($j_plugins[$plugin->type]))
+			{
+				$j_plugins[$plugin->type] = array();
+				$list = JPluginHelper::getPlugin($plugin->type);
+				foreach($list as $item)
+					$j_plugins[$plugin->type][$item->id] = $item;
+			}
+			if(isset($j_plugins[$plugin->type][$plugin->id]))
+			{
+				$p = $j_plugins[$plugin->type][$plugin->id];
+				if(is_object($p))
+					$p->type = '_mj_dummy_';
+			}
 		}
 
-		$query = "SELECT m.module, m.title FROM #__mj_modules AS mj LEFT JOIN #__modules AS m ON m.id=mj.id WHERE mj.markup=".$db->Quote($markup);
+		$query = "SELECT m.id, m.position FROM #__mj_modules AS mj LEFT JOIN #__modules AS m ON m.id=mj.id WHERE mj.markup=".$db->Quote($markup);
 		$db->setQuery($query);
 		$mj_modules = $db->loadObjectList();
+
+		$j_modules = array();
 		if(is_array($mj_modules)) foreach($mj_modules as $module)
 		{
-			$m = JModuleHelper::getModule($module->module, $module->title);
-			if($m !== null && $m->id > 0)
+			if(!isset($j_modules[$module->position]))
+			{
+				$j_modules[$module->position] = array();
+				$list = JModuleHelper::getModules($module->position);
+				foreach($list as $item)
+					$j_modules[$module->position][$item->id] = $item;
+			}
+			if(isset($j_modules[$module->position][$module->id]))
+			{
+				$m = $j_modules[$module->position][$module->id];
 				$m->position = $m->module = $m->name = '_mj_dummy_';
+			}
 		}
 	}
 }
