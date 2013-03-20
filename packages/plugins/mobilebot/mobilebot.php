@@ -376,6 +376,8 @@ class plgSystemMobileBot extends JPlugin
 		JPluginHelper::importPlugin('mobile');
 		$app->triggerEvent('onMobileAfterRoute', array (&$MobileJoomla_Settings, &$MobileJoomla_Device));
 
+		$this->filterExtensions($MobileJoomla_Settings, $MobileJoomla_Device);
+
 		if($MobileJoomla_Device['markup']===false) //desktop
 		{
 			$pcpage = $MobileJoomla_Settings['pcpage'];
@@ -545,8 +547,6 @@ class plgSystemMobileBot extends JPlugin
 				}
 			}
 		}
-
-		$this->filterExtensions($MobileJoomla_Settings, $MobileJoomla_Device);
 	}
 
 	// Validate markup
