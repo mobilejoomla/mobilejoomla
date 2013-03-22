@@ -18,6 +18,7 @@ Stable Release
 - Fix incorrect functionality of MJ's Extension manager in desktop mode
 - Fix incorrect functionality of MJ's Extension manager in the case of two modules with identical titles
 - Fix displaying of embedded large-width videos
+- Fix notice in backend (J!3.0)
 
 1.2.4
 Stable Release
