@@ -702,30 +702,21 @@ class plgSystemMobileBot extends JPlugin
 		jimport('joomla.application.module.helper');
 		$db = JFactory::getDBO();
 
+
 		if(substr(JVERSION,0,3) == '1.5')
-			$query = "SELECT p.id, p.folder AS type FROM #__mj_plugins AS mj LEFT JOIN #__plugins AS p ON p.id=mj.id WHERE mj.markup=".$db->Quote($markup);
+			$query = "SELECT p.folder AS type, p.element AS name FROM #__mj_plugins AS mj LEFT JOIN #__plugins AS p ON p.id=mj.id WHERE mj.markup=".$db->Quote($markup);
 		else
-			$query = "SELECT p.extension_id AS id, p.folder AS type FROM #__mj_plugins AS mj LEFT JOIN #__extensions AS p ON p.extension_id=mj.id WHERE mj.markup=".$db->Quote($markup);
+			$query = "SELECT p.folder AS type, p.element AS name FROM #__mj_plugins AS mj LEFT JOIN #__extensions AS p ON p.extension_id=mj.id WHERE mj.markup=".$db->Quote($markup);
 		$db->setQuery($query);
 		$mj_plugins = $db->loadObjectList();
 
-		$j_plugins = array();
 		if(is_array($mj_plugins)) foreach($mj_plugins as $plugin)
 		{
-			if(!isset($j_plugins[$plugin->type]))
-			{
-				$j_plugins[$plugin->type] = array();
-				$list = JPluginHelper::getPlugin($plugin->type);
-				foreach($list as $item)
-					$j_plugins[$plugin->type][$item->id] = $item;
-			}
-			if(isset($j_plugins[$plugin->type][$plugin->id]))
-			{
-				$p = $j_plugins[$plugin->type][$plugin->id];
-				if(is_object($p))
-					$p->type = '_mj_dummy_';
-			}
+			$p = JPluginHelper::getPlugin($plugin->type, $plugin->name);
+			if(is_object($p))
+				$p->type = '_mj_dummy_';
 		}
+
 
 		$query = "SELECT m.id, m.position FROM #__mj_modules AS mj LEFT JOIN #__modules AS m ON m.id=mj.id WHERE mj.markup=".$db->Quote($markup);
 		$db->setQuery($query);
