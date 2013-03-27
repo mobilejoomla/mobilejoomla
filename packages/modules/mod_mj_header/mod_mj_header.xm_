@@ -34,6 +34,10 @@
 				label="Header img URL" description="URL to header image. Note: {{root}} will be replaced with site root."
 				size="90"/>
 	</params>
+	<params group="advanced">
+		<param name="moduleclass_sfx" type="text" default="" label="Module Class Suffix"
+				description="PARAMMODULECLASSSUFFIX"/>
+	</params>
 	<config><fields name="params">
 	<fieldset name="basic">
 		<field name="show_title" type="radio" default="1" label="Show" description="Show image or text in the header.">
@@ -54,6 +58,10 @@
 		<field name="img_url" type="text" default="{{root}}templates/mobile_smartphone/resources/images/mw_joomla_logo.png"
 				label="Header img URL" description="URL to header image. Note: {{root}} will be replaced with site root."
 				size="90"/>
+	</fieldset>
+	<fieldset name="advanced">
+		<field name="moduleclass_sfx" type="text" default="" label="Module Class Suffix"
+				description="PARAMMODULECLASSSUFFIX"/>
 	</fieldset>
 	</fields></config>
 </extension>
