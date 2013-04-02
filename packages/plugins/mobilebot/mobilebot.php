@@ -461,7 +461,12 @@ class plgSystemMobileBot extends JPlugin
 		if(JRequest::getMethod()=='POST')
 			return;
 
-		$current = $_GET;
+		/** @var JMenu $menu */
+		$menu = $app->getMenu();
+		$router = $app->getRouter();
+		$Itemid = version_compare(JVERSION, '3.0', '>=') ? $app->input->getInt('Itemid') : JRequest::getInt('Itemid');
+		$item = $menu->getItem($Itemid);
+		$current = array_merge($item->query, $_GET, $router->getVars());
 		unset($current['device']);
 		unset($current['lang']);
 		unset($current['format']);
@@ -478,8 +483,6 @@ class plgSystemMobileBot extends JPlugin
 		if(isset($current[session_name()]))
 			unset($current[session_name()]);
 
-		/** @var JMenu $menu */
-		$menu = $app->getMenu();
 		if($is_joomla15)
 			$default = $menu->getDefault();
 		else
