@@ -1009,6 +1009,18 @@ window.addEvent('domready', function() {
 				JError::raiseError(0, JText::_('COM_MJ__CANNOT_UNINSTALL').' Mobile - AMDD.');
 			self::clear_amdd_db();
 		}
+		//uninstall scientia
+		if(self::getExtensionId('plugin', 'scientia', 'mobile') !== null)
+		{
+			if(self::isJoomla15())
+			{
+				include_once( JPATH_ROOT .'/plugins/mobile/scientia/scientia/scientia_helper.php' ); 
+				ScientiaHelper::disablePlugin();
+				ScientiaHelper::dropDatabase();
+			}
+			if(!self::UninstallPlugin('mobile', 'scientia'))
+				JError::raiseError(0, JText::_('COM_MJ__CANNOT_UNINSTALL').' Mobile - ScientiaMobile.');
+		}
 
 		//uninstall templates
 		if(function_exists('MJAddonUninstallTemplates'))
