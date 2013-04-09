@@ -378,6 +378,9 @@ class plgSystemMobileBot extends JPlugin
 
 		$this->filterExtensions($MobileJoomla_Settings, $MobileJoomla_Device);
 
+		// "Vary" header for proxy
+		JResponse::setHeader('Vary', 'User-Agent');
+
 		if($MobileJoomla_Device['markup']===false) //desktop
 		{
 			$pcpage = $MobileJoomla_Settings['pcpage'];
