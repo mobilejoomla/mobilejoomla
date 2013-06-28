@@ -284,7 +284,11 @@ class ImageRescaler
 				$src_image = @ImageCreateFromJPEG($dest_imagepath);
 				break;
 			case 'gif':
-				$src_image = @ImageCreateFromGIF($dest_imagepath);
+				$content = file_get_contents($dest_imagepath);
+				if(ImageRescaler::is_gif_ani($content))
+					return $imageurl;
+				$src_image = @ImageCreateFromString($content);
+				unset($content);
 				break;
 			case 'wbmp':
 				$src_image = @ImageCreateFromWBMP($dest_imagepath);
@@ -418,5 +422,12 @@ class ImageRescaler
 			$pos += $len + 2;
 		}
 		return false;
+	}
+
+	/* Count animation frames in gif file, return TRUE if two or more */
+	function is_gif_ani($content)
+	{
+		$count = preg_match_all('#\x00\x21\xF9\x04.{4}\x00(?:\x2C|\x21)#s', $content);
+		return $count > 1;
 	}
 }
