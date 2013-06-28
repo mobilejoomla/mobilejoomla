@@ -18,15 +18,20 @@ class HTML_mobilejoomla
 
 	static function getMJVersion()
 	{
-		$manifest = JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/mobilejoomla.xml';
-		if(is_file($manifest))
+		static $mjver;
+		if(!isset($mjver))
 		{
-			$xml = simplexml_load_file($manifest);
-			$version = isset($xml->version) ? (string)$xml->version : null;
-			if($version)
-				return $version;
+			$mjver = false;
+			$manifest = JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/mobilejoomla.xml';
+			if(is_file($manifest))
+			{
+				$xml = simplexml_load_file($manifest);
+				$version = isset($xml->version) ? (string)$xml->version : null;
+				if($version)
+					$mjver = $version;
+			}
 		}
-		return false;
+		return $mjver;
 	}
 
 	static function CheckForUpdate()
