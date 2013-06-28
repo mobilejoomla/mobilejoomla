@@ -105,10 +105,16 @@ p.jfooter {
 body {
 	-webkit-perspective: none;
 	-webkit-transform-style: flat;
+	min-height: 420px;
 }
 body > * {
 	position: static;
-	-webkit-transform:none;
+	-webkit-transform: none;
+	background: inherit;
+	display: block;
+	left: auto;
+	width: auto;
+	min-height: 0 !important;
 }
 
 body {
