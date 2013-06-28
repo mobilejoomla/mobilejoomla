@@ -45,6 +45,8 @@ class ImageRescaler
 		if(preg_match('#\sclass\s*=\s*([\'"])(.*?)\1#is', $text, $matches))
 		{
 			$classes = $matches[2];
+			if(preg_match('#\bmj-noscale\b#is', $classes))
+				return '<img '.$text.'>';
 			if(preg_match('#\bmj-fullwidth\b#is', $classes))
 				ImageRescaler::$fullwidth = true;
 			if(preg_match('#\bmj-nowrap\b#is', $classes))
