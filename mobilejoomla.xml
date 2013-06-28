@@ -39,7 +39,6 @@
 			<folder>markup</folder>
 			<folder>override</folder>
 			<folder>packages</folder>
-			<folder>scientia</folder>
 		</files>
 	</administration>
 	<installfile>uninstall.mobilejoomla.php</installfile>

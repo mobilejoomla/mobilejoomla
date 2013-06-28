@@ -946,35 +946,9 @@ class MjInstaller
 <a href="http://www.mobilejoomla.com/" id="mjupdate" target="_blank"></a>
 <?php echo $msg; ?>
 <?php
-		$postInstallActions = array(
-			'installScientia' => true
-		);
+		$postInstallActions = array();
 		if(function_exists('MJAddonPostInstall'))
 			MJAddonPostInstall($postInstallActions);
-
-		if($postInstallActions['installScientia'])
-		{
-			JHtml::_('behavior.modal');
-			$app = JFactory::getApplication();
-			$app->setUserState( "com_mobilejoomla.scientiainstall", true );
-
-			if(version_compare(JVERSION, '3.0', '>='))
-			{
-?>
-<link href="../media/system/css/modal.css" rel="stylesheet" />
-<script src="../media/system/js/modal.js" defer="defer"></script>
-<?php
-			}
-
-?>
-<script type="text/javascript">
-window.addEvent('domready', function() {
-	SqueezeBox.fromElement($('scientiapopup'), {parse:'rel'});
-});
-</script>
-<a id="scientiapopup" style="display:none" href="components/com_mobilejoomla/scientia/index.php" rel="{handler: 'iframe', size: {x: 560, y: 380}}"></a>
-<?php
-		}
 
 		return true;
 	}

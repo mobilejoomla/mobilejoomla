@@ -33,8 +33,6 @@ class plgQuickiconMjcpanel extends JPlugin
 
 		JHTML::_('behavior.modal', 'a.modal');
 
-		self::upgradeScientia();
-
 		$document = JFactory::getDocument();
 		$document->addStyleSheet('components/com_mobilejoomla/css/mod_mj_adminicon.css');
 
@@ -75,22 +73,5 @@ class plgQuickiconMjcpanel extends JPlugin
 	private static function isMJInstalled()
 	{
 		return is_file(JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/mobilejoomla.html.php');
-	}
-
-	private static function upgradeScientia()
-	{
-		$app = JFactory::getApplication();
-		$installScientia = $app->getUserState( "com_mobilejoomla.scientiainstall", false );
-
-		if($installScientia) :
-?>
-<script type="text/javascript">
-window.addEvent('domready', function() {
-	SqueezeBox.fromElement($('scientiapopup'), {parse:'rel'});
-});
-</script>
-<a id="scientiapopup" style="display:none" href="components/com_mobilejoomla/scientia/index.php" rel="{handler: 'iframe', size: {x: 560, y: 380}}"></a>
-<?php
-		endif;
 	}
 }
