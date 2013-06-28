@@ -239,15 +239,8 @@ class plgSystemMobileBot extends JPlugin
 			if(!$MobileJoomla_Settings['caching'])
 				$this->setConfig('caching', 0);
 
-			$cachekey = $MobileJoomla_Device['markup'].'_'.
-						$MobileJoomla_Device['screenwidth'].'_'.
-						$MobileJoomla_Device['screenheight'].'_'.
-						(isset($MobileJoomla_Device['pixelratio']) && $MobileJoomla_Device['pixelratio']!=1
-							? $MobileJoomla_Device['pixelratio']
-							: '').
-						(is_array($MobileJoomla_Device['imageformats'])
-							? implode('', $MobileJoomla_Device['imageformats'])
-							: '');
+			$cachekey = MobileJoomla::getCacheKey();
+
 			$registeredurlparams = isset($app->registeredurlparams) ? $app->registeredurlparams : null;
 			if(empty($registeredurlparams))
 				$registeredurlparams = new stdClass();

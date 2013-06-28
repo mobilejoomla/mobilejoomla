@@ -168,10 +168,13 @@ class JCacheStorageEaccelerator extends JCacheStorage
 	 */
 	function _getCacheId($id, $group)
 	{
-		$Device =& MobileJoomla::getDevice();
-		$name = md5($this->_application.'-'.$id.'-'.$this->_hash.'-'.$this->_language.'-'.
-					$Device['markup'].'-'.$Device['screenwidth'].'-'.$Device['screenheight'].'-'.
-					(is_array($Device['imageformats']) ? implode('', $Device['imageformats']) : ''));
+		$MobileJoomla_Device =& MobileJoomla::getDevice();
+
+		static $cachekey;
+		if(!isset($cachekey))
+			$cachekey = MobileJoomla::getCacheKey();
+
+		$name = md5($this->_application.'-'.$id.'-'.$this->_hash.'-'.$this->_language.'-'.$cachekey);
 		return 'cache_'.$group.'-'.$name;
 	}
 }

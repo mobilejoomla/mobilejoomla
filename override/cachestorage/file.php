@@ -262,11 +262,13 @@ class JCacheStorageFile extends JCacheStorage
 	function _getFilePath($id, $group)
 	{
 		$folder = $group;
-		$Device =& MobileJoomla::getDevice();
-		$name = md5($this->_application.'-'.$id.'-'.$this->_hash.'-'.$this->_language.'-'.
-					$Device['markup'].'-'.$Device['screenwidth'].'-'.$Device['screenheight'].'-'.
-					(is_array($Device['imageformats']) ? implode('', $Device['imageformats']) : ''))
-					.'.php';
+		$MobileJoomla_Device =& MobileJoomla::getDevice();
+
+		static $cachekey;
+		if(!isset($cachekey))
+			$cachekey = MobileJoomla::getCacheKey();
+
+		$name = md5($this->_application.'-'.$id.'-'.$this->_hash.'-'.$this->_language.'-'.$cachekey).'.php';
 		$dir = $this->_root.DS.$folder;
 
 		// If the folder doesn't exist try to create it

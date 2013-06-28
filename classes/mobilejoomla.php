@@ -314,4 +314,22 @@ class MobileJoomla
 		$last_keynum++;
 		return $last_keynum==10 ? '0' : $last_keynum;
 	}
+
+	static function getCacheKey()
+	{
+		$MobileJoomla_Device =& MobileJoomla::getDevice();
+
+		$cachekey = array();
+		$cachekey[] = $MobileJoomla_Device['markup'];
+		$cachekey[] = $MobileJoomla_Device['default_markup'];
+		$cachekey[] = $MobileJoomla_Device['screenwidth'];
+		$cachekey[] = $MobileJoomla_Device['screenheight'];
+		$cachekey[] = isset($MobileJoomla_Device['pixelratio'])
+						? $MobileJoomla_Device['pixelratio']
+						: '1';
+		$cachekey[] = is_array($MobileJoomla_Device['imageformats'])
+						? implode('', $MobileJoomla_Device['imageformats'])
+						: '';
+		return implode('_', $cachekey);
+	}
 }
