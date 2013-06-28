@@ -91,9 +91,6 @@ class MobileJoomla_XHTML extends MobileJoomla
 				echo $editor->initialise();
 			}
 		}
-		$canonical = MobileJoomla::getCanonicalURI();
-		if($canonical)
-			echo '<link rel="canonical" href="'.$canonical.'">';
 	}
 
 	function loadModules($position, $style='xhtml_m')

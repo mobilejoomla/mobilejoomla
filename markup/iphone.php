@@ -35,9 +35,6 @@ $document->setHeadData($headerstuff);*/
 		$template = $app->getTemplate();
 		if(JFile::exists(JPATH_THEMES.'/'.$template.'/apple-touch-icon.png'))
 			echo '<link rel="apple-touch-icon" href="'.JURI::base(true).'/templates/'.$template.'/apple-touch-icon.png" />';
-		$canonical = MobileJoomla::getCanonicalURI();
-		if($canonical)
-			echo '<link rel="canonical" href="'.$canonical.'">';
 	}
 
 	function showFooter()

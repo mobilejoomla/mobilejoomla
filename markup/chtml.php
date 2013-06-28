@@ -51,7 +51,10 @@ class MobileJoomla_CHTML extends MobileJoomla
 		echo '<title>'.$this->getPageTitle()."</title>\n";
 		$canonical = MobileJoomla::getCanonicalURI();
 		if($canonical)
+		{
+			echo '<meta name="robots" content="noindex, nofollow">';
 			echo '<link rel="canonical" href="'.$canonical.'">';
+		}
 	}
 
 	function showFooter()
