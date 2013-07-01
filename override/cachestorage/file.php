@@ -262,7 +262,6 @@ class JCacheStorageFile extends JCacheStorage
 	function _getFilePath($id, $group)
 	{
 		$folder = $group;
-		$MobileJoomla_Device =& MobileJoomla::getDevice();
 
 		static $cachekey;
 		if(!isset($cachekey))

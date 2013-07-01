@@ -583,8 +583,6 @@ class plgSystemMobileBot extends JPlugin
 
 	function getUserMarkup()
 	{
-		$app = JFactory::getApplication();
-
 		$markup = false;
 
 		if(isset($_GET['device']))

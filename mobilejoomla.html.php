@@ -551,7 +551,7 @@ class HTML_mobilejoomla
 				}
 			}
 		}
-		
+
 		$dispatcher = JDispatcher::getInstance();
 		$dispatcher->trigger('onMJDisplayConfig', array(&$config_blobs, &$MobileJoomla_Settings, $lists));
 
