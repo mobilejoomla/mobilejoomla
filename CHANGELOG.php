@@ -13,6 +13,16 @@ defined('_JEXEC') or die('Restricted access');
 
 CHANGELOG
 
+1.2.6
+Stable Release
+- Fix homepage detection in J!3.x
+- Fix uninstalling of Scientia Mobile plugin
+- Remove Scientia Mobile popup
+- Update backend design
+- Fix proxy caching issues
+- Fix caching issue
+- Disable indexing of "forced" mobile versions by search engines
+
 1.2.5
 Stable Release
 - Fix incorrect functionality of MJ's Extension manager in desktop mode
