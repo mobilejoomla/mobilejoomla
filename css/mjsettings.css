@@ -122,3 +122,7 @@
 #adminForm .width-50 {
 	width: 50%;
 }
+
+#adminForm legend {
+	margin-bottom: 0;
+}
