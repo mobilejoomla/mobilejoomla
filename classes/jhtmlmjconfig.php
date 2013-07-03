@@ -165,4 +165,37 @@ class JHTMLMjconfig
 							'text',
 							$value);
 	}
+
+	static function prolabel($label)
+	{
+		$label = htmlspecialchars(JText::_($label), ENT_QUOTES, 'UTF-8');
+		return "<label>$label</label>";
+	}
+
+	static function probooleanParam($default)
+	{
+		$values = array(
+			JHTML::_('select.option', '1', JText::_('COM_MJ__ON')),
+			JHTML::_('select.option', '0', JText::_('COM_MJ__OFF'))
+		);
+		return JHTML::_('select.radiolist', $values, '', 'class="inputradio" disabled', 'value', 'text', $default);
+	}
+
+	static function protextinput($value, $size = 0, $attrs = NULL)
+	{
+		$value = addslashes(htmlspecialchars($value, ENT_QUOTES, 'UTF-8'));
+		$attrs['value'] = $value;
+		if($size)
+		{
+			$attrs['size'] = $size;
+		}
+		$attr_list = array();
+		foreach($attrs as $attr=>$val)
+		{
+			$attr_list[] = "$attr=\"$val\"";
+		}
+		$attr_str = join(' ',$attr_list);
+		return "<input disabled $attr_str>";
+	}
+
 }

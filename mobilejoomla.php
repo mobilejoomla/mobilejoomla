@@ -140,6 +140,14 @@ function showconfig()
 	$lists = array ();
 
 	JPluginHelper::importPlugin('mobile');
+	$mjver = HTML_mobilejoomla::getMJVersion();
+	if(substr($mjver, -4) !== '.pro')
+	{
+		include_once JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/classes/mjprostub.php';
+		$dispatcher = JDispatcher::getInstance();
+		new plgMobileMJProStub($dispatcher);
+	}
+
 	$lists['dbsize'] = $app->triggerEvent('onGetDatabaseSize');
 
 	$img = array (JHTML::_('select.option', 0, JText::_('COM_MJ__IMG_DONT_RESCALE')),
