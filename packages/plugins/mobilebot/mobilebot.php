@@ -249,6 +249,19 @@ class plgSystemMobileBot extends JPlugin
 			$this->setRequestVar('mjurlkey', JRequest::getURI());
 			$registeredurlparams->mjurlkey = 'STRING';
 			$app->registeredurlparams = $registeredurlparams;
+
+			//fix System-Cache plugin in J!3.0
+			if(JPluginHelper::isEnabled('system', 'cache') && version_compare(JVERSION, '3.0.0', '>='))
+			{
+				$dispatcher = JDispatcher::getInstance();
+				$refObj = new ReflectionObject($dispatcher);
+				$refProp = $refObj->getProperty('_observers');
+				$refProp->setAccessible(true);
+				$observers = $refProp->getValue($dispatcher);
+				foreach($observers as $index => $object)
+					if(is_a($object, 'plgSystemCache'))
+						$object->_cache_key = '~'.$cachekey.'~'.$object->_cache_key;
+			}
 		}
 		else //Joomla!1.5
 		{
