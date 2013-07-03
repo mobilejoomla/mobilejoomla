@@ -327,9 +327,12 @@ class MobileJoomla
 		$cachekey[] = isset($MobileJoomla_Device['pixelratio'])
 						? $MobileJoomla_Device['pixelratio']
 						: '1';
-		$cachekey[] = is_array($MobileJoomla_Device['imageformats'])
-						? implode('', $MobileJoomla_Device['imageformats'])
-						: '';
+		$imageformats = $MobileJoomla_Device['imageformats'];
+		if(is_array($imageformats))
+		{
+			sort($imageformats);
+			$cachekey[] = implode('', $imageformats);
+		}
 		return implode('_', $cachekey);
 	}
 }
