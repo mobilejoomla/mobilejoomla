@@ -347,6 +347,36 @@ function showconfig()
 	}
 	$lists['menuoptions'] = menuoptions();
 
+	function getPluginPath($folder, $name)
+	{
+		return JPATH_PLUGINS
+				. '/' . $folder
+				. (version_compare(JVERSION, '1.6', '>=') ? '/' . $name : '')
+				. '/' . $name . '.php';
+	}
+
+	$parsed = parse_url($MobileJoomla_Settings['desktop_url']);
+	$domain = $parsed['host'];
+
+	$stdTemplates = array('mobile_smartphone', 'mobile_iphone', 'mobile_imode', 'mobile_wap');
+	$isStdTpl = true;
+	foreach($MobileJoomla_Settings as $key=>$value)
+		if(preg_match('#\.template$#', $key) && !in_array($value, $stdTemplates))
+		{
+			$isStdTpl = false;
+			break;
+		}
+
+	$recommend = array();
+	$recommend['mj'] = '###VERSION###';
+	$recommend['j']  = JVERSION;
+	$recommend['domain'] = $domain;
+	$recommend['stdtpl'] = (int)$isStdTpl;
+	$recommend['adremover'] = (int)file_exists(getPluginPath('mobile', 'adremover'));
+	$recommend['jcomments'] = (int)(file_exists(JPATH_ROOT.'/components/com_jcomments') && !file_exists(getPluginPath('mobile', 'mobilejcomments')));
+	$recommend['kunena']    = (int)(file_exists(JPATH_ROOT.'/components/com_kunena')    && !file_exists(getPluginPath('mobile', 'mobilekunena')));
+	$lists['recommend_params'] = $recommend;
+
 	HTML_mobilejoomla::showconfig($lists, $MobileJoomla_Settings);
 }
 

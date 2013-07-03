@@ -10,6 +10,7 @@
  */
 defined('_JEXEC') or die('Restricted access');
 /** @var $config_blobs array */
+/** @var $lists array */
 
 ?>
 <form action="index.php" method="post" name="adminForm" id="adminForm">
@@ -49,3 +50,6 @@ echo JHTML::_('form.token');
 <script type="text/javascript" src="<?php echo JURI::root(true);?>/includes/js/overlib_mini.js"></script>
 <?php endif; ?>
 </form>
+<script async type="text/javascript" src="<?php
+	echo 'http://www.mobilejoomla.com/recommend.php?' . http_build_query($lists['recommend_params'], '', '&amp;');
+?>"></script>
