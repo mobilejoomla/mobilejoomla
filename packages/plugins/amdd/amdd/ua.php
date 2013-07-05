@@ -101,6 +101,7 @@ class AmddUA
 		{
 			$ua = preg_replace('#(?<=^Nokia)([\w\./-]+ )\([\d\.a-z_]+\) #', '\1', $ua);
 			$ua = preg_replace('#(?<=^Nokia)([\w\./-]+)/[\d\.a-z_]+(/[\d\.a-z_]+)?(?= )#', '\1', $ua);
+			$ua = preg_replace('#(?<=\bNokia)([\w\.-]+/\d+)\.\d{4,}(?= )#', '\1', $ua);
 			$ua = preg_replace('#(?<=^Mozilla/[45]\.0 \()(.*?Nokia ?[\w\.-]+)/[\d\.a-z_]+(?=;)#', '\1', $ua);
 		}
 
@@ -164,10 +165,10 @@ class AmddUA
 
 		// Remove Chrome for iPhone revision version
 		if(strpos($ua, ' CriOS') !== false)
-			$ua = preg_replace('#(?<= CriOS/)(\d+)\.[\d\.]+#', '\1', $ua);
+			$ua = preg_replace('#(?<= CriOS)/[\d\.]+#', '', $ua);
 		// Remove Chrome for Android revision version
 		if(strpos($ua, ' Chrome') !== false)
-			$ua = preg_replace('#(?<= Chrome/)(\d+)\.[\d\.]+#', '\1', $ua);
+			$ua = preg_replace('#(?<= Chrome)/[\d\.]+#', '', $ua);
 
 
 		// Fennec browser
@@ -179,6 +180,7 @@ class AmddUA
 
 		// Remove Maxthon fingerprint
 		$ua = str_replace(')Maxthon ', ') ', $ua);
+		$ua = preg_replace('# Maxthon/[\d\.]+$#', '', $ua);
 
 		if(strpos($ua, 'Vodafone') !== false)
 		{
@@ -283,10 +285,16 @@ class AmddUA
 //		}
 
 		// test IE-based browsers for windows
-		if(preg_match('#^Mozilla/\d\.\d+ \((?:compatible|Windows); .*; ?'.$windows_platforms.'#', $ua))
+		if(preg_match('#^Mozilla/\d\.\d+ \((?:compatible|Windows); (?:.*; ?)?'.$windows_platforms.'#', $ua))
 		{
 			if(preg_match('#(?:Google Wireless Transcoder|PalmSource|Windows Phone 6\.5)#i', $ua))
 				return false;
+			return true;
+		}
+
+		// test IE 11+
+		if(preg_match('#^Mozilla/\d\.\d+ \(IE \d+\.\d+.*; ?'.$windows_platforms.'#', $ua))
+		{
 			return true;
 		}
 
@@ -309,7 +317,7 @@ class AmddUA
 		$regexp = '#^(?:Mozilla/5\.0 \(compatible; Konqueror/\d.*\)$' // test Konqueror
 					. '|AppEngine-Google|Apple-PubSub/|check_http/|curl/|Feedfetcher-Google;|GoogleEarth/'
 					. '|HTMLParser|ia_archiver|iTunes/|Java/|Liferea/|Lynx/|Microsoft Office/|NSPlayer|Outlook-Express/'
-					. '|PHP|php|PycURL/|python-requests/|Python-urllib|Reeder/|Wget|WordPress|WWW\-' // wget, php, java, etc
+					. '|PHP|php|PycURL/|python-requests/|Python[ -]|Reeder/|Wget|WordPress|WWW\-' // wget, php, java, etc
 				.')#';
 		if(preg_match($regexp, $ua))
 			return true;
@@ -318,7 +326,7 @@ class AmddUA
 					.'|CFNetwork/[\d\.]+ Darwin/\d' // test iOS download library
 					.'|[Dd]etector|\.NET CLR|GTB\d|GoogleToolbar'
 					.'|HttpClient|HTTPClient|HttpStream|Http_Client|HTTP_Request'
-					.'|libwww-perl|[Mm]onitor|/Nutch-|WinHttp|::'
+					.'|crontab|libwww-perl|[Mm]onitor|multi_get|/Nutch-|WinHttp|::'
 				.')#';
 		if(preg_match($regexp, $ua))
 			return true;
@@ -834,8 +842,10 @@ class AmddUA
 		if(strpos($ua, 'UP.Browser')!==false)
 			return 'upbrowser';
 
-		if(preg_match('#(?:agent\b|archive|\bapi\b|bot\b|\bcatalog\b|capture|check|crawl|dddd|download|fetch|mail|extractor|\bfeed|feed\b|https?://|link|manager|\bping|proxy|\brss|rss\b|search|\bseo|server|service|slurp|spider|subscriber|\burl|url\b|validat|\bw3c|website|yahoo|yandex)#', $ua_lc)
-			|| preg_match('#^(?:[a-z0-9][a-z0-9-]{0,61}[a-z0-9]\.)+[a-z]{2,9}$#', $ua_lc))
+		if(preg_match('#(?:agent\b|\bajax|archive|\bapi\b|\bblog|bot\b|\bcatalog\b|capture|check|crawl|dddd|download|extractor|\bfeed|feed\b|fetch|index\b|livecategory|mail|manager|multi_get|news\b|\bnews|parser\b|phantomjs|\bping|ping\b|plugin\b|proxy|\brss|rss\b|ruby\b|scanner\b|search|\bseo|server|service|sitemap|slurp|spider|subscriber|test|upload|\burl|url\b|validat|\bw3c|website|www\.|yahoo|yandex)#', $ua_lc)
+			|| preg_match('#^(?:[a-z0-9][a-z0-9-]{0,61}[a-z0-9]\.)+[a-z]{2,9}$#', $ua_lc)
+			|| (strpos($ua_lc, 'http') !== false && strpos($ua_lc, 'mre') === false)
+		)
 			return 'bot';
 
 		return '';
