@@ -106,6 +106,7 @@ class HTML_mobilejoomla
 		self::checkAliasDuplicates();
 		self::checkTemplateAssignments();
 		self::checkForcedMarkup();
+		self::checkDesktopURL($MobileJoomla_Settings);
 
 		$config_blobs = array(
 			'COM_MJ__GENERAL_SETTINGS' => array(
@@ -726,6 +727,19 @@ class HTML_mobilejoomla
 										.JText::_('COM_MJ__WARNING_FORCEDMARKUP_RESET')
 									.'</a>]'
 								.'</p>'
+			);
+	}
+
+	private static function checkDesktopURL($MobileJoomla_Settings)
+	{
+		$desktopURL = JURI::root();
+
+		if($MobileJoomla_Settings['desktop_url'] == $desktopURL)
+			return;
+
+		self::$selftest_blob[] = array(
+				'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__WARNING_DESKTOPURL'),
+				'input_blob' => '<p>'.JText::_('COM_MJ__WARNING_DESKTOPURL_TEXT').'<br>'.$desktopURL.'</p>'
 			);
 	}
 }
