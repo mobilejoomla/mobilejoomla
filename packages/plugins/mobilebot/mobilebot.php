@@ -253,7 +253,7 @@ class plgSystemMobileBot extends JPlugin
 			//fix System-Cache plugin in J!3.0
 			if(JPluginHelper::isEnabled('system', 'cache') && version_compare(JVERSION, '3.0.0', '>='))
 			{
-				$dispatcher = JDispatcher::getInstance();
+				$dispatcher = JEventDispatcher::getInstance();
 				$refObj = new ReflectionObject($dispatcher);
 				$refProp = $refObj->getProperty('_observers');
 				$refProp->setAccessible(true);
