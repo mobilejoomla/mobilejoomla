@@ -22,6 +22,8 @@ Stable Release
 - Fix proxy caching issues
 - Fix caching issue
 - Disable indexing of "forced" mobile versions by search engines
+- Fix issue with incorrect email cloaking
+- Update AMDD database
 
 1.2.5
 Stable Release
