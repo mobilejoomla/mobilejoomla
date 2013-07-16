@@ -21,6 +21,7 @@
 			<language tag="en-GB">en-GB.com_mobilejoomla.menu.ini</language>
 		</languages>
 		<files>
+			<filename>mobilejoomla.xml</filename>
 			<filename>mobilejoomla.html.php</filename>
 			<filename>mobilejoomla.php</filename>
 			<filename>admin.mobilejoomla.php</filename>
