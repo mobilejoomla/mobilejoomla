@@ -57,8 +57,13 @@ window.addEvent("domready", function(){
 			timerID = 0;
 		}
 		status = 1;
-		if(target != null)
-			banner.position({relativeTo:target,position:"bottomleft"});
+		if(target != null){
+			var calc=target.getPosition();
+			banner.setStyles({
+				left: Math.ceil(calc.x),
+				top: Math.ceil(calc.y+target.offsetHeight)
+			});
+		}
 		banner.setStyle("display", "block");
 	}
 	function hideBanner(){
