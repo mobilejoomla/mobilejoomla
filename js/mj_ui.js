@@ -42,10 +42,10 @@ window.addEvent('domready',function(){
 		$('adminForm').setStyle('height',maxheight);
 		hidetabs();
 		var a=$$('#submenu li a')[0];
-		a.addClass('active').getParent().addClass('active');;
+		a.addClass('active').getParent().addClass('active');
 		$$(a.getProperty('href')).setStyle('display','');
 	}
-	
+
 	function initSlider(){
 		var slider=new Slider("mjconfig_jpegquality_slider","mjconfig_jpegquality_knob",{steps:100});
 		var quality=$("mjconfig_jpegquality");
