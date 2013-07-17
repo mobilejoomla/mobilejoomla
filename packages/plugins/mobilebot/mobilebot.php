@@ -483,7 +483,10 @@ class plgSystemMobileBot extends JPlugin
 		$router = $app->getRouter();
 		$Itemid = version_compare(JVERSION, '3.0', '>=') ? $app->input->getInt('Itemid') : JRequest::getInt('Itemid');
 		$item = $menu->getItem($Itemid);
-		$current = array_merge($item->query, $_GET, $router->getVars());
+		if(is_object($item))
+			$current = array_merge($item->query, $_GET, $router->getVars());
+		else
+			$current = array_merge($_GET, $router->getVars());
 		unset($current['device']);
 		unset($current['lang']);
 		unset($current['format']);
