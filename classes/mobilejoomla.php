@@ -292,13 +292,14 @@ class MobileJoomla
 		jimport('joomla.environment.uri');
 
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
-		if($MobileJoomla_Device['markup'] == $MobileJoomla_Device['default_markup'])
+		$MobileJoomla_Settings =& MobileJoomla::getConfig();
+
+		$desktop_uri = new JURI($MobileJoomla_Settings['desktop_url']);
+		$uri = clone(JURI::getInstance());
+
+		if(($uri->getHost() == $desktop_uri->getHost()) && ($MobileJoomla_Device['markup'] == $MobileJoomla_Device['default_markup']))
 			return false;
 
-		$MobileJoomla_Settings =& MobileJoomla::getConfig();
-		$desktop_uri = new JURI($MobileJoomla_Settings['desktop_url']);
-
-		$uri = clone(JURI::getInstance());
 		$uri->delVar('device');
 		$uri->delVar('format');
 		$uri->setHost($desktop_uri->getHost());
