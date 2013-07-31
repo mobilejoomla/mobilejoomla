@@ -404,7 +404,7 @@ class ImageRescaler
 	}
 
 	/* Remove JFIF and Comment headers from GD2-generated jpeg (saves 79 bytes) */
-	function jpeg_clean($jpeg_src)
+	static function jpeg_clean($jpeg_src)
 	{
 		$jpeg_clr = "\xFF\xD8";
 		if(substr($jpeg_src, 0, 2) != $jpeg_clr)
@@ -418,7 +418,8 @@ class ImageRescaler
 			$b = $jpeg_src{$pos+1};
 			if($b == "\xDA")
 				return $jpeg_clr . substr($jpeg_src, $pos);
-			$len = array_shift(unpack('n', substr($jpeg_src, $pos + 2, 2)));
+			$len = unpack('n', substr($jpeg_src, $pos + 2, 2));
+			$len = array_shift($len);
 			if($b != "\xE0" && $b != "\xFE")
 				$jpeg_clr .= substr($jpeg_src, $pos, $len + 2);
 			$pos += $len + 2;
@@ -427,7 +428,7 @@ class ImageRescaler
 	}
 
 	/* Count animation frames in gif file, return TRUE if two or more */
-	function is_gif_ani($content)
+	static function is_gif_ani($content)
 	{
 		$count = preg_match_all('#\x00\x21\xF9\x04.{4}\x00(?:\x2C|\x21)#s', $content, $matches);
 		return $count > 1;
