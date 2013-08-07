@@ -478,7 +478,8 @@ class plgSystemMobileBot extends JPlugin
 		$canonical = MobileJoomla::getCanonicalURI();
 		if($canonical)
 		{
-			$document->addHeadLink($canonical, 'canonical');
+			if($format=='html')
+				$document->addHeadLink($canonical, 'canonical');
 			$document->setMetaData('robots', 'noindex, nofollow');
 		}
 
