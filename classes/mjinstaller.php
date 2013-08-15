@@ -988,9 +988,13 @@ class MjInstaller
 		{
 			if(self::isJoomla15())
 			{
-				include_once( JPATH_ROOT .'/plugins/mobile/scientia/scientia/scientia_helper.php' ); 
-				ScientiaHelper::disablePlugin();
-				ScientiaHelper::dropDatabase();
+				$scientia_helper =  JPATH_ROOT .'/plugins/mobile/scientia/scientia_helper.php';
+				if(file_exists( $scientia_helper ))
+				{
+					include_once( $scientia_helper );
+					ScientiaHelper::disablePlugin();
+					ScientiaHelper::dropDatabase();
+				}
 			}
 			if(!self::UninstallPlugin('mobile', 'scientia'))
 				JError::raiseError(0, JText::_('COM_MJ__CANNOT_UNINSTALL').' Mobile - ScientiaMobile.');
