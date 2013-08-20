@@ -30,6 +30,18 @@ class HTML_mobilejoomla
 				if($version)
 					$mjver = $version;
 			}
+
+			if($mjver)
+			{
+				if(strpos($mjver, '.pro') !== false)
+					$mjver = 'Pro ' . str_replace('.pro', '', $mjver);
+				else
+				{
+					$file = JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/packages/version.dat';
+					$type = file_exists($file) ? preg_replace('/\W+/','',file_get_contents($file)) : 'Community';
+					$mjver = $type . ' ' . $mjver;
+				}
+			}
 		}
 		return $mjver;
 	}
