@@ -33,7 +33,18 @@ class MjInstaller
 	}
 	static function MJ_publicVersion()
 	{
-		return str_replace('.pro', '', '###VERSION###');
+		$ver = '###VERSION###';
+		if(strpos($ver, '.pro') !== false)
+		{
+			$ver = str_replace('.pro', '', '###VERSION###');
+			$type = 'Pro';
+		}
+		else
+		{
+			$file = JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/packages/version.dat';
+			$type = file_exists($file) ? preg_replace('/\W+/','',file_get_contents($file)) : 'Community';
+		}
+		return "$type $ver";
 	}
 
 	static function isJoomla15()
