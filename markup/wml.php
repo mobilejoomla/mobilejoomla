@@ -64,8 +64,7 @@ class MobileJoomla_WML extends MobileJoomla
 		if($this->getParam('jfooter'))
 		{
 			$app = JFactory::getApplication();
-			$lang = JFactory::getLanguage();
-			$lang->load('com_mobilejoomla', JPATH_ADMINISTRATOR);
+			MobileJoomla::loadLanguageFile('com_mobilejoomla', JPATH_ADMINISTRATOR);
 			$fyear = (substr(JVERSION,0,3) != '1.5') ? 'Y' : '%Y';
 			$version = new JVersion();
 ?>

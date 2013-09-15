@@ -19,6 +19,9 @@ jimport('joomla.filesystem.file');
 jimport('joomla.filesystem.folder');
 jimport('joomla.event.dispatcher');
 
+require_once(JPATH_COMPONENT.'/classes/mobilejoomla.php');
+MobileJoomla::loadLanguageFile('com_mobilejoomla', JPATH_ADMINISTRATOR);
+
 require_once(JPATH_COMPONENT.'/mobilejoomla.html.php');
 
 $task = JRequest::getCmd('task');

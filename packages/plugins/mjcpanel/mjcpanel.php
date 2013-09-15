@@ -36,8 +36,8 @@ class plgQuickiconMjcpanel extends JPlugin
 		$document = JFactory::getDocument();
 		$document->addStyleSheet('components/com_mobilejoomla/css/mod_mj_adminicon.css');
 
-		$lang = JFactory::getLanguage();
-		$lang->load('com_mobilejoomla', JPATH_ADMINISTRATOR);
+		require_once(JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/classes/mobilejoomla.php');
+		MobileJoomla::loadLanguageFile('com_mobilejoomla', JPATH_ADMINISTRATOR);
 
 		include_once JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/mobilejoomla.html.php';
 		HTML_MobileJoomla::CheckForUpdate();

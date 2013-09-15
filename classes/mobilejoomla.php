@@ -68,6 +68,13 @@ class MobileJoomla
 		return $instance;
 	}
 
+	static function loadLanguageFile($extension, $path = JPATH_BASE)
+	{
+		$lang = JFactory::getLanguage();
+		$lang->load($extension, $path, 'en-GB', true);
+		$lang->load($extension, $path, null, true);
+	}
+
 	static function &getToolbar()
 	{
 		static $instance = null;
