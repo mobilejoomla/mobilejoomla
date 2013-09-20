@@ -13,6 +13,11 @@ defined('_JEXEC') or die('Restricted access');
 
 CHANGELOG
 
+1.2.7 Stable Release
+- Improve support of language files (translations)
+- Fix work in raw mode
+- Fix uninstall of Scientia plugin (J!1.5)
+
 1.2.6
 Stable Release
 - Fix homepage detection in J!3.x
