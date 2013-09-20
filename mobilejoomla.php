@@ -144,7 +144,7 @@ function showconfig()
 
 	JPluginHelper::importPlugin('mobile');
 	$mjver = HTML_mobilejoomla::getMJVersion();
-	if(substr($mjver, -4) !== '.pro')
+	if(stripos($mjver, 'pro')===false)
 	{
 		include_once JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/classes/mjprostub.php';
 		$dispatcher = JDispatcher::getInstance();
