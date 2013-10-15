@@ -495,6 +495,8 @@ class plgSystemMobileBot extends JPlugin
 			$current = array_merge($item->query, $_GET, $router->getVars());
 		else
 			$current = array_merge($_GET, $router->getVars());
+		if(!isset($current['Itemid']))
+			$current['Itemid'] = (string)$Itemid;
 		unset($current['device']);
 		unset($current['lang']);
 		unset($current['format']);
