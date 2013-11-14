@@ -101,24 +101,18 @@ class plgMobileDomains extends JPlugin
 		if($markup == '' || @$_SERVER['REQUEST_METHOD']=='POST')
 			return;
 
-		$http = 'http';
-		if(isset($_SERVER['HTTPS'])
-			&& !empty($_SERVER['HTTPS'])
-			&& (strtolower($_SERVER['HTTPS']) != 'off'))
-		{
-			$http .= 's';
-		}
-
-		$uri = JURI::getInstance();
-		$parsed = parse_url($uri->toString());
-		$path = isset($parsed['path']) ? $parsed['path'] : '/';
-
 		$app = JFactory::getApplication();
 		if(isset($MobileJoomla_Settings[$markup.'.domain']))
 		{
 			$domain_markup = $MobileJoomla_Settings[$markup.'.domain'];
 			if(!empty($domain_markup) && $host != $domain_markup)
-				$app->redirect($http.'://'.$domain_markup.$path);
+			{
+				$uri      = JUri::getInstance();
+				$protocol = $uri->toString(array('scheme'));
+				$path     = $uri->toString(array('path','query'));
+
+				$app->redirect($protocol . $domain_markup . $path);
+			}
 		}
 	}
 
