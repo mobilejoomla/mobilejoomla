@@ -21,7 +21,7 @@ $siteTitle = $params->get('site_title', '{{sitename}}');
 $pageTitle = $params->get('page_title', '');
 $cutTitle = $params->get('cut_title', 1);
 
-$imgURL = JString::str_ireplace('{{root}}', JURI::base(), $imgURL);
+$imgURL = JString::str_ireplace('{{root}}', JUri::base(), $imgURL);
 
 $app = JFactory::getApplication();
 $doc = JFactory::getDocument();

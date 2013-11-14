@@ -12,7 +12,7 @@ defined('_JEXEC') or die('Restricted access');
 
 function modChrome_chtml($module, &$params, &$attribs)
 {
-	/** @var JParameter $params */
+	/** @var JRegistry $params */
 	if(!empty($module->content))
 	{
 		?><div class="moduletable<?php echo htmlspecialchars($params->get('moduleclass_sfx')); ?>"><?php

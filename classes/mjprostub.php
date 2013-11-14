@@ -111,8 +111,8 @@ window.addEvent("domready", function(){
 
 		$config_blobs[$advanced_key] = $advanced;
 		$config_blobs['COM_MJ__ADVANCED_SETTINGS'][1]['COM_MJ__REDIRECT_TO_DOMAIN'][] = array(
-				'label_blob' => '<div class="mjpro">'.JHTML::_('mjconfig.prolabel', 'COM_MJ__TABLET_DOMAIN').'</div>',
-				'input_blob' => '<div class="mjpro">'.JHTML::_('mjconfig.protextinput', '').'</div>'
+				'label_blob' => '<div class="mjpro">'.JHtml::_('mjconfig.prolabel', 'COM_MJ__TABLET_DOMAIN').'</div>',
+				'input_blob' => '<div class="mjpro">'.JHtml::_('mjconfig.protextinput', '').'</div>'
 			);
 	}
 
@@ -120,11 +120,11 @@ window.addEvent("domready", function(){
 	{
 		$blob = array(
 				array(
-					'label_blob' => '<div class="mjpro">'.JHTML::_('mjconfig.prolabel', 'COM_MJ__BACKUP_SETTINGS').'</div>',
+					'label_blob' => '<div class="mjpro">'.JHtml::_('mjconfig.prolabel', 'COM_MJ__BACKUP_SETTINGS').'</div>',
 					'input_blob' => '<div class="mjpro"><p id="backup-settings"><a href="index.php?option=com_mobilejoomla&task=backup">'.JText::_('COM_MJ__BACKUP').'</a></p></div>'
 				),
 				array(
-					'label_blob' => '<div class="mjpro">'.JHTML::_('mjconfig.prolabel', 'COM_MJ__RESTORE').'</div>',
+					'label_blob' => '<div class="mjpro">'.JHtml::_('mjconfig.prolabel', 'COM_MJ__RESTORE').'</div>',
 					'input_blob' => '<div class="mjpro"><p id="restore_file"><input type="file" disabled /><input type="button" disabled class="backup-restore" value="'.JText::_('COM_MJ__RESTORE_BTN').'" /></p></div>'
 				)
 			);
@@ -156,7 +156,7 @@ window.addEvent("domready", function(){
 			{
 				$row = array();
 				if(!$skiplabel)
-					$row['label_blob'] = '<div class="mjpro">'.JHTML::_('mjconfig.prolabel', 'COM_MJ__DEVICE').'</div>';
+					$row['label_blob'] = '<div class="mjpro">'.JHtml::_('mjconfig.prolabel', 'COM_MJ__DEVICE').'</div>';
 				$row['input_blob'] = "<div class=\"mjpro\"><a href=\"javascript:return false;\">$model</a></div>";
 				$rows[]=$row;
 				$skiplabel = true;
@@ -168,13 +168,13 @@ window.addEvent("domready", function(){
 	function features_onMJDisplayConfig(&$config_blobs, &$MobileJoomla_Settings, $lists)
 	{
 		$config_blobs['COM_MJ__GENERAL_SETTINGS'][0]['COM_MJ__IMAGE'][] = array(
-				'label_blob' => '<div class="mjpro">'.JHTML::_('mjconfig.prolabel', 'COM_MJ__HIRES_IMAGES').'</div>',
-				'input_blob' => '<div class="mjpro">'.JHTML::_('mjconfig.probooleanparam', 0).'</div>'
+				'label_blob' => '<div class="mjpro">'.JHtml::_('mjconfig.prolabel', 'COM_MJ__HIRES_IMAGES').'</div>',
+				'input_blob' => '<div class="mjpro">'.JHtml::_('mjconfig.probooleanparam', 0).'</div>'
 			);
 		$config_blobs['COM_MJ__GENERAL_SETTINGS'][0]['COM_MJ__IMAGE'][] = array(
-				'label_blob' => '<div class="mjpro">'.JHTML::_('mjconfig.prolabel', 'COM_MJ__HIRES_IMAGE_QUALITY').'</div>',
+				'label_blob' => '<div class="mjpro">'.JHtml::_('mjconfig.prolabel', 'COM_MJ__HIRES_IMAGE_QUALITY').'</div>',
 				'input_blob' => '<div class="mjpro"><span id="mjconfig_hijpegquality_slider" class="mjconfig_slider"><span id="mjconfig_hijpegquality_knob" class="mjconfig_knob"></span></span>'
-								.JHTML::_('mjconfig.protextinput', 80, 2, array('style'=>'text-align:right;width:2em')).'%</div>'
+								.JHtml::_('mjconfig.protextinput', 80, 2, array('style'=>'text-align:right;width:2em')).'%</div>'
 			);
 		$doc = JFactory::getDocument();
 		$doc->addScriptDeclaration(

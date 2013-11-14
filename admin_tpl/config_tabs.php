@@ -42,12 +42,12 @@ foreach($config_blobs as $tab_name=>$sections)
 	}
 	echo "</div>";
 }
-echo JHTML::_('form.token');
+echo JHtml::_('form.token');
 ?>
 <input type="hidden" name="option" value="<?php echo JRequest::getString('option'); ?>"/>
 <input type="hidden" name="task" value=""/>
 <?php if(substr(JVERSION,0,3) == '1.5') : ?>
-<script type="text/javascript" src="<?php echo JURI::root(true);?>/includes/js/overlib_mini.js"></script>
+<script type="text/javascript" src="<?php echo JUri::root(true);?>/includes/js/overlib_mini.js"></script>
 <?php endif; ?>
 </form>
 <script async type="text/javascript" src="<?php

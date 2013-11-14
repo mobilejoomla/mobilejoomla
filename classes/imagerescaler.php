@@ -133,8 +133,8 @@ class ImageRescaler
 			return $imageurl;
 
 		$MobileJoomla_Settings =& MobileJoomla::getConfig();
-		$base_rel = JURI::base(true).'/';
-		$base_abs = JURI::base();
+		$base_rel = JUri::base(true).'/';
+		$base_abs = JUri::base();
 		$imageurl_decoded = urldecode($imageurl);
 		if(strpos($imageurl, '//') == false)
 		{

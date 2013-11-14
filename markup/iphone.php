@@ -27,14 +27,14 @@ class MobileJoomla_IPHONE extends MobileJoomla
 	{
 		/*$document = JFactory::getDocument ();
 $headerstuff = $document->getHeadData();
-unset($headerstuff['scripts'][JURI::base(true).'/media/system/js/caption.js']);
-unset($headerstuff['scripts'][JURI::base(true).'/media/system/js/mootools.js']);
+unset($headerstuff['scripts'][JUri::base(true).'/media/system/js/caption.js']);
+unset($headerstuff['scripts'][JUri::base(true).'/media/system/js/mootools.js']);
 $document->setHeadData($headerstuff);*/
 		echo '<jdoc:include type="head" />';
 		$app = JFactory::getApplication();
 		$template = $app->getTemplate();
 		if(JFile::exists(JPATH_THEMES.'/'.$template.'/apple-touch-icon.png'))
-			echo '<link rel="apple-touch-icon" href="'.JURI::base(true).'/templates/'.$template.'/apple-touch-icon.png" />';
+			echo '<link rel="apple-touch-icon" href="'.JUri::base(true).'/templates/'.$template.'/apple-touch-icon.png" />';
 	}
 
 	function showFooter()
@@ -46,7 +46,7 @@ $document->setHeadData($headerstuff);*/
 			$fyear = (substr(JVERSION,0,3) != '1.5') ? 'Y' : '%Y';
 			$version = new JVersion();
 ?>
-<p class="jfooter">&copy; <?php echo JHTML::_('date', 'now', $fyear).' '.$app->getCfg('sitename'); ?><br><?php echo $version->URL; ?><br><?php echo JText::_('COM_MJ__MOBILE_VERSION_BY');?> <a href="http://www.mobilejoomla.com/">Mobile Joomla!</a></p>
+<p class="jfooter">&copy; <?php echo JHtml::_('date', 'now', $fyear).' '.$app->getCfg('sitename'); ?><br><?php echo $version->URL; ?><br><?php echo JText::_('COM_MJ__MOBILE_VERSION_BY');?> <a href="http://www.mobilejoomla.com/">Mobile Joomla!</a></p>
 <?php
 		}
 	}

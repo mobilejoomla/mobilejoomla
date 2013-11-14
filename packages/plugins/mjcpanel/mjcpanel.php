@@ -31,7 +31,7 @@ class plgQuickiconMjcpanel extends JPlugin
 		if(!self::isMJInstalled())
 			return array();
 
-		JHTML::_('behavior.modal', 'a.modal');
+		JHtml::_('behavior.modal', 'a.modal');
 
 		$document = JFactory::getDocument();
 		$document->addStyleSheet('components/com_mobilejoomla/css/mod_mj_adminicon.css');
@@ -49,7 +49,7 @@ class plgQuickiconMjcpanel extends JPlugin
 		}
 		else
 		{
-			$image_prefix = JURI::base().'components/com_mobilejoomla/images/';
+			$image_prefix = JUri::base().'components/com_mobilejoomla/images/';
 			$image_suffix = '.png';
 		}
 

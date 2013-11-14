@@ -572,7 +572,7 @@ class MjInstaller
 			}
 		}
 
-		$MobileJoomla_Settings['desktop_url'] = JURI::root();
+		$MobileJoomla_Settings['desktop_url'] = JUri::root();
 
 		// check for GD2 library
 		if(!function_exists('imagecopyresized'))
@@ -777,7 +777,7 @@ class MjInstaller
 			JFile::move($file, $newfile);
 			if(self::isJoomla15())
 			{
-				$content = JFile::read($newfile);
+				$content = file_get_contents($newfile);
 				$content = str_replace('<extension ', '<install ', $content);
 				$content = str_replace('</extension>', '</install>', $content);
 				JFile::write($newfile, $content);

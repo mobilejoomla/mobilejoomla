@@ -12,7 +12,7 @@ defined('_JEXEC') or die('Restricted access');
 
 jimport('joomla.html.html');
 
-class JHTMLMjconfig
+class JHtmlMjconfig
 {
 	static function formName($param_name)
 	{
@@ -22,62 +22,62 @@ class JHTMLMjconfig
 	static function booleanParam($param_name, $MobileJoomla_Settings)
 	{
 		$values = array(
-			JHTML::_('select.option', '1', JText::_('COM_MJ__ON')),
-			JHTML::_('select.option', '0', JText::_('COM_MJ__OFF'))
+			JHtml::_('select.option', '1', JText::_('COM_MJ__ON')),
+			JHtml::_('select.option', '0', JText::_('COM_MJ__OFF'))
 		);
-		return JHTMLMjconfig::radioParam($param_name, $values, $MobileJoomla_Settings);
+		return JHtmlMjconfig::radioParam($param_name, $values, $MobileJoomla_Settings);
 	}
 
 	static function g_booleanParam($param_name, $MobileJoomla_Settings)
 	{
 		$values = array(
-			JHTML::_('select.option', '1', JText::_('COM_MJ__ON')),
-			JHTML::_('select.option', '0', JText::_('COM_MJ__OFF')),
-			JHTML::_('select.option', '', JText::_('COM_MJ__GLOBAL'))
+			JHtml::_('select.option', '1', JText::_('COM_MJ__ON')),
+			JHtml::_('select.option', '0', JText::_('COM_MJ__OFF')),
+			JHtml::_('select.option', '', JText::_('COM_MJ__GLOBAL'))
 		);
-		return JHTMLMjconfig::radioParam($param_name, $values, $MobileJoomla_Settings);
+		return JHtmlMjconfig::radioParam($param_name, $values, $MobileJoomla_Settings);
 	}
 
 	static function listParam($param_name, $values, $MobileJoomla_Settings)
 	{
-		$name = JHTMLMjconfig::formName($param_name);
-		return JHTML::_('select.genericlist', $values, $name, 'class="inputbox" size="1"', 'value', 'text', $MobileJoomla_Settings[$param_name]);
+		$name = JHtmlMjconfig::formName($param_name);
+		return JHtml::_('select.genericlist', $values, $name, 'class="inputbox" size="1"', 'value', 'text', $MobileJoomla_Settings[$param_name]);
 	}
 
 	static function g_listParam($param_name, $values, $MobileJoomla_Settings)
 	{
-		array_unshift($values, JHTML::_('select.option', '', JText::_('COM_MJ__GLOBAL')));
-		return JHTMLMjconfig::listParam($param_name, $values, $MobileJoomla_Settings);
+		array_unshift($values, JHtml::_('select.option', '', JText::_('COM_MJ__GLOBAL')));
+		return JHtmlMjconfig::listParam($param_name, $values, $MobileJoomla_Settings);
 	}
 
 	static function radioParam($param_name, $values, $MobileJoomla_Settings)
 	{
-		$name = JHTMLMjconfig::formName($param_name);
-		return JHTML::_('select.radiolist', $values, $name, 'class="inputradio"', 'value', 'text', $MobileJoomla_Settings[$param_name]);
+		$name = JHtmlMjconfig::formName($param_name);
+		return JHtml::_('select.radiolist', $values, $name, 'class="inputradio"', 'value', 'text', $MobileJoomla_Settings[$param_name]);
 	}
 
 	static function g_radioParam($param_name, $values, $MobileJoomla_Settings)
 	{
-		array_push($values, JHTML::_('select.option', '', JText::_('COM_MJ__GLOBAL')));
-		return JHTMLMjconfig::radioParam($param_name, $values, $MobileJoomla_Settings);
+		array_push($values, JHtml::_('select.option', '', JText::_('COM_MJ__GLOBAL')));
+		return JHtmlMjconfig::radioParam($param_name, $values, $MobileJoomla_Settings);
 	}
 
 	static function templateParam($param_name, $templates, $MobileJoomla_Settings)
 	{
-		$name = JHTMLMjconfig::formName($param_name);
-		return JHTML::_('mjconfig.selectarray', $templates, $name, 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings[$param_name]);
+		$name = JHtmlMjconfig::formName($param_name);
+		return JHtml::_('mjconfig.selectarray', $templates, $name, 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings[$param_name]);
 	}
 
 	static function positionParam($param_name, $positions, $MobileJoomla_Settings)
 	{
-		$name = JHTMLMjconfig::formName($param_name);
+		$name = JHtmlMjconfig::formName($param_name);
 		$position = $MobileJoomla_Settings[$param_name];
 
 		$item = array('value' => $position);
 		if(!in_array($item, $positions))
 			$positions[] = $item;
 
-		return JHTML::_('select.genericlist', $positions, $name, 'class="inputbox" size="1"', 'value', 'value', $position);
+		return JHtml::_('select.genericlist', $positions, $name, 'class="inputbox" size="1"', 'value', 'value', $position);
 	}
 
 	static function label($label, $tooltip = '', $for_input = '')
@@ -89,7 +89,7 @@ class JHTMLMjconfig
 		}
 		if($for_input)
 		{
-			$name = JHTMLMjconfig::formName($for_input);
+			$name = JHtmlMjconfig::formName($for_input);
 			$for_input = 'for="'.$name.'"';
 		}
 		return "<label $for_input $tooltip>$label</label>";
@@ -97,7 +97,7 @@ class JHTMLMjconfig
 
 	static function textinput($param_name, $value, $size = 0, $attrs = NULL)
 	{
-		$name = JHTMLMjconfig::formName($param_name);
+		$name = JHtmlMjconfig::formName($param_name);
 		$value = addslashes(htmlspecialchars($value, ENT_QUOTES, 'UTF-8'));
 		if(!$attrs)
 		{
@@ -143,21 +143,21 @@ class JHTMLMjconfig
 
 	static function menuList($menuoptions, $param_name, $value)
 	{
-		$name = JHTMLMjconfig::formName($param_name);
+		$name = JHtmlMjconfig::formName($param_name);
 
 		static $is_joomla15;
 		if(!isset($is_joomla15))
 			$is_joomla15 = (substr(JVERSION,0,3) == '1.5');
 
 		if(!$is_joomla15)
-			return JHTML::_('select.genericlist',
+			return JHtml::_('select.genericlist',
 							$menuoptions,
 							$name.'_tmp',
 							array('list.attr' => 'size="7" onchange="document.getElementById(\''.$name.'\').value=this.value" ',
 								  'list.select' => $value,
 								  'option.text.toHtml' => false));
 		else
-			return JHTML::_('select.genericlist',
+			return JHtml::_('select.genericlist',
 							$menuoptions,
 							$name.'_tmp',
 							'size="7" onchange="document.getElementById(\''.$name.'\').value=this.value" ',
@@ -175,10 +175,10 @@ class JHTMLMjconfig
 	static function probooleanParam($default)
 	{
 		$values = array(
-			JHTML::_('select.option', '1', JText::_('COM_MJ__ON')),
-			JHTML::_('select.option', '0', JText::_('COM_MJ__OFF'))
+			JHtml::_('select.option', '1', JText::_('COM_MJ__ON')),
+			JHtml::_('select.option', '0', JText::_('COM_MJ__OFF'))
 		);
-		return JHTML::_('select.radiolist', $values, '', 'class="inputradio" disabled', 'value', 'text', $default);
+		return JHtml::_('select.radiolist', $values, '', 'class="inputradio" disabled', 'value', 'text', $default);
 	}
 
 	static function protextinput($value, $size = 0, $attrs = NULL)

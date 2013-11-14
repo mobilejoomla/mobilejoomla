@@ -147,7 +147,7 @@ class JMobileMenuHelper
 				if(!is_object($item->params))
 					$item->params = new JParameter($item->params);
 				$menu_image = $item->params->get('menu_image');
-				$item->menu_image = ($menu_image && $menu_image!=-1) ? JURI::base(true).'/images/stories/'.$menu_image : '';
+				$item->menu_image = ($menu_image && $menu_image!=-1) ? JUri::base(true).'/images/stories/'.$menu_image : '';
 			}
 
 			$item->flink = $item->link;

@@ -78,8 +78,8 @@ class plgSystemMobileBot extends JPlugin
 		if((@$_GET['option'] == 'com_mobilejoomla') && (@$_GET['task'] == 'setmarkup') &&
 				isset($_GET['markup']) && isset($_GET['return']))
 		{
-			$desktop_uri = new JURI($MobileJoomla_Settings['desktop_url']);
-			$uri = new JURI(base64_decode($_GET['return']));
+			$desktop_uri = new JUri($MobileJoomla_Settings['desktop_url']);
+			$uri = new JUri(base64_decode($_GET['return']));
 			if(!$uri->getScheme())
 				$uri->setScheme('http');
 			$uri->setHost($desktop_uri->getHost());
@@ -304,7 +304,7 @@ class plgSystemMobileBot extends JPlugin
 
 	/**
 	 * @param JRouter $router
-	 * @param JURI $uri
+	 * @param JUri $uri
 	 */
 	function buildRule(&$router, &$uri)
 	{
@@ -449,13 +449,13 @@ class plgSystemMobileBot extends JPlugin
 			}
 		}
 
-		// JHTML overrides
+		// JHtml overrides
 		if(version_compare(JVERSION, '3.0', '<'))
 		{
 			jimport('joomla.html.html');
-			JHTML::addIncludePath(JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/override/html');
+			JHtml::addIncludePath(JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/override/html');
 			if(@is_dir($dir = JPATH_THEMES.'/'.$template.'/override/html'))
-				JHTML::addIncludePath($dir);
+				JHtml::addIncludePath($dir);
 		}
 		else
 		{
@@ -554,7 +554,7 @@ class plgSystemMobileBot extends JPlugin
 						$app->authorise($Itemid);
 				}
 
-				$_SERVER['REQUEST_URI'] = JURI::base(true).'/'.$homepage;
+				$_SERVER['REQUEST_URI'] = JUri::base(true).'/'.$homepage;
 				if(isset($mj_home))
 				{
 					$_SERVER['QUERY_STRING'] = substr($homepage, 10);
@@ -573,7 +573,7 @@ class plgSystemMobileBot extends JPlugin
 							? 's' : '';
 					$url .= '://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 
-					$uri = new JURI($url);
+					$uri = new JUri($url);
 					$router = $app->getRouter();
 					$result = $router->parse($uri);
 					JRequest::set($result, 'get');
@@ -614,7 +614,7 @@ class plgSystemMobileBot extends JPlugin
 		if(isset($_GET['device']))
 		{
 			$markup = $_GET['device'];
-			$uri = JURI::getInstance();
+			$uri = JUri::getInstance();
 			$uri->delVar('device');
 
 			if($markup == 'auto')

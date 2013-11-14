@@ -12,7 +12,7 @@ defined('_JEXEC') or die('Restricted access');
 
 function modChrome_iphone($module, &$params, &$attribs)
 {
-	/** @var JParameter $params */
+	/** @var JRegistry $params */
 	if(!empty($module->content))
 	{
 		?><div class="container moduletable<?php echo $params->get('moduleclass_sfx'); ?>"><?php

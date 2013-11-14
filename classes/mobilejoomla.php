@@ -265,12 +265,12 @@ class MobileJoomla
 		$MobileJoomla_Settings =& MobileJoomla::getConfig();
 		$MobileJoomla_Device =& MobileJoomla::getDevice();
 
-		$uri = clone(JURI::getInstance());
+		$uri = clone(JUri::getInstance());
 		if($uri->getVar('format')=='html')
 			$uri->delVar('format');
 		$uri->delVar('device');
 
-		$desktop_uri = new JURI($MobileJoomla_Settings['desktop_url']);
+		$desktop_uri = new JUri($MobileJoomla_Settings['desktop_url']);
 		$uri->setHost($desktop_uri->getHost());
 
 		if($device=='mobile')
@@ -301,8 +301,8 @@ class MobileJoomla
 		$MobileJoomla_Device   =& MobileJoomla::getDevice();
 		$MobileJoomla_Settings =& MobileJoomla::getConfig();
 
-		$desktop_uri = new JURI($MobileJoomla_Settings['desktop_url']);
-		$uri = clone(JURI::getInstance());
+		$desktop_uri = new JUri($MobileJoomla_Settings['desktop_url']);
+		$uri = clone(JUri::getInstance());
 
 		$uri_host     = preg_replace('#^www\.#', '', $uri->getHost());
 		$desktop_host = preg_replace('#^www\.#', '', $desktop_uri->getHost());
