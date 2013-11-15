@@ -548,10 +548,12 @@ class plgSystemMobileBot extends JPlugin
 					global $Itemid;
 					$Itemid = $mj_home_Itemid;
 					$menu->setActive($Itemid);
-					if($is_joomla15)
-						$app->authorize($Itemid);
-					else
+					if(version_compare(JVERSION, '3.2', '>='))
+						$menu->authorise($Itemid);
+					elseif(!$is_joomla15)
 						$app->authorise($Itemid);
+					else
+						$app->authorize($Itemid);
 				}
 
 				$_SERVER['REQUEST_URI'] = JUri::base(true).'/'.$homepage;
