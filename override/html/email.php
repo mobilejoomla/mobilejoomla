@@ -17,10 +17,22 @@ abstract class JHtmlEmail
 		if(strpos($mail, "'") !== false)
 			return $mail;
 
+		if(empty($text))
+			$text = $mail;
+
+		if($email)
+			$text = str_replace(array('@', '.'),
+			                    array('&#8203;<bdo dir=\'ltr\'>&#64;<bdo>&#8203;', '&#46;'),
+			                    $text);
+
 		if($mailto)
-			$html = '<a href="javascript:void(location.href=\'mail\'+\'to:'.str_replace('@', "'+'@'+'", $mail).'\')">'.($text ? $text : str_replace('@', '(at)', $mail)).'</a>';
+			$html = '<a href=\'javascript:void(location.href=&quot;mai&quot;+&quot;lto:'
+			        . str_replace(array('@', '.'),
+			                      array('&quot;+&quot;&#92;100&quot;+&quot;', '.&quot;+&quot;'),
+			                      $mail)
+			        . '&quot;)\'>' . $text . '</a>';
 		else
-			$html = str_replace('@', '(at)', $mail);
+			$html = $text;
 
 		return $html;
 	}
