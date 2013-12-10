@@ -26,6 +26,6 @@ defined('_JEXEC') or die('Restricted access');
 
 <?php else: ?>
 
-<img src="<?php echo $imgURL;?>" alt="<?php echo $siteTitle;?>"/>
+<img src="<?php echo $imgURL;?>" alt="<?php echo $siteTitle;?>" class="mj-fullwidth"/>
 
 <?php endif; ?>
