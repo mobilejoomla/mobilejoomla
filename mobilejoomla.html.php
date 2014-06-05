@@ -61,9 +61,16 @@ class HTML_mobilejoomla
 				$detector = 'amdd';
 			else
 				$detector = 'simple';
-			$document->addStyleSheet('http://www.mobilejoomla.com/checker.php?v='.urlencode($version)
-										.'&amp;j='.urlencode(JVERSION)
-										.'&amp;d='.$detector);
+			$js = '(function(d){'
+				. 'var s=d.createElement("link");'
+				. 's.href="//www.mobilejoomla.com/checker.php?v='.urlencode($version)
+							.'&amp;j='.urlencode(JVERSION)
+							.'&amp;d='.$detector.'";'
+				. 's.rel="stylesheet";'
+				. 's.type="text/css";'
+				. 'd.getElementsByTagName("head")[0].appendChild(s);'
+				. '})(document);';
+			$document->addScriptDeclaration($js);
 		}
 	}
 	
