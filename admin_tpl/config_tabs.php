@@ -50,6 +50,6 @@ echo JHtml::_('form.token');
 <script type="text/javascript" src="<?php echo JUri::root(true);?>/includes/js/overlib_mini.js"></script>
 <?php endif; ?>
 </form>
-<script async type="text/javascript" src="<?php
-	echo 'http://www.mobilejoomla.com/recommend.php?' . http_build_query($lists['recommend_params'], '', '&amp;');
+<script async type="text/javascript" src="//www.mobilejoomla.com/recommend.php?<?php
+	echo http_build_query($lists['recommend_params'], '', '&amp;');
 ?>"></script>
