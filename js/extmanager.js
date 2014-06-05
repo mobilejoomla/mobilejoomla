@@ -5,6 +5,7 @@ function change(id, markup, el) {
 		new Request.HTML( {
 			url: URL,
 			method: 'get',
+			noCache: true,
 			onSuccess : function(tree, elements, response){
 				el.innerHTML = response;
 			}
