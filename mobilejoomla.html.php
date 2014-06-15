@@ -68,7 +68,9 @@ class HTML_mobilejoomla
 							.'&amp;d='.$detector.'";'
 				. 's.rel="stylesheet";'
 				. 's.type="text/css";'
+				. 's.media="only x";'
 				. 'd.getElementsByTagName("head")[0].appendChild(s);'
+				. 'setTimeout(function(){s.media="all"});'
 				. '})(document);';
 			$document->addScriptDeclaration($js);
 		}
