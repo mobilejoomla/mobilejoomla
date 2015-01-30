@@ -114,6 +114,26 @@ if($modulepos && $this->countModules($modulepos) > 0)
 	</div><?php
 }
 
+$dispatcher =& JDispatcher::getInstance();
+$results = $dispatcher->trigger( 'onMobileJoomlaAdCheck', array() );
+if(in_array('f3da4a6dd8f15c9170572d18838c841e', array_map('md5', $results)))
+{
+	// The user has installed plug-in to remove ads
+}
+else
+{
+?>
+<div class="mj-sponsor-placement">
+<script type="text/javascript">
+//<!--
+/* <![CDATA[ */
+document.write('<script src'+'="http'+('https:'==document.location.protocol?'s':'')+'://ads.mobilejoomla.com/ad.js?domain='+encodeURIComponent(window.location.hostname)+'" type="text/javascript"><'+'/script>');
+/* ]]> */
+//-->
+</script>
+</div>
+<?php
+}
 
 $modulepos = $MobileJoomla->getPosition('footer');
 if($modulepos && $this->countModules($modulepos) > 0)
@@ -141,27 +161,6 @@ if($modulepos && $this->countModules($modulepos) > 0)
 	</div><?php
 }
 
-
-$dispatcher =& JDispatcher::getInstance(); 
-$results = $dispatcher->trigger( 'onMobileJoomlaAdCheck', array() );
-if(in_array('f3da4a6dd8f15c9170572d18838c841e', array_map('md5', $results)))
-{
-	// The user has installed plug-in to remove ads
-}
-else
-{
-?>
-<div class="mj-sponsor-placement">
-<script type="text/javascript">
-//<!--
-/* <![CDATA[ */
-document.write('<script src'+'="http'+('https:'==document.location.protocol?'s':'')+'://ads.mobilejoomla.com/ad.js?domain='+encodeURIComponent(window.location.hostname)+'" type="text/javascript"><'+'/script>');
-/* ]]> */
-//-->
-</script>
-</div>
-<?php
-}
 ?>
 </div>
 </body>

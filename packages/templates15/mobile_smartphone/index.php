@@ -115,25 +115,6 @@ $MobileJoomla->showDocType();
 		}
 ?>
 	</div>
-	<div id="footer">
-<?php
-		$modulepos = $MobileJoomla->getPosition('footer');
-		if($modulepos && $this->countModules($modulepos) > 0):
-			?><div id="<?php echo $modulepos; ?>"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
-		endif;
-		$modulepos = $MobileJoomla->getPosition('footer2');
-		if($modulepos && $this->countModules($modulepos) > 0):
-			?><div id="<?php echo $modulepos; ?>"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
-		endif;
-
-		$MobileJoomla->showFooter();
-
-		$modulepos = $MobileJoomla->getPosition('footer3');
-		if($modulepos && $this->countModules($modulepos) > 0):
-			?><div id="<?php echo $modulepos; ?>"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
-		endif;
-?>
-	</div>
 <?php
 	$dispatcher =& JDispatcher::getInstance(); 
 	$results = $dispatcher->trigger( 'onMobileJoomlaAdCheck', array() );
@@ -156,6 +137,25 @@ document.write('<script src'+'="http'+('https:'==document.location.protocol?'s':
 <?php
 	}
 ?>
+	<div id="footer">
+<?php
+		$modulepos = $MobileJoomla->getPosition('footer');
+		if($modulepos && $this->countModules($modulepos) > 0):
+			?><div id="<?php echo $modulepos; ?>"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
+		endif;
+		$modulepos = $MobileJoomla->getPosition('footer2');
+		if($modulepos && $this->countModules($modulepos) > 0):
+			?><div id="<?php echo $modulepos; ?>"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
+		endif;
+
+		$MobileJoomla->showFooter();
+
+		$modulepos = $MobileJoomla->getPosition('footer3');
+		if($modulepos && $this->countModules($modulepos) > 0):
+			?><div id="<?php echo $modulepos; ?>"><?php $MobileJoomla->loadModules($modulepos); ?></div><?php
+		endif;
+?>
+	</div>
 </div>
 </body>
 </html>
