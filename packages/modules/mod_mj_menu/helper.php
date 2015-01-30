@@ -70,7 +70,7 @@ class JMobileMenuHelper
 
 		$is_joomla15 = JMobileMenuHelper::_isJoomla15();
 		$items = $menu->getItems('menutype', $menutype);
-		if(!$is_joomla15)
+		if($is_joomla15)
 		{
 			foreach($items as $item)
 				if($item->type == 'menulink' && $item->query['Itemid'] == $active->id)
