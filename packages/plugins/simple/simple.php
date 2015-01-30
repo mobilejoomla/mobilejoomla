@@ -242,6 +242,13 @@ class plgMobileSimple extends JPlugin
 				$MobileJoomla_Device['screenheight'] = (int)$matches[2];
 				return;
 			}
+			if(strpos($ua, ';LCD/') !== false
+				&& preg_match('#;LCD/(\d{3})(\d{3});#', $ua, $matches))
+			{
+				$MobileJoomla_Device['screenwidth']  = (int)$matches[1];
+				$MobileJoomla_Device['screenheight'] = (int)$matches[2];
+				return;
+			}
 		}
 
 		$screen = '';
