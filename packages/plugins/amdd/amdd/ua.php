@@ -41,7 +41,7 @@ class AmddUA
 	}
 
 	// \x80-\xFF sequence
-	const ASCII_UP = '€‚ƒ„…†‡ˆ‰Š‹Œ‘’“”•–—˜™š›œŸ ¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏĞÑÒÓÔÕÖ×ØÙÚÛÜİŞßàáâãäåæçèéêëìíîïğñòóôõö÷øùúûüışÿ';
+	const ASCII_UP = "\x80\x81\x82\x83\x84\x85\x86\x87\x88\x89\x8A\x8B\x8C\x8D\x8E\x8F\x90\x91\x92\x93\x94\x95\x96\x97\x98\x99\x9A\x9B\x9C\x9D\x9E\x9F\xA0\xA1\xA2\xA3\xA4\xA5\xA6\xA7\xA8\xA9\xAA\xAB\xAC\xAD\xAE\xAF\xB0\xB1\xB2\xB3\xB4\xB5\xB6\xB7\xB8\xB9\xBA\xBB\xBC\xBD\xBE\xBF\xC0\xC1\xC2\xC3\xC4\xC5\xC6\xC7\xC8\xC9\xCA\xCB\xCC\xCD\xCE\xCF\xD0\xD1\xD2\xD3\xD4\xD5\xD6\xD7\xD8\xD9\xDA\xDB\xDC\xDD\xDE\xDF\xE0\xE1\xE2\xE3\xE4\xE5\xE6\xE7\xE8\xE9\xEA\xEB\xEC\xED\xEE\xEF\xF0\xF1\xF2\xF3\xF4\xF5\xF6\xF7\xF8\xF9\xFA\xFB\xFC\xFD\xFE\xFF";
 	// 128 '?' characters
 	const ASCII_QQ = '????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????';
 	/**
@@ -52,13 +52,13 @@ class AmddUA
 	 */
 	public static function normalize($ua)
 	{
-		// Remove not ascii characters
+		// Remove non-ascii characters
 		//$ua = preg_replace('#[^ -~]+#', '', $ua);
 		$ua = strtr($ua, self::ASCII_UP, self::ASCII_QQ);
 		$ua = str_replace(array("\n", "\r", "\t"), ' ', $ua);
 
 		// Fix possible proxy bugs
-		$ua = ltrim($ua, ':= ');
+		$ua = ltrim($ua, ':= \'"');
 		$ua = preg_replace('#^(?:User-Agent[:= ]*)+#i', '', $ua);
 		if(strpos($ua, '+') !== false && strpos($ua, ' ') === false)
 		{
@@ -103,7 +103,7 @@ class AmddUA
 			$ua = preg_replace('#(?<=^Nokia)([\w\./-]+ )\([\d\.a-z_]+\) #', '\1', $ua);
 
 			// remove Browser versions
-			$ua = preg_replace('#( BrowserNG| NokiaBrowser| Series\d\d|OviBrowser|SymbianOS)/[\d\.]+#', '\1/*', $ua);
+			$ua = preg_replace('#( BrowserNG| NokiaBrowser| Series\s?\d\d|OviBrowser|SymbianOS)/[\d\.]+(?:gpp-gba)?#', '\1/*', $ua);
 
 			$ua = preg_replace('#((?:^|\s)Nokia[\w\./-]+)(?:/[\d\.a-z_]+)+(?= )#', '\1', $ua);
 			$ua = preg_replace('#(?<=\bNokia)([\w\.-]+/\d+)\.\d{4,}(?= )#', '\1', $ua);
@@ -150,6 +150,15 @@ class AmddUA
 			$ua = preg_replace('#(Android .*?) Build/[^;)]+#', '\1', $ua);
 		}
 
+		if(strpos($ua, 'Windows Phone') !== false)
+		{
+			// Remove WP's mimic
+			$ua = str_replace('(Mobile; Windows Phone 8.1; Android 4.0; ', '(Windows Phone 8.1; ', $ua);
+			$ua = str_replace('(Mobile; Windows Phone 8.1; Android 4.*; ', '(Windows Phone 8.1; ', $ua);
+			if(($pos = strpos($ua, ' like iPhone OS ')) !== false)
+				$ua = substr($ua, 0, $pos+12); // keep just "like iPhone"
+		}
+
 		// Remove iPhone revision version
 		if(strpos($ua, ' like Mac OS X') !== false)
 			$ua = preg_replace('#(?<= OS )(\d+_\d+)_\d+(?= like Mac OS X)#', '\1', $ua);
@@ -170,7 +179,7 @@ class AmddUA
 
 		// Remove GSA suffix
 		if(strpos($ua, ' GSA/') !== false)
-			$ua = preg_replace('#\s+GSA/\d+\.\d+\b#', '', $ua);
+			$ua = preg_replace('#\s+GSA/[\d\.]+#', '', $ua);
 
 		// Remove Chrome for iPhone revision version
 		if(strpos($ua, ' CriOS') !== false)
@@ -223,8 +232,10 @@ class AmddUA
 			$ua = rtrim(substr($ua, 0, $pos));
 
 		// Shrink Facebook App suffix
-		if(($pos = strpos($ua, ' [FBAN/')) !== false)
-			$ua = substr($ua, 0, $pos) . ' [FBAN]';
+		if(($pos = strpos($ua, ' [FBAN')) !== false)
+			$ua = substr($ua, 0, $pos);
+		elseif(($pos = strpos($ua, ' [FB_IAB/')) !== false)
+			$ua = substr($ua, 0, $pos);
 
 		// Remove SVN suffix
 		if(strpos($ua, ' SVN/') !== false)
@@ -260,7 +271,7 @@ class AmddUA
 		$ua = preg_replace('#([^\d]\d+\.\d+)[_\.][\w\.-]+#', '\1', $ua);
 
 		// Feed readers
-		$ua = preg_replace('#\d+ (reader|subscriber)s?#i', '1 \1', $ua);
+		$ua = preg_replace('#\d+(?= (?:reader|subscriber)s?)#i', '1', $ua);
 		if(strpos($ua, 'feedID: ') !== false)
 			$ua = preg_replace('#(?<=feedID: )\d+#', '0', $ua);
 		if(strpos($ua, ' feed-id=') !== false)
@@ -272,6 +283,8 @@ class AmddUA
 		$ua = preg_replace('#(?<=;);+#', '', $ua);
 		$ua = preg_replace('#[; ]+(?=\))#', '', $ua);
 
+		if(preg_match('#^\W#', $ua))
+			$ua = '';
 		$ua = substr($ua, 0, 255);
 		$ua = trim($ua);
 
@@ -321,7 +334,7 @@ class AmddUA
 		}
 
 		// test IE 10
-		if(preg_match('#^Mozilla/\d\.\d+ \(IE \d+\.\d+.*; ?'.$windows_platforms.'#', $ua))
+		if(preg_match('#^Mozilla/\d\.\d+ \((?:MS)?IE \d+\.\d+.*; ?'.$windows_platforms.'#', $ua))
 		{
 			return true;
 		}
@@ -343,8 +356,8 @@ class AmddUA
 		}
 
 		$regexp = '#^(?:Mozilla/5\.0 \(compatible; Konqueror/\d.*\)$' // test Konqueror
-					. '|AppEngine-Google|Apple-PubSub/|check_http/|curl/|Feedfetcher-Google;|GoogleEarth/'
-					. '|HTMLParser|ia_archiver|iTunes/|Java/|Liferea/|Lynx/|Microsoft Office/|NSPlayer|Outlook-Express/'
+					. '|AppEngine-Google|Apple-PubSub/|check_http/|curl/|ELinks/|Feedfetcher-Google;|GoogleEarth/'
+					. '|HTMLParser|ia_archiver|iTunes/|Java/|Liferea/|Links |Lynx/|Microsoft Office/|NSPlayer|Outlook-Express/'
 					. '|PHP|php|PycURL/|python-requests/|Python[ -]|Reeder/|Wget|WordPress|WWW\-' // wget, php, java, etc
 				.')#';
 		if(preg_match($regexp, $ua))
@@ -579,7 +592,9 @@ class AmddUA
 			if(strpos($ua, 'Mozilla/5.0 (PlayBook; ')===0)
 				return 'playbook';
 
-			if(    strpos($ua, 'Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ') ===0
+			if(    strpos($ua, 'Mozilla/5.0 (Windows Phone 8.1; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; ')===0
+				|| strpos($ua, 'Mozilla/5.0 (Mobile; Windows Phone 8.1; Android 4.')===0
+				|| strpos($ua, 'Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ')===0
 				|| strpos($ua, 'Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0; ')===0
 				|| strpos($ua, 'Mozilla/4.0 (compatible; MSIE 7.0; Windows Phone OS 7.0; Trident/3.1; IEMobile/7.0; ')===0
 				|| (strpos($ua, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; ')===0 && strpos($ua, ' Windows Phone 6.5') !== false)
@@ -799,6 +814,8 @@ class AmddUA
 				return 'android_iball';
 			if(strpos($model, 'IdeaTab')===0)
 				return 'android_lenovo_ideatab';
+			if(strpos($model, 'i-mobile')===0)
+				return 'android_imobile';
 
 			if(strpos($model, 'Karbonn')===0)
 				return 'android_karbonn';
@@ -923,8 +940,9 @@ class AmddUA
 		if(strpos($ua, 'UP.Browser')!==false)
 			return 'upbrowser';
 
-		if(preg_match('#(?:\baddon\b|agent\b|\bajax|archive|\bapi\b|\bblog|bot\b|\bcatalog\b|capture|check|crawl|dddd|download|extractor|\bfeed|feed\b|fetch|index\b|livecategory|mail|manager|multi_get|news\b|\bnews|parser\b|phantomjs|\bping|ping\b|plugin\b|proxy|\brss|rss\b|ruby\b|scanner\b|search|\bseo|server|service|sitemap|slurp|spider|subscriber|test|upload|\burl|url\b|validat|\bw3c|website|xml-?rpc|www\.|yahoo|yandex)#', $ua_lc)
-			|| preg_match('#^(?:[a-z0-9][a-z0-9-]{0,61}[a-z0-9]\.)+[a-z]{2,9}$#', $ua_lc)
+		if(preg_match('#(?:\baddon\b|agent\b|\bajax|archive|\bapi\b|^blitz\.io;|\bblog|bot\b|\bcatalog\b|capture|check|crawl|dddd|download|extractor|\bfeed|feed\b|fetch|index\b|livecategory|mail|manager|multi_get|news\b|\bnews|parser\b|phantomjs|\bping|ping\b|plugin\b|proxy|\brss|rss\b|ruby\b|scanner\b|search|\bseo|server|service|sitemap|slurp|spider|subscriber|test|tracker|upload|\burl|url\b|validat|\bw3c|website|xml-?rpc|www\.|yahoo|yandex)#', $ua_lc)
+			|| preg_match('#^(?:[a-z0-9][a-z0-9-]{0,61}[a-z0-9]\.)+[a-z]{2,9}(?:/[\d\.]+)?$#', $ua_lc)
+			|| preg_match('#\b[\w\.]+@(?:[a-z0-9][a-z0-9-]{0,61}[a-z0-9]\.)+[a-z]{2,9}\b#', $ua_lc)
 			|| (strpos($ua_lc, 'http') !== false && strpos($ua_lc, 'mre') === false)
 			|| (preg_match('#^(?:[A-Za-z\s\?\.-]+|[A-Za-z\?_]+|[A-Za-z\s-]+/?\d+\.[\d\.]*[A-Za-z]?)$#', $ua)
 			    && !preg_match('#(?:android|brew|browser|j2me|maui|meego|mobile|nook|openwave|opera|phone|symb|tablet|trusted|uc browser|ucweb|wap)#', $ua_lc))
