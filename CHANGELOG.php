@@ -13,6 +13,21 @@ defined('_JEXEC') or die('Restricted access');
 
 CHANGELOG
 
+1.2.11 Stable Release
+- Fix support of alias menu items in Mobile Menu module
+- Improve screen size detection in Mobile-Simple plugin
+- Update AMDD database
+
+1.2.10 Stable Release
+- Fix async loading of updater notification css
+- Fix possible displaying of JavaScript sources in mobile_iphone template
+- Update AMDD database
+
+1.2.9 Stable Release
+- Async loading of external resources in MJ backend
+- Disable caching of MJ's Extension Manager requests
+- Update AMDD database
+
 1.2.8 Stable Release
 - Fix homepage detection in J!3.x
 - Fix redirect to mobile subdomains for non-SEF URLs
