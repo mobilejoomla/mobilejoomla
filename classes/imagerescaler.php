@@ -32,6 +32,11 @@ class ImageRescaler
 		return preg_replace_callback('#<img(\s[^>]*?)\s?/?>#i', array('ImageRescaler','imageParsing'), $text);
 	}
 
+	static function rescale_callback($matches)
+	{
+		return ' src="'.ImageRescaler::rescaleImage($matches[2]).'"';
+	}
+
 	static function imageParsing($matches)
 	{
 		$text = $matches[1];
@@ -78,8 +83,7 @@ class ImageRescaler
 		// rescale
 		ImageRescaler::$scaledimage_width  = ImageRescaler::$forced_width;
 		ImageRescaler::$scaledimage_height = ImageRescaler::$forced_height;
-		$text = preg_replace('#\ssrc\s*=\s*(["\']?)(.*?)\1(?=\s|$)#ise',
-							 "' src=\"'.ImageRescaler::rescaleImage('\\2').'\"'", $text);
+		$text = preg_replace_callback('#\ssrc\s*=\s*(["\']?)(.*?)\1(?=\s|$)#is', array('ImageRescaler', 'rescale_callback'), $text);
 
 		if(ImageRescaler::$scaledimage_width && ImageRescaler::$scaledimage_height)
 		{
