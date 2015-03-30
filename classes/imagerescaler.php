@@ -25,11 +25,31 @@ class ImageRescaler
 	static $fullwidth = false;
 	static $nowrap = false;
 
+	protected static $Refs;
+	protected static $RefsCntr;
+
+	static function backupTag($x)
+	{
+		self::$Refs[] = $x[0];
+		return "\x01".(self::$RefsCntr++)."\x02";
+	}
+	static function restoreTag($x)
+	{
+		return self::$Refs[$x[1]];
+	}
+
 	static function RescaleImages($text, $scaletype = 0, $addstyles = false)
 	{
+		self::$Refs = array();
+		self::$RefsCntr = 0;
+		$text = preg_replace_callback('/<(script|style).*?>.*?<\/\1>/isu', array('ImageRescaler','backupTag'), $text);
+
 		ImageRescaler::$scaletype = $scaletype;
 		ImageRescaler::$addstyles = $addstyles;
-		return preg_replace_callback('#<img(\s[^>]*?)\s?/?>#i', array('ImageRescaler','imageParsing'), $text);
+		$text = preg_replace_callback('#<img(\s[^>]*?)\s?/?>#i', array('ImageRescaler','imageParsing'), $text);
+
+		$text = preg_replace_callback("/\x01(\\d+)\x02/u", array('ImageRescaler','restoreTag'), $text);
+		return $text;
 	}
 
 	static function rescale_callback($matches)
