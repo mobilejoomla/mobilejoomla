@@ -13,6 +13,9 @@ defined('_JEXEC') or die('Restricted access');
 
 CHANGELOG
 
+1.2.12 Stable Release
+- Fix processing of img tags in script and style content
+
 1.2.11 Stable Release
 - Fix support of alias menu items in Mobile Menu module
 - Improve screen size detection in Mobile-Simple plugin
