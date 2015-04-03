@@ -154,6 +154,7 @@ class JMobileMenuHelper
 			switch($item->type)
 			{
 			case 'separator':
+			case 'heading':
 				continue;
 			case 'url':
 				if((strpos($item->link, 'index.php?') === 0) && (strpos($item->link, 'Itemid=') === false))
