@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: apc.php 14401 2010-01-26 14:10:00Z louis $
+ * @version		$Id: memcache.php 14401 2010-01-26 14:10:00Z louis $
  * @package		Joomla.Framework
  * @subpackage	Cache
  * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
@@ -16,14 +16,32 @@
 defined('JPATH_BASE') or die();
 
 /**
- * APC cache storage handler
+ * Memcache cache storage handler
  *
  * @package		Joomla.Framework
  * @subpackage	Cache
  * @since		1.5
  */
-class JCacheStorageApc extends JCacheStorage
+class JCacheStorageMemcache_mj extends JCacheStorage
 {
+	/**
+	 * Resource for the current memcached connection.
+	 * @var resource
+	 */
+	var $_db;
+
+	/**
+	 * Use compression?
+	 * @var int
+	 */
+	var $_compress = null;
+
+	/**
+	 * Use persistent connections
+	 * @var boolean
+	 */
+	var $_persistent = false;
+
 	/**
 	 * Constructor
 	 *
@@ -32,14 +50,78 @@ class JCacheStorageApc extends JCacheStorage
 	 */
 	function __construct($options = array ())
 	{
+		if(!$this->test())
+		{
+			JError::raiseError(404, "The memcache extension is not available");
+			return;
+		}
 		parent::__construct($options);
 
-		$config =& JFactory::getConfig();
-		$this->_hash = $config->getValue('config.secret');
+		$params =& JCacheStorageMemcache_mj::getConfig();
+		$this->_compress = (isset($params['compression'])) ? $params['compression'] : 0;
+		$this->_db =& JCacheStorageMemcache_mj::getConnection();
+
+		// Get the site hash
+		$this->_hash = $params['hash'];
 	}
 
 	/**
-	 * Get cached data from APC by id and group
+	 * return memcache connection object
+	 *
+	 * @static
+	 * @access private
+	 * @return object memcache connection object
+	 */
+	function &getConnection()
+	{
+		static $db = null;
+		if(is_null($db))
+		{
+			$params =& JCacheStorageMemcache_mj::getConfig();
+			$persistent = (isset($params['persistent'])) ? $params['persistent'] : false;
+			// This will be an array of loveliness
+			$servers = (isset($params['servers'])) ? $params['servers'] : array ();
+
+			// Create the memcache connection
+			$db = new Memcache;
+			foreach($servers AS $server)
+			{
+				$db->addServer($server['host'], $server['port'], $persistent);
+			}
+		}
+		return $db;
+	}
+
+	/**
+	 * Return memcache related configuration
+	 *
+	 * @static
+	 * @access private
+	 * @return array options
+	 */
+	function &getConfig()
+	{
+		static $params = null;
+		if(is_null($params))
+		{
+			$config =& JFactory::getConfig();
+			$params = $config->getValue('config.memcache_settings');
+			if(!is_array($params))
+			{
+				$params = unserialize(stripslashes($params));
+			}
+
+			if(!$params)
+			{
+				$params = array ();
+			}
+			$params['hash'] = $config->getValue('config.secret');
+		}
+		return $params;
+	}
+
+	/**
+	 * Get cached data from memcache by id and group
 	 *
 	 * @access	public
 	 * @param	string	$id			The cache data id
@@ -51,12 +133,11 @@ class JCacheStorageApc extends JCacheStorage
 	function get($id, $group, $checkTime)
 	{
 		$cache_id = $this->_getCacheId($id, $group);
-		$this->_setExpire($cache_id);
-		return apc_fetch($cache_id);
+		return $this->_db->get($cache_id);
 	}
 
 	/**
-	 * Store the data to APC by id and group
+	 * Store the data to memcache by id and group
 	 *
 	 * @access	public
 	 * @param	string	$id		The cache data id
@@ -68,8 +149,7 @@ class JCacheStorageApc extends JCacheStorage
 	function store($id, $group, $data)
 	{
 		$cache_id = $this->_getCacheId($id, $group);
-		apc_store($cache_id.'_expire', time());
-		return apc_store($cache_id, $data, $this->_lifetime);
+		return $this->_db->set($cache_id, $data, $this->_compress, $this->_lifetime);
 	}
 
 	/**
@@ -84,8 +164,7 @@ class JCacheStorageApc extends JCacheStorage
 	function remove($id, $group)
 	{
 		$cache_id = $this->_getCacheId($id, $group);
-		apc_delete($cache_id.'_expire');
-		return apc_delete($cache_id);
+		return $this->_db->delete($cache_id);
 	}
 
 	/**
@@ -106,6 +185,17 @@ class JCacheStorageApc extends JCacheStorage
 	}
 
 	/**
+	 * Garbage collect expired cache data
+	 *
+	 * @access public
+	 * @return boolean  True on success, false otherwise.
+	 */
+	function gc()
+	{
+		return true;
+	}
+
+	/**
 	 * Test to see if the cache storage is available.
 	 *
 	 * @static
@@ -114,31 +204,7 @@ class JCacheStorageApc extends JCacheStorage
 	 */
 	function test()
 	{
-		return extension_loaded('apc');
-	}
-
-	/**
-	 * Set expire time on each call since memcache sets it on cache creation.
-	 *
-	 * @access private
-	 *
-	 * @param string  $key   Cache key to expire.
-	 */
-	function _setExpire($key)
-	{
-		$lifetime = $this->_lifetime;
-		$expire = apc_fetch($key.'_expire');
-
-		// set prune period
-		if($expire+$lifetime < time())
-		{
-			apc_delete($key);
-			apc_delete($key.'_expire');
-		}
-		else
-		{
-			apc_store($key.'_expire', time());
-		}
+		return (extension_loaded('memcache') && class_exists('Memcache'));
 	}
 
 	/**

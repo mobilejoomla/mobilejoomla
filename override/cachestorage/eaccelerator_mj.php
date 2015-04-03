@@ -22,7 +22,7 @@ defined('JPATH_BASE') or die();
  * @subpackage	Cache
  * @since		1.5
  */
-class JCacheStorageEaccelerator extends JCacheStorage
+class JCacheStorageEaccelerator_mj extends JCacheStorage
 {
 	/**
 	 * Constructor
