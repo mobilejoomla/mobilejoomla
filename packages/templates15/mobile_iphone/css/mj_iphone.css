@@ -103,6 +103,7 @@ p.jfooter {
 /* fixed to jQtouch */
 
 body {
+	-webkit-user-select: text;
 	-webkit-perspective: none;
 	-webkit-transform-style: flat;
 	min-height: 420px;
