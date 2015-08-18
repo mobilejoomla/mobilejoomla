@@ -25,7 +25,7 @@ class HTML_mobilejoomla
 			$manifest = JPATH_ADMINISTRATOR.'/components/com_mobilejoomla/mobilejoomla.xml';
 			if(is_file($manifest))
 			{
-				$xml = simplexml_load_file($manifest);
+				$xml = @simplexml_load_file($manifest);
 				$version = isset($xml->version) ? (string)$xml->version : null;
 				if($version)
 					$mjver = $version;

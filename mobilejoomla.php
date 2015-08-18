@@ -127,7 +127,7 @@ function showconfig()
 			continue;
 		$templates[] = array ('value' => $templateDir);
 
-		$xml = simplexml_load_file($templateFile);
+		$xml = @simplexml_load_file($templateFile);
 		if(isset($xml->positions[0]))
 			foreach($xml->positions[0] as $position)
 				$positions[] = (string)$position;
