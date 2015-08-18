@@ -1,0 +1,17 @@
+<?php
+/**
+ * ###DESC###
+ * ###URL###
+ *
+ * @version    ###VERSION###
+ * @license    ###LICENSE###
+ * @copyright  ###COPYRIGHT###
+ * @date       ###DATE###
+ */
+
+$static_dir = dirname(__FILE__);
+$root = dirname(dirname($static_dir));
+
+define('RESSIO_STATICDIR', $static_dir);
+
+require $root . '/administrator/components/com_mobilejoomla/ress/get.php';

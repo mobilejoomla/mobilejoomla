@@ -1,0 +1,77 @@
+div.tip-wrap {
+	z-index: 1;
+}
+
+fieldset.adminform table.admintable {
+	width: 100%;
+}
+
+#mobile_jqm_params {
+	border: none;
+	background: transparent;
+	font-size: 16px;
+}
+#mobile_jqm_params label {
+	min-width: 0;
+	max-width: none;
+	padding: 0;
+	vertical-align: top;
+	margin-top: 4px;
+}
+#mobile_jqm_params label.jqmbutton {
+	margin-top: -3px;
+}
+#mobile_jqm_params input.ui-input-text, #mobile_jqm_params .ui-input-text > input {
+	float: none;
+}
+#mobile_jqm_params input.ui-slider-input {
+	float: left;
+}
+#mobile_jqm_params select {
+	font-size: 16px;
+}
+#mobile_jqm_params select:focus {
+	background-color: #fff;
+}
+#mobile_jqm_params a.ui-btn:hover {
+	text-decoration: none;
+}
+#mobile_jqm_params div.ui-slider-switch {
+	font-size: 16px;
+}
+#mobile_jqm_params .ui-field-contain > label {
+	width: 40%;
+}
+#mobile_jqm_params .ui-field-contain > div.ui-input-text,
+#mobile_jqm_params .ui-field-contain > a.ui-btn,
+#mobile_jqm_params .ui-field-contain > a.ui-link,
+#mobile_jqm_params .ui-field-contain > div.ui-select,
+#mobile_jqm_params .ui-field-contain > div.ui-slider {
+	width: 58%;
+}
+#mobile_jqm_params .ui-field-contain > div.jqmgroup {
+	display: inline-block;
+	width: 58%;
+}
+#mobile_jqm_params .ui-field-contain > div.jqmgroup > div.ui-input-text {
+	width: 100%;
+}
+#mobile_jqm_params .ui-field-contain > div.ui-slider-switch {
+	width: 5em;
+}
+#mobile_jqm_params .mj-icons img {
+	float: none;
+}
+#mobile_jqm_params .ui-slider-track.ui-mini {
+    margin: 0 15px 0 68px;
+}
+#mobile_jqm_params .ui-input-text.ui-mini {
+    margin: 0;
+}
+#mobile_jqm_params p {
+	font-size: 1em;
+	margin: 0 0 14px 0;
+}
+#mobile_jqm_params .ui-field-contain > a {
+	padding-top: 4px;
+}

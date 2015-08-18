@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="1.5.0" client="site" method="upgrade">
+	<name>Mobile Joomla! - Proxy Module</name>
+	<version>###VERSION###</version>
+	<creationDate>###DATE###</creationDate>
+	<author>###AUTHOR###</author>
+	<copyright>###COPYRIGHT###</copyright>
+	<authorEmail>###EMAIL###</authorEmail>
+	<authorUrl>###URL###</authorUrl>
+	<license>###LICENSE###</license>
+	<description>Displays copy of a module.</description>
+	<files>
+		<filename module="mod_mj_proxymodule">mod_mj_proxymodule.php</filename>
+        <folder>fields</folder>
+	</files>
+	<params addpath="/modules/mod_mj_proxymodule/fields">
+		<param name="module_id" type="module" default="0" label="Module" description="Module to show."/>
+	</params>
+	<params group="advanced">
+		<param name="moduleclass_sfx" type="text" default="" label="Module Class Suffix"
+				description="PARAMMODULECLASSSUFFIX"/>
+	</params>
+	<config><fields name="params" addfieldpath="/modules/mod_mj_proxymodule/fields/">
+	<fieldset name="basic">
+		<field name="module_id" type="module" default="0" label="Module" description="Module to show."/>
+	</fieldset>
+	<fieldset name="advanced">
+		<field name="moduleclass_sfx" type="text" default="" label="Module Class Suffix"
+				description="PARAMMODULECLASSSUFFIX"/>
+	</fieldset>
+	</fields></config>
+</extension>

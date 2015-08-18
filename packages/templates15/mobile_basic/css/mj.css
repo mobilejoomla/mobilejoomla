@@ -1,0 +1,173 @@
+/* ###SHORTHEADER### */
+
+/*
+ *
+ * Joomla styles
+ *
+ */
+
+.create, .modified, .published, .createdby, .hits, .parent-category-name, .category-name, .subheading-category {
+    font-size: 12px;
+    color: #666;
+}
+
+p.readmore {
+    text-align: right;
+}
+
+div.item-separator, div.clr {
+    clear: both;
+}
+
+div.display-limit {
+    text-align: center;
+}
+
+span.highlight {
+    color: #c33;
+}
+
+dd {
+    margin-left: 0;
+}
+
+div.moduletable {
+    line-height: 0;
+}
+
+div.moduletable > * {
+    line-height: normal;
+}
+
+.jfooter {
+    margin: .5em 0;
+    font-size: small;
+    font-weight: normal;
+    text-align: center;
+}
+.mjswitcher {
+    padding: .5em 0;
+    font-size: small;
+    font-weight: normal;
+    text-align: center;
+}
+.mjswitcher span.active, .mjswitcher a {
+    text-decoration: none;
+    font-weight: bold;
+    padding: .3em;
+}
+
+/*
+ *
+ * Template styles
+ *
+ */
+
+table caption {
+    font-weight: bold;
+}
+
+ul.ui-listview.hsubmenu {
+    margin-top: 1em;
+}
+
+ul.ui-listview.hsubmenu div.ui-btn-inner {
+    padding-left: 15px;
+}
+
+/* pagination */
+.pagination, .list-footer, div.pagenav {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pagination {
+    margin-left: -0.5em;
+    margin-right: -0.5em;
+}
+
+/* breadcrumbs */
+.pathway .ui-btn {
+    padding: .7em 2.3em .7em .5em;
+}
+
+.pathway .ui-btn.last {
+    padding-right: .5em;
+}
+
+/* content */
+/*
+.category-desc .ui-li-desc {
+	margin-top: 0;
+}
+*/
+.image-left {
+    float: left;
+    margin: 0 2px 1px 0;
+}
+
+.image-right {
+    float: right;
+    margin: 0 0 1px 2px;
+}
+
+.category-name, .published, .hits {
+    display: none;
+}
+
+.createdby {
+    font-size: 70%;
+}
+
+fieldset .spacer .after {
+    display: block;
+    clear: both;
+    margin-bottom: .6em;
+}
+
+p.result-category {
+    float: right;
+    margin: .3em 0;
+}
+
+/*
+.gridsort .ui-btn {
+	padding: .6em 9px;
+}
+*/
+
+div.parent-category-name, div.category-name, div.published, div.createdby, div.hits {
+    display: none;
+}
+
+/* MJ styles */
+.mjwideimg {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+img, video {
+    max-width: 100%;
+    height: auto;
+}
+
+iframe, svg {
+    max-width: 100%;
+}
+
+/* Youtube plugin */
+.youtube {
+    clear: both;
+}
+
+.youtube img {
+    padding: 10px 9px;
+    height: auto;
+}
+
+/* JComments */
+div.jcomments-links {
+    text-align: right;
+}

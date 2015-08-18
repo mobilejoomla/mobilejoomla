@@ -1,0 +1,35 @@
+input.slider {
+    width: 2.5em;
+    text-align: center;
+}
+
+span.slider {
+    display: inline-block;
+    height: 0.6em;
+    width: 15em;
+    background: #666;
+    border-radius: 0.3em;
+    overflow: visible;
+    margin: 0 2em 0 0;
+    vertical-align: middle;
+}
+
+span.slider > span {
+    display: block;
+    width: 1.2em;
+    height: 1.2em;
+    background: #fff;
+    border: 0.1em solid #666;
+    border-radius: 0.7em;
+    margin-top: -0.4em;
+}
+
+.slider-container {
+    position: relative;
+/*    top: -1em;*/
+}
+
+.slider-input-container {
+    display: inline-block;
+    max-width: 7em;
+}

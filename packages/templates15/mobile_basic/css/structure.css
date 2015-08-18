@@ -1,0 +1,212 @@
+@-ms-viewport {
+    width: device-width;
+}
+
+a {
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+}
+
+img.page-background {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    left: 0;
+}
+
+.ui-page {
+    background: #fff none;
+}
+
+.ui-content {
+    position: relative;
+    padding: 0;
+    background: transparent none;
+}
+
+/*
+.ui-page-header-fullscreen > .ui-content, .ui-page-footer-fullscreen > .ui-content {
+	padding: 0;
+}
+*/
+.content {
+    padding: 0 10px;
+}
+
+/* HEADER */
+.ui-header {
+    text-align: center;
+    min-height: 32px;
+}
+
+.ui-header > .ui-btn-left, .ui-header > .ui-btn-right,
+.ui-header-fixed.ui-fixed-hidden > .ui-btn-left, .ui-header-fixed.ui-fixed-hidden > .ui-btn-right {
+    top: 50%;
+    margin-top: -15px;
+}
+
+.ui-header > .ui-btn-left > a.ui-btn, .ui-header > .ui-btn-right > a.ui-btn {
+    display: inline-block;
+}
+
+li {
+    padding-bottom: .2em;
+}
+
+.footer {
+    width: auto;
+    clear: both;
+    padding: 0 .6em;
+}
+
+.mj-sponsor-placement {
+    margin:  0 -.6em;
+}
+
+/*
+ *
+ * Fix jQM UI styles
+ *
+ */
+
+.ui-footer:empty {
+    display: none;
+}
+
+.ui-btn, .ui-footer .ui-title,
+.ui-listview > li > a.ui-btn, .ui-listview > li p,
+.ui-listview > li h1, .ui-listview > li h2, .ui-listview > li h3, .ui-listview > li h4, .ui-listview > li h5, .ui-listview > li h6 {
+    white-space: normal;
+}
+
+/*
+.ui-li .ui-btn a.ui-link-inherit {
+	padding-right: 40px;
+}
+*/
+.ui-header .ui-title {
+    margin: 0 60px;
+    line-height: 1.3em;
+}
+
+.ui-header .ui-title img {
+    vertical-align: middle;
+    max-height: 42px;
+    max-width: 140px;
+}
+
+.ui-mobile .ui-page-active {
+    overflow-x: hidden;
+}
+
+.ui-collapsible-content {
+    overflow: hidden;
+}
+
+.ui-content .ui-listview {
+    margin: 0;
+}
+.ui-collapsible-content>.ui-listview {
+    margin: -0.5em -1em;
+}
+
+.ui-listview .ui-listview {
+    margin: 0;
+    padding-left: 24px;
+    border: none;
+}
+
+.ui-controlgroup-horizontal label.ui-select {
+    margin-right: .5em;
+}
+
+.ui-field-contain, fieldset.ui-field-contain {
+    padding: 0;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border-width: 0;
+}
+
+.placeholder .ui-input-search {
+    width: auto;
+    display: block;
+}
+
+input.placeholder {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.pagenav.ui-btn {
+    padding-left: 0;
+    padding-right: 0;
+    min-width: 1.55em;
+}
+
+.pagenav.ui-first-child, .pagenav.ui-last-child {
+    min-width: 1.7em;
+}
+
+.pagination {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ui-panel {
+    box-shadow: none;
+}
+
+.ui-panel:after {
+    content: '';
+    box-shadow: rgba(0, 0, 0, 0.15) -3px 0 3px inset;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 6px;
+    height: 100%;
+}
+
+.ui-panel-inner {
+    padding: 0;
+}
+
+.ui-popup .ui-collapsible-content-collapsed {
+    display: block;
+    height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border: none;
+}
+
+/* Nested menu */
+.ui-li-static.ui-collapsible {
+    padding: 0;
+}
+.ui-li-static.ui-collapsible > .ui-collapsible-heading,
+.ui-li-static.ui-collapsible > .ui-collapsible-content > .ui-listview {
+    margin: 0;
+}
+.ui-li-static.ui-collapsible > .ui-collapsible-content {
+    padding: 0;
+    border: none;
+}
+.ui-li-static.ui-collapsible > .ui-collapsible-heading > a.ui-btn,
+.ui-li-static.ui-collapsible > .ui-collapsible-content > .ui-listview > li.ui-first-child,
+.ui-li-static.ui-collapsible > .ui-collapsible-content > .ui-listview > li.ui-first-child > a.ui-btn {
+    border-top-width: 0;
+}
+.ui-li-static.ui-collapsible > .ui-collapsible-content > .ui-listview > li.ui-last-child,
+.ui-li-static.ui-collapsible.ui-collapsible-collapsed > .ui-collapsible-heading > a.ui-btn {
+    border-bottom-width: 0;
+}
+.ui-li-static.ui-collapsible > .ui-collapsible-heading > a.ui-btn,
+.ui-li-static.ui-collapsible > .ui-collapsible-content > .ui-listview > .ui-li-static,
+.ui-li-static.ui-collapsible > .ui-collapsible-content > .ui-listview > li > a.ui-btn {
+    border-right-width: 0;
+}
+
+.ui-popup {
+    padding: 2px;
+}

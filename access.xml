@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<access component="com_mobilejoomla">
+	<section name="component">
+		<action name="core.admin" title="JAction_Admin" description="JAction_Admin_Component_Desc" />
+		<action name="core.manage" title="JAction_Manage" description="JAction_Manage_Component_Desc" />
+	</section>
+</access>

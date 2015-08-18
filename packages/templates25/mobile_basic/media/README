@@ -1,0 +1,9 @@
+DO NOT change following files in this directory as they are used by
+the template installer to check which of corresponding files in template's
+directory have been modified by user:
+
+favicon.ico
+install.php
+logo.png
+
+All above files will be overwritten on each update of the template.

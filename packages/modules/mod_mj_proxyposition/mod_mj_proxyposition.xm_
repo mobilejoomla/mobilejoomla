@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="1.5.0" client="site" method="upgrade">
+	<name>Mobile Joomla! - Proxy Position</name>
+	<version>###VERSION###</version>
+	<creationDate>###DATE###</creationDate>
+	<author>###AUTHOR###</author>
+	<copyright>###COPYRIGHT###</copyright>
+	<authorEmail>###EMAIL###</authorEmail>
+	<authorUrl>###URL###</authorUrl>
+	<license>###LICENSE###</license>
+	<description>Displays module position as a module.</description>
+	<files>
+		<filename module="mod_mj_proxyposition">mod_mj_proxyposition.php</filename>
+        <folder>fields</folder>
+	</files>
+	<params addpath="/modules/mod_mj_proxyposition/fields">
+		<param name="position" type="position" default="" label="Position" description="Position name to show."/>
+	</params>
+	<params group="advanced">
+		<param name="moduleclass_sfx" type="text" default="" label="Module Class Suffix"
+				description="PARAMMODULECLASSSUFFIX"/>
+	</params>
+	<config><fields name="params" addfieldpath="/modules/mod_mj_proxyposition/fields">
+	<fieldset name="basic">
+		<field name="position" type="position" default="" label="Position" description="Position name to show."/>
+	</fieldset>
+	<fieldset name="advanced">
+		<field name="moduleclass_sfx" type="text" default="" label="Module Class Suffix"
+				description="PARAMMODULECLASSSUFFIX"/>
+	</fieldset>
+	</fields></config>
+</extension>

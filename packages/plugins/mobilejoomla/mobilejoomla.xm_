@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<extension version="1.5" type="plugin" group="system" method="upgrade">
+	<name>Mobile Joomla!</name>
+	<version>###VERSION###</version>
+	<author>###AUTHOR###</author>
+	<copyright>###COPYRIGHT###</copyright>
+	<creationDate>###DATE###</creationDate>
+	<authorEmail>###EMAIL###</authorEmail>
+	<authorUrl>###URL###</authorUrl>
+	<license>###LICENSE###</license>
+	<description>Mobile Joomla!</description>
+	<files>
+		<filename plugin="mobilejoomla">mobilejoomla.php</filename>
+	</files>
+	<params />
+</extension>

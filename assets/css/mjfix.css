@@ -1,0 +1,70 @@
+#mj .controls p {
+    padding-top: 5px;
+}
+
+#mj .form-horizontal .control-group.withnext {
+    margin-bottom: 0;
+}
+
+#mj .input-large {
+    width: 218px;
+}
+
+#mj ul.thumbnails li {
+    margin: 0 10px 10px 0;
+}
+#mj .thumbnail {
+    text-align: center;
+    min-height: 190px;
+}
+#mj .thumbnail::before {
+    content: '';
+    display: inline-block;
+    height: 100px;
+    vertical-align: middle;
+}
+#mj .thumbnail > img {
+    display: inline-block;
+    max-height: 100px;
+    max-width: 100px;
+    width: auto;
+    height: auto;
+    vertical-align: middle;
+}
+#mj .thumbnail.mjpro {
+    position: relative;
+}
+#mj .thumbnail.mjpro > * {
+    opacity: .5;
+}
+#mj .thumbnail.mjpro > div.mjpro {
+    position: absolute;
+    display: none;
+    width: 100%;
+    top: 113px;
+    left: 0;
+    opacity: 1;
+}
+#mj .thumbnail.mjpro:hover > *{
+    opacity: .2;
+}
+#mj .thumbnail.mjpro:hover > div.mjpro {
+    display: block;
+}
+@media (max-width: 1298px) {
+    #mj .form-horizontal .controls {
+        margin-left: 0;
+        clear: both;
+    }
+}
+.tip-wrap {
+    z-index: 3;
+}
+
+#domainalert {
+    display: none;
+}
+
+.ui-field-contain > a {
+    padding-top: 6px;
+}

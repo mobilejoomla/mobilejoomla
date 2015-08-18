@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.5" type="plugin" group="mobile" method="upgrade">
+	<name>Mobile - Forever</name>
+	<version>###VERSION###</version>
+	<author>###AUTHOR###</author>
+	<creationDate>###DATE###</creationDate>
+	<copyright>###COPYRIGHT###</copyright>
+	<license>###LICENSE###</license>
+	<authorEmail>###EMAIL###</authorEmail>
+	<authorUrl>###URL###</authorUrl>
+	<description>PLG_MOBILE_ALWAYS__PERSITENT_MOBILE_MARKUP</description>
+	<files>
+		<filename plugin="always">always.php</filename>
+        <folder>fields</folder>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_mobile_always.ini</language>
+	</languages>
+	<params addpath="/plugins/mobile/always/fields">
+        <param name="markup" type="device" default="" label="PLG_MOBILE_ALWAYS__MOBILE_MARKUP" description="PLG_MOBILE_ALWAYS__CHOOSE_MOBILE_MARKUP"/>
+	</params>
+	<config><fields name="params" addfieldpath="/plugins/mobile/always/fields">
+	<fieldset name="basic">
+        <field name="markup" type="device" default="" label="PLG_MOBILE_ALWAYS__MOBILE_MARKUP" description="PLG_MOBILE_ALWAYS__CHOOSE_MOBILE_MARKUP"/>
+	</fieldset>
+	</fields></config>
+</extension>

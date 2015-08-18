@@ -1,0 +1,138 @@
+[
+    {
+        "section": "iPhone",
+        "items": [
+            {
+                "title": "iPhone 6 (portrait)",
+                "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 8_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12B411 Safari/600.1.4",
+                "image": "iphone6_port.png",
+                "thumb": "iphone6_port.thumb.png",
+                "size": [429, 876],
+                "frame": [375, 667],
+                "framePos": [27, 104],
+                "contentTop": 0,
+                "btnClose": [100, -50]
+            },
+            {
+                "title": "iPhone 6 (landscape)",
+                "thumb": "iphone6_land.thumb.png"
+            },
+            {
+                "title": "iPhone 6 Plus (portrait)",
+                "thumb": "iphone6plus_port.thumb.png"
+            },
+            {
+                "title": "iPhone 6 Plus (landscape)",
+                "thumb": "iphone6plus_land.thumb.png"
+            },
+            {
+                "title": "iPhone 5 (portrait)",
+                "thumb": "iphone5_port.thumb.png"
+            },
+            {
+                "title": "iPhone 5 (landscape)",
+                "thumb": "iphone5_land.thumb.png"
+            },
+            {
+                "title": "iPhone 4S",
+                "thumb": "iphone4s_port.thumb.png"
+            }
+        ]
+    },
+    {
+        "section": "Android mobile",
+        "items": [
+            {
+                "title": "Nexus 5 (portrait)",
+                "thumb": "nexus_5_port.thumb.png"
+            },
+            {
+                "title": "Nexus 5 (landscape)",
+                "thumb": "nexus_5_land.thumb.png"
+            },
+            {
+                "title": "Nexus S (portrait)",
+                "thumb": "nexus_s_port.thumb.png"
+            },
+            {
+                "title": "Nexus S (landscape)",
+                "thumb": "nexus_s_land.thumb.png"
+            },
+            {
+                "title": "Galaxy Nexus (portrait)",
+                "thumb": "galaxy_nexus_port.thumb.png"
+            },
+            {
+                "title": "Galaxy Nexus (landscape)",
+                "thumb": "galaxy_nexus_land.thumb.png"
+            },
+            {
+                "title": "Samsung Galaxy Nexus",
+                "thumb": "samsunggalaxynexus.thumb.png"
+            }
+        ]
+    },
+    {
+        "section": "iPad",
+        "items": [
+            {
+                "title": "iPad (landscape)",
+                "thumb": "ipad_land.thumb.png"
+            },
+            {
+                "title": "iPad (portrait)",
+                "thumb": "ipad_port.thumb.png"
+            }
+        ]
+    },
+    {
+        "section": "Android tablet",
+        "items": [
+            {
+                "title": "Nexus 7 (2012) (portrait)",
+                "thumb": "nexus_7_2012_port.thumb.png"
+            },
+            {
+                "title": "Nexus 7 (2012) (landscape)",
+                "thumb": "nexus_7_2012_land.thumb.png"
+            },
+            {
+                "title": "Nexus 7 (portrait)",
+                "thumb": "nexus_7_port.thumb.png"
+            },
+            {
+                "title": "Nexus 7 (landscape)",
+                "thumb": "nexus_7_land.thumb.png"
+            },
+            {
+                "title": "Nexus 10 (portrait)",
+                "thumb": "nexus_10_port.thumb.png"
+            },
+            {
+                "title": "Nexus 10 (landscape)",
+                "thumb": "nexus_10_land.thumb.png"
+            },
+            {
+                "title": "Motorola XOOM (portrait)",
+                "thumb": "xoom_port.thumb.png"
+            },
+            {
+                "title": "Motorola XOOM (landscape)",
+                "thumb": "xoom_land.thumb.png"
+            }
+        ]
+    },
+    {
+        "section": "Other mobile",
+        "items": [
+            {
+                "title": "Nokia 3510i",
+                "thumb": "nokia3510i.thumb.png"
+            },
+            {
+                "title": "NEC N341i",
+                "thumb": "necn341i.thumb.png"
+            }
+        ]
+    }
+]

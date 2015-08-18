@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.5" type="plugin" group="mobile" method="upgrade">
+	<name>Mobile - AMDD</name>
+	<version>###VERSION###</version>
+	<author>###AUTHOR###</author>
+	<creationdate>###DATE###</creationdate>
+	<copyright>###COPYRIGHT###</copyright>
+	<license>###LICENSE###</license>
+	<authorEmail>###EMAIL###</authorEmail>
+	<authorUrl>###URL###</authorUrl>
+	<description>PLG_MOBILE_AMDD__AMDD_CHECKER</description>
+	<files>
+		<filename plugin="amdd">amdd.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_mobile_amdd.ini</language>
+	</languages>
+	<params>
+		<param name="cache" type="radio" default="1" label="PLG_MOBILE_AMDD__CACHE_LABEL" description="PLG_MOBILE_AMDD__CACHE_DESC">
+			<option value="0">PLG_MOBILE_AMDD__NO</option>
+			<option value="1">PLG_MOBILE_AMDD__YES</option>
+		</param>
+		<param name="cachesize" type="text" default="1000" label="PLG_MOBILE_AMDD__CACHESIZE_LABEL" description="PLG_MOBILE_AMDD__CACHESIZE_DESC" />
+	</params>
+	<config><fields name="params">
+	<fieldset name="basic">
+		<field name="cache" type="radio" default="1" label="PLG_MOBILE_AMDD__CACHE_LABEL" description="PLG_MOBILE_AMDD__CACHE_DESC">
+			<option value="0">PLG_MOBILE_AMDD__NO</option>
+			<option value="1">PLG_MOBILE_AMDD__YES</option>
+		</field>
+		<field name="cachesize" type="text" default="1000" label="PLG_MOBILE_AMDD__CACHESIZE_LABEL" description="PLG_MOBILE_AMDD__CACHESIZE_DESC" />
+	</fieldset>
+	</fields></config>
+</extension>

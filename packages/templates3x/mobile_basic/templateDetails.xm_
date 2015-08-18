@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.6" type="template" client="site" method="upgrade">
+	<name>Mobile_Basic</name>
+	<version>###VERSION###</version>
+	<author>###AUTHOR###</author>
+	<copyright>###COPYRIGHT###</copyright>
+	<creationDate>###DATE###</creationDate>
+	<authorEmail>###EMAIL###</authorEmail>
+	<authorUrl>###URL###</authorUrl>
+	<license>###LICENSE###</license>
+	<description><![CDATA[Mobile Basic template for Mobile Joomla!<link rel="stylesheet" type="text/css" href="../templates/mobile_basic/media/install.php"/>]]></description>
+	<files>
+		<filename>index.php</filename>
+		<filename>component.php</filename>
+		<filename>error.php</filename>
+		<filename>LICENSE.txt</filename>
+		<filename>template_thumbnail.png</filename>
+		<folder>css</folder>
+		<folder>fields</folder>
+		<folder>html</folder>
+		<folder>includes</folder>
+		<folder>js</folder>
+		<folder>media</folder>
+		<folder>override</folder>
+		<folder>vendor</folder>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.tpl_mobile_basic.ini</language>
+	</languages>
+	<positions>
+		<position>mj_panel</position>
+		<position>mj_top</position>
+		<position>mj_top2</position>
+		<position>mj_top3</position>
+		<position>mj_middle</position>
+		<position>mj_middle2</position>
+		<position>mj_footer</position>
+		<position>mj_footer2</position>
+	</positions>
+	<config>
+		<fields name="params" addfieldpath="/templates/mobile_basic/fields">
+			<fieldset name="advanced">
+
+				<field name="_section1" type="jqmsection" default="" label="Info" />
+
+				<field name="" type="info" default="" label="" description="" title="Basic Mobile" docurl="http://www.mobilejoomla.com/documentation/15-templates/83-elegance-mobile-joomla-template.html" extid="tplbasic" />
+
+				<field name="_section2" type="jqmsection" default="" label="Theme" />
+
+				<field name="theme" type="themelist" themeroller="demo" default="" label="TPL_MOBILE_JQM__FIELD_THEME_LABEL" description="TPL_MOBILE_JQM__FIELD_THEME_DESC" />
+				<field name="theme_page" type="swatchlist" default="" label="TPL_MOBILE_JQM__FIELD_THEMEPAGE_LABEL" description="TPL_MOBILE_JQM__FIELD_THEMEPAGE_DESC" filter="word" />
+				<field name="theme_header" type="swatchlist" default="" label="TPL_MOBILE_JQM__FIELD_THEMEHEADER_LABEL" description="TPL_MOBILE_JQM__FIELD_THEMEHEADER_DESC" filter="word" />
+				<field name="theme_footer" type="swatchlist" default="" label="TPL_MOBILE_JQM__FIELD_THEMEFOOTER_LABEL" description="TPL_MOBILE_JQM__FIELD_THEMEFOOTER_DESC" filter="word" />
+				<field name="theme_moduletitle" type="swatchlist" default="" label="TPL_MOBILE_JQM__FIELD_THEMEMODULETITLE_LABEL" description="TPL_MOBILE_JQM__FIELD_THEMEMODULETITLE_DESC" filter="word" />
+				<field name="theme_modulecontent" type="swatchlist" default="" label="TPL_MOBILE_JQM__FIELD_THEMEMODULECONTENT_LABEL" description="TPL_MOBILE_JQM__FIELD_THEMEMODULECONTENT_DESC" filter="word" />
+				<field name="theme_pagination" type="swatchlist" default="" label="TPL_MOBILE_JQM__FIELD_THEMEPAGINATION_LABEL" description="TPL_MOBILE_JQM__FIELD_THEMEPAGINATION_DESC" filter="word" />
+				<field name="theme_messagetitle" type="swatchlist" default="" label="TPL_MOBILE_JQM__FIELD_THEMEMESSAGETITLE_LABEL" description="TPL_MOBILE_JQM__FIELD_THEMEMESSAGETITLE_DESC" filter="word" />
+				<field name="theme_messagetext" type="swatchlist" default="" label="TPL_MOBILE_JQM__FIELD_THEMEMESSAGETEXT_LABEL" description="TPL_MOBILE_JQM__FIELD_THEMEMESSAGETEXT_DESC" filter="word" />
+
+                <field name="_section3" type="jqmsection" default="" label="AJAX" />
+
+                <field name="ajax" type="jqmdemo" label="TPL_MOBILE_JQM__FIELD_AJAX_LABEL" description="TPL_MOBILE_JQM__FIELD_AJAX_DESC"/>
+                <field name="transition" type="jqmdemo" label="TPL_MOBILE_JQM__FIELD_TRANSITION_LABEL" description="TPL_MOBILE_JQM__FIELD_TRANSITION_DESC"/>
+
+                <field name="_section4" type="jqmsection" default="" label="Layout Settings" />
+
+				<field name="headermode" type="jqmdemo" label="Headerbar" description="" />
+				<field name="footermode" type="jqmdemo" label="Footer" description="" />
+				<field name="copyright" type="jqmdemo" label="Joomla Copyright in Footer" description=""/>
+
+                <field name="backimage" type="jqmdemo" label="Background Image" description="" />
+                <field name="backpadding" type="jqmdemo" label="Top padding, %" description="" />
+                <field name="backcolor" type="jqmdemo" label="Background Color" description="" />
+                <field name="backtile" type="jqmdemo" label="Background Tile" description="" />
+                <field name="opacity" type="jqmdemo" label="Content Opacity" description="" />
+
+                <field name="_section5" type="jqmsection" default="" label="Homepage Layout Settings" />
+
+				<field name="homeheadermode" type="jqmdemo" label="Headerbar" description="" />
+				<field name="title" type="titlelist" default="1" label="TPL_MOBILE_JQM__FIELD_TITLE_LABEL" description="TPL_MOBILE_JQM__FIELD_TITLE_DESC" filter="int">
+					<option value="1">TPL_MOBILE_JQM__OPTION_SITE_TITLE</option>
+					<option value="2">TPL_MOBILE_JQM__OPTION_SITE_LOGO</option>
+					<option value="3">TPL_MOBILE_JQM__OPTION_SITE_LOGO_WITH_TITLE</option>
+				</field>
+				<field name="logo" type="jqmmedia" size="50" default="/templates/mobile_basic/logo.png" label="Header Logo Image" description="TPL_MOBILE_JQM__FIELD_LOGO_DESC" />
+
+                <field name="homebackimage" type="jqmdemo" label="Background Image" description="" />
+                <field name="homebackpadding" type="jqmdemo" label="Top padding, %" description="" />
+                <field name="homebackcolor" type="jqmdemo" label="Background Color" description="" />
+                <field name="homebacktile" type="jqmdemo" label="Background Tile" description="" />
+                <field name="homeopacity" type="jqmdemo" label="Content Opacity" description="" />
+
+                <field name="_section6" type="jqmsection" default="" label="WebApp" />
+
+                <field name="webapp" type="jqmdemo" label="TPL_MOBILE_JQM__FIELD_WEBAPP_LABEL" description="TPL_MOBILE_JQM__FIELD_WEBAPP_DESC"/>
+                <field name="webappbar" type="jqmdemo" label="TPL_MOBILE_JQM__FIELD_WEBAPPBAR_LABEL" description="TPL_MOBILE_JQM__FIELD_WEBAPPBAR_DESC"/>
+                <field name="addtohome" type="jqmdemo" label="Add to home" description=""/>
+
+                <field name="_section7" type="jqmsection" default="" label="Advanced" />
+
+				<field name="edit" type="jqmassets" default="" label="Edit Assets" />
+
+                <field name="debug" type="jqmdemo" label="Debug Mode" description=""/>
+				<field name="zoom" type="jqmswitch" default="0" label="Enable Zooming" description="" filter="int" />
+                <field name="minimalui" type="jqmdemo" label="Minimize Safari bar on iOS 7" description=""/>
+				<field name="detectnumber" type="jqmswitch" default="1" label="Autodetect Phone Numbers" description="" filter="int" />
+				<field name="detectaddress" type="jqmswitch" default="1" label="Autodetect Addresses" description="" filter="int" />
+
+				<field name="enhance" type="jqmswitch" default="0" label="Enable Enhance Management" description="" filter="int" />
+				<field name="enhance_coms" type="jqmenhance" default="" label="Disable Enhancing for Components" description="" />
+
+				<field name="load_external" type="jqmlist" default="" label="TPL_MOBILE_JQM__FIELD_LOADEXTERNAL_LABEL" description="TPL_MOBILE_JQM__FIELD_LOADEXTERNAL_DESC">
+					<option value="">no (local)</option>
+					<option value="1">Auto (jquery.com/aspnetcdn.com)</option>
+					<option value="jquery.com">jquery.com (no HTTPS)</option>
+					<option value="aspnetcdn.com">Microsoft (aspnetcdn.com)</option>
+					<option value="jsdelivr.com">jsDelivr</option>
+					<option value="cdnjs.com">CDNJS</option>
+					<option value="yandex.ru">Yandex</option>
+				</field>
+
+				<field name="jqueryversion" type="jqmlist" default="19" label="jQuery Version" description="">
+                    <option value="21">2.1.0</option>
+                    <option value="20">2.0.3</option>
+                    <option value="111">1.11.0</option>
+                    <option value="110">1.10.2</option>
+                    <option value="19">1.9.1</option>
+                    <option value="18">1.8.3</option>
+                    <option value="17">1.7.2</option>
+				</field>
+                <field name="jqmigrate" type="jqmswitch" default="0" label="Load jQuery Migrate" description="" filter="int" />
+				<field name="mootools" type="jqmswitch" default="0" label="Load MooTools" description="" filter="int" />
+                <field name="fastclick" type="jqmdemo" label="Load FastClick" description=""/>
+                <field name="fitvids" type="jqmdemo" label="Load FitVids (responsive videos)" description=""/>
+				<field name="fixbootstrap" type="jqmswitch" default="1" label="Autofix Bootstrap Loading" description="" filter="int" />
+				<field name="fixjqueryui" type="jqmswitch" default="1" label="Autofix jQuery UI Loading" description="" filter="int" />
+				<field name="removejquery" type="jqmswitch" default="1" label="Remove Other jQuery Libraries" description="" filter="int" />
+				<!--
+					Fix alternative & retina icons in themeroller-based themes
+				-->
+
+				<field name="_section8" type="jqmsection" default="" label="Icons" />
+
+				<field name="" type="icons" default="" label="" description=""/>
+
+				<field name="_end" type="jqmend" default="" />
+
+			</fieldset>
+		</fields>
+	</config>
+</extension>

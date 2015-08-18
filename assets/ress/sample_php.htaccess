@@ -1,0 +1,24 @@
+##
+## RESS.IO Responsive Server Side Optimizer
+## http://ress.io/
+##
+## @copyright   Copyright (C) 2013-2015 Kuneri, Ltd. All rights reserved.
+## @license     GNU General Public License version 2
+##
+
+##
+## Gzip compression
+##
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteCond %{REQUEST_FILENAME}.gz -f
+	RewriteRule /([^/]+\.(css|js))$ get.php?$1 [L]
+</IfModule>
+
+<IfModule mod_mime.c>
+	AddType font/truetype .ttf
+	AddType font/opentype .otf
+	AddType application/font-woff .woff
+	AddType application/vnd.ms-fontobject .eot
+	AddType image/svg+xml .svg
+</IfModule>

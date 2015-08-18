@@ -1,0 +1,15 @@
+DO NOT change following files in this directory as they are used by
+the template installer to check which of corresponding files in template's
+directory have been modified by user:
+
+.htaccess
+favicon.ico
+install.php
+logo.png
+touch-icon-57x57.png
+touch-icon-72x72.png
+touch-icon-114x114.png
+touch-icon-144x144.png
+touch-startup-image-320x460.png
+
+All above files will be overwritten on each update of the template.
