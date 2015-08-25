@@ -666,7 +666,7 @@ class plgSystemMobileJoomla extends JPlugin
         $options = array(
             'autostart' => false,
             'webrootpath' => JPATH_BASE,
-            'staticdir' => JUri::root(true) . '/media/mj',
+            'staticdir' => '/media/mj',
             'fileloader' => ($this->mj->getParam('distribmode') === 'php') ? 'php' : 'file',
             'fileloaderphppath' => JPATH_ROOT . '/media/mj/',
             'cachepath' => JPATH_CACHE . '/mj',
