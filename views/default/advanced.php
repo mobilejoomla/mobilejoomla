@@ -69,8 +69,8 @@ $form = array(
                 'input' => MjHtml::onoff('.gzip', $mjSettings->get('.gzip'))
             ),
             array(
-                'label' => MjHtml::label('.distribmode', 'COM_MJ__DISTRIBUTE_USING', 'COM_MJ__DISTRIBUTE_USING_DESC'),
-                'input' => MjHtml::select('.distribmode', $mjSettings->get('distribmode'), $lists['distribmode'])
+                'label' => MjHtml::label('distribmode', 'COM_MJ__DISTRIBUTE_USING', 'COM_MJ__DISTRIBUTE_USING_DESC'),
+                'input' => MjHtml::select('distribmode', $mjSettings->get('distribmode'), $lists['distribmode'])
             )
         ),
         'COM_MJ__REDIRECT_TO_DOMAIN' => array(),
